@@ -54,12 +54,18 @@
         #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
         #question-text { font-size: 1.3em; margin: 15px 0 25px 0; /* 選択肢との間隔を少し空ける */ }
 
-        /* 選択肢コンテナ (Gridレイアウト) */
+       /* 選択肢コンテナ (Gridレイアウト - デフォルトは2x2) */
         #options-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2列均等割り */
-            gap: 15px; /* グリッド間の隙間 */
+            grid-template-columns: repeat(2, 1fr); /* デフォルト: 2列 */
+            gap: 15px;
             margin-top: 20px;
+        }
+
+        /* ★★★ 縦1列(4行)表示用のスタイルを追加 ★★★ */
+        #options-container.options-vertical {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 10px; /* 縦の隙間を少し狭める (任意) */
         }
 
         /* 選択肢ボックス */
@@ -323,6 +329,13 @@
                 questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
                 questionTextEl.innerHTML = currentQuestion.question || "(問題文がありません)";
 
+                // レイアウトに応じてCSSクラスを設定
+                if (currentQuestion.layout === 'vertical') {
+                    optionsContainer.classList.add('options-vertical');
+                } else {
+                    optionsContainer.classList.remove('options-vertical'); // デフォルト(2x2)の場合はクラスを削除
+                }
+
                 // 選択肢ボックスを作成 (シャッフル対応済み)
                 if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
                     // 1. 選択肢の配列をコピーしてシャッフル
@@ -353,6 +366,7 @@
                         optionsContainer.appendChild(optionBox);
                     });
                 } else {
+                    // ★ 選択肢データがない場合の処理 (変更なし) ★
                     optionsContainer.innerHTML = '<p>(選択肢データがありません)</p>';
                 }
 
@@ -457,7 +471,6 @@
                 quizContainer.style.display = 'block'; // エラーメッセージを表示
                 resultsContainer.style.display = 'none';
             }
-
         });
     </script>
 </head>
