@@ -3,4 +3,5 @@
 
 KaTeX ・・・KaTeXをローカルで使用するフォルダ(GitHubで手に入る https://github.com/KaTeX/KaTeX/releases)  
 　　　　　　Assetsの中の.zipをDL  
-index.html ・・・トップページ
+index.html ・・・トップページ  
+┗M1-1-1-1 第1章第1節1番　様々な用語
