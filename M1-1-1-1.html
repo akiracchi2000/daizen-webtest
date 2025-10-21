@@ -503,14 +503,30 @@
             feedbackEl.style.display = 'block';
             if (selectedOption === correctAnswer) {
                 selectedButton.classList.add('correct');
-                feedbackEl.textContent = `正解！ ${rationale}`;
+                
+                // ★ 修正点 1: .textContent を .innerHTML に変更
+                feedbackEl.innerHTML = `正解！ ${rationale}`; 
+                
                 feedbackEl.className = 'correct';
                 score++;
             } else {
                 selectedButton.classList.add('incorrect');
-                feedbackEl.textContent = `不正解。 ${rationale}`;
+                
+                // ★ 修正点 1: .textContent を .innerHTML に変更
+                feedbackEl.innerHTML = `不正解。 ${rationale}`; 
+                
                 feedbackEl.className = 'incorrect';
             }
+            
+            // ★ 修正点 2: 解説(feedbackEl)に対して、手動でKaTeXのレンダリングを実行する
+            renderMathInElement(feedbackEl, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ]
+            });
             
             // 次へ/結果ボタンを表示
             if (currentQuestionIndex < quizData.length - 1) {
