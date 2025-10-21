@@ -261,87 +261,119 @@
             let currentQuestionIndex = 0;
             let score = 0;
 
-            // (関数定義)
+// (他の変数定義は省略...)
+
+            // (関数定義を先に)
             function loadQuestion() {
-                if (!quizData || currentQuestionIndex >= quizData.length) { /* エラー処理 */ return; }
+                // QDが空またはインデックス範囲外ならエラー処理
+                if (!quizData || currentQuestionIndex >= quizData.length) {
+                    console.error("Invalid question index or quizData is empty.");
+                    questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。";
+                    questionNumberEl.textContent = "エラー";
+                    optionsContainer.innerHTML = '';
+                    return;
+                }
 
                 feedbackEl.style.display = 'none';
                 nextBtn.style.display = 'none';
-                optionsContainer.innerHTML = '';
+                optionsContainer.innerHTML = ''; // コンテナをクリア
                 const currentQuestion = quizData[currentQuestionIndex];
 
-                // ★ 問題番号の合計を quizData.length (10) に合わせる ★
+                // 問題番号と問題文を設定
                 questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
-                questionTextEl.innerHTML = currentQuestion.question || "(問題文なし)";
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文がありません)";
 
-                // レイアウトクラス設定
-                if (currentQuestion.layout === 'vertical') { optionsContainer.classList.add('options-vertical'); }
-                else { optionsContainer.classList.remove('options-vertical'); }
+                // レイアウトに応じてCSSクラスを設定
+                if (currentQuestion.layout === 'vertical') {
+                    optionsContainer.classList.add('options-vertical');
+                } else {
+                    optionsContainer.classList.remove('options-vertical'); // デフォルト(2x2)の場合はクラスを削除
+                }
 
-                // 選択肢ボックス作成 (選択肢シャッフルあり)
+                // 選択肢ボックスを作成 (シャッフル対応済み)
                 if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
-                    const shuffledOptions = [...currentQuestion.options];
-                    for (let i = shuffledOptions.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; }
+                    // 1. 選択肢の配列をコピーしてシャッフル
+                    const shuffledOptions = [...currentQuestion.options]; // 元の配列を壊さないようにコピー
+                    for (let i = shuffledOptions.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; // 要素を入れ替え
+                    }
 
+                    // 2. シャッフルされた配列を元にボックスを作成
                     shuffledOptions.forEach(optionText => {
+                        // クリック可能なdiv要素を作成
                         const optionBox = document.createElement('div');
-                        optionBox.innerHTML = optionText || "(選択肢なし)";
-                        optionBox.classList.add('option-box');
-                        optionBox.dataset.optionValue = optionText;
-                        optionBox.addEventListener('click', () => { if (feedbackEl.style.display === 'block') return; selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale); });
+                        optionBox.innerHTML = optionText || "(選択肢テキストなし)";
+                        optionBox.classList.add('option-box'); // ★★★ .option-box クラスを付与 ★★★
+                        optionBox.dataset.optionValue = optionText; // 答え合わせ用 (元のテキストを保持)
+
+                        // ボックスクリックで答え合わせを実行
+                        optionBox.addEventListener('click', () => {
+                            // すでに答えが表示されていたら何もしない
+                            if (feedbackEl.style.display === 'block') {
+                                return;
+                            }
+                            selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale);
+                        });
+
+                        // コンテナに追加
                         optionsContainer.appendChild(optionBox);
                     });
-                } else { optionsContainer.innerHTML = '<p>(選択肢なし)</p>'; }
+                } else {
+                    optionsContainer.innerHTML = '<p>(選択肢データがありません)</p>';
+                }
 
-                // KaTeX適用
-                try { renderMathInElement(questionTextEl, { delimiters: katexDelimiters }); renderMathInElement(optionsContainer, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX render error:", e); }
+                // 新しく読み込んだ問題文と選択肢にKaTeXを適用する
+                try {
+                    renderMathInElement(questionTextEl, { delimiters: katexDelimiters });
+                    renderMathInElement(optionsContainer, { delimiters: katexDelimiters });
+                } catch (e) {
+                    console.error("Error rendering KaTeX for question/options:", e);
+                }
             }
 
+            // selectAnswer 関数 (★ .option-box 用に修正 ★)
             function selectAnswer(selectedBox, selectedOption, correctAnswer, rationale) {
-                 // (処理内容は変更なし)
-                Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => { box.classList.add('disabled'); if (box.dataset.optionValue === correctAnswer) { box.classList.add('correct'); } else { box.classList.add('incorrect'); } });
-                feedbackEl.style.display = 'block'; const feedbackRationale = rationale || "(解説なし)";
-                if (selectedOption === correctAnswer) { feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`; feedbackEl.className = 'correct'; score++; }
-                else { selectedBox.classList.add('selected'); feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; feedbackEl.className = 'incorrect'; }
-                try { renderMathInElement(feedbackEl, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX feedback render error:", e); }
-                if (currentQuestionIndex < quizData.length - 1) { nextBtn.style.display = 'block'; } else { resultsBtn.style.display = 'block'; }
-            }
+                // すべてのボックスを操作不可に & 正解/不正解表示
+                Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => { // ★★★ .option-box を対象に ★★★
+                    box.classList.add('disabled'); // 無効化スタイル適用
 
-            // (イベントリスナー)
-            nextBtn.addEventListener('click', () => {
-                 // ★ quizData.length (10) で範囲チェック ★
-                if (currentQuestionIndex < quizData.length - 1) { currentQuestionIndex++; loadQuestion(); }
-            });
+                    // data属性で正解を比較
+                    if (box.dataset.optionValue === correctAnswer) {
+                        box.classList.add('correct'); // 正解ボックスにスタイル適用
+                    } else {
+                        box.classList.add('incorrect'); // 不正解ボックスにスタイル適用（選択されてなくても）
+                    }
+                });
 
-            resultsBtn.addEventListener('click', () => {
-                quizContainer.style.display = 'none';
-                resultsContainer.style.display = 'block';
-                 // ★ quizData.length (10) で割合計算 ★
-                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
-                 // ★ quizData.length (10) で合計問題数を表示 ★
-                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`;
+                // フィードバックを表示
+                feedbackEl.style.display = 'block';
+                const feedbackRationale = rationale || "(解説がありません)";
 
-                let rank = "-"; if (quizData.length > 0) { if (percentage === 100) rank = "S"; else if (percentage >= 80) rank = "A"; else if (percentage >= 60) rank = "B"; else rank = "C"; }
-                const quizId = 'M1-1-1-2'; // ★ quizId は M1-1-1-2 のまま ★
-                try { localStorage.setItem('quizRank_' + quizId, rank); } catch (e) { console.error("localStorage save failed:", e); }
+                if (selectedOption === correctAnswer) {
+                    // selectedBox.classList.add('correct'); // 正解はすでに上で適用済み
+                    feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`;
+                    feedbackEl.className = 'correct'; // 背景色用のクラス
+                    score++;
+                } else {
+                    selectedBox.classList.add('selected'); // 選択した不正解ボックスに印をつける (CSSでスタイル定義: .incorrect.selected)
+                    feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`;
+                    feedbackEl.className = 'incorrect'; // 背景色用のクラス
+                }
 
-                let message = ""; // (メッセージ生成は省略...)
-                 if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
-                 else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
-                 else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
-                 else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
-                 else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
-                finalMessageEl.textContent = message;
-            });
+                // 解説にKaTeXを適用
+                try {
+                    renderMathInElement(feedbackEl, { delimiters: katexDelimiters });
+                } catch (e) {
+                    console.error("Error rendering KaTeX for feedback:", e);
+                }
 
-            // (クイズ開始 - quizData (10題) を使う)
-            if (quizData && quizData.length > 0) {
-                loadQuestion();
-            } else {
-                questionTextEl.innerHTML = "元の問題データ (allQuizData) が見つからないか空です。<br>HTMLファイルを確認してください。"; // エラーメッセージ変更
-                questionNumberEl.textContent = "エラー";
-                quizContainer.style.display = 'block';
-                resultsContainer.style.display = 'none';
+                // 次へ/結果ボタンを表示
+                if (currentQuestionIndex < quizData.length - 1) {
+                    nextBtn.style.display = 'block';
+                } else {
+                    resultsBtn.style.display = 'block';
+                }
             }
 
         });
