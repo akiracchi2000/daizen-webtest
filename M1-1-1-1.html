@@ -418,14 +418,23 @@
                 questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
                 questionTextEl.innerHTML = currentQuestion.question || "(問題文がありません)"; 
 
-                // ★★★ 選択肢ボックスを作成 ★★★
+                // ★★★ ここから変更 ★★★
+                // 選択肢ボックスを作成
                 if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
-                    currentQuestion.options.forEach(optionText => {
+                    // 1. 選択肢の配列をコピーしてシャッフル
+                    const shuffledOptions = [...currentQuestion.options]; // 元の配列を壊さないようにコピー
+                    for (let i = shuffledOptions.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; // 要素を入れ替え
+                    }
+
+                    // 2. シャッフルされた配列を元にボックスを作成
+                    shuffledOptions.forEach(optionText => {
                         // クリック可能なdiv要素を作成
                         const optionBox = document.createElement('div');
                         optionBox.innerHTML = optionText || "(選択肢テキストなし)";
-                        optionBox.classList.add('option-box'); // CSSで定義したクラスを付与
-                        optionBox.dataset.optionValue = optionText; // 答え合わせ用
+                        optionBox.classList.add('option-box');
+                        optionBox.dataset.optionValue = optionText; // 答え合わせ用 (元のテキストを保持)
 
                         // ボックスクリックで答え合わせを実行
                         optionBox.addEventListener('click', () => {
@@ -433,6 +442,7 @@
                             if (feedbackEl.style.display === 'block') {
                                 return;
                             }
+                            // ★ selectAnswer に渡す optionText はシャッフル前のものと一致させる
                             selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale);
                         });
                         
