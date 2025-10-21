@@ -507,8 +507,8 @@
                     options: [ "$x-4z$", "$3x+2y-2z$", "$x+2y-4z$", "$x-2z$" ],
                     answer: "$x-4z$",
                     rationale: "かっこを外すと $2x+y-3z-x-y-z$ となります。同類項をまとめると $(2x-x) + (y-y) + (-3z-z) = x-4z$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
-                }
-            ];
+                } // ← 最後の問題オブジェクトの終わり
+            ]; // ★★★ allQuizData の配列をここで閉じる ★★★
             // --- 問題データの終わり ---
             // ★★★ ランダムに10題選ぶ処理を追加 ★★★
             // 1. allQuizData をシャッフルする関数
