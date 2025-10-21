@@ -5,138 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>高校数学基本大全 Webテスト</title>
     <style>
-        /* * 以前作成したクイズの雰囲気（シンプル、クリーン、学術的）に
-         * 合わせたスタイルシートです。
-         */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-            line-height: 1.7;
-            background-color: #f8f9fa;
-            color: #212529;
-            margin: 0;
-            padding: 0;
-        }
+        /* (既存のスタイルは省略...) */
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; line-height: 1.7; background-color: #f8f9fa; color: #212529; margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+        header { text-align: center; border-bottom: 2px solid #dee2e6; padding-bottom: 20px; margin-bottom: 30px; }
+        header h1 { margin: 0; color: #343a40; }
+        h2 { border-bottom: 1px solid #ced4da; padding-bottom: 8px; margin-top: 40px; color: #495057; }
+        .book-introduction { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; background-color: #fdfdfd; padding: 20px; border-radius: 8px; border: 1px solid #e9ecef; }
+        .book-cover { flex: 1 1 150px; text-align: center; }
+        .book-cover img { max-width: 150px; height: auto; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        .book-links { flex: 2 1 300px; }
+        .book-links p { margin-top: 0; }
+        .purchase-link { display: inline-block; padding: 12px 20px; margin: 5px; text-decoration: none; color: #ffffff; border-radius: 5px; font-weight: bold; transition: opacity 0.3s; }
+        .purchase-link:hover { opacity: 0.8; }
+        .link-amazon { background-color: #007bff; }
+        .link-rakuten { background-color: #BF0000; }
+        .quiz-list ul { list-style-type: none; padding-left: 0; }
+        .quiz-list li { margin-bottom: 10px; }
+        .quiz-list a { display: inline-block; /* spanを隣に表示するため変更 */ padding: 15px; background-color: #f1f3f5; text-decoration: none; color: #0056b3; border-radius: 5px; font-weight: 500; transition: background-color 0.3s; vertical-align: middle; /* spanと縦位置を合わせる */ }
+        .quiz-list a:hover { background-color: #e9ecef; }
+        footer { text-align: center; margin-top: 40px; font-size: 0.9em; color: #6c757d; }
 
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        header {
-            text-align: center;
-            border-bottom: 2px solid #dee2e6;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            margin: 0;
-            color: #343a40;
-        }
-
-        h2 {
-            border-bottom: 1px solid #ced4da;
-            padding-bottom: 8px;
-            margin-top: 40px;
-            color: #495057;
-        }
-
-        /* 書籍紹介エリア */
-        .book-introduction {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-            background-color: #fdfdfd;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #e9ecef;
-        }
-
-        .book-cover {
-            flex: 1 1 150px; /* 画像の最小幅を指定 */
-            text-align: center;
-        }
-
-        .book-cover img {
-            max-width: 150px;
-            height: auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .book-links {
-            flex: 2 1 300px; /* リンクエリアの最小幅を指定 */
-        }
-
-        .book-links p {
-            margin-top: 0;
-        }
-
-        /* 購入ボタンのスタイル */
-        .purchase-link {
+        /* ★★★ ランク表示用のスタイルを追加 (任意) ★★★ */
+        .quiz-rank {
             display: inline-block;
-            padding: 12px 20px;
-            margin: 5px;
-            text-decoration: none;
-            color: #ffffff;
-            border-radius: 5px;
+            margin-left: 10px;
             font-weight: bold;
-            transition: opacity 0.3s;
-        }
-        .purchase-link:hover {
-            opacity: 0.8;
-        }
-
-        /* Amazon用 (青系) */
-        .link-amazon {
-            background-color: #007bff; /* もしくはAmazonのオレンジ #FF9900 */
-        }
-
-        /* 楽天用 (赤系) */
-        .link-rakuten {
-            background-color: #BF0000;
-        }
-
-
-        /* テスト一覧エリア */
-        .quiz-list ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .quiz-list li {
-            margin-bottom: 10px;
-        }
-
-        .quiz-list a {
-            display: block;
-            padding: 15px;
-            background-color: #f1f3f5;
-            text-decoration: none;
-            color: #0056b3;
-            border-radius: 5px;
-            font-weight: 500;
-            transition: background-color 0.3s;
-        }
-
-        .quiz-list a:hover {
-            background-color: #e9ecef;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
+            padding: 3px 8px; /* 少し調整 */
+            border-radius: 4px;
             font-size: 0.9em;
-            color: #6c757d;
+            vertical-align: middle; /* aタグと縦位置を合わせる */
+            min-width: 60px; /* (Rank: S) が入る幅を確保 */
+            text-align: center;
         }
+        .rank-S { background-color: #ffc107; color: #333; } /* Gold */
+        .rank-A { background-color: #c0c0c0; color: #333; } /* Silver */
+        .rank-B { background-color: #cd7f32; color: white; } /* Bronze */
+        .rank-C { background-color: #adb5bd; color: white; } /* Gray */
+        .rank-yet { background-color: #f8f9fa; color: #6c757d; border: 1px dashed #ced4da; } /* 未受験 */
+
     </style>
 </head>
 <body>
-
     <div class="container">
         
         <header>
@@ -166,13 +76,16 @@
             <nav class="quiz-list">
                 <ul>
                     <li>
-                        <a href="M1-1-1-1.html">第1章第1節-1 様々な用語</a>
+                        <a href="M1-1-1-1.html">第1章 数と式 - 単項式と多項式（基本用語）</a>
+                        <span id="rank-M1-1-1-1" class="quiz-rank"></span> 
                     </li>
                     <li>
                         <a href="#">第2章 2次関数 - 平方完成（準備中）</a>
+                        <span id="rank-M1-2-1" class="quiz-rank"></span>
                     </li>
                     <li>
                         <a href="#">第3章 図形と計量 - 三角比（準備中）</a>
+                        <span id="rank-M1-3-1" class="quiz-rank"></span>
                     </li>
                 </ul>
             </nav>
@@ -182,11 +95,12 @@
                 <ul>
                     <li>
                         <a href="#">第1章 場合の数と確率（準備中）</a>
+                        <span id="rank-MA-1-1" class="quiz-rank"></span>
                     </li>
                 </ul>
             </nav>
 
-            </main>
+        </main>
 
         <footer>
             <p>&copy; 2025 [著者名 または サイト名] All Rights Reserved.</p>
@@ -194,5 +108,36 @@
 
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 表示したいランクの対象となる quizId のリスト
+            // ★★ テストページで設定した quizId と一致させてください ★★
+            const quizIds = ['M1-1-1-1', 'M1-2-1', 'M1-3-1', 'MA-1-1']; 
+
+            quizIds.forEach(quizId => {
+                const rankSpan = document.getElementById('rank-' + quizId);
+                if (rankSpan) {
+                    try {
+                        const savedRank = localStorage.getItem('quizRank_' + quizId);
+                        if (savedRank && savedRank !== "-") { // 保存されたランクがあれば表示
+                            rankSpan.textContent = `(Rank: ${savedRank})`;
+                            // 古いクラスを削除してから新しいクラスを追加
+                            rankSpan.className = 'quiz-rank'; // Reset classes
+                            rankSpan.classList.add('rank-' + savedRank); 
+                        } else {
+                            // まだ受験していない、またはランクがない場合
+                            rankSpan.textContent = "(未)"; 
+                            rankSpan.className = 'quiz-rank rank-yet'; // 未受験スタイル
+                        }
+                    } catch (e) {
+                        console.error("localStorageからの読み込みに失敗しました:", e);
+                        rankSpan.textContent = "(Error)";
+                        rankSpan.style.color = 'red';
+                    }
+                }
+            });
+        });
+    </script>
+    
 </body>
 </html>
