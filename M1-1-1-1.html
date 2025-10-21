@@ -505,21 +505,49 @@
                 }
             });
 
-            resultsBtn.addEventListener('click', () => {
-                quizContainer.style.display = 'none';
-                resultsContainer.style.display = 'block';
-                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
-                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`;
-                let message = "";
-                if (quizData.length === 0) {
-                    message = "問題データが読み込まれていません。";
-                } else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
+            // 結果を表示
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none';
+                resultsContainer.style.display = 'block';
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`;
+                
+                // ★★★ ここから追加 ★★★
+                let rank = "-"; // デフォルトランク
+                if (quizData.length > 0) {
+                    if (percentage === 100) {
+                        rank = "S";
+                    } else if (percentage >= 80) {
+                        rank = "A";
+                    } else if (percentage >= 60) {
+                        rank = "B";
+                    } else {
+                        rank = "C"; // 60点未満の場合 (例)
+                    }
+                }
+
+                // localStorageにランクを保存 (キーは各テストでユニークにする)
+                // ★★ この 'M1-1-1-1' の部分は、各テストHTMLファイルごとに固有の名前にしてください ★★
+                const quizId = 'M1-1-1-1'; 
+                try {
+                    localStorage.setItem('quizRank_' + quizId, rank);
+                    // 例: 点数も保存する場合
+                    // localStorage.setItem('quizPercentage_' + quizId, percentage); 
+                } catch (e) {
+                    console.error("localStorageへの保存に失敗しました:", e);
+                    // プライベートブラウジングなどでlocalStorageが使えない場合のエラー処理
+                }
+                // ★★★ ここまで追加 ★★★
+
+                let message = "";
+                // (メッセージ生成ロジックは変更なし...)
+                if (quizData.length === 0) { message = "問題データが読み込まれていません。"; } 
+                else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
                 else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
                 else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
                 else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
-                finalMessageEl.textContent = message;
-            });
-
+                finalMessageEl.textContent = message;
+            });
             // (QDが空でないか確認してからクイズを開始)
             if (quizData && quizData.length > 0) {
                 loadQuestion();
