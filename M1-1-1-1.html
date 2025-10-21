@@ -5,19 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>数学Ⅰ: 式と用語の基本テスト</title>
     <style>
-        /* index.htmlと共通のスタイル (省略...) */
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; line-height: 1.7; background-color: #f8f9fa; color: #212529; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { max-width: 800px; width: 90%; margin: 20px auto; padding: 30px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
-        header { border-bottom: 2px solid #dee2e6; padding-bottom: 15px; margin-bottom: 25px; }
-        header h1 { margin: 0; color: #343a40; font-size: 1.8em; }
-        footer { text-align: center; margin-top: 40px; font-size: 0.9em; color: #6c757d; }
+        /* index.htmlと共通のスタイル */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #343a40;
+            font-size: 1.8em;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
 
         /* --- クイズ用のスタイル --- */
         #quiz-container { min-height: 300px; }
         #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
         #question-text { font-size: 1.3em; margin: 15px 0; }
 
-        /* ★★★ ここから変更 ★★★ */
         /* 選択肢コンテナ */
         #options-container div { /* 各選択肢を囲むdiv */
             margin: 10px 0;
@@ -42,7 +77,7 @@
 
         /* ラジオボタン本体は隠す (ラベルをクリック可能にするため) */
         input[type="radio"] {
-            display: none; 
+            display: none;
         }
 
         /* 選択後のスタイル（ラベルに適用） */
@@ -69,70 +104,21 @@
              cursor: not-allowed;
              opacity: 0.8;
         }
-        /* ★★★ ここまで変更 ★★★ */
 
         /* 解説（フィードバック） */
-        #feedback {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 5px;
-            display: none; /* 初期状態では非表示 */
-        }
-        
-        #feedback.correct {
-            background-color: #e6f7ff;
-            border: 1px solid #b3e0ff;
-        }
-
-        #feedback.incorrect {
-            background-color: #fff0f1;
-            border: 1px solid #ffccd0;
-        }
+        #feedback { margin-top: 20px; padding: 15px; border-radius: 5px; display: none; }
+        #feedback.correct { background-color: #e6f7ff; border: 1px solid #b3e0ff; }
+        #feedback.incorrect { background-color: #fff0f1; border: 1px solid #ffccd0; }
 
         /* 次へ/結果ボタン */
-        #next-btn, #results-btn {
-            display: none; /* 初期状態では非表示 */
-            padding: 12px 25px;
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            float: right;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        
-        #next-btn:hover, #results-btn:hover {
-            background-color: #0056b3;
-        }
+        #next-btn, #results-btn { display: none; padding: 12px 25px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; float: right; margin-top: 20px; transition: background-color 0.3s; }
+        #next-btn:hover, #results-btn:hover { background-color: #0056b3; }
 
         /* 結果表示 */
-        #results-container {
-            text-align: center;
-            font-size: 1.4em;
-        }
-        
-        #results-container h2 {
-            color: #007bff;
-        }
-
-        #homepage-link {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 20px;
-            background-color: #6c757d;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-        }
-        
-        #homepage-link:hover {
-            background-color: #5a6268;
-        }
+        #results-container { text-align: center; font-size: 1.4em; }
+        #results-container h2 { color: #007bff; }
+        #homepage-link { display: inline-block; margin-top: 20px; padding: 12px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; }
+        #homepage-link:hover { background-color: #5a6268; }
 
     </style>
     
@@ -164,7 +150,8 @@
                 }
                 return; // クイズロジックを実行しない
             }
-        // --- クイズデータ(QD)はここに貼り付けてください ---
+
+             // --- クイズデータ(QD)はここに貼り付けてください ---
          const quizData = [
             {
                 question: "次のうち、単項式であるものはどれですか？",
@@ -392,9 +379,8 @@
             }
         ];
         // --- 問題データの終わり ---
-
-        
-        // --- ここから下はクイズの仕組みです ---
+            
+            // --- ここから下はクイズの仕組みです ---
             const quizContainer = document.getElementById('quiz-container');
             const resultsContainer = document.getElementById('results-container');
             const questionNumberEl = document.getElementById('question-number');
@@ -411,17 +397,24 @@
             
             // (関数定義を先に)
             function loadQuestion() {
-                // (エラーチェックは省略...)
-                if (!quizData || currentQuestionIndex >= quizData.length) { /* ... */ return; }
+                // QDが空またはインデックス範囲外ならエラー処理
+                if (!quizData || currentQuestionIndex >= quizData.length) {
+                    console.error("Invalid question index or quizData is empty.");
+                    questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。";
+                    questionNumberEl.textContent = "エラー";
+                    optionsContainer.innerHTML = '';
+                    return;
+                }
 
                 feedbackEl.style.display = 'none';
                 nextBtn.style.display = 'none';
                 optionsContainer.innerHTML = ''; // コンテナをクリア
                 const currentQuestion = quizData[currentQuestionIndex];
+                
+                // 問題番号と問題文を設定
                 questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
-                questionTextEl.innerHTML = currentQuestion.question || "(問題文がありません)"; 
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文がありません)"; // 問題文がない場合のフォールバック
 
-                // ★★★ ここから変更 ★★★
                 // 選択肢を作成 (ラジオボタン + ラベル)
                 if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
                     currentQuestion.options.forEach((optionText, index) => {
@@ -433,7 +426,7 @@
                         radioInput.type = 'radio';
                         radioInput.name = 'quizOption'; // 同じnameでグループ化
                         radioInput.id = `option${index}`; // labelと紐付けるためのID
-                        radioInput.value = optionText; // 送信時の値（今回は使わないが念のため）
+                        radioInput.value = optionText; // 元のテキストを値として保持
                         
                         // ラベル要素
                         const label = document.createElement('label');
@@ -444,7 +437,13 @@
 
                         // ラベルクリックで答え合わせを実行
                         label.addEventListener('click', (event) => {
-                                // デフォルトのラジオボタン選択動作は維持
+                                // すでに答えが表示されていたら何もしない
+                                if (feedbackEl.style.display === 'block') {
+                                    event.preventDefault(); // ラジオボタンの選択も防ぐ
+                                    return;
+                                }
+                                // ラジオボタンを選択状態にする (視覚的なフィードバックのため)
+                                radioInput.checked = true; 
                                 // すぐに答え合わせを実行
                                 selectAnswer(label, optionText, currentQuestion.answer, currentQuestion.rationale);
                             });
@@ -459,6 +458,7 @@
                 } else {
                     optionsContainer.innerHTML = '<p>(選択肢データがありません)</p>';
                 }
+
                 // ★ 新しく読み込んだ問題文と選択肢にKaTeXを適用する
                 try {
                     renderMathInElement(questionTextEl, { delimiters: katexDelimiters });
@@ -468,34 +468,37 @@
                 }
             }
 
-            function selectAnswer(selectedButton, selectedOption, correctAnswer, rationale) {
-                // すべてのボタンを無効化
-                Array.from(optionsContainer.children).forEach(btn => {
-                    // ボタン要素以外 (例: エラーメッセージの<p>) はスキップ
-                    if (btn.tagName === 'BUTTON') {
-                        btn.disabled = true;
-                        // data属性で正解を比較する
-                        if (btn.dataset.optionValue === correctAnswer) { 
-                            btn.classList.add('correct');
-                        }
+            function selectAnswer(selectedLabel, selectedOption, correctAnswer, rationale) {
+                // すべてのラベルを操作不可に & 正解表示
+                Array.from(optionsContainer.querySelectorAll('.option-label')).forEach(lbl => {
+                    lbl.classList.add('disabled'); // 無効化スタイル適用
+                    // 対応するラジオボタンも無効化 (クリックイベントリスナーも不要になる)
+                    const radioId = lbl.htmlFor;
+                    const radio = document.getElementById(radioId);
+                    if(radio) radio.disabled = true;
+
+                    // data属性で正解を比較
+                    if (lbl.dataset.optionValue === correctAnswer) { 
+                        lbl.classList.add('correct'); // 正解ラベルにスタイル適用
                     }
                 });
 
                 // フィードバックを表示
                 feedbackEl.style.display = 'block';
-                const feedbackRationale = rationale || "(解説がありません)"; // 解説がない場合のフォールバック
+                const feedbackRationale = rationale || "(解説がありません)"; 
+                
                 if (selectedOption === correctAnswer) {
-                    selectedButton.classList.add('correct');
-                    feedbackEl.innerHTML = `正解！ ${feedbackRationale}`; 
-                    feedbackEl.className = 'correct'; // スタイルクラスを設定
+                    // selectedLabel.classList.add('correct'); // 正解はすでに上で適用済み
+                    feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`; 
+                    feedbackEl.className = 'correct'; // 背景色用のクラス
                     score++;
                 } else {
-                    selectedButton.classList.add('incorrect');
-                    feedbackEl.innerHTML = `不正解。 ${feedbackRationale}`; 
-                    feedbackEl.className = 'incorrect'; // スタイルクラスを設定
+                    selectedLabel.classList.add('incorrect'); // 選択した不正解ラベルにスタイル適用
+                    feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; 
+                    feedbackEl.className = 'incorrect'; // 背景色用のクラス
                 }
                 
-                // 解説(feedbackEl)に対して、手動でKaTeXのレンダリングを実行
+                // 解説にKaTeXを適用
                 try {
                     renderMathInElement(feedbackEl, { delimiters: katexDelimiters });
                 } catch (e) {
