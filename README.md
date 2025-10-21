@@ -4,4 +4,4 @@
 KaTeX ・・・KaTeXをローカルで使用するフォルダ(GitHubで手に入る https://github.com/KaTeX/KaTeX/releases)  
 　　　　　　Assetsの中の.zipをDL  
 index.html ・・・トップページ  
-┗M1-1-1-1 第1章第1節1番　様々な用語
+┗M1-1-1-1 第1章第1節1番　様々な用語　長い場合は layout: 'vertical' // ★★★ 目印を追加 ★★★　を追加  
