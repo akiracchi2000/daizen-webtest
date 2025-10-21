@@ -382,6 +382,7 @@
             }
         ];
         // --- 問題データの終わり ---
+
             
             // --- ここから下はクイズの仕組みです ---
             const quizContainer = document.getElementById('quiz-container');
@@ -418,7 +419,7 @@
                 questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
                 questionTextEl.innerHTML = currentQuestion.question || "(問題文がありません)"; 
 
-                // ★★★ 選択肢ボックスを作成 ★★★
+                // 選択肢ボックスを作成
                 if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
                     currentQuestion.options.forEach(optionText => {
                         // クリック可能なdiv要素を作成
@@ -442,7 +443,6 @@
                 } else {
                     optionsContainer.innerHTML = '<p>(選択肢データがありません)</p>';
                 }
-                // ★★★ ここまで変更 ★★★
 
                 // 新しく読み込んだ問題文と選択肢にKaTeXを適用する
                 try {
@@ -455,7 +455,7 @@
 
             // selectAnswer 関数は引数の意味合いが変わる (label -> box)
             function selectAnswer(selectedBox, selectedOption, correctAnswer, rationale) {
-                // すべてのボックスを操作不可に & 正解表示
+                // すべてのボックスを操作不可に & 正解/不正解表示
                 Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => {
                     box.classList.add('disabled'); // 無効化スタイル適用
 
@@ -477,7 +477,7 @@
                     feedbackEl.className = 'correct'; // 背景色用のクラス
                     score++;
                 } else {
-                    selectedBox.classList.add('selected'); // 選択した不正解ボックスに印をつける (CSSでスタイル定義)
+                    selectedBox.classList.add('selected'); // 選択した不正解ボックスに印をつける (CSSでスタイル定義: .incorrect.selected)
                     feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; 
                     feedbackEl.className = 'incorrect'; // 背景色用のクラス
                 }
