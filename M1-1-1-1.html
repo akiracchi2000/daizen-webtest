@@ -1,228 +1,191 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数学Ⅰ: 式と用語の基本テスト</title>
-    <style>
-        /* index.htmlと共通のスタイル */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-            line-height: 1.7;
-            background-color: #f8f9fa;
-            color: #212529;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学Ⅰ: 式と用語の基本テスト</title>
+    <style>
+        /* index.htmlと共通のスタイル */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-        .container {
-            max-width: 800px;
-            width: 90%;
-            margin: 20px auto;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
 
-        header {
-            border-bottom: 2px solid #dee2e6;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
+        header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
 
-        header h1 {
-            margin: 0;
-            color: #343a40;
-            font-size: 1.8em;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #6c757d;
-        }
+        header h1 {
+            margin: 0;
+            color: #343a40;
+            font-size: 1.8em;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
 
-        /* --- クイズ用のスタイル --- */
-        #quiz-container {
-            min-height: 300px;
-        }
+        /* --- クイズ用のスタイル --- */
+        #quiz-container {
+            min-height: 300px;
+        }
 
-        #question-number {
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #007bff;
-        }
-        
-        #question-text {
-            font-size: 1.3em;
-            margin: 15px 0;
-        }
+        #question-number {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        #question-text {
+            font-size: 1.3em;
+            margin: 15px 0;
+        }
 
-        /* 選択肢ボタン */
-        .option-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 1.1em;
-            text-align: left;
-            background-color: #f1f3f5;
-            border: 2px solid #dee2e6;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
+        /* 選択肢ボタン */
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 1.1em;
+            text-align: left;
+            background-color: #f1f3f5;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
 
-        .option-btn:hover:not(:disabled) {
-            background-color: #e9ecef;
-            border-color: #ced4da;
-        }
-        
-        .option-btn:disabled {
-            cursor: not-allowed;
-            opacity: 0.8;
-        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #e9ecef;
+            border-color: #ced4da;
+        }
+        
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
 
-        /* 選択後のスタイル */
-        .option-btn.correct {
-            background-color: #d4edda; /* 緑 */
-            border-color: #c3e6cb;
-            color: #155724;
-            font-weight: bold;
-        }
-        
-        .option-btn.incorrect {
-            background-color: #f8d7da; /* 赤 */
-            border-color: #f5c6cb;
-            color: #721c24;
-            opacity: 0.7;
-        }
+        /* 選択後のスタイル */
+        .option-btn.correct {
+            background-color: #d4edda; /* 緑 */
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        
+        .option-btn.incorrect {
+            background-color: #f8d7da; /* 赤 */
+            border-color: #f5c6cb;
+            color: #721c24;
+            opacity: 0.7;
+        }
 
-        /* 解説（フィードバック） */
-        #feedback {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 5px;
-            display: none; /* 初期状態では非表示 */
-        }
-        
-        #feedback.correct {
-            background-color: #e6f7ff;
-            border: 1px solid #b3e0ff;
-        }
+        /* 解説（フィードバック） */
+        #feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none; /* 初期状態では非表示 */
+        }
+        
+        #feedback.correct {
+            background-color: #e6f7ff;
+            border: 1px solid #b3e0ff;
+        }
 
-        #feedback.incorrect {
-            background-color: #fff0f1;
-            border: 1px solid #ffccd0;
-        }
+        #feedback.incorrect {
+            background-color: #fff0f1;
+            border: 1px solid #ffccd0;
+        }
 
-        /* 次へ/結果ボタン */
-        #next-btn, #results-btn {
-            display: none; /* 初期状態では非表示 */
-            padding: 12px 25px;
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            float: right;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        
-        #next-btn:hover, #results-btn:hover {
-            background-color: #0056b3;
-        }
+        /* 次へ/結果ボタン */
+        #next-btn, #results-btn {
+            display: none; /* 初期状態では非表示 */
+            padding: 12px 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        #next-btn:hover, #results-btn:hover {
+            background-color: #0056b3;
+        }
 
-        /* 結果表示 */
-        #results-container {
-            text-align: center;
-            font-size: 1.4em;
-        }
-        
-        #results-container h2 {
-            color: #007bff;
-        }
+        /* 結果表示 */
+        #results-container {
+            text-align: center;
+            font-size: 1.4em;
+        }
+        
+        #results-container h2 {
+            color: #007bff;
+        }
 
-        #homepage-link {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 20px;
-            background-color: #6c757d;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-        }
-        
-        #homepage-link:hover {
-            background-color: #5a6268;
-        }
+        #homepage-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #6c757d;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+        
+        #homepage-link:hover {
+            background-color: #5a6268;
+        }
 
-    </style>
-<link rel="stylesheet" href="katex/katex.min.css">
+    </style>
+    
+        <link rel="stylesheet" href="katex/katex.min.css">
+    <script defer src="katex/katex.min.js"></script>
+    <script defer src="katex/contrib/auto-render.min.js"></script>
 
-    <script defer src="katex/katex.min.js"></script>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // KaTeXが認識する区切り文字の設定 (この設定はここで一括定義)
+            const katexDelimiters = [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ];
 
-    <script defer src="katex/contrib/auto-render.min.js"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            renderMathInElement(document.body, {
-                // KaTeXが認識する区切り文字の設定
-                delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false},
-                    {left: '\\(', right: '\\)', display: false},
-                    {left: '\\[', right: '\\]', display: true}
-                ]
-            });
-        });
-    </script>
-</head>
-<body>
-
-    <div class="container">
-        <header>
-            <h1>数学Ⅰ: 式と用語の基本テスト</h1>
-        </header>
-
-        <main>
-            <div id="quiz-container">
-                <div id="question-header">
-                    <span id="question-number"></span>
-                </div>
-                <h2 id="question-text"></h2>
-                <div id="options-container">
-                    </div>
-                <div id="feedback">
-                    </div>
-                <button id="next-btn">次の問題へ</button>
-                <button id="results-btn">結果を見る</button>
-            </div>
-            
-            <div id="results-container" style="display: none;">
-                <h2>テスト終了！</h2>
-                <p id="score-text"></p>
-                <p id="final-message"></p>
-                <a href="index.html" id="homepage-link">トップページに戻る</a>
-            </div>
-        </main>
-
-        <footer>
-            <p>&copy; 2025 [香川亮]</p>
-        </footer>
-    </div>
-
-    <script>// --- ここに問題データを追加・編集してください ---
+            // ページ読み込み時に静的コンテンツ（ヘッダーなど）を一応レンダリング
+            renderMathInElement(document.body, { delimiters: katexDelimiters });
         const quizData = [
             {
                 question: "次のうち、単項式であるものはどれですか？",
@@ -452,150 +415,328 @@
         // --- 問題データの終わり ---
 
         
-        // --- ここから下はクイズの仕組みです（変更不要） ---
-        const quizContainer = document.getElementById('quiz-container');
-        const resultsContainer = document.getElementById('results-container');
-        
-        const questionNumberEl = document.getElementById('question-number');
-        const questionTextEl = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-        const feedbackEl = document.getElementById('feedback');
-        const nextBtn = document.getElementById('next-btn');
-        const resultsBtn = document.getElementById('results-btn');
-        
-        const scoreTextEl = document.getElementById('score-text');
-        const finalMessageEl = document.getElementById('final-message');
-
-        let currentQuestionIndex = 0;
-        let score = 0;
-        
-        // クイズを開始
-        loadQuestion();
-
-function loadQuestion() {
-            // 前回のフィードバックをリセット
-            feedbackEl.style.display = 'none';
-            nextBtn.style.display = 'none';
-            optionsContainer.innerHTML = '';
+        // --- ここから下はクイズの仕組みです ---
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
             
-            const currentQuestion = quizData[currentQuestionIndex];
+            const questionNumberEl = document.getElementById('question-number');
+            const questionTextEl = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsBtn = document.getElementById('results-btn');
             
-            questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
-            
-            // ★ 修正点 1: .textContent を .innerHTML に変更
-            // ( $\frac{...}$ のような複雑な記法もHTMLとして解釈させるため)
-            questionTextEl.innerHTML = currentQuestion.question;
+            const scoreTextEl = document.getElementById('score-text');
+            const finalMessageEl = document.getElementById('final-message');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
             
-            // 選択肢を作成
-            currentQuestion.options.forEach(optionText => {
-                const button = document.createElement('button');
-                
-                // ★ 修正点 2: .textContent を .innerHTML に変更
-                button.innerHTML = optionText; 
-                
-                // ★ 修正点 3: 答え合わせのため、元のKaTeX文字列をdata属性に保存
-                button.dataset.optionValue = optionText;
+            // (QDが空のままだとエラーになるため、データが存在する場合のみ実行)
+            if (quizData.length > 0) {
+                // クイズを開始
+                loadQuestion();
+            }
 
-                button.classList.add('option-btn');
-                button.addEventListener('click', () => selectAnswer(button, optionText, currentQuestion.answer, currentQuestion.rationale));
-                optionsContainer.appendChild(button);
-            });
+            function loadQuestion() {
+                // 前回のフィードバックをリセット
+                feedbackEl.style.display = 'none';
+                nextBtn.style.display = 'none';
+                optionsContainer.innerHTML = '';
+                
+                const currentQuestion = quizData[currentQuestionIndex];
+                
+                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
+                
+                // .innerHTML に変更 (KaTeX記法を解釈させるため)
+                questionTextEl.innerHTML = currentQuestion.question;
+                
+                // 選択肢を作成
+                currentQuestion.options.forEach(optionText => {
+                    const button = document.createElement('button');
+                    
+                    button.innerHTML = optionText; 
+                    
+                    // 答え合わせのため、元のKaTeX文字列をdata属性に保存
+                    button.dataset.optionValue = optionText;
 
-            // ★ 修正点 4: 新しく読み込んだ問題文と選択肢にKaTeXを適用する
-            renderMathInElement(questionTextEl, {
-                delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false},
-                    {left: '\\(', right: '\\)', display: false},
-                    {left: '\\[', right: '\\]', display: true}
-                ]
-            });
-            renderMathInElement(optionsContainer, {
-                delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false},
-                    {left: '\\(', right: '\\)', display: false},
-                    {left: '\\[', right: '\\]', display: true}
-                ]
-            });
-        }
+                    button.classList.add('option-btn');
+                    button.addEventListener('click', () => selectAnswer(button, optionText, currentQuestion.answer, currentQuestion.rationale));
+                    optionsContainer.appendChild(button);
+                });
 
-        function selectAnswer(selectedButton, selectedOption, correctAnswer, rationale) {
-            // すべてのボタンを無効化
-            Array.from(optionsContainer.children).forEach(btn => {
-                btn.disabled = true;
-                
-                // ★ 修正点 5: .textContent ではなく data属性で正解を比較する
-                // (KaTeX変換後は .textContent が変わってしまうため)
-                if (btn.dataset.optionValue === correctAnswer) { 
-                    btn.classList.add('correct');
+                // ★ 新しく読み込んだ問題文と選択肢にKaTeXを適用する
+                renderMathInElement(questionTextEl, { delimiters: katexDelimiters });
+                renderMathInElement(optionsContainer, { delimiters: katexDelimiters });
+            }
+
+            function selectAnswer(selectedButton, selectedOption, correctAnswer, rationale) {
+                // すべてのボタンを無効化
+                Array.from(optionsContainer.children).forEach(btn => {
+                    btn.disabled = true;
+                    
+                    // data属性で正解を比較する (KaTeX変換後のため)
+                    if (btn.dataset.optionValue === correctAnswer) { 
+                        btn.classList.add('correct');
+                    }
+                });
+
+                // フィードバックを表示
+                feedbackEl.style.display = 'block';
+                if (selectedOption === correctAnswer) {
+                    selectedButton.classList.add('correct');
+                    feedbackEl.innerHTML = `正解！ ${rationale}`; 
+                    feedbackEl.className = 'correct';
+                    score++;
+                } else {
+                    selectedButton.classList.add('incorrect');
+                    feedbackEl.innerHTML = `不正解。 ${rationale}`; 
+                    feedbackEl.className = 'incorrect';
                 }
-            });
-
-            // フィードバックを表示
-            feedbackEl.style.display = 'block';
-            if (selectedOption === correctAnswer) {
-                selectedButton.classList.add('correct');
                 
-                // (ここは前回修正済み)
-                feedbackEl.innerHTML = `正解！ ${rationale}`; 
+                // 解説(feedbackEl)に対して、手動でKaTeXのレンダリングを実行
+                renderMathInElement(feedbackEl, { delimiters: katexDelimiters });
                 
-                feedbackEl.className = 'correct';
-                score++;
-            } else {
-                selectedButton.classList.add('incorrect');
-                
-                // (ここは前回修正済み)
-                feedbackEl.innerHTML = `不正解。 ${rationale}`; 
-                
-                feedbackEl.className = 'incorrect';
+                // 次へ/結果ボタンを表示
+                if (currentQuestionIndex < quizData.length - 1) {
+                    nextBtn.style.display = 'block';
+                } else {
+                    resultsBtn.style.display = 'block';
+                }
             }
             
-            // (ここは前回修正済み)
-            renderMathInElement(feedbackEl, {
-                delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false},
-                    {left: '\\(', right: '\\)', display: false},
-                    {left: '\\[', right: '\\]', display: true}
-                ]
+            // 次の問題へ
+            nextBtn.addEventListener('click', () => {
+                currentQuestionIndex++;
+                loadQuestion();
             });
+
+            // 結果を表示
+            resultsBtn.addEventListener('click', () => {
+Slight logic error in the code I was about to provide. If `quizData` is empty, `quizData.length` is 0, and `Math.round((score / quizData.length) * 100)` will result in `NaN` (Division by zero). I must add a check.
+
+*Self-correction:* The `resultsBtn` listener is only attached if `quizData.length > 0` (implicitly, via `loadQuestion` being called). Wait, no, the listener is attached *outside* the `if` block... No, the *button itself* (`resultsBtn`) is only *shown* (`.style.display = 'block'`) inside `selectAnswer`, which is only triggered if a question was loaded.
+*Further self-correction:* The `resultsBtn.addEventListener` *is* outside the `if` block. If `quizData` is empty, `loadQuestion()` isn't called, but `resultsBtn.addEventListener` *is* still set. If the user somehow clicks a non-existent results button, it would error.
+*Simplest fix:* The user will paste data into QD. The *main* fix is moving the script. I'll just add a check inside the `resultsBtn` listener for `quizData.length > 0`.
+
+*(Re-drafting the `resultsBtn` listener...)*
+
+```javascript
+            // 結果を表示
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none';
+                resultsContainer.style.display = 'block';
+                
+                // (0除算を避ける)
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`;
+                
+                let message = "";
+                if (quizData.length === 0) {
+                    message = "問題データがありません。";
+                } else if (percentage === 100) {
+                    message = "全問正解です！素晴らしい！完璧です。";
+                } else if (percentage >= 80) {
+                    message = "素晴らしい成績です。この調子で頑張りましょう！";
+                } else if (percentage >= 60) {
+                    message = "よくできました。間違えたところを書籍で復習しましょう。";
+                } else {
+                    message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。";
+                }
+                finalMessageEl.textContent = message;
+            });
+
+        });
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>数学Ⅰ: 式と用語の基本テスト</h1>
+        </header>
+
+        <main>
+            <div id="quiz-container">
+                <div id="question-header">
+                    <span id="question-number"></span>
+                </div>
+                <h2 id="question-text"></h2>
+                <div id="options-container">
+                                    </div>
+                <div id="feedback">
+                                    </div>
+                <button id="next-btn">次の問題へ</button>
+                <button id="results-btn">結果を見る</button>
+            </div>
             
-            // 次へ/結果ボタンを表示
-            if (currentQuestionIndex < quizData.length - 1) {
-                nextBtn.style.display = 'block';
-            } else {
-                resultsBtn.style.display = 'block';
+            <div id="results-container" style="display: none;">
+                <h2>テスト終了！</h2>
+                <p id="score-text"></p>
+              Mmm, the `if (quizData.length > 0)` check *before* `loadQuestion()` is better.
+
+*(Revising the `<head>` script logic one last time for clarity and robustness...)*
+
+```html
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // KaTeXが認識する区切り文字の設定 (この設定はここで一括定義)
+            const katexDelimiters = [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ];
+
+            // ページ読み込み時に静的コンテンツ（ヘッダーなど）を一応レンダリング
+            // (この呼び出しは、クイズロジックの前にKaTeXの関数(renderMathInElement)が存在するか確認する意味でも重要)
+            try {
+                renderMathInElement(document.body, { delimiters: katexDelimiters });
+            } catch (e) {
+                console.error("KaTeX auto-render failed to initialize:", e);
+                // KaTeXが読み込めていない場合、クイズを開始しない
+                return; 
             }
-        }
-        
-        // 次の問題へ
-        nextBtn.addEventListener('click', () => {
-            currentQuestionIndex++;
-            loadQuestion();
-        });
 
-        // 結果を表示
-        resultsBtn.addEventListener('click', () => {
-            quizContainer.style.display = 'none';
-            resultsContainer.style.display = 'block';
-            
-            const percentage = Math.round((score / quizData.length) * 100);
-            scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`;
-            
-            let message = "";
-            if (percentage === 100) {
-                message = "全問正解です！素晴らしい！完璧です。";
-            } else if (percentage >= 80) {
-                message = "素晴らしい成績です。この調子で頑張りましょう！";
-            } else if (percentage >= 60) {
-                message = "よくできました。間違えたところを書籍で復習しましょう。";
-            } else {
-                message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。";
-            }
-            finalMessageEl.textContent = message;
-        });
+            // --- クイズデータ(QD)はここに貼り付けてください ---
+            const quizData = [
+                /* (placeholder) */
+            ];
+            // --- 問題データの終わり ---
 
-    </script>
+            
+            // --- ここから下はクイズの仕組みです ---
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const questionNumberEl = document.getElementById('question-number');
+            const questionTextEl = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const scoreTextEl = document.getElementById('score-text');
+            const finalMessageEl = document.getElementById('final-message');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+            
+            // (関数定義を先に)
+            function loadQuestion() {
+                feedbackEl.style.display = 'none';
+                nextBtn.style.display = 'none';
+                optionsContainer.innerHTML = '';
+                const currentQuestion = quizData[currentQuestionIndex];
+                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
+                questionTextEl.innerHTML = currentQuestion.question;
+                currentQuestion.options.forEach(optionText => {
+                    const button = document.createElement('button');
+                    button.innerHTML = optionText; 
+                    button.dataset.optionValue = optionText;
+                    button.classList.add('option-btn');
+                    button.addEventListener('click', () => selectAnswer(button, optionText, currentQuestion.answer, currentQuestion.rationale));
+                    optionsContainer.appendChild(button);
+                });
+                renderMathInElement(questionTextEl, { delimiters: katexDelimiters });
+                renderMathInElement(optionsContainer, { delimiters: katexDelimiters });
+            }
+
+            function selectAnswer(selectedButton, selectedOption, correctAnswer, rationale) {
+                Array.from(optionsContainer.children).forEach(btn => {
+                    btn.disabled = true;
+                    if (btn.dataset.optionValue === correctAnswer) {G-7900-1ER
+                        btn.classList.add('correct');
+                    }
+                });
+                feedbackEl.style.display = 'block';
+                if (selectedOption === correctAnswer) {
+                    selectedButton.classList.add('correct');
+                    feedbackEl.innerHTML = `正解！ ${rationale}`; 
+                    feedbackEl.className = 'correct';
+                    score++;
+                } else {
+              _B_
+                    selectedButton.classList.add('incorrect');
+                    feedbackEl.innerHTML = `不正解。 ${rationale}`; 
+                    feedbackEl.className = 'incorrect';
+                }
+                renderMathInElement(feedbackEl, { delimiters: katexDelimiters });
+                if (currentQuestionIndex < quizData.length - 1) {
+                    nextBtn.style.display = 'block';
+                } else {
+                    resultsBtn.style.display = 'block';
+                }
+            }
+            
+s
+            // (イベントリスナーをセット)
+            nextBtn.addEventListener('click', () => {
+                currentQuestionIndex++;
+                loadQuestion();
+            });
+
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none';
+                resultsContainer.style.display = 'block';
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`;
+                let message = "";
+                if (quizData.length === 0) {
+                    message = "問題データが読み込まれていません。";
+                } else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
+                else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
+                else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
+                else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
+                finalMessageEl.textContent = message;
+            });
+
+            // (QDが空でないか確認してからクイズを開始)
+            if (quizData.length > 0) {
+                loadQuestion();
+            } else {
+                questionTextEl.innerHTML = "問題データ (quizData) が見つかりません。<br>HTMLファイルを確認してください。";
+                questionNumberEl.textContent = "エラー";
+            }
+
+        });
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>数学Ⅰ: 式と用語の基本テスト</h1>
+        </header>
+
+        <main>
+            <div id="quiz-container">
+                <div id="question-header">
+                    <span id="question-number"></span>
+                </div>
+                <h2 id="question-text"></h2>
+                <div id="options-container">
+                                    </div>
+                <div id="feedback">
+                                    </div>
+                <button id="next-btn">次の問題へ</button>
+                <button id="results-btn">結果を見る</button>
+            </div>
+            
+            <div id="results-container" style="display: none;">
+                <h2>テスト終了！</h2>
+                <p id="score-text"></p>
+                <p id="final-message"></p>
+                <a href="index.html" id="homepage-link">トップページに戻る</a>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 [香川亮]</p>
+        </footer>
+    </div>
+
+        <script>
+        // すべてのロジックは <head> の DOMContentLoaded に移動しました。
+    </script>
 </body>
 </html>
