@@ -472,73 +472,102 @@
         // クイズを開始
         loadQuestion();
 
-        function loadQuestion() {
-            // 前回のフィードバックをリセット
-            feedbackEl.style.display = 'none';
-            nextBtn.style.display = 'none';
-            optionsContainer.innerHTML = '';
+function loadQuestion() {
+            // 前回のフィードバックをリセット
+            feedbackEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+            optionsContainer.innerHTML = '';
+            
+            const currentQuestion = quizData[currentQuestionIndex];
+            
+            questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
             
-            const currentQuestion = quizData[currentQuestionIndex];
-            
-            questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
-            questionTextEl.textContent = currentQuestion.question;
-            
-            // 選択肢を作成
-            currentQuestion.options.forEach(optionText => {
-                const button = document.createElement('button');
-                button.textContent = optionText;
-                button.classList.add('option-btn');
-                button.addEventListener('click', () => selectAnswer(button, optionText, currentQuestion.answer, currentQuestion.rationale));
-                optionsContainer.appendChild(button);
-            });
-        }
+            // ★ 修正点 1: .textContent を .innerHTML に変更
+            // ( $\frac{...}$ のような複雑な記法もHTMLとして解釈させるため)
+            questionTextEl.innerHTML = currentQuestion.question;
+            
+            // 選択肢を作成
+            currentQuestion.options.forEach(optionText => {
+                const button = document.createElement('button');
+                
+                // ★ 修正点 2: .textContent を .innerHTML に変更
+                button.innerHTML = optionText; 
+                
+                // ★ 修正点 3: 答え合わせのため、元のKaTeX文字列をdata属性に保存
+                button.dataset.optionValue = optionText;
 
-        function selectAnswer(selectedButton, selectedOption, correctAnswer, rationale) {
-            // すべてのボタンを無効化
-            Array.from(optionsContainer.children).forEach(btn => {
-                btn.disabled = true;
-                // 正解のボタンをハイライト
-                if (btn.textContent === correctAnswer) {
-                    btn.classList.add('correct');
-                }
-            });
+                button.classList.add('option-btn');
+                button.addEventListener('click', () => selectAnswer(button, optionText, currentQuestion.answer, currentQuestion.rationale));
+                optionsContainer.appendChild(button);
+            });
 
-            // フィードバックを表示
-            feedbackEl.style.display = 'block';
-            if (selectedOption === correctAnswer) {
-                selectedButton.classList.add('correct');
+            // ★ 修正点 4: 新しく読み込んだ問題文と選択肢にKaTeXを適用する
+            renderMathInElement(questionTextEl, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ]
+            });
+            renderMathInElement(optionsContainer, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ]
+            });
+        }
+
+        function selectAnswer(selectedButton, selectedOption, correctAnswer, rationale) {
+            // すべてのボタンを無効化
+            Array.from(optionsContainer.children).forEach(btn => {
+                btn.disabled = true;
                 
-                // ★ 修正点 1: .textContent を .innerHTML に変更
-                feedbackEl.innerHTML = `正解！ ${rationale}`; 
-                
-                feedbackEl.className = 'correct';
-                score++;
-            } else {
-                selectedButton.classList.add('incorrect');
-                
-                // ★ 修正点 1: .textContent を .innerHTML に変更
-                feedbackEl.innerHTML = `不正解。 ${rationale}`; 
-                
-                feedbackEl.className = 'incorrect';
-            }
-            
-            // ★ 修正点 2: 解説(feedbackEl)に対して、手動でKaTeXのレンダリングを実行する
-            renderMathInElement(feedbackEl, {
-                delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false},
-                    {left: '\\(', right: '\\)', display: false},
-                    {left: '\\[', right: '\\]', display: true}
-                ]
-            });
-            
-            // 次へ/結果ボタンを表示
-            if (currentQuestionIndex < quizData.length - 1) {
-                nextBtn.style.display = 'block';
-            } else {
-                resultsBtn.style.display = 'block';
-            }
-        }
+                // ★ 修正点 5: .textContent ではなく data属性で正解を比較する
+                // (KaTeX変換後は .textContent が変わってしまうため)
+                if (btn.dataset.optionValue === correctAnswer) { 
+                    btn.classList.add('correct');
+                }
+            });
+
+            // フィードバックを表示
+            feedbackEl.style.display = 'block';
+            if (selectedOption === correctAnswer) {
+                selectedButton.classList.add('correct');
+                
+                // (ここは前回修正済み)
+                feedbackEl.innerHTML = `正解！ ${rationale}`; 
+                
+                feedbackEl.className = 'correct';
+                score++;
+            } else {
+                selectedButton.classList.add('incorrect');
+                
+                // (ここは前回修正済み)
+                feedbackEl.innerHTML = `不正解。 ${rationale}`; 
+                
+                feedbackEl.className = 'incorrect';
+            }
+            
+            // (ここは前回修正済み)
+            renderMathInElement(feedbackEl, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ]
+            });
+            
+            // 次へ/結果ボタンを表示
+            if (currentQuestionIndex < quizData.length - 1) {
+                nextBtn.style.display = 'block';
+            } else {
+                resultsBtn.style.display = 'block';
+            }
+        }
         
         // 次の問題へ
         nextBtn.addEventListener('click', () => {
