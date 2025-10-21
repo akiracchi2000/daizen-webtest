@@ -1,575 +1,1105 @@
 <!DOCTYPE html>
+
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数学Ⅰ: 式と用語の基本テスト</title>
-    <style>
-        /* index.htmlと共通のスタイル */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-            line-height: 1.7;
-            background-color: #f8f9fa;
-            color: #212529;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
 
-        .container {
-            max-width: 800px;
-            width: 90%;
-            margin: 20px auto;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
+    <meta charset="UTF-8">
 
-        header {
-            border-bottom: 2px solid #dee2e6;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        header h1 {
-            margin: 0;
-            color: #343a40;
-            font-size: 1.8em;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #6c757d;
-        }
+    <title>数学Ⅰ: 式と用語の基本テスト</title>
 
-        /* --- クイズ用のスタイル --- */
-        #quiz-container { min-height: 300px; }
-        #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
-        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; /* 選択肢との間隔を少し空ける */ }
+    <style>
 
-        /* 選択肢コンテナ (Gridレイアウト) */
-        #options-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2列均等割り */
-            gap: 15px; /* グリッド間の隙間 */
-            margin-top: 20px;
+        /* index.htmlと共通のスタイル */
+
+        body {
+
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+            line-height: 1.7;
+
+            background-color: #f8f9fa;
+
+            color: #212529;
+
+            margin: 0;
+
+            padding: 0;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            min-height: 100vh;
+
         }
 
-        /* 選択肢ボックス */
-        .option-box {
-            background-color: #f1f3f5; /* 画像に近い薄いグレー */
-            border: 1px solid #dee2e6;
-            border-radius: 8px; /* 少し角を丸く */
-            padding: 20px;
-            font-size: 1.2em; /* 少し大きめに */
-            text-align: center; /* テキスト中央揃え */
+
+
+        .container {
+
+            max-width: 800px;
+
+            width: 90%;
+
+            margin: 20px auto;
+
+            padding: 30px;
+
+            background-color: #ffffff;
+
+            border-radius: 8px;
+
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+        }
+
+
+
+        header {
+
+            border-bottom: 2px solid #dee2e6;
+
+            padding-bottom: 15px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+
+        header h1 {
+
+            margin: 0;
+
+            color: #343a40;
+
+            font-size: 1.8em;
+
+        }
+
+        
+
+        footer {
+
+            text-align: center;
+
+            margin-top: 40px;
+
+            font-size: 0.9em;
+
+            color: #6c757d;
+
+        }
+
+
+
+        /* --- クイズ用のスタイル --- */
+
+        #quiz-container {
+
+            min-height: 300px;
+
+        }
+
+
+
+        #question-number {
+
+            font-size: 1.1em;
+
+            font-weight: bold;
+
+            color: #007bff;
+
+        }
+
+        
+
+        #question-text {
+
+            font-size: 1.3em;
+
+            margin: 15px 0;
+
+        }
+
+
+
+        /* 選択肢ボタン */
+
+        .option-btn {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 15px;
+
+            margin: 10px 0;
+
+            font-size: 1.1em;
+
+            text-align: left;
+
+            background-color: #f1f3f5;
+
+            border: 2px solid #dee2e6;
+
+            border-radius: 5px;
+
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
 
-        .option-box:hover:not(.disabled) { /* 無効化されてない時だけホバー */
+            transition: all 0.3s;
+
+        }
+
+
+
+        .option-btn:hover:not(:disabled) {
+
             background-color: #e9ecef;
-            transform: translateY(-2px); /* 少し浮き上がる効果 */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
 
-        /* 選択後のスタイル */
-        .option-box.correct {
-            background-color: #d4edda; /* 緑 */
-            border-color: #c3e6cb;
-            color: #155724;
-            font-weight: bold;
-        }
-        
-        .option-box.incorrect {
-            background-color: #f8d7da; /* 赤 */
-            border-color: #f5c6cb;
-            color: #721c24;
-            opacity: 0.8; /* 選択されなかった不正解は少し薄く */
-        }
+            border-color: #ced4da;
 
-        /* ユーザーが選択した不正解のスタイル */
-        .option-box.incorrect.selected {
-            opacity: 1; /* 選択したものは薄くしない */
-            /* 必要であれば他のスタイル（例: 枠線を太くするなど）を追加 */
         }
 
-        /* 無効化時のスタイル */
-        .option-box.disabled {
-             cursor: not-allowed;
-             opacity: 0.7; /* 少し薄く */
-             background-color: #e9ecef; /* ホバー色に固定 */
+        
+
+        .option-btn:disabled {
+
+            cursor: not-allowed;
+
+            opacity: 0.8;
+
         }
 
-        /* 解説（フィードバック） */
-        #feedback { margin-top: 25px; padding: 15px; border-radius: 5px; display: none; } /* マージン調整 */
-        #feedback.correct { background-color: #e6f7ff; border: 1px solid #b3e0ff; }
-        #feedback.incorrect { background-color: #fff0f1; border: 1px solid #ffccd0; }
 
-        /* 次へ/結果ボタン */
-        #next-btn, #results-btn { display: none; padding: 12px 25px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; float: right; margin-top: 20px; transition: background-color 0.3s; }
-        #next-btn:hover, #results-btn:hover { background-color: #0056b3; }
 
-        /* 結果表示 */
-        #results-container { text-align: center; font-size: 1.4em; }
-        #results-container h2 { color: #007bff; }
-        #homepage-link { display: inline-block; margin-top: 20px; padding: 12px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; }
-        #homepage-link:hover { background-color: #5a6268; }
+        /* 選択後のスタイル */
 
-    </style>
-    
-        <link rel="stylesheet" href="katex/katex.min.css">
-    <script defer src="katex/katex.min.js"></script>
-    <script defer src="katex/contrib/auto-render.min.js"></script>
+        .option-btn.correct {
 
-        <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            
-            // KaTeXが認識する区切り文字の設定 (この設定はここで一括定義)
-            const katexDelimiters = [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false},
-                {left: '\\(', right: '\\)', display: false},
-                {left: '\\[', right: '\\]', display: true}
-            ];
+            background-color: #d4edda; /* 緑 */
 
-            // ページ読み込み時に静的コンテンツ（ヘッダーなど）を一応レンダリング
-            // (この呼び出しは、クイズロジックの前にKaTeXの関数(renderMathInElement)が存在するか確認する意味でも重要)
-            try {
-                renderMathInElement(document.body, { delimiters: katexDelimiters });
-            } catch (e) {
-                console.error("KaTeX auto-render failed to initialize:", e);
-                // KaTeXが読み込めていない場合のエラー処理を追加できます (例: メッセージ表示)
-                const quizBody = document.getElementById('quiz-container');
-                if (quizBody) {
-                    quizBody.innerHTML = '<p style="color: red;">エラー: 数式表示ライブラリ(KaTeX)の読み込みに失敗しました。ページを再読み込みするか、設定を確認してください。</p>';
-                }
-                return; // クイズロジックを実行しない
-            }
+            border-color: #c3e6cb;
 
-             // --- クイズデータ(QD)はここに貼り付けてください ---
-         const quizData = [
-            {
-                question: "次のうち、単項式であるものはどれですか？",
-                options: [
-                    "$5x + 1$",
-                    "$-7a^2b$",
-                    "$\\frac{x}{y}$", // 分数は $\frac{x}{y}$ または $x/y$ と書けます
-                    "$4x - 2y^2$"
-                ],
-                answer: "$-7a^2b$",
-                rationale: "単項式は、数や文字の積だけで表される式です。「$-7a^2b$」は$-7$と$a$と$a$と$b$の積です。「$5x + 1$」や「$4x - 2y^2$」は複数の項の和（多項式）、「$\\frac{x}{y}$」は分母に文字があるため整式ではありません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" +
-                   "<a href='https://www.manabi-aid.jp/lesson/id/7707/63099' target='_blank'>" +
-                   "解説動画を見る" +
-                   "</a><br>" +
-                   "<small>（※学びエイドのログインが必要です）</small>"
-            },
-            {
-                question: "単項式 $3x^4y$ の係数は何ですか？",
-                options: [
-                    "4",
-                    "3",
-                    "1",
-                    "$y$"
-                ],
-                answer: "3",
-                rationale: "係数は、単項式の「数の部分」を指します。この式では「3」が係数です。"
-            },
-            {
-                question: "単項式 $-ab^2c^3$ の次数はいくつですか？",
-                options: [
-                    "3",
-                    "5",
-                    "6",
-                    "-1"
-                ],
-                answer: "6",
-                rationale: "次数は、掛け合わされている文字の個数の合計です。$a$が1個、$b$が2個、$c$が3個なので、合計 $1 + 2 + 3 = 6$ となります。"
-            },
-            {
-                question: "多項式 $2x^3 - 5xy + 7$ の項をすべて挙げたものはどれですか？",
-                options: [
-                    "$2x^3, 5xy, 7$",
-                    "$2, -5, 7$",
-                    "$2x^3, -5xy, 7$",
-                    "$x^3, xy$"
-                ],
-                answer: "$2x^3, -5xy, 7$",
-                rationale: "項は、多項式を「+」で結んだときの各部分です。 $2x^3 + (-5xy) + 7$ と考え、項は「$2x^3$」「$-5xy$」「$7$」となります。"
-            },
-            {
-                question: "多項式 $4a^2b - 3ab^2 + a^2b + 5ab^2$ の同類項をまとめたものはどれですか？",
-                options: [
-                    "$5a^2b + 2ab^2$",
-                    "$a^2b + 8ab^2$",
-                    "$7a^2b$",
-                    "$5a^2b - 2ab^2$"
-                ],
-                answer: "$5a^2b + 2ab^2$",
-                rationale: "「$a^2b$」の項 ($4a^2b$ と $+a^2b$) をまとめて $5a^2b$。「$ab^2$」の項 ($-3ab^2$ と $+5ab^2$) をまとめて $+2ab^2$ となります。"
-            },
-            {
-                question: "多項式 $x^3 - 6x^2y + 9xy^2 - 10$ の定数項はどれですか？",
-                options: [
-                    "10",
-                    "1",
-                    "-6",
-                    "-10"
-                ],
-                answer: "-10",
-                rationale: "定数項は、文字を一切含まない項のことです。この式では「$-10$」が該当します。"
-            },
-            {
-                question: "多項式 $5x^4 - 2x^2y^3 + 8y^3$ の次数はいくつですか？",
-                options: [
-                    "3",
-                    "4",
-                    "5",
-                    "7"
-                ],
-                answer: "5",
-                rationale: "各項の次数は「$5x^4$ (4次)」「$-2x^2y^3$ (2+3=5次)」「$8y^3$ (3次)」です。多項式の次数は、この中で最も大きいものを選ぶため「5」となります。"
-            },
-            {
-                question: "「文字の部分がまったく同じ項」のことを何といいますか？",
-                options: [
-                    "定数項",
-                    "同類項",
-                    "係数",
-                    "単項式"
-                ],
-                answer: "同類項",
-                rationale: "例えば、$3a^2b$ と $-5a^2b$ は、文字の部分が「$a^2b$」で同じなので同類項です。同類項は、係数を計算してまとめることができます。"
-            },
-            {
-                question: "$3x^2y$ と同類項であるものはどれですか？",
-                options: [
-                    "$3xy^2$",
-                    "$-5x^2y$",
-                    "$3x^2$",
-                    "$3y^2x$"
-                ],
-                answer: "$-5x^2y$",
-                rationale: "同類項は「文字の部分」が完全に一致する項です。「$3x^2y$」の文字の部分は「$x^2y$」です。「$-5x^2y$」も文字の部分が「$x^2y$」なので同類項です。「$3xy^2$」は$x$と$y$の指数が違うため、同類項ではありません。"
-            },
-            {
-                question: "多項式 $7x + 2x^3 - 4 - x^2$ を $x$ について降べきの順に整理したものはどれですか？",
-                options: [
-                    "$2x^3 - x^2 + 7x - 4$",
-                    "$-4 + 7x - x^2 + 2x^3$",
-                    "$7x - 4 + 2x^3 - x^2$",
-                    "$2x^3 + 7x - x^2 - 4$"
-                ],
-                answer: "$2x^3 - x^2 + 7x - 4$",
-                rationale: "降べきの順とは、着目した文字の次数が高い順に並べることです。$x$ の次数が 3, 2, 1, 0(定数項) の順に並べます。"
-            },
-            {
-                question: "単項式 $8x$ の「$x$」の指数はいくつですか？",
-                options: [
-                    "0",
-                    "1",
-                    "8",
-                    "省略されている"
-                ],
-                answer: "1",
-                rationale: "文字の右上に小さい数字（指数）がない場合、その文字は1個だけ掛けられていることを意味し、指数は「1」となります。$x = x^1$ です。"
-            },
-            {
-                question: "次のうち、多項式であるが単項式ではないものはどれですか？",
-                options: [
-                    "$100$",
-                    "$5a^3bc$",
-                    "$3x + 2y$",
-                    "$a/b$"
-                ],
-                answer: "$3x + 2y$",
-                rationale: "「$3x + 2y$」は $3x$ と $2y$ という二つの単項式の和で表されており、項が複数あるため多項式です。「$5a^3bc$」と「$100$」は単項式です（単項式も多項式の一種と考えることがあります）。"
-            },
-            {
-                question: "計算しなさい: $5a - 3b - 2a + 7b$",
-                options: [
-                    "$3a + 4b$",
-                    "$3a - 4b$",
-                    "$7a + 10b$",
-                    "$7a - 10b$"
-                ],
-                answer: "$3a + 4b$",
-                rationale: "$a$ の同類項 ($5a$ と $-2a$) をまとめて $3a$。$b$ の同類項 ($-3b$ と $+7b$) をまとめて $+4b$。よって $3a + 4b$ となります。"
-            },
-            {
-                question: "多項式 $3x^2y - 2xy + 5y - 9$ において、$y$ に着目したときの次数はいくつですか？",
-                options: [
-                    "3",
-                    "2",
-                    "1",
-                    "0"
-                ],
-                answer: "1",
-                rationale: "$y$ に着目した場合、各項の $y$ の次数は「$3x^2y$ (1次)」「$-2xy$ (1次)」「$5y$ (1次)」「$-9$ (0次)」です。この中で最も大きい次数は「1」です。"
-            },
-            {
-                question: "多項式 $3x^2y - 2xy + 5y - 9$ において、$y$ に着目したときの定数項はどれですか？",
-                options: [
-                    "$-9$",
-                    "$5y - 9$",
-                    "0",
-                    "$y$ を含まない項はない"
-                ],
-                answer: "$-9$",
-                rationale: "$y$ に着目した場合、「$y$ を含まない項」が定数項です。この式で $y$ を含まないのは「$-9$」だけです。"
-            },
-            {
-                question: "単項式 $-x^2y$ の係数は何ですか？",
-                options: [
-                    "0",
-                    "1",
-                    "-1",
-                    "2"
-                ],
-                answer: "-1",
-                rationale: "係数は数の部分です。$-x^2y$ は $-1 \\times x^2y$ と同じ意味なので、係数は「$-1$」です。"
-            },
-            {
-                question: "多項式 $A = 2x - 3y$, $B = -x + 5y$ のとき、 $A + B$ を計算しなさい。",
-                options: [
-                    "$x + 2y$",
-                    "$x - 2y$",
-                    "$3x + 8y$",
-                    "$x + 8y$"
-                ],
-                answer: "$x + 2y$",
-                rationale: "$(2x - 3y) + (-x + 5y) = (2x - x) + (-3y + 5y) = x + 2y$ となります。"
-            },
-            {
-                question: "多項式 $A = 3x^2 - x + 5$, $B = x^2 + 4x - 1$ のとき、 $A - B$ を計算しなさい。",
-                options: [
-                    "$2x^2 + 3x + 4$",
-                    "$2x^2 - 5x + 6$",
-                    "$4x^2 + 3x + 4$",
-                    "$2x^2 - 5x + 4$"
-                ],
-                answer: "$2x^2 - 5x + 6$",
-                rationale: "$A - B = (3x^2 - x + 5) - (x^2 + 4x - 1) = 3x^2 - x + 5 - x^2 - 4x + 1$。同類項をまとめると $(3x^2 - x^2) + (-x - 4x) + (5 + 1) = 2x^2 - 5x + 6$ となります。"
-            },
-            {
-                question: "「数や文字の積だけで表される式」のことを何といいますか？",
-                options: [
-                    "多項式",
-                    "整式",
-                    "単項式",
-                    "定数項"
-                ],
-                answer: "単項式",
-                rationale: "これは単項式の定義です。例: $5x$, $-3a^2$, $10$。なお、単項式と多項式をあわせて「整式」といいます。"
-            },
-            {
-                question: "単項式 $7$ の次数はいくつですか？",
-                options: [
-                    "1",
-                    "7",
-                    "0",
-                    "定義されない"
-                ],
-                answer: "0",
-                rationale: "数だけの項（定数項）は、文字を0個含んでいる（例: $7 = 7x^0$）と考えるため、次数は0です。"
-            }
-        ];
-        // --- 問題データの終わり ---
+            color: #155724;
 
-            
-            // --- ここから下はクイズの仕組みです ---
-            const quizContainer = document.getElementById('quiz-container');
-            const resultsContainer = document.getElementById('results-container');
-            const questionNumberEl = document.getElementById('question-number');
-            const questionTextEl = document.getElementById('question-text');
-            const optionsContainer = document.getElementById('options-container');
-            const feedbackEl = document.getElementById('feedback');
-            const nextBtn = document.getElementById('next-btn');
-            const resultsBtn = document.getElementById('results-btn');
-            const scoreTextEl = document.getElementById('score-text');
-            const finalMessageEl = document.getElementById('final-message');
+            font-weight: bold;
 
-            let currentQuestionIndex = 0;
-            let score = 0;
-            
-            // (関数定義を先に)
-            function loadQuestion() {
-                // QDが空またはインデックス範囲外ならエラー処理
-                if (!quizData || currentQuestionIndex >= quizData.length) {
-                    console.error("Invalid question index or quizData is empty.");
-                    questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。";
-                    questionNumberEl.textContent = "エラー";
-                    optionsContainer.innerHTML = '';
-                    return;
-                }
+        }
 
-                feedbackEl.style.display = 'none';
-                nextBtn.style.display = 'none';
-                optionsContainer.innerHTML = ''; // コンテナをクリア
-                const currentQuestion = quizData[currentQuestionIndex];
-                
-                // 問題番号と問題文を設定
-                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
-                questionTextEl.innerHTML = currentQuestion.question || "(問題文がありません)"; 
+        
 
-                // 選択肢ボックスを作成
-                if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
-                    currentQuestion.options.forEach(optionText => {
-                        // クリック可能なdiv要素を作成
-                        const optionBox = document.createElement('div');
-                        optionBox.innerHTML = optionText || "(選択肢テキストなし)";
-                        optionBox.classList.add('option-box');
-                        optionBox.dataset.optionValue = optionText; // 答え合わせ用
+        .option-btn.incorrect {
 
-                        // ボックスクリックで答え合わせを実行
-                        optionBox.addEventListener('click', () => {
-                                // すでに答えが表示されていたら何もしない
-                                if (feedbackEl.style.display === 'block') {
-                                    return;
-                                }
-                                selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale);
-                            });
-                        
-                        // コンテナに追加
-                        optionsContainer.appendChild(optionBox);
-                    });
-                } else {
-                    optionsContainer.innerHTML = '<p>(選択肢データがありません)</p>';
-                }
+            background-color: #f8d7da; /* 赤 */
 
-                // 新しく読み込んだ問題文と選択肢にKaTeXを適用する
-                try {
-                    renderMathInElement(questionTextEl, { delimiters: katexDelimiters });
-                    renderMathInElement(optionsContainer, { delimiters: katexDelimiters });
-                } catch (e) {
-                    console.error("Error rendering KaTeX for question/options:", e);
-                }
-            }
+            border-color: #f5c6cb;
 
-            // selectAnswer 関数は引数の意味合いが変わる (label -> box)
-            function selectAnswer(selectedBox, selectedOption, correctAnswer, rationale) {
-                // すべてのボックスを操作不可に & 正解/不正解表示
-                Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => {
-                    box.classList.add('disabled'); // 無効化スタイル適用
+            color: #721c24;
 
-                    // data属性で正解を比較
-                    if (box.dataset.optionValue === correctAnswer) { 
-                        box.classList.add('correct'); // 正解ボックスにスタイル適用
-                    } else {
-                        box.classList.add('incorrect'); // 不正解ボックスにスタイル適用（選択されてなくても）
-                    }
-                });
+            opacity: 0.7;
 
-                // フィードバックを表示
-                feedbackEl.style.display = 'block';
-                const feedbackRationale = rationale || "(解説がありません)"; 
-                
-                if (selectedOption === correctAnswer) {
-                    // selectedBox.classList.add('correct'); // 正解はすでに上で適用済み
-                    feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`; 
-                    feedbackEl.className = 'correct'; // 背景色用のクラス
-                    score++;
-                } else {
-                    selectedBox.classList.add('selected'); // 選択した不正解ボックスに印をつける (CSSでスタイル定義: .incorrect.selected)
-                    feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; 
-                    feedbackEl.className = 'incorrect'; // 背景色用のクラス
-                }
-                
-                // 解説にKaTeXを適用
-                try {
-                    renderMathInElement(feedbackEl, { delimiters: katexDelimiters });
-                } catch (e) {
-                    console.error("Error rendering KaTeX for feedback:", e);
-                }
-                
-                // 次へ/結果ボタンを表示
-                if (currentQuestionIndex < quizData.length - 1) {
-                    nextBtn.style.display = 'block';
-                } else {
-                    resultsBtn.style.display = 'block';
-                }
-            }
-            
-            // (イベントリスナーをセット)
-            nextBtn.addEventListener('click', () => {
-                if (currentQuestionIndex < quizData.length - 1) { // 範囲チェック
-                    currentQuestionIndex++;
-                    loadQuestion();
-                }
-            });
+        }
 
-            resultsBtn.addEventListener('click', () => {
-                quizContainer.style.display = 'none';
-                resultsContainer.style.display = 'block';
-                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
-                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`;
-                let message = "";
-                if (quizData.length === 0) {
-                    message = "問題データが読み込まれていません。";
-                } else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
-                else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
-                else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
-                else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
-                finalMessageEl.textContent = message;
-            });
 
-            // (QDが空でないか確認してからクイズを開始)
-            if (quizData && quizData.length > 0) {
-                loadQuestion();
-            } else {
-                questionTextEl.innerHTML = "問題データ (quizData) が見つからないか空です。<br>HTMLファイルを確認してください。";
-                questionNumberEl.textContent = "エラー";
-                // エラー時には結果表示エリアなどを非表示に保つ
-                quizContainer.style.display = 'block'; // エラーメッセージを表示
-                resultsContainer.style.display = 'none';
-            }
 
-        });
-    </script>
+        /* 解説（フィードバック） */
+
+        #feedback {
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 5px;
+
+            display: none; /* 初期状態では非表示 */
+
+        }
+
+        
+
+        #feedback.correct {
+
+            background-color: #e6f7ff;
+
+            border: 1px solid #b3e0ff;
+
+        }
+
+
+
+        #feedback.incorrect {
+
+            background-color: #fff0f1;
+
+            border: 1px solid #ffccd0;
+
+        }
+
+
+
+        /* 次へ/結果ボタン */
+
+        #next-btn, #results-btn {
+
+            display: none; /* 初期状態では非表示 */
+
+            padding: 12px 25px;
+
+            font-size: 1.1em;
+
+            font-weight: bold;
+
+            color: #fff;
+
+            background-color: #007bff;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            float: right;
+
+            margin-top: 20px;
+
+            transition: background-color 0.3s;
+
+        }
+
+        
+
+        #next-btn:hover, #results-btn:hover {
+
+            background-color: #0056b3;
+
+        }
+
+
+
+        /* 結果表示 */
+
+        #results-container {
+
+            text-align: center;
+
+            font-size: 1.4em;
+
+        }
+
+        
+
+        #results-container h2 {
+
+            color: #007bff;
+
+        }
+
+
+
+        #homepage-link {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 12px 20px;
+
+            background-color: #6c757d;
+
+            color: #fff;
+
+            text-decoration: none;
+
+            border-radius: 5px;
+
+            font-size: 1.1em;
+
+        }
+
+        
+
+        #homepage-link:hover {
+
+            background-color: #5a6268;
+
+        }
+
+
+
+    </style>
+
+<link rel="stylesheet" href="katex/katex.min.css">
+
+
+
+    <script defer src="katex/katex.min.js"></script>
+
+
+
+    <script defer src="katex/contrib/auto-render.min.js"></script>
+
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            renderMathInElement(document.body, {
+
+                // KaTeXが認識する区切り文字の設定
+
+                delimiters: [
+
+                    {left: '$$', right: '$$', display: true},
+
+                    {left: '$', right: '$', display: false},
+
+                    {left: '\\(', right: '\\)', display: false},
+
+                    {left: '\\[', right: '\\]', display: true}
+
+                ]
+
+            });
+
+        });
+
+    </script>
+
 </head>
+
 <body>
 
-    <div class="container">
-        <header>
-            <h1>数学Ⅰ: 式と用語の基本テスト</h1>
-        </header>
 
-        <main>
-            <div id="quiz-container">
-                <div id="question-header">
-                    <span id="question-number"></span>
-                </div>
-                <h2 id="question-text"></h2>
-                <div id="options-container">
-                                    </div>
-                <div id="feedback">
-                                    </div>
-                <button id="next-btn">次の問題へ</button>
-                <button id="results-btn">結果を見る</button>
-            </div>
-            
-            <div id="results-container" style="display: none;">
-                <h2>テスト終了！</h2>
-                <p id="score-text"></p>
-                <p id="final-message"></p>
-                <a href="index.html" id="homepage-link">トップページに戻る</a>
-            </div>
-        </main>
 
-        <footer>
-            <p>&copy; 2025 [香川亮]</p>
-        </footer>
-    </div>
+    <div class="container">
 
-        <script>
-        // すべてのロジックは <head> の DOMContentLoaded に移動しました。
-    </script>
+        <header>
+
+            <h1>数学Ⅰ: 式と用語の基本テスト</h1>
+
+        </header>
+
+
+
+        <main>
+
+            <div id="quiz-container">
+
+                <div id="question-header">
+
+                    <span id="question-number"></span>
+
+                </div>
+
+                <h2 id="question-text"></h2>
+
+                <div id="options-container">
+
+                    </div>
+
+                <div id="feedback">
+
+                    </div>
+
+                <button id="next-btn">次の問題へ</button>
+
+                <button id="results-btn">結果を見る</button>
+
+            </div>
+
+            
+
+            <div id="results-container" style="display: none;">
+
+                <h2>テスト終了！</h2>
+
+                <p id="score-text"></p>
+
+                <p id="final-message"></p>
+
+                <a href="index.html" id="homepage-link">トップページに戻る</a>
+
+            </div>
+
+        </main>
+
+
+
+        <footer>
+
+            <p>&copy; 2025 [著者名 または サイト名]</p>
+
+        </footer>
+
+    </div>
+
+
+
+    <script>
+
+        // --- ここに問題データを追加・編集してください ---
+
+        const quizData = [
+
+            {
+
+                question: "次のうち、単項式であるものはどれですか？",
+
+                options: [
+
+                    "5x + 1",
+
+                    "-7a²b",
+
+                    "x/y",
+
+                    "4x - 2y²"
+
+                ],
+
+                answer: "-7a²b",
+
+                rationale: "単項式は、数や文字の積だけで表される式です。「-7a²b」は-7とaとaとbの積です。「5x + 1」や「4x - 2y²」は複数の項の和（多項式）、「x/y」は分母に文字があるため整式ではありません。"
+
+            },
+
+            {
+
+                question: "単項式 3x⁴y の係数は何ですか？",
+
+                options: [
+
+                    "4",
+
+                    "3",
+
+                    "1",
+
+                    "y"
+
+                ],
+
+                answer: "3",
+
+                rationale: "係数は、単項式の「数の部分」を指します。この式では「3」が係数です。"
+
+            },
+
+            {
+
+                question: "単項式 -ab²c³ の次数はいくつですか？",
+
+                options: [
+
+                    "3",
+
+                    "5",
+
+                    "6",
+
+                    "-1"
+
+                ],
+
+                answer: "6",
+
+                rationale: "次数は、掛け合わされている文字の個数の合計です。aが1個、bが2個、cが3個なので、合計 1 + 2 + 3 = 6 となります。"
+
+            },
+
+            {
+
+                question: "多項式 2x³ - 5xy + 7 の項をすべて挙げたものはどれですか？",
+
+                options: [
+
+                    "2x³, 5xy, 7",
+
+                    "2, -5, 7",
+
+                    "2x³, -5xy, 7",
+
+                    "x³, xy"
+
+                ],
+
+                answer: "2x³, -5xy, 7",
+
+                rationale: "項は、多項式を「+」で結んだときの各部分です。 2x³ + (-5xy) + 7 と考え、項は「2x³」「-5xy」「7」となります。"
+
+            },
+
+            {
+
+                question: "多項式 4a²b - 3ab² + a²b + 5ab² の同類項をまとめたものはどれですか？",
+
+                options: [
+
+                    "5a²b + 2ab²",
+
+                    "a²b + 8ab²",
+
+                    "7a²b",
+
+                    "5a²b - 2ab²"
+
+                ],
+
+                answer: "5a²b + 2ab²",
+
+                rationale: "「a²b」の項 (4a²b と +a²b) をまとめて 5a²b。「ab²」の項 (-3ab² と +5ab²) をまとめて +2ab² となります。"
+
+            },
+
+            {
+
+                question: "多項式 x³ - 6x²y + 9xy² - 10 の定数項はどれですか？",
+
+                options: [
+
+                    "10",
+
+                    "1",
+
+                    "-6",
+
+                    "-10"
+
+                ],
+
+                answer: "-10",
+
+                rationale: "定数項は、文字を一切含まない項のことです。この式では「-10」が該当します。"
+
+            },
+
+            {
+
+                question: "多項式 5x⁴ - 2x²y³ + 8y³ の次数はいくつですか？",
+
+                options: [
+
+                    "3",
+
+                    "4",
+
+                    "5",
+
+                    "7"
+
+                ],
+
+                answer: "5",
+
+                rationale: "各項の次数は「5x⁴ (4次)」「-2x²y³ (2+3=5次)」「8y³ (3次)」です。多項式の次数は、この中で最も大きいものを選ぶため「5」となります。"
+
+            },
+
+            {
+
+                question: "「文字の部分がまったく同じ項」のことを何といいますか？",
+
+                options: [
+
+                    "定数項",
+
+                    "同類項",
+
+                    "係数",
+
+                    "単項式"
+
+                ],
+
+                answer: "同類項",
+
+                rationale: "例えば、3a²b と -5a²b は、文字の部分が「a²b」で同じなので同類項です。同類項は、係数を計算してまとめることができます。"
+
+            },
+
+            {
+
+                question: "3x²y と同類項であるものはどれですか？",
+
+                options: [
+
+                    "3xy²",
+
+                    "-5x²y",
+
+                    "3x²",
+
+                    "3y²x"
+
+                ],
+
+                answer: "-5x²y",
+
+                rationale: "同類項は「文字の部分」が完全に一致する項です。「3x²y」の文字の部分は「x²y」です。「-5x²y」も文字の部分が「x²y」なので同類項です。「3xy²」はxとyの指数が違うため、同類項ではありません。"
+
+            },
+
+            {
+
+                question: "多項式 7x + 2x³ - 4 - x² を $x$ について降べきの順に整理したものはどれですか？",
+
+                options: [
+
+                    "2x³ - x² + 7x - 4",
+
+                    "-4 + 7x - x² + 2x³",
+
+                    "7x - 4 + 2x³ - x²",
+
+                    "2x³ + 7x - x² - 4"
+
+                ],
+
+                answer: "2x³ - x² + 7x - 4",
+
+                rationale: "降べきの順とは、着目した文字の次数が高い順に並べることです。$x$ の次数が 3, 2, 1, 0(定数項) の順に並べます。"
+
+            },
+
+            {
+
+                question: "単項式 8x の「x」の指数はいくつですか？",
+
+                options: [
+
+                    "0",
+
+                    "1",
+
+                    "8",
+
+                    "省略されている"
+
+                ],
+
+                answer: "1",
+
+                rationale: "文字の右上に小さい数字（指数）がない場合、その文字は1個だけ掛けられていることを意味し、指数は「1」となります。x = x¹ です。"
+
+            },
+
+            {
+
+                question: "次のうち、多項式であるが単項式ではないものはどれですか？",
+
+                options: [
+
+                    "100",
+
+                    "5a³bc",
+
+                    "3x + 2y",
+
+                    "a/b"
+
+                ],
+
+                answer: "3x + 2y",
+
+                rationale: "「3x + 2y」は 3x と 2y という二つの単項式の和で表されており、項が複数あるため多項式です。「5a³bc」と「100」は単項式です（単項式も多項式の一種と考えることがあります）。"
+
+            },
+
+            {
+
+                question: "計算しなさい: 5a - 3b - 2a + 7b",
+
+                options: [
+
+                    "3a + 4b",
+
+                    "3a - 4b",
+
+                    "7a + 10b",
+
+                    "7a - 10b"
+
+                ],
+
+                answer: "3a + 4b",
+
+                rationale: "a の同類項 (5a と -2a) をまとめて 3a。b の同類項 (-3b と +7b) をまとめて +4b。よって 3a + 4b となります。"
+
+            },
+
+            {
+
+                question: "多項式 3x²y - 2xy + 5y - 9 において、$y$ に着目したときの次数はいくつですか？",
+
+                options: [
+
+                    "3",
+
+                    "2",
+
+                    "1",
+
+                    "0"
+
+                ],
+
+                answer: "1",
+
+                rationale: "$y$ に着目した場合、各項の $y$ の次数は「3x²y (1次)」「-2xy (1次)」「5y (1次)」「-9 (0次)」です。この中で最も大きい次数は「1」です。"
+
+            },
+
+            {
+
+                question: "多項式 3x²y - 2xy + 5y - 9 において、$y$ に着目したときの定数項はどれですか？",
+
+                options: [
+
+                    "-9",
+
+                    "5y - 9",
+
+                    "0",
+
+                    "y を含まない項はない"
+
+                ],
+
+                answer: "-9",
+
+                rationale: "$y$ に着目した場合、「$y$ を含まない項」が定数項です。この式で $y$ を含まないのは「-9」だけです。 (※もし $x, y$ 両方に着目した場合は-9ですが、$y$ だけに着目した場合、3x²y, -2xy, 5yも $y$ を含むため、-9が定数項です)"
+
+            },
+
+            {
+
+                question: "単項式 -x²y の係数は何ですか？",
+
+                options: [
+
+                    "0",
+
+                    "1",
+
+                    "-1",
+
+                    "2"
+
+                ],
+
+                answer: "-1",
+
+                rationale: "係数は数の部分です。-x²y は -1 × x²y と同じ意味なので、係数は「-1」です。"
+
+            },
+
+            {
+
+                question: "多項式 A = 2x - 3y, B = -x + 5y のとき、 A + B を計算しなさい。",
+
+                options: [
+
+                    "x + 2y",
+
+                    "x - 2y",
+
+                    "3x + 8y",
+
+                    "x + 8y"
+
+                ],
+
+                answer: "x + 2y",
+
+                rationale: "(2x - 3y) + (-x + 5y) = (2x - x) + (-3y + 5y) = x + 2y となります。"
+
+            },
+
+            {
+
+                question: "多項式 A = 3x² - x + 5, B = x² + 4x - 1 のとき、 A - B を計算しなさい。",
+
+                options: [
+
+                    "2x² + 3x + 4",
+
+                    "2x² - 5x + 6",
+
+                    "4x² + 3x + 4",
+
+                    "2x² - 5x + 4"
+
+                ],
+
+                answer: "2x² - 5x + 6",
+
+                rationale: "A - B = (3x² - x + 5) - (x² + 4x - 1) = 3x² - x + 5 - x² - 4x + 1。同類項をまとめると (3x² - x²) + (-x - 4x) + (5 + 1) = 2x² - 5x + 6 となります。"
+
+            },
+
+            {
+
+                question: "「数や文字の積だけで表される式」のことを何といいますか？",
+
+                options: [
+
+                    "多項式",
+
+                    "整式",
+
+                    "単項式",
+
+                    "定数項"
+
+                ],
+
+                answer: "単項式",
+
+                rationale: "これは単項式の定義です。例: 5x, -3a², 10。なお、単項式と多項式をあわせて「整式」といいます。"
+
+            },
+
+            {
+
+                question: "単項式 7 の次数はいくつですか？",
+
+                options: [
+
+                    "1",
+
+                    "7",
+
+                    "0",
+
+                    "定義されない"
+
+                ],
+
+                answer: "0",
+
+                rationale: "数だけの項（定数項）は、文字を0個含んでいる（例: $7 = 7x⁰$）と考えるため、次数は0です。"
+
+            }
+
+        ];
+
+        // --- 問題データの終わり ---
+
+
+
+        
+
+        // --- ここから下はクイズの仕組みです（変更不要） ---
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        const resultsContainer = document.getElementById('results-container');
+
+        
+
+        const questionNumberEl = document.getElementById('question-number');
+
+        const questionTextEl = document.getElementById('question-text');
+
+        const optionsContainer = document.getElementById('options-container');
+
+        const feedbackEl = document.getElementById('feedback');
+
+        const nextBtn = document.getElementById('next-btn');
+
+        const resultsBtn = document.getElementById('results-btn');
+
+        
+
+        const scoreTextEl = document.getElementById('score-text');
+
+        const finalMessageEl = document.getElementById('final-message');
+
+
+
+        let currentQuestionIndex = 0;
+
+        let score = 0;
+
+        
+
+        // クイズを開始
+
+        loadQuestion();
+
+
+
+        function loadQuestion() {
+
+            // 前回のフィードバックをリセット
+
+            feedbackEl.style.display = 'none';
+
+            nextBtn.style.display = 'none';
+
+            optionsContainer.innerHTML = '';
+
+            
+
+            const currentQuestion = quizData[currentQuestionIndex];
+
+            
+
+            questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
+
+            questionTextEl.textContent = currentQuestion.question;
+
+            
+
+            // 選択肢を作成
+
+            currentQuestion.options.forEach(optionText => {
+
+                const button = document.createElement('button');
+
+                button.textContent = optionText;
+
+                button.classList.add('option-btn');
+
+                button.addEventListener('click', () => selectAnswer(button, optionText, currentQuestion.answer, currentQuestion.rationale));
+
+                optionsContainer.appendChild(button);
+
+            });
+
+        }
+
+
+
+        function selectAnswer(selectedButton, selectedOption, correctAnswer, rationale) {
+
+            // すべてのボタンを無効化
+
+            Array.from(optionsContainer.children).forEach(btn => {
+
+                btn.disabled = true;
+
+                // 正解のボタンをハイライト
+
+                if (btn.textContent === correctAnswer) {
+
+                    btn.classList.add('correct');
+
+                }
+
+            });
+
+
+
+            // フィードバックを表示
+
+            feedbackEl.style.display = 'block';
+
+            if (selectedOption === correctAnswer) {
+
+                selectedButton.classList.add('correct');
+
+                feedbackEl.textContent = `正解！ ${rationale}`;
+
+                feedbackEl.className = 'correct';
+
+                score++;
+
+            } else {
+
+                selectedButton.classList.add('incorrect');
+
+                feedbackEl.textContent = `不正解。 ${rationale}`;
+
+                feedbackEl.className = 'incorrect';
+
+            }
+
+            
+
+            // 次へ/結果ボタンを表示
+
+            if (currentQuestionIndex < quizData.length - 1) {
+
+                nextBtn.style.display = 'block';
+
+            } else {
+
+                resultsBtn.style.display = 'block';
+
+            }
+
+        }
+
+        
+
+        // 次の問題へ
+
+        nextBtn.addEventListener('click', () => {
+
+            currentQuestionIndex++;
+
+            loadQuestion();
+
+        });
+
+
+
+        // 結果を表示
+
+        resultsBtn.addEventListener('click', () => {
+
+            quizContainer.style.display = 'none';
+
+            resultsContainer.style.display = 'block';
+
+            
+
+            const percentage = Math.round((score / quizData.length) * 100);
+
+            scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`;
+
+            
+
+            let message = "";
+
+            if (percentage === 100) {
+
+                message = "全問正解です！素晴らしい！完璧です。";
+
+            } else if (percentage >= 80) {
+
+                message = "素晴らしい成績です。この調子で頑張りましょう！";
+
+            } else if (percentage >= 60) {
+
+                message = "よくできました。間違えたところを書籍で復習しましょう。";
+
+            } else {
+
+                message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。";
+
+            }
+
+            finalMessageEl.textContent = message;
+
+        });
+
+
+
+    </script>
+
 </body>
+
 </html>
