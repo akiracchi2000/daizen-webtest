@@ -411,38 +411,54 @@
             
             // (関数定義を先に)
             function loadQuestion() {
-                // QDが空またはインデックス範囲外ならエラー処理
-                if (!quizData || currentQuestionIndex >= quizData.length) {
-                    console.error("Invalid question index or quizData is empty.");
-                    questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。";
-                    questionNumberEl.textContent = "エラー";
-                    optionsContainer.innerHTML = '';
-                    return;
-                }
+                // (エラーチェックは省略...)
+                if (!quizData || currentQuestionIndex >= quizData.length) { /* ... */ return; }
 
                 feedbackEl.style.display = 'none';
                 nextBtn.style.display = 'none';
                 optionsContainer.innerHTML = ''; // コンテナをクリア
                 const currentQuestion = quizData[currentQuestionIndex];
-                
-                // 問題番号と問題文を設定
                 questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
-                questionTextEl.innerHTML = currentQuestion.question || "(問題文がありません)"; // 問題文がない場合のフォールバック
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文がありません)"; 
 
-                // 選択肢を作成 (存在する場合のみ)
+                // ★★★ ここから変更 ★★★
+                // 選択肢を作成 (ラジオボタン + ラベル)
                 if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
-                    currentQuestion.options.forEach(optionText => {
-                        const button = document.createElement('button');
-                        button.innerHTML = optionText || "(選択肢テキストなし)"; // テキストがない場合のフォールバック
-                        button.dataset.optionValue = optionText; // 元のテキストを保存
-                        button.classList.add('option-btn');
-                        button.addEventListener('click', () => selectAnswer(button, optionText, currentQuestion.answer, currentQuestion.rationale));
-                        optionsContainer.appendChild(button);
+                    currentQuestion.options.forEach((optionText, index) => {
+                        // 各選択肢を囲むdiv要素
+                        const optionDiv = document.createElement('div');
+                        
+                        // ラジオボタン要素
+                        const radioInput = document.createElement('input');
+                        radioInput.type = 'radio';
+                        radioInput.name = 'quizOption'; // 同じnameでグループ化
+                        radioInput.id = `option${index}`; // labelと紐付けるためのID
+                        radioInput.value = optionText; // 送信時の値（今回は使わないが念のため）
+                        
+                        // ラベル要素
+                        const label = document.createElement('label');
+                        label.htmlFor = `option${index}`; // radioInputと紐付け
+                        label.innerHTML = optionText || "(選択肢テキストなし)";
+                        label.classList.add('option-label');
+                        label.dataset.optionValue = optionText; // 答え合わせ用
+
+                        // ラベルクリックで答え合わせを実行
+                        label.addEventListener('click', (event) => {
+                                // デフォルトのラジオボタン選択動作は維持
+                                // すぐに答え合わせを実行
+                                selectAnswer(label, optionText, currentQuestion.answer, currentQuestion.rationale);
+                            });
+
+                        // divにラジオボタンとラベルを追加
+                        optionDiv.appendChild(radioInput);
+                        optionDiv.appendChild(label);
+                        
+                        // コンテナにdivを追加
+                        optionsContainer.appendChild(optionDiv);
                     });
                 } else {
                     optionsContainer.innerHTML = '<p>(選択肢データがありません)</p>';
                 }
-
                 // ★ 新しく読み込んだ問題文と選択肢にKaTeXを適用する
                 try {
                     renderMathInElement(questionTextEl, { delimiters: katexDelimiters });
