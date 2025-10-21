@@ -5,104 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>数学Ⅰ: 式と用語の基本テスト</title>
     <style>
-        /* index.htmlと共通のスタイル */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-            line-height: 1.7;
-            background-color: #f8f9fa;
-            color: #212529;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 90%;
-            margin: 20px auto;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        header {
-            border-bottom: 2px solid #dee2e6;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
-        header h1 {
-            margin: 0;
-            color: #343a40;
-            font-size: 1.8em;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #6c757d;
-        }
+        /* index.htmlと共通のスタイル (省略...) */
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; line-height: 1.7; background-color: #f8f9fa; color: #212529; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { max-width: 800px; width: 90%; margin: 20px auto; padding: 30px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+        header { border-bottom: 2px solid #dee2e6; padding-bottom: 15px; margin-bottom: 25px; }
+        header h1 { margin: 0; color: #343a40; font-size: 1.8em; }
+        footer { text-align: center; margin-top: 40px; font-size: 0.9em; color: #6c757d; }
 
         /* --- クイズ用のスタイル --- */
-        #quiz-container {
-            min-height: 300px;
-        }
+        #quiz-container { min-height: 300px; }
+        #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
+        #question-text { font-size: 1.3em; margin: 15px 0; }
 
-        #question-number {
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #007bff;
-        }
-        
-        #question-text {
-            font-size: 1.3em;
-            margin: 15px 0;
-        }
+        /* ★★★ ここから変更 ★★★ */
+        /* 選択肢コンテナ */
+        #options-container div { /* 各選択肢を囲むdiv */
+            margin: 10px 0;
+        }
 
-        /* 選択肢ボタン */
-        .option-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
+        /* ラジオボタンのラベル */
+        .option-label {
+            display: inline-block; /* ラジオボタンの隣に表示 */
+            padding: 12px 15px;
+            margin-left: 8px; /* ラジオボタンとの間隔 */
             font-size: 1.1em;
-            text-align: left;
             background-color: #f1f3f5;
-            border: 2px solid #dee2e6;
+            border: 1px solid #dee2e6;
             border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: background-color 0.3s;
         }
 
-        .option-btn:hover:not(:disabled) {
+        .option-label:hover {
             background-color: #e9ecef;
-            border-color: #ced4da;
-        }
-        
-        .option-btn:disabled {
-            cursor: not-allowed;
-            opacity: 0.8;
         }
 
-        /* 選択後のスタイル */
-        .option-btn.correct {
-            background-color: #d4edda; /* 緑 */
+        /* ラジオボタン本体は隠す (ラベルをクリック可能にするため) */
+        input[type="radio"] {
+            display: none; 
+        }
+
+        /* 選択後のスタイル（ラベルに適用） */
+        .option-label.selected { /* ユーザーが選択したラベル */
+          /* 必要であれば選択中のスタイルを追加 */
+        }
+
+        .option-label.correct { /* 正解の選択肢 */
+            background-color: #d4edda;
             border-color: #c3e6cb;
             color: #155724;
             font-weight: bold;
         }
         
-        .option-btn.incorrect {
-            background-color: #f8d7da; /* 赤 */
+        .option-label.incorrect { /* 不正解の選択肢 */
+            background-color: #f8d7da;
             border-color: #f5c6cb;
             color: #721c24;
-            opacity: 0.7;
+            opacity: 0.7; /* 少し薄くする */
         }
+
+        /* 無効化時のスタイル（ラベルに適用） */
+        .option-label.disabled {
+             cursor: not-allowed;
+             opacity: 0.8;
+        }
+        /* ★★★ ここまで変更 ★★★ */
 
         /* 解説（フィードバック） */
         #feedback {
