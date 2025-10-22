@@ -157,414 +157,355 @@
 
             // --- ★ 元の50題のクイズデータを allQuizData とする ★ ---
             const allQuizData = [
-                // 問題 1 (例題類似)
+                // 問題 1
                 {
                     question: "次の計算をせよ。<br>$$2x^2y \\times (-5xy^3)$$",
                     options: [ "$-10x^3y^4$", "$-3x^3y^4$", "$-10x^2y^3$", "$10x^3y^4$" ],
                     answer: "$-10x^3y^4$",
-                    rationale: "係数は $2 \\times (-5) = -10$。<br>$x$ の指数は $2+1=3$。<br>$y$ の指数は $1+3=4$。<br>よって、$-10x^3y^4$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "係数は $2 \\times (-5) = -10$。<br>$x$ の指数は $2+1=3$。<br>$y$ の指数は $1+3=4$。<br>よって、$-10x^3y^4$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 2 (例題類似)
+                // 問題 2
                 {
                     question: "次の計算をせよ。<br>$$(-2x^2y^2)^3 \\times (-2x^3y)$$",
                     options: [ "$16x^9y^7$", "$-8x^8y^7$", "$-16x^9y^7$", "$8x^9y^7$" ],
                     answer: "$16x^9y^7$",
-                    rationale: "$(-2x^2y^2)^3 = (-2)^3 (x^2)^3 (y^2)^3 = -8x^6y^6$。<br>よって、$(-8x^6y^6) \\times (-2x^3y) = (-8) \\times (-2) \\times x^{6+3} \\times y^{6+1} = 16x^9y^7$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-2x^2y^2)^3 = -8x^6y^6$。<br>よって、$(-8x^6y^6) \\times (-2x^3y) = 16x^9y^7$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 3 (例題類似)
+                // 問題 3
                 {
                     question: "次の計算をせよ。<br>$$36x^4y^3 \\div 9x^2y^2$$",
                     options: [ "$4x^2y$", "$4x^6y^5$", "$27x^2y$", "$4x^2y^5$" ],
                     answer: "$4x^2y$",
-                    rationale: "係数は $36 \\div 9 = 4$。<br>$x$ の指数は $4-2=2$。<br>$y$ の指数は $3-2=1$。<br>よって、$4x^2y$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "係数は $36 \\div 9 = 4$。<br>$x$ の指数は $4-2=2$。<br>$y$ の指数は $3-2=1$。<br>よって、$4x^2y$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 4
                 {
                     question: "次の計算をせよ。<br>$$(-3a^3b^2) \\times (4a^2b)$$",
                     options: [ "$-12a^5b^3$", "$12a^5b^3$", "$-12a^6b^2$", "$a^5b^3$" ],
                     answer: "$-12a^5b^3$",
-                    rationale: "係数は $(-3) \\times 4 = -12$。<br>$a$ の指数は $3+2=5$。<br>$b$ の指数は $2+1=3$。<br>よって、$-12a^5b^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "係数は $(-3) \\times 4 = -12$。<br>$a$ の指数は $3+2=5$。<br>$b$ の指数は $2+1=3$。<br>よって、$-12a^5b^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 5
                 {
                     question: "次の計算をせよ。<br>$$(5xy)^2$$",
                     options: [ "$25x^2y^2$", "$5x^2y^2$", "$10x^2y^2$", "$25xy^2$" ],
                     answer: "$25x^2y^2$",
-                    rationale: "$(5xy)^2 = 5^2 x^2 y^2 = 25x^2y^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(5xy)^2 = 5^2 x^2 y^2 = 25x^2y^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 6
                 {
                     question: "次の計算をせよ。<br>$$(-a^2b^3)^4$$",
                     options: [ "$a^8b^{12}$", "$-a^8b^{12}$", "$a^6b^7$", "$-4a^8b^{12}$" ],
                     answer: "$a^8b^{12}$",
-                    rationale: "$(-a^2b^3)^4 = (-1)^4 (a^2)^4 (b^3)^4 = 1 \\times a^{2 \\times 4} \\times b^{3 \\times 4} = a^8b^{12}$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-a^2b^3)^4 = (-1)^4 (a^2)^4 (b^3)^4 = 1 \\times a^{8} \\times b^{12} = a^8b^{12}$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 7
                 {
                     question: "次の計算をせよ。<br>$$18a^5b^4 \\div (-6a^2b)$$",
                     options: [ "$-3a^3b^3$", "$3a^3b^3$", "$-3a^7b^5$", "$-12a^3b^3$" ],
                     answer: "$-3a^3b^3$",
-                    rationale: "係数は $18 \\div (-6) = -3$。<br>$a$ の指数は $5-2=3$。<br>$b$ の指数は $4-1=3$。<br>よって、$-3a^3b^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "係数は $18 \\div (-6) = -3$。<br>$a$ の指数は $5-2=3$。<br>$b$ の指数は $4-1=3$。<br>よって、$-3a^3b^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 8
                 {
                     question: "次の計算をせよ。<br>$$x^3 \\times (-x)^2 \\times x$$",
                     options: [ "$x^6$", "$-x^6$", "$x^5$", "$-x^5$" ],
                     answer: "$x^6$",
-                    rationale: "$(-x)^2 = x^2$ なので、$x^3 \\times x^2 \\times x = x^{3+2+1} = x^6$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-x)^2 = x^2$ なので、$x^3 \\times x^2 \\times x = x^{3+2+1} = x^6$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 9
                 {
                     question: "次の計算をせよ。<br>$$(-2a^2b)^3 \\div (4ab^2)$$",
                     options: [ "$-2a^5b$", "$2a^5b$", "$-8a^5b$", "$-2a^4b$" ],
                     answer: "$-2a^5b$",
-                    rationale: "$(-2a^2b)^3 = (-2)^3(a^2)^3b^3 = -8a^6b^3$。<br>よって、$(-8a^6b^3) \\div (4ab^2) = (-8 \\div 4) \\times a^{6-1} \\times b^{3-2} = -2a^5b$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-2a^2b)^3 = -8a^6b^3$。<br>よって、$(-8a^6b^3) \\div (4ab^2) = -2a^{6-1}b^{3-2} = -2a^5b$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 10
                 {
                     question: "次の計算をせよ。<br>$$6x^2y \\times (-3xy^2) \\div (2x^2y^2)$$",
-                    options: [ "$-9x$", "$9x$", "$-9y$", "$-3xy$" ],
-                    answer: "$-9x$",
-                    rationale: "乗法を先に計算すると、$6x^2y \\times (-3xy^2) = -18x^3y^3$。<br>次に除法を行うと、$(-18x^3y^3) \\div (2x^2y^2) = (-18 \\div 2) \\times x^{3-2} \\times y^{3-2} = -9xy$。 計算ミス発見。$y^{3-2}=y^1=y$。よって $-9xy$。選択肢再考。分数で考えると $\\dfrac{6x^2y \\times (-3xy^2)}{2x^2y^2} = \\dfrac{-18x^3y^3}{2x^2y^2} = -9x^{3-2}y^{3-2} = -9xy$。やはり $-9xy$。選択肢に誤りがある可能性。 Let's re-calculate. $6 \times (-3) \div 2 = -18 \div 2 = -9$. $x^2 \times x \div x^2 = x^{2+1-2} = x^1 = x$. $y \times y^2 \div y^2 = y^{1+2-2} = y^1 = y$. The answer is indeed $-9xy$. I need to correct the options.",
                     options: [ "$-9xy$", "$9xy$", "$-9x$", "$-9y$" ],
                     answer: "$-9xy$",
-                    rationale: "$\\dfrac{6x^2y \\times (-3xy^2)}{2x^2y^2} = \\dfrac{-18x^3y^3}{2x^2y^2} = -9x^{3-2}y^{3-2} = -9xy$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$\\dfrac{6x^2y \\times (-3xy^2)}{2x^2y^2} = \\dfrac{-18x^3y^3}{2x^2y^2} = -9x^{3-2}y^{3-2} = -9xy$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // ... (問題 11 から 49 まで同様に生成) ...
-
                 // 問題 11
                 {
                     question: "次の計算をせよ。<br>$$(-x^4y^2z) \\times (3xyz^3)$$",
                     options: [ "$-3x^5y^3z^4$", "$3x^5y^3z^4$", "$-3x^4y^2z^3$", "$-3x^5y^2z^4$" ],
                     answer: "$-3x^5y^3z^4$",
-                    rationale: "係数は $(-1) \\times 3 = -3$。<br>$x$ の指数は $4+1=5$。<br>$y$ の指数は $2+1=3$。<br>$z$ の指数は $1+3=4$。<br>よって、$-3x^5y^3z^4$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "係数は $(-1) \\times 3 = -3$。<br>$x^{4+1}=x^5$。<br>$y^{2+1}=y^3$。<br>$z^{1+3}=z^4$。<br>よって、$-3x^5y^3z^4$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 12
                 {
                     question: "次の計算をせよ。<br>$$(2a^3b)^3$$",
                     options: [ "$8a^9b^3$", "$6a^9b^3$", "$8a^6b^3$", "$8a^9b$" ],
                     answer: "$8a^9b^3$",
-                    rationale: "$(2a^3b)^3 = 2^3 (a^3)^3 b^3 = 8 a^{3 \\times 3} b^3 = 8a^9b^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(2a^3b)^3 = 2^3 (a^3)^3 b^3 = 8 a^{9} b^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 13
                 {
                     question: "次の計算をせよ。<br>$$(-10x^6y^5) \\div (-2x^3y^2)$$",
                     options: [ "$5x^3y^3$", "$-5x^3y^3$", "$8x^3y^3$", "$5x^9y^7$" ],
                     answer: "$5x^3y^3$",
-                    rationale: "係数は $(-10) \\div (-2) = 5$。<br>$x$ の指数は $6-3=3$。<br>$y$ の指数は $5-2=3$。<br>よって、$5x^3y^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "係数は $(-10) \\div (-2) = 5$。<br>$x^{6-3}=x^3$。<br>$y^{5-2}=y^3$。<br>よって、$5x^3y^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 14
                 {
                     question: "次の計算をせよ。<br>$$(4a^2b^3)^2 \\times (-ab)$$",
                     options: [ "$-16a^5b^7$", "$16a^5b^7$", "$-16a^4b^6$", "$-8a^5b^7$" ],
                     answer: "$-16a^5b^7$",
-                    rationale: "$(4a^2b^3)^2 = 4^2(a^2)^2(b^3)^2 = 16a^4b^6$。<br>よって、$(16a^4b^6) \\times (-ab) = 16 \\times (-1) \\times a^{4+1} \\times b^{6+1} = -16a^5b^7$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(4a^2b^3)^2 = 16a^4b^6$。<br>よって、$(16a^4b^6) \\times (-ab) = -16a^{4+1}b^{6+1} = -16a^5b^7$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 15
                 {
                     question: "次の計算をせよ。<br>$$x^5 \\div x^2 \\times x^3$$",
                     options: [ "$x^6$", "$x^4$", "$x^{10}$", "$x^0=1$" ],
                     answer: "$x^6$",
-                    rationale: "左から順に計算します。$x^5 \\div x^2 = x^{5-2} = x^3$。<br>$x^3 \\times x^3 = x^{3+3} = x^6$ となります。または $x^{5-2+3}=x^6$ と計算できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "左から順に計算します。$x^5 \\div x^2 = x^{3}$。<br>$x^3 \\times x^3 = x^{3+3} = x^6$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // ... (さらに35題生成) ...
                  // 問題 16
                 {
                     question: "次の計算をせよ。<br>$$(-y)^3 \\times (2y)^2$$",
                     options: [ "$-4y^5$", "$4y^5$", "$4y^6$", "$-4y^6$" ],
                     answer: "$-4y^5$",
-                    rationale: "$(-y)^3 = -y^3$。<br>$(2y)^2 = 2^2y^2 = 4y^2$。<br>よって、$(-y^3) \\times (4y^2) = -4y^{3+2} = -4y^5$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-y)^3 = -y^3$。<br>$(2y)^2 = 4y^2$。<br>よって、$(-y^3) \\times (4y^2) = -4y^{3+2} = -4y^5$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 17
                 {
                     question: "次の計算をせよ。<br>$$(-a^3b^2c)^2 \\div (a^2b^3c)$$",
                     options: [ "$a^4bc$", "$a^4b$", "$-a^4bc$", "$a^3b$" ],
                     answer: "$a^4bc$",
-                    rationale: "$(-a^3b^2c)^2 = (-1)^2(a^3)^2(b^2)^2c^2 = a^6b^4c^2$。<br>よって、$(a^6b^4c^2) \\div (a^2b^3c) = a^{6-2}b^{4-3}c^{2-1} = a^4b^1c^1 = a^4bc$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-a^3b^2c)^2 = a^6b^4c^2$。<br>よって、$(a^6b^4c^2) \\div (a^2b^3c) = a^{6-2}b^{4-3}c^{2-1} = a^4bc$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 18
                 {
                     question: "次の計算をせよ。<br>$$24x^3y^4 \\div (-4xy) \\times (-x^2y)$$",
                     options: [ "$6x^4y^4$", "$-6x^4y^4$", "$6x^3y^3$", "$-6x^3y^3$" ],
                     answer: "$6x^4y^4$",
-                    rationale: "除法を先に計算します。$24x^3y^4 \\div (-4xy) = (24 \\div -4) x^{3-1}y^{4-1} = -6x^2y^3$。<br>次に乗法を行うと、$(-6x^2y^3) \\times (-x^2y) = (-6) \\times (-1) x^{2+2}y^{3+1} = 6x^4y^4$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "前から順に計算します。$(24x^3y^4) \\div (-4xy) = -6x^2y^3$。<br>次に乗法を行うと、$(-6x^2y^3) \\times (-x^2y) = 6x^4y^4$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 19
                 {
                     question: "次の計算をせよ。<br>$$(ab^2)^3 \\times a^2b$$",
                     options: [ "$a^5b^7$", "$a^5b^6$", "$a^6b^7$", "$a^6b^6$" ],
                     answer: "$a^5b^7$",
-                    rationale: "$(ab^2)^3 = a^3(b^2)^3 = a^3b^6$。<br>よって、$(a^3b^6) \\times (a^2b) = a^{3+2}b^{6+1} = a^5b^7$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(ab^2)^3 = a^3b^6$。<br>よって、$(a^3b^6) \\times (a^2b) = a^{3+2}b^{6+1} = a^5b^7$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 20
                 {
                     question: "次の計算をせよ。<br>$$(-3x^2)^2 \\div x^3$$",
                     options: [ "$9x$", "$9x^7$", "$-9x$", "$6x$" ],
                     answer: "$9x$",
-                    rationale: "$(-3x^2)^2 = (-3)^2(x^2)^2 = 9x^4$。<br>よって、$9x^4 \\div x^3 = 9x^{4-3} = 9x$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-3x^2)^2 = 9x^4$。<br>よって、$9x^4 \\div x^3 = 9x^{4-3} = 9x$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 21
                 {
                     question: "次の計算をせよ。<br>$$5a^4b \\times (-2b^3)$$",
                     options: [ "$-10a^4b^4$", "$10a^4b^4$", "$-10a^4b^3$", "$3a^4b^4$" ],
                     answer: "$-10a^4b^4$",
-                    rationale: "係数は $5 \\times (-2) = -10$。$a$ の指数は $4$。$b$ の指数は $1+3=4$。よって $-10a^4b^4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "係数は $5 \\times (-2) = -10$。$a$ は $a^4$ のまま。$b$ の指数は $1+3=4$。よって $-10a^4b^4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 22
                 {
                     question: "次の計算をせよ。<br>$$(xy^2z^3)^4$$",
                     options: [ "$x^4y^8z^{12}$", "$x^4y^6z^7$", "$4x^4y^8z^{12}$", "$x^5y^8z^{12}$" ],
                     answer: "$x^4y^8z^{12}$",
-                    rationale: "$(xy^2z^3)^4 = x^4 (y^2)^4 (z^3)^4 = x^4 y^{2 \\times 4} z^{3 \\times 4} = x^4y^8z^{12}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(xy^2z^3)^4 = x^4 (y^2)^4 (z^3)^4 = x^4 y^{8} z^{12}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 23
                 {
                     question: "次の計算をせよ。<br>$$(-x^2y)^3 \\div (-xy)$$",
                     options: [ "$x^5y^2$", "$-x^5y^2$", "$x^4y^2$", "$-x^4y^2$" ],
                     answer: "$x^5y^2$",
-                    rationale: "$(-x^2y)^3 = (-1)^3(x^2)^3y^3 = -x^6y^3$。<br>よって、$(-x^6y^3) \\div (-xy) = (-1 \\div -1) x^{6-1}y^{3-1} = 1x^5y^2 = x^5y^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-x^2y)^3 = -x^6y^3$。<br>よって、$(-x^6y^3) \\div (-xy) = x^{6-1}y^{3-1} = x^5y^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 24
                 {
                     question: "次の計算をせよ。<br>$$a^2 \\times a^3 \\div a^4$$",
-                    options: [ "$a$", "$a^9$", "$a^5$", "$a^{-5}$" ],
+                    options: [ "$a$", "$a^9$", "$a^5$", "$a^{0}=1$" ],
                     answer: "$a$",
-                    rationale: "$a^2 \\times a^3 = a^{2+3}=a^5$。<br>$a^5 \\div a^4 = a^{5-4} = a^1 = a$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "指数は $2+3-4 = 1$。よって $a^1 = a$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 25
                 {
                     question: "次の計算をせよ。<br>$$(2x)^3 \\times x^2$$",
                     options: [ "$8x^5$", "$6x^5$", "$8x^6$", "$2x^5$" ],
                     answer: "$8x^5$",
-                    rationale: "$(2x)^3 = 2^3x^3 = 8x^3$。<br>よって、$8x^3 \\times x^2 = 8x^{3+2} = 8x^5$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(2x)^3 = 8x^3$。<br>よって、$8x^3 \\times x^2 = 8x^{3+2} = 8x^5$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 26
                 {
                     question: "次の計算をせよ。<br>$$(-a^2b^4c)^3$$",
                     options: [ "$-a^6b^{12}c^3$", "$a^6b^{12}c^3$", "$-a^5b^7c^3$", "$-3a^6b^{12}c^3$" ],
                     answer: "$-a^6b^{12}c^3$",
-                    rationale: "$(-a^2b^4c)^3 = (-1)^3(a^2)^3(b^4)^3c^3 = -1 \\times a^6b^{12}c^3 = -a^6b^{12}c^3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-a^2b^4c)^3 = (-1)^3(a^2)^3(b^4)^3c^3 = -a^6b^{12}c^3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 27
                 {
                     question: "次の計算をせよ。<br>$$15x^7y^2 \\div 3x^5y$$",
                     options: [ "$5x^2y$", "$-5x^2y$", "$12x^2y$", "$5x^{12}y^3$" ],
                     answer: "$5x^2y$",
-                    rationale: "係数は $15 \\div 3 = 5$。<br>$x$ の指数は $7-5=2$。<br>$y$ の指数は $2-1=1$。<br>よって、$5x^2y$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "係数は $15 \\div 3 = 5$。<br>$x^{7-5}=x^2$。<br>$y^{2-1}=y$。<br>よって、$5x^2y$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 28
                 {
                     question: "次の計算をせよ。<br>$$(x^2y)^3 \\times (xy^3)$$",
                     options: [ "$x^7y^6$", "$x^6y^6$", "$x^7y^9$", "$x^5y^6$" ],
                     answer: "$x^7y^6$",
-                    rationale: "$(x^2y)^3 = (x^2)^3y^3 = x^6y^3$。<br>よって、$(x^6y^3) \\times (xy^3) = x^{6+1}y^{3+3} = x^7y^6$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(x^2y)^3 = x^6y^3$。<br>よって、$(x^6y^3) \\times (xy^3) = x^{6+1}y^{3+3} = x^7y^6$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 29
                 {
                     question: "次の計算をせよ。<br>$$(4a^3b^2)^2 \\div (-8a^5b^3)$$",
                     options: [ "$-2ab$", "$2ab$", "$-2a$", "$-2b$" ],
                     answer: "$-2ab$",
-                    rationale: "$(4a^3b^2)^2 = 4^2(a^3)^2(b^2)^2 = 16a^6b^4$。<br>よって、$(16a^6b^4) \\div (-8a^5b^3) = (16 \\div -8) a^{6-5}b^{4-3} = -2a^1b^1 = -2ab$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(4a^3b^2)^2 = 16a^6b^4$。<br>よって、$(16a^6b^4) \\div (-8a^5b^3) = -2a^{6-5}b^{4-3} = -2ab$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 30
                 {
                     question: "次の計算をせよ。<br>$$(-xy^2z)^3 \\times 2xz^2 \\div (-x^3yz^4)$$",
-                    options: [ "$2x y^5z$", "$2x^2y^5z$", "$-2xy^5z$", "$2y^5z$" ],
+                    options: [ "$2xy^5z$", "$2x^2y^5z$", "$-2xy^5z$", "$2y^5z$" ],
                     answer: "$2xy^5z$",
-                    rationale: "$(-xy^2z)^3 = -x^3y^6z^3$。<br>乗法: $(-x^3y^6z^3) \\times (2xz^2) = -2x^{3+1}y^6z^{3+2} = -2x^4y^6z^5$。<br>除法: $(-2x^4y^6z^5) \\div (-x^3yz^4) = (-2 \\div -1) x^{4-3}y^{6-1}z^{5-4} = 2x^1y^5z^1 = 2xy^5z$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-xy^2z)^3 = -x^3y^6z^3$。<br>乗法: $(-x^3y^6z^3) \\times (2xz^2) = -2x^4y^6z^5$。<br>除法: $(-2x^4y^6z^5) \\div (-x^3yz^4) = 2x^{4-3}y^{6-1}z^{5-4} = 2xy^5z$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 31
                 {
                     question: "次の計算をせよ。<br>$$(-4a^2b^3) \\times (-a^3b)$$",
                     options: [ "$4a^5b^4$", "$-4a^5b^4$", "$4a^6b^3$", "$4a^5b^3$" ],
                     answer: "$4a^5b^4$",
-                    rationale: "係数は $(-4) \\times (-1) = 4$。$a$ の指数は $2+3=5$。$b$ の指数は $3+1=4$。よって $4a^5b^4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "係数は $(-4) \\times (-1) = 4$。$a$ は $a^{2+3}=a^5$。$b$ は $b^{3+1}=b^4$。よって $4a^5b^4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 32
                 {
                     question: "次の計算をせよ。<br>$$(-\dfrac{1}{2}x^2y)^3$$",
                     options: [ "$-\dfrac{1}{8}x^6y^3$", "$\dfrac{1}{8}x^6y^3$", "$-\dfrac{1}{6}x^6y^3$", "$-\dfrac{1}{8}x^5y^3$" ],
                     answer: "$-\dfrac{1}{8}x^6y^3$",
-                    rationale: "$( -\\dfrac{1}{2} x^2y )^3 = ( -\\dfrac{1}{2} )^3 (x^2)^3 y^3 = -\\dfrac{1}{8} x^6 y^3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$( -\\dfrac{1}{2} x^2y )^3 = ( -\\dfrac{1}{2} )^3 (x^2)^3 y^3 = -\\dfrac{1}{8} x^6 y^3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 33
                 {
                     question: "次の計算をせよ。<br>$$a^7b^3 \\div (a^2b^3)$$",
                     options: [ "$a^5$", "$a^9b^6$", "$a^5b$", "$a^5b^6$" ],
                     answer: "$a^5$",
-                    rationale: "$a^7b^3 \\div (a^2b^3) = a^{7-2}b^{3-3} = a^5b^0 = a^5 \\times 1 = a^5$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$a^7b^3 \\div (a^2b^3) = a^{7-2}b^{3-3} = a^5b^0 = a^5$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 34
                 {
                     question: "次の計算をせよ。<br>$$(-x)^5 \\times (-x)^2$$",
                     options: [ "$-x^7$", "$x^7$", "$x^{10}$", "$-x^{10}$" ],
                     answer: "$-x^7$",
-                    rationale: "$(-x)^5 = -x^5$。<br>$(-x)^2 = x^2$。<br>よって、$(-x^5) \\times (x^2) = -x^{5+2} = -x^7$。<br>または $(-x)^{5+2} = (-x)^7 = -x^7$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-x)^5 = -x^5$。<br>$(-x)^2 = x^2$。<br>よって、$(-x^5) \\times (x^2) = -x^{5+2} = -x^7$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 35
                 {
                     question: "次の計算をせよ。<br>$$8a^4 \\div (-2a)^3$$",
                     options: [ "$-a$", "$a$", "$-4a$", "$4a$" ],
                     answer: "$-a$",
-                    rationale: "$(-2a)^3 = (-2)^3a^3 = -8a^3$。<br>よって、$8a^4 \\div (-8a^3) = (8 \\div -8)a^{4-3} = -1a^1 = -a$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-2a)^3 = -8a^3$。<br>よって、$8a^4 \\div (-8a^3) = (8 \\div -8)a^{4-3} = -a$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 36
                 {
                     question: "次の計算をせよ。<br>$$(x^2y^3)^2 \\times x \\div (xy^2)^3$$",
                     options: [ "$x^2$", "$x^2y$", "$x^2y^3$", "$x^3y$" ],
                     answer: "$x^2$",
-                    rationale: "$(x^2y^3)^2 = x^4y^6$。<br>$(xy^2)^3 = x^3y^6$。<br>よって、$x^4y^6 \\times x \\div (x^3y^6) = (x^4y^6 \\times x) \\div (x^3y^6) = x^5y^6 \\div x^3y^6 = x^{5-3}y^{6-6} = x^2y^0 = x^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(x^2y^3)^2 = x^4y^6$。<br>$(xy^2)^3 = x^3y^6$。<br>よって、$x^4y^6 \\times x \\div (x^3y^6) = x^5y^6 \\div x^3y^6 = x^{5-3}y^{6-6} = x^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 37
                 {
                     question: "次の計算をせよ。<br>$$(-a)^2 \\times (-b)^3$$",
                     options: [ "$-a^2b^3$", "$a^2b^3$", "$a^2b^5$", "$-a^2b^6$" ],
                     answer: "$-a^2b^3$",
-                    rationale: "$(-a)^2 = a^2$。<br>$(-b)^3 = -b^3$。<br>よって、$a^2 \\times (-b^3) = -a^2b^3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-a)^2 = a^2$。<br>$(-b)^3 = -b^3$。<br>よって、$a^2 \\times (-b^3) = -a^2b^3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 38
                 {
                     question: "次の計算をせよ。<br>$$(3x^3y)^2$$",
                     options: [ "$9x^6y^2$", "$6x^6y^2$", "$9x^5y^2$", "$9x^6y$" ],
                     answer: "$9x^6y^2$",
-                    rationale: "$(3x^3y)^2 = 3^2(x^3)^2y^2 = 9x^6y^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(3x^3y)^2 = 3^2(x^3)^2y^2 = 9x^6y^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 39
                 {
                     question: "次の計算をせよ。<br>$$(-12a^4b^5c^6) \\div (4a^2b^3c^4)$$",
                     options: [ "$-3a^2b^2c^2$", "$3a^2b^2c^2$", "$-3a^6b^8c^{10}$", "$-8a^2b^2c^2$" ],
                     answer: "$-3a^2b^2c^2$",
-                    rationale: "係数は $-12 \\div 4 = -3$。<br>$a^{4-2}=a^2$。<br>$b^{5-3}=b^2$。<br>$c^{6-4}=c^2$。<br>よって $-3a^2b^2c^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "係数は $-12 \\div 4 = -3$。<br>$a^{4-2}=a^2$。<br>$b^{5-3}=b^2$。<br>$c^{6-4}=c^2$。<br>よって $-3a^2b^2c^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 40
                 {
                     question: "次の計算をせよ。<br>$$5x^2y \\times (-x^3y^2)^3$$",
                     options: [ "$-5x^{11}y^7$", "$5x^{11}y^7$", "$-5x^8y^7$", "$-125x^{11}y^7$" ],
                     answer: "$-5x^{11}y^7$",
-                    rationale: "$(-x^3y^2)^3 = (-1)^3(x^3)^3(y^2)^3 = -x^9y^6$。<br>よって、$5x^2y \\times (-x^9y^6) = 5 \\times (-1) x^{2+9}y^{1+6} = -5x^{11}y^7$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-x^3y^2)^3 = -x^9y^6$。<br>よって、$5x^2y \\times (-x^9y^6) = -5x^{2+9}y^{1+6} = -5x^{11}y^7$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 41
                 {
                     question: "次の計算をせよ。<br>$$a^6 \\div a^2 \\div a^3$$",
                     options: [ "$a$", "$a^{11}$", "$a^7$", "$a^0=1$" ],
                     answer: "$a$",
-                    rationale: "$a^6 \\div a^2 = a^{6-2}=a^4$。<br>$a^4 \\div a^3 = a^{4-3}=a^1=a$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "前から順に計算します。$a^6 \\div a^2 = a^4$。<br>$a^4 \\div a^3 = a^{4-3} = a$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 42
                 {
                     question: "次の計算をせよ。<br>$$(-\dfrac{2}{3}ab^2)^2$$",
                     options: [ "$\dfrac{4}{9}a^2b^4$", "$-\dfrac{4}{9}a^2b^4$", "$\dfrac{4}{6}a^2b^4$", "$\dfrac{4}{9}a^2b^2$" ],
                     answer: "$\dfrac{4}{9}a^2b^4$",
-                    rationale: "$( -\\dfrac{2}{3} ab^2 )^2 = ( -\\dfrac{2}{3} )^2 a^2 (b^2)^2 = \\dfrac{4}{9} a^2 b^4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$( -\\dfrac{2}{3} ab^2 )^2 = ( -\\dfrac{2}{3} )^2 a^2 (b^2)^2 = \\dfrac{4}{9} a^2 b^4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 43
                 {
                     question: "次の計算をせよ。<br>$$x^4y^6 \\div (xy^2)^3$$",
                     options: [ "$x$", "$xy^0$", "$x^7y^{12}$", "$y$" ],
                     answer: "$x$",
-                    rationale: "$(xy^2)^3 = x^3(y^2)^3 = x^3y^6$。<br>よって、$x^4y^6 \\div x^3y^6 = x^{4-3}y^{6-6} = x^1y^0 = x$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(xy^2)^3 = x^3y^6$。<br>よって、$x^4y^6 \\div x^3y^6 = x^{4-3}y^{6-6} = x^1y^0 = x$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 44
                 {
                     question: "次の計算をせよ。<br>$$(-a)^3 \\times b^2 \\times (-a)$$",
                     options: [ "$a^4b^2$", "$-a^4b^2$", "$a^3b^2$", "$-a^3b^2$" ],
                     answer: "$a^4b^2$",
-                    rationale: "$(-a)^3 = -a^3$。<br>よって、$(-a^3) \\times b^2 \\times (-a) = (-1) \\times (-1) a^{3+1}b^2 = a^4b^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-a)^3 = -a^3$。<br>よって、$(-a^3) \\times b^2 \\times (-a) = (-1) \\times (-1) a^{3+1}b^2 = a^4b^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 45
                 {
                     question: "次の計算をせよ。<br>$$(9x^2y^4) \\div (-3xy^2)^2$$",
                     options: [ "$1$", "$y^0$", "$-1$", "$x^0y^0$" ],
                     answer: "$1$",
-                    rationale: "$(-3xy^2)^2 = (-3)^2x^2(y^2)^2 = 9x^2y^4$。<br>よって、$(9x^2y^4) \\div (9x^2y^4) = (9 \\div 9) x^{2-2}y^{4-4} = 1x^0y^0 = 1$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-3xy^2)^2 = 9x^2y^4$。<br>よって、$(9x^2y^4) \\div (9x^2y^4) = 1$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 46
                 {
                     question: "次の計算をせよ。<br>$$(-2x^3y)^2 \\times 3y^3 \\div (6x^5y^4)$$",
-                    options: [ "$2x$", "$2xy$", "$2$", "$2y$" ],
-                    answer: "$2x$",
-                    rationale: "$(-2x^3y)^2 = 4x^6y^2$。<br>乗法: $(4x^6y^2) \\times (3y^3) = 12x^6y^5$。<br>除法: $(12x^6y^5) \\div (6x^5y^4) = (12 \\div 6) x^{6-5}y^{5-4} = 2x^1y^1 = 2xy$。 Wait, calculation error. $(12 \div 6) = 2$. $x^{6-5}=x^1=x$. $y^{5-4}=y^1=y$. Answer is $2xy$. Correcting options.",
                     options: [ "$2xy$", "$2x$", "$2y$", "$12xy$" ],
                     answer: "$2xy$",
-                    rationale: "$(-2x^3y)^2 = 4x^6y^2$。<br>乗法: $(4x^6y^2) \\times (3y^3) = 12x^6y^5$。<br>除法: $(12x^6y^5) \\div (6x^5y^4) = 2x^{6-5}y^{5-4} = 2xy$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "$(-2x^3y)^2 = 4x^6y^2$。<br>乗法: $(4x^6y^2) \\times (3y^3) = 12x^6y^5$。<br>除法: $(12x^6y^5) \\div (6x^5y^4) = 2x^{6-5}y^{5-4} = 2xy$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 47
                 {
                     question: "次の計算をせよ。<br>$$a^m \\times a^n$$",
                     options: [ "$a^{m+n}$", "$a^{mn}$", "$a^{m-n}$", "$(2a)^{m+n}$" ],
                     answer: "$a^{m+n}$",
-                    rationale: "指数法則 $a^m \\times a^n = a^{m+n}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "指数法則 $a^m \\times a^n = a^{m+n}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 48
                 {
                     question: "次の計算をせよ。<br>$$(a^m)^n$$",
                     options: [ "$a^{mn}$", "$a^{m+n}$", "$a^{m^n}$", "$na^m$" ],
                     answer: "$a^{mn}$",
-                    rationale: "指数法則 $(a^m)^n = a^{mn}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "指数法則 $(a^m)^n = a^{mn}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 49
                 {
                     question: "次の計算をせよ。<br>$$a^m \\div a^n \quad (m>n)$$",
                     options: [ "$a^{m-n}$", "$a^{m+n}$", "$a^{m/n}$", "$a^{m \\times n}$" ],
                     answer: "$a^{m-n}$",
-                    rationale: "指数法則 $a^m \\div a^n = a^{m-n}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "指数法則 $a^m \\div a^n = a^{m-n}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                  // 問題 50
                 {
                     question: "次の計算をせよ。<br>$$(ab)^n$$",
                     options: [ "$a^nb^n$", "$a^n+b^n$", "$ab^n$", "$a^nb$" ],
                     answer: "$a^nb^n$",
-                    rationale: "指数法則 $(ab)^n = a^nb^n$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    rationale: "指数法則 $(ab)^n = a^nb^n$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 }
             ]; // ← allQuizData をここで閉じる
             // --- 元のクイズデータの終わり ---
