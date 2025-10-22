@@ -20,6 +20,12 @@
             transition: background-color 0.3s; /* 背景色変更を滑らかに */
         }
 
+        /* ★★★ 背景色用のクラスを追加 ★★★ */
+        body.bg-light-blue { background-color: #e7f5ff; } /* 水色 */
+        body.bg-light-green { background-color: #e6fcf5; } /* 薄い緑 */
+        body.bg-beige { background-color: #fcf8e3; } /* ベージュ */
+        /* body (デフォルト) は background-color: #f8f9fa; が適用される */
+
         .container {
             max-width: 800px;
             width: 90%;
@@ -144,6 +150,21 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
+            // ★★★ 背景色を適用する処理 (ここから追加) ★★★
+            const storageKey = 'backgroundColorPreference';
+            try {
+                const savedColor = localStorage.getItem(storageKey);
+                // 既存の色クラスを削除 (念のため)
+                document.body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
+                // 保存された色があればクラスを追加
+                if (savedColor && savedColor !== 'default') {
+                    document.body.classList.add('bg-' + savedColor);
+                }
+            } catch (e) {
+                console.error("localStorageからの背景色読み込みに失敗:", e);
+            }
+            // ★★★ (ここまで追加) ★★★
+            
             // KaTeXが認識する区切り文字の設定
             const katexDelimiters = [
                 {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false},
