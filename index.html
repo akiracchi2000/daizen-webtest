@@ -142,7 +142,7 @@
         .rank-yet { background-color: #f8f9fa; color: #6c757d; border: 1px dashed #ced4da; } /* 未受験 */
 
 
-        /* アコーディオン */
+        /* アコーディオン (科目レベル) */
         details.subject-accordion {
             margin-top: 10px; /* 上の見出しとの間隔 */
             margin-bottom: 20px; /* 次のアコーディオンとの間隔 */
@@ -183,10 +183,42 @@
             transform: translateY(-50%) rotate(90deg);
         }
 
-        details.subject-accordion .quiz-list {
-            padding: 15px 20px; /* 開いたときの中身の余白 */
+        /* アコーディオン (章レベル - 入れ子) */
+        details.chapter-accordion {
+            margin: 10px 20px 15px 20px; /* 上下と左右に余白 */
+            border: 1px solid #e9ecef; /* 外側より少し薄い枠線 */
+            border-radius: 6px;
+        }
+        
+        details.chapter-accordion summary {
+            font-size: 1.1em; /* 科目より少し小さく */
+            font-weight: 500; /* 少し細く */
+            padding: 10px 15px 10px 30px; /* 少しコンパクトに */
+            background-color: #f8f9fa; /* 背景色を少し変える */
+            border-bottom: 1px solid transparent;
+        }
+        
+        details[open].chapter-accordion > summary {
+             border-bottom: 1px solid #e9ecef;
         }
 
+        details.chapter-accordion summary::before {
+            left: 10px; /* 三角マークの位置調整 */
+            font-size: 0.7em;
+        }
+        
+        details.chapter-accordion .quiz-list {
+            padding: 15px; /* 中身の余白 (外側より少し狭く) */
+        }
+        
+        details.chapter-accordion .quiz-list li {
+            margin-bottom: 8px; /* リスト項目の間隔を少し狭く */
+        }
+        details.chapter-accordion .quiz-list a {
+            padding: 12px 15px; /* リンクのpaddingを少し小さく */
+            font-weight: 400; /* 通常の太さ */
+        }
+        
         /* 色選択ボタン */
         .color-selector {
             text-align: right;
@@ -257,48 +289,69 @@
 
 
             <h2>数学Ⅰ</h2>
-            <details class="subject-accordion">
-                <summary>数学Ⅰ テスト一覧</summary>
-                <nav class="quiz-list">
-                    <ul>
-                        <li>
-                            <a href="M1-1-1-1.html">第1章第1節-1　数と式：様々な用語</a>
-                            <span id="rank-M1-1-1-1" class="quiz-rank"></span> 
-                        </li>
-                        <li>
-                            <a href="M1-1-1-2.html">第1章第1節-2　数と式：整式の加法と減法</a>
-                            <span id="rank-M1-1-1-2" class="quiz-rank"></span> 
-                        </li>
-                        <li>
-                            <a href="M1-1-1-3.html">第1章第1節-3　数と式：単項式の乗法</a>
-                            <span id="rank-M1-1-1-3" class="quiz-rank"></span> 
-                        </li>
-                        <li>
-                            <a href="#">第2章 2次関数 - 平方完成（準備中）</a>
-                            <span id="rank-M1-2-1" class="quiz-rank"></span>
-                        </li>
-                        <li>
-                            <a href="#">第3章 図形と計量 - 三角比（準備中）</a>
-                            <span id="rank-M1-3-1" class="quiz-rank"></span>
-                        </li>
-                    </ul>
-                </nav>
-            </details>
+            <details class="subject-accordion" open> <summary>数学Ⅰ テスト一覧</summary>
+                
+                <details class="chapter-accordion" open> <summary>第1章 数と式</summary>
+                    <nav class="quiz-list">
+                        <ul>
+                            <li>
+                                <a href="M1-1-1-1.html">第1節-1 様々な用語</a>
+                                <span id="rank-M1-1-1-1" class="quiz-rank"></span>
+                            </li>
+                            <li>
+                                <a href="M1-1-1-2.html">第1節-2 整式の加法と減法</a>
+                                <span id="rank-M1-1-1-2" class="quiz-rank"></span>
+                            </li>
+                             <li>
+                                <a href="M1-1-1-3.html">第1節-3 単項式の乗法と除法</a>
+                                <span id="rank-M1-1-1-3" class="quiz-rank"></span>
+                            </li>
+                        </ul>
+                    </nav>
+                </details>
 
-            <h2>数学A</h2>
+                <details class="chapter-accordion">
+                    <summary>第2章 2次関数</summary>
+                    <nav class="quiz-list">
+                        <ul>
+                            <li>
+                                <a href="#">平方完成（準備中）</a>
+                                <span id="rank-M1-2-1" class="quiz-rank"></span>
+                            </li>
+                        </ul>
+                    </nav>
+                </details>
+
+                <details class="chapter-accordion">
+                    <summary>第3章 図形と計量</summary>
+                    <nav class="quiz-list">
+                        <ul>
+                            <li>
+                                <a href="#">三角比（準備中）</a>
+                                <span id="rank-M1-3-1" class="quiz-rank"></span>
+                            </li>
+                        </ul>
+                    </nav>
+                </details>
+                </details> <h2>数学A</h2>
             <details class="subject-accordion">
                 <summary>数学A テスト一覧</summary>
-                <nav class="quiz-list">
-                    <ul>
-                        <li>
-                            <a href="#">第1章 場合の数と確率（準備中）</a>
-                            <span id="rank-MA-1-1" class="quiz-rank"></span>
-                        </li>
+                
+                <details class="chapter-accordion">
+                    <summary>第1章 場合の数と確率</summary>
+                     <nav class="quiz-list">
+                        <ul>
+                            <li>
+                                <a href="#">（準備中）</a>
+                                <span id="rank-MA-1-1" class="quiz-rank"></span>
+                            </li>
                         </ul>
-                </nav>
+                    </nav>
+                </details>
+
             </details>
 
-            </main>
+        </main>
 
         <footer>
             <p>&copy; 2025 [香川亮]</p>
@@ -310,7 +363,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             // 表示したいランクの対象となる quizId のリスト
             // ★★ テストページで設定した quizId と一致させてください ★★
-            const quizIds = ['M1-1-1-1', 'M1-1-1-2','M1-1-1-3', 'M1-2-1', 'M1-3-1', 'MA-1-1']; 
+            const quizIds = ['M1-1-1-1', 'M1-1-1-2', 'M1-1-1-3', 'M1-2-1', 'M1-3-1', 'MA-1-1']; 
 
             quizIds.forEach(quizId => {
                 const rankSpan = document.getElementById('rank-' + quizId);
@@ -319,7 +372,6 @@
                         const savedRank = localStorage.getItem('quizRank_' + quizId);
                         if (savedRank && savedRank !== "-") { // 保存されたランクがあれば表示
                             rankSpan.textContent = `(Rank: ${savedRank})`;
-                            // 古いクラスを削除してから新しいクラスを追加
                             rankSpan.className = 'quiz-rank'; // Reset classes
                             rankSpan.classList.add('rank-' + savedRank); 
                         } else {
