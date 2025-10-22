@@ -1,1 +1,866 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数と式：整式の加法と減法 (ランダム10題)</title>
+    <style>
+        /* index.htmlと共通のスタイル */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa; /* デフォルト背景色 */
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s; /* 背景色変更を滑らかに */
+        }
 
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #343a40;
+            font-size: 1.8em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        /* --- クイズ用のスタイル --- */
+        #quiz-container { min-height: 300px; }
+        #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
+        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; /* 選択肢との間隔を少し空ける */ }
+
+        /* 選択肢コンテナ (Gridレイアウト - デフォルトは2x2) */
+        #options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* デフォルト: 2列 */
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* 縦1列(4行)表示用のスタイル */
+        #options-container.options-vertical {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 10px; /* 縦の隙間を少し狭める (任意) */
+        }
+
+        /* 選択肢ボックス */
+        .option-box {
+            background-color: #f1f3f5;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .option-box:hover:not(.disabled) {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 正解のスタイル */
+        .option-box.correct {
+            background-color: #a8e6cf;
+            border-color: #17a2b8;
+            border-width: 3px;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        /* 不正解のスタイル (選択されなかったもの) */
+        .option-box.incorrect {
+            background-color: #ffcdd2;
+            border-color: #dc3545;
+            color: #721c24;
+            opacity: 0.7;
+        }
+
+        /* ユーザーが選択した不正解のスタイル */
+        .option-box.incorrect.selected {
+            opacity: 1;
+            border-width: 4px;
+            border-color: #dc3545;
+        }
+
+        /* 無効化時のスタイル */
+        .option-box.disabled {
+             cursor: not-allowed;
+             opacity: 0.7;
+             background-color: #e9ecef;
+             transform: none;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* 解説（フィードバック） */
+        #feedback { margin-top: 25px; padding: 15px; border-radius: 5px; display: none; }
+        #feedback.correct { background-color: #e6f7ff; border: 1px solid #b3e0ff; }
+        #feedback.incorrect { background-color: #fff0f1; border: 1px solid #ffccd0; }
+
+        /* 次へ/結果ボタン */
+        #next-btn, #results-btn { display: none; padding: 12px 25px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; float: right; margin-top: 20px; transition: background-color 0.3s; }
+        #next-btn:hover, #results-btn:hover { background-color: #0056b3; }
+
+        /* 結果表示 */
+        #results-container { text-align: center; font-size: 1.4em; }
+        #results-container h2 { color: #007bff; }
+        #homepage-link { display: inline-block; margin-top: 20px; padding: 12px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; }
+        #homepage-link:hover { background-color: #5a6268; }
+
+    </style>
+
+    <link rel="stylesheet" href="katex/katex.min.css">
+    <script defer src="katex/katex.min.js"></script>
+    <script defer src="katex/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // KaTeXが認識する区切り文字の設定
+            const katexDelimiters = [
+                {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}
+            ];
+
+            // ページ読み込み時に静的コンテンツをレンダリング
+            try {
+                renderMathInElement(document.body, { delimiters: katexDelimiters });
+            } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
+
+            // --- ★ 元の50題のクイズデータを allQuizData とする ★ ---
+            const allQuizData = [
+                                // 問題 1 
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$x^2+2x-3-(-x^2+3x+6)$$",
+                    options: [ "$2x^2-x-9$", "$x-9$", "$2x^2+5x+3$", "$-x-9$" ],
+                    answer: "$2x^2-x-9$",
+                    rationale: "かっこを外すと $x^2+2x-3+x^2-3x-6$ となります。同類項をまとめると $(x^2+x^2) + (2x-3x) + (-3-6) = 2x^2-x-9$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 2
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(3a^2-5a+1)-(2a^2+a-4)$$",
+                    options: [ "$a^2-6a+5$", "$a^2-4a-3$", "$5a^2-4a-3$", "$a^2-6a-3$" ],
+                    answer: "$a^2-6a+5$",
+                    rationale: "かっこを外すと $3a^2-5a+1-2a^2-a+4$ となります。同類項をまとめると $(3a^2-2a^2) + (-5a-a) + (1+4) = a^2-6a+5$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 3
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x-y+z)-(2x+3y-z)$$",
+                    options: [ "$-x-4y+2z$", "$3x+2y$", "$-x-2y$", "$-x-4y$" ],
+                    answer: "$-x-4y+2z$",
+                    rationale: "かっこを外すと $x-y+z-2x-3y+z$ となります。同類項をまとめると $(x-2x) + (-y-3y) + (z+z) = -x-4y+2z$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 4
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(4x^2+7)-(-x^2+3x-2)$$",
+                    options: [ "$5x^2-3x+9$", "$3x^2-3x+5$", "$5x^2+3x+5$", "$5x^2-3x+5$" ],
+                    answer: "$5x^2-3x+9$",
+                    rationale: "かっこを外すと $4x^2+7+x^2-3x+2$ となります。同類項をまとめると $(4x^2+x^2) - 3x + (7+2) = 5x^2-3x+9$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 5
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(2a+3b)-(a-b)$$",
+                    options: [ "$a+4b$", "$a+2b$", "$3a+2b$", "$a-4b$" ],
+                    answer: "$a+4b$",
+                    rationale: "かっこを外すと $2a+3b-a+b$ となります。同類項をまとめると $(2a-a) + (3b+b) = a+4b$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 6
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2-xy+y^2)-(x^2+xy-y^2)$$",
+                    options: [ "$-2xy+2y^2$", "$2x^2+2y^2$", "$2y^2$", "$-2xy$" ],
+                    answer: "$-2xy+2y^2$",
+                    rationale: "かっこを外すと $x^2-xy+y^2-x^2-xy+y^2$ となります。同類項をまとめると $(x^2-x^2) + (-xy-xy) + (y^2+y^2) = -2xy+2y^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 7
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(5x+3y-1)-(-2x+y+4)$$",
+                    options: [ "$7x+2y-5$", "$3x+2y-5$", "$7x+4y+3$", "$7x+2y+3$" ],
+                    answer: "$7x+2y-5$",
+                    rationale: "かっこを外すと $5x+3y-1+2x-y-4$ となります。同類項をまとめると $(5x+2x) + (3y-y) + (-1-4) = 7x+2y-5$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 8
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a^3-a)-(2a^3+a^2)$$",
+                    options: [ "$-a^3-a^2-a$", "$3a^3+a^2-a$", "$-a^3+a^2-a$", "$-a^3-a$" ],
+                    answer: "$-a^3-a^2-a$",
+                    rationale: "かっこを外すと $a^3-a-2a^3-a^2$ となります。同類項をまとめ、降べきの順に整理すると $(a^3-2a^3) - a^2 - a = -a^3-a^2-a$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 9
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2+6x)-(4x^2-x+7)$$",
+                    options: [ "$-3x^2+7x-7$", "$5x^2+5x-7$", "$-3x^2+5x-7$", "$-3x^2+7x+7$" ],
+                    answer: "$-3x^2+7x-7$",
+                    rationale: "かっこを外すと $x^2+6x-4x^2+x-7$ となります。同類項をまとめると $(x^2-4x^2) + (6x+x) - 7 = -3x^2+7x-7$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 10
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(7)-(2x-3)$$",
+                    options: [ "$-2x+10$", "$2x+4$", "$-2x+4$", "$2x+10$" ],
+                    answer: "$-2x+10$",
+                    rationale: "かっこを外すと $7-2x+3$ となります。同類項をまとめると $-2x + (7+3) = -2x+10$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                 // 問題 11
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(ab+bc+ca)-(ab-bc+ca)$$",
+                    options: [ "$2bc$", "$2ab+2ca$", "$0$", "$2bc+2ca$" ],
+                    answer: "$2bc$",
+                    rationale: "かっこを外すと $ab+bc+ca-ab+bc-ca$ となります。同類項をまとめると $(ab-ab) + (bc+bc) + (ca-ca) = 2bc$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 12
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2-3x+5)-(-x^2-3x-5)$$",
+                    options: [ "$2x^2+10$", "$-6x$", "$2x^2$", "$10$" ],
+                    answer: "$2x^2+10$",
+                    rationale: "かっこを外すと $x^2-3x+5+x^2+3x+5$ となります。同類項をまとめると $(x^2+x^2) + (-3x+3x) + (5+5) = 2x^2+10$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 13
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a-2b+3c)-(3a-2b+c)$$",
+                    options: [ "$-2a+2c$", "$4a-4b+4c$", "$-2a-4b+2c$", "$-2a+4c$" ],
+                    answer: "$-2a+2c$",
+                    rationale: "かっこを外すと $a-2b+3c-3a+2b-c$ となります。同類項をまとめると $(a-3a) + (-2b+2b) + (3c-c) = -2a+2c$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 14
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(5x^2y+3xy^2)-(2x^2y-xy^2)$$",
+                    options: [ "$3x^2y+4xy^2$", "$7x^2y+2xy^2$", "$3x^2y+2xy^2$", "$3x^2y-4xy^2$" ],
+                    answer: "$3x^2y+4xy^2$",
+                    rationale: "かっこを外すと $5x^2y+3xy^2-2x^2y+xy^2$ となります。同類項をまとめると $(5x^2y-2x^2y) + (3xy^2+xy^2) = 3x^2y+4xy^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 15
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(4x+1)-(x-5)$$",
+                    options: [ "$3x+6$", "$5x-4$", "$3x-4$", "$5x+6$" ],
+                    answer: "$3x+6$",
+                    rationale: "かっこを外すと $4x+1-x+5$ となります。同類項をまとめると $(4x-x) + (1+5) = 3x+6$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 16
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^3-2x^2+x-1)-(x^3+x^2-x+1)$$",
+                    options: [ "$-3x^2+2x-2$", "$2x^3-x^2-2$", "$-x^2+2x-2$", "$-3x^2-2$" ],
+                    answer: "$-3x^2+2x-2$",
+                    rationale: "かっこを外すと $x^3-2x^2+x-1-x^3-x^2+x-1$ となります。同類項をまとめると $(x^3-x^3) + (-2x^2-x^2) + (x+x) + (-1-1) = -3x^2+2x-2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 17
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a^2+b^2)-(a^2-2ab+b^2)$$",
+                    options: [ "$2ab$", "$2a^2+2b^2$", "$0$", "$2a^2-2ab+2b^2$" ],
+                    answer: "$2ab$",
+                    rationale: "かっこを外すと $a^2+b^2-a^2+2ab-b^2$ となります。同類項をまとめると $(a^2-a^2) + 2ab + (b^2-b^2) = 2ab$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 18
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x-1)-(1-x)$$",
+                    options: [ "$2x-2$", "$0$", "$2x$", "$-2$" ],
+                    answer: "$2x-2$",
+                    rationale: "かっこを外すと $x-1-1+x$ となります。同類項をまとめると $(x+x) + (-1-1) = 2x-2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 19
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2+x+1)-(x^2-x+1)$$",
+                    options: [ "$2x$", "$2x^2+2$", "$2$", "$2x+2$" ],
+                    answer: "$2x$",
+                    rationale: "かっこを外すと $x^2+x+1-x^2+x-1$ となります。同類項をまとめると $(x^2-x^2) + (x+x) + (1-1) = 2x$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 20
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a+b+c)-(a-b-c)$$",
+                    options: [ "$2b+2c$", "$2a$", "$2b-2c$", "$2a+2b+2c$" ],
+                    answer: "$2b+2c$",
+                    rationale: "かっこを外すと $a+b+c-a+b+c$ となります。同類項をまとめると $(a-a) + (b+b) + (c+c) = 2b+2c$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 21
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2+5x-2)-(-3x^2+x+4)$$",
+                    options: [ "$4x^2+4x-6$", "$-2x^2+4x-6$", "$4x^2+6x+2$", "$4x^2+4x+2$" ],
+                    answer: "$4x^2+4x-6$",
+                    rationale: "かっこを外すと $x^2+5x-2+3x^2-x-4$ となります。同類項をまとめると $(x^2+3x^2) + (5x-x) + (-2-4) = 4x^2+4x-6$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 22
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(2a^2-ab+b^2)-(a^2+3ab-2b^2)$$",
+                    options: [ "$a^2-4ab+3b^2$", "$3a^2+2ab-b^2$", "$a^2+2ab+3b^2$", "$a^2-4ab-b^2$" ],
+                    answer: "$a^2-4ab+3b^2$",
+                    rationale: "かっこを外すと $2a^2-ab+b^2-a^2-3ab+2b^2$ となります。同類項をまとめると $(2a^2-a^2) + (-ab-3ab) + (b^2+2b^2) = a^2-4ab+3b^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 23
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x-7y+z)-(-x+7y-z)$$",
+                    options: [ "$2x-14y+2z$", "$0$", "$2x+2z$", "$-14y$" ],
+                    answer: "$2x-14y+2z$",
+                    rationale: "かっこを外すと $x-7y+z+x-7y+z$ となります。同類項をまとめると $(x+x) + (-7y-7y) + (z+z) = 2x-14y+2z$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 24
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^3+x^2+x+1)-(x^3-x^2-x-1)$$",
+                    options: [ "$2x^2+2x+2$", "$2x^3$", "$0$", "$2x^2-2x-2$" ],
+                    answer: "$2x^2+2x+2$",
+                    rationale: "かっこを外すと $x^3+x^2+x+1-x^3+x^2+x+1$ となります。同類項をまとめると $(x^3-x^3) + (x^2+x^2) + (x+x) + (1+1) = 2x^2+2x+2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 25
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a-5b)-(2a+b)$$",
+                    options: [ "$-a-6b$", "$3a-4b$", "$-a-4b$", "$-a+6b$" ],
+                    answer: "$-a-6b$",
+                    rationale: "かっこを外すと $a-5b-2a-b$ となります。同類項をまとめると $(a-2a) + (-5b-b) = -a-6b$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 26
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2-4)-(x^2+3x+4)$$",
+                    options: [ "$-3x-8$", "$2x^2+3x$", "$-3x$", "$-3x+8$" ],
+                    answer: "$-3x-8$",
+                    rationale: "かっこを外すと $x^2-4-x^2-3x-4$ となります。同類項をまとめると $(x^2-x^2) - 3x + (-4-4) = -3x-8$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 27
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(6x^2+x)-(2x^2-5x)$$",
+                    options: [ "$4x^2+6x$", "$8x^2-4x$", "$4x^2-4x$", "$4x^2+5x$" ],
+                    answer: "$4x^2+6x$",
+                    rationale: "かっこを外すと $6x^2+x-2x^2+5x$ となります。同類項をまとめると $(6x^2-2x^2) + (x+5x) = 4x^2+6x$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 28
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a^2-3ab)-(4ab+b^2)$$",
+                    options: [ "$a^2-7ab-b^2$", "$a^2+ab-b^2$", "$a^2-7ab+b^2$", "$a^2-3ab-b^2$" ],
+                    answer: "$a^2-7ab-b^2$",
+                    rationale: "かっこを外すと $a^2-3ab-4ab-b^2$ となります。同類項をまとめると $a^2 + (-3ab-4ab) - b^2 = a^2-7ab-b^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 29
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x+y)-(x-y)$$",
+                    options: [ "$2y$", "$2x$", "$0$", "$2x+2y$" ],
+                    answer: "$2y$",
+                    rationale: "かっこを外すと $x+y-x+y$ となります。同類項をまとめると $(x-x) + (y+y) = 2y$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 30
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(2x^2-1)-(-x^2+x+1)$$",
+                    options: [ "$3x^2-x-2$", "$x^2-x$", "$3x^2+x$", "$3x^2-x$" ],
+                    answer: "$3x^2-x-2$",
+                    rationale: "かっこを外すと $2x^2-1+x^2-x-1$ となります。同類項をまとめると $(2x^2+x^2) - x + (-1-1) = 3x^2-x-2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 31
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a^2+2a+1)-(a^2-2a+1)$$",
+                    options: [ "$4a$", "$2a^2+2$", "$0$", "$4a+2$" ],
+                    answer: "$4a$",
+                    rationale: "かっこを外すと $a^2+2a+1-a^2+2a-1$ となります。同類項をまとめると $(a^2-a^2) + (2a+2a) + (1-1) = 4a$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 32
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(3x-y+5z)-(x+y-2z)$$",
+                    options: [ "$2x-2y+7z$", "$4x+3z$", "$2x+7z$", "$2x-2y+3z$" ],
+                    answer: "$2x-2y+7z$",
+                    rationale: "かっこを外すと $3x-y+5z-x-y+2z$ となります。同類項をまとめると $(3x-x) + (-y-y) + (5z+2z) = 2x-2y+7z$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 33
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2+xy)-(xy+y^2)$$",
+                    options: [ "$x^2-y^2$", "$x^2+2xy+y^2$", "$x^2$", "$x^2-2xy-y^2$" ],
+                    answer: "$x^2-y^2$",
+                    rationale: "かっこを外すと $x^2+xy-xy-y^2$ となります。同類項をまとめると $x^2 + (xy-xy) - y^2 = x^2-y^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 34
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a^3+b^3)-(a^3-3a^2b+3ab^2-b^3)$$",
+                    options: [ "$3a^2b-3ab^2+2b^3$", "$2a^3+2b^3$", "$3a^2b+3ab^2$", "$-3a^2b+3ab^2+2b^3$" ],
+                    answer: "$3a^2b-3ab^2+2b^3$",
+                    rationale: "かっこを外すと $a^3+b^3-a^3+3a^2b-3ab^2+b^3$ となります。同類項をまとめると $(a^3-a^3) + 3a^2b - 3ab^2 + (b^3+b^3) = 3a^2b-3ab^2+2b^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 35
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x+3)-(2x+3)$$",
+                    options: [ "$-x$", "$3x+6$", "$-x+6$", "$-x-6$" ],
+                    answer: "$-x$",
+                    rationale: "かっこを外すと $x+3-2x-3$ となります。同類項をまとめると $(x-2x) + (3-3) = -x$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 36
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2-5x+6)-(x-2)$$",
+                    options: [ "$x^2-6x+8$", "$x^2-4x+4$", "$x^2-6x+4$", "$x^2-4x+8$" ],
+                    answer: "$x^2-6x+8$",
+                    rationale: "かっこを外すと $x^2-5x+6-x+2$ となります。同類項をまとめると $x^2 + (-5x-x) + (6+2) = x^2-6x+8$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 37
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a+1)-(a-1)$$",
+                    options: [ "$2$", "$2a$", "$0$", "$2a+2$" ],
+                    answer: "$2$",
+                    rationale: "かっこを外すと $a+1-a+1$ となります。同類項をまとめると $(a-a) + (1+1) = 2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 38
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2yz+xy^2z)-(x^2yz-xyz^2)$$",
+                    options: [ "$xy^2z+xyz^2$", "$2x^2yz$", "$0$", "$xy^2z-xyz^2$" ],
+                    answer: "$xy^2z+xyz^2$",
+                    rationale: "かっこを外すと $x^2yz+xy^2z-x^2yz+xyz^2$ となります。同類項をまとめると $(x^2yz-x^2yz) + xy^2z + xyz^2 = xy^2z+xyz^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 39
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(5)-(x^2+x+1)$$",
+                    options: [ "$-x^2-x+4$", "$x^2+x+6$", "$-x^2-x+6$", "$-x^2-x-4$" ],
+                    answer: "$-x^2-x+4$",
+                    rationale: "かっこを外すと $5-x^2-x-1$ となります。同類項をまとめると $-x^2 - x + (5-1) = -x^2-x+4$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 40
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(2x-3y+z)-(x-y-z)$$",
+                    options: [ "$x-2y+2z$", "$3x-4y$", "$x-4y+2z$", "$x-2y$" ],
+                    answer: "$x-2y+2z$",
+                    rationale: "かっこを外すと $2x-3y+z-x+y+z$ となります。同類項をまとめると $(2x-x) + (-3y+y) + (z+z) = x-2y+2z$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                 // 問題 41
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2+4x-1)-(3x^2+4x+1)$$",
+                    options: [ "$-2x^2-2$", "$4x^2+8x$", "$-2x^2+8x$", "$-2x^2$" ],
+                    answer: "$-2x^2-2$",
+                    rationale: "かっこを外すと $x^2+4x-1-3x^2-4x-1$ となります。同類項をまとめると $(x^2-3x^2) + (4x-4x) + (-1-1) = -2x^2-2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 42
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a^2-b^2)-(a^2+b^2)$$",
+                    options: [ "$-2b^2$", "$2a^2$", "$0$", "$-2a^2b^2$" ],
+                    answer: "$-2b^2$",
+                    rationale: "かっこを外すと $a^2-b^2-a^2-b^2$ となります。同類項をまとめると $(a^2-a^2) + (-b^2-b^2) = -2b^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 43
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x+2y)-(y+2x)$$",
+                    options: [ "$-x+y$", "$3x+3y$", "$x+y$", "$-x+3y$" ],
+                    answer: "$-x+y$",
+                    rationale: "かっこを外すと $x+2y-y-2x$ となります。同類項をまとめると $(x-2x) + (2y-y) = -x+y$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 44
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2+x)-(-x^2+x)$$",
+                    options: [ "$2x^2$", "$2x$", "$0$", "$2x^2+2x$" ],
+                    answer: "$2x^2$",
+                    rationale: "かっこを外すと $x^2+x+x^2-x$ となります。同類項をまとめると $(x^2+x^2) + (x-x) = 2x^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 45
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(3a-2b+c)-(a+b-c)$$",
+                    options: [ "$2a-3b+2c$", "$4a-b$", "$2a-b+2c$", "$2a-3b$" ],
+                    answer: "$2a-3b+2c$",
+                    rationale: "かっこを外すと $3a-2b+c-a-b+c$ となります。同類項をまとめると $(3a-a) + (-2b-b) + (c+c) = 2a-3b+2c$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 46
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2-xy+1)-(xy-y^2+1)$$",
+                    options: [ "$x^2-2xy+y^2$", "$x^2+y^2+2$", "$x^2-2xy-y^2+2$", "$x^2+y^2$" ],
+                    answer: "$x^2-2xy+y^2$",
+                    rationale: "かっこを外すと $x^2-xy+1-xy+y^2-1$ となります。同類項をまとめると $x^2 + (-xy-xy) + y^2 + (1-1) = x^2-2xy+y^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 47
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(2x^2+5x)-(x^2+5x-3)$$",
+                    options: [ "$x^2+3$", "$3x^2+10x-3$", "$x^2-3$", "$x^2+10x+3$" ],
+                    answer: "$x^2+3$",
+                    rationale: "かっこを外すと $2x^2+5x-x^2-5x+3$ となります。同類項をまとめると $(2x^2-x^2) + (5x-5x) + 3 = x^2+3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 48
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a+b)-(a+b)$$",
+                    options: [ "$0$", "$2a+2b$", "$2a$", "$2b$" ],
+                    answer: "$0$",
+                    rationale: "かっこを外すと $a+b-a-b$ となります。同類項をまとめると $(a-a) + (b-b) = 0$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 49
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^3-1)-(x-1)$$",
+                    options: [ "$x^3-x$", "$x^3+x-2$", "$x^3-x-2$", "$x^3-x+2$" ],
+                    answer: "$x^3-x$",
+                    rationale: "かっこを外すと $x^3-1-x+1$ となります。同類項をまとめると $x^3 - x + (-1+1) = x^3-x$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 50
+                {
+                    question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(2x+y-3z)-(x+y+z)$$",
+                    options: [ "$x-4z$", "$3x+2y-2z$", "$x+2y-4z$", "$x-2z$" ],
+                    answer: "$x-4z$",
+                    rationale: "かっこを外すと $2x+y-3z-x-y-z$ となります。同類項をまとめると $(2x-x) + (y-y) + (-3z-z) = x-4z$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // セット 1: A=x+2, B=x^2-3x+1, C=2x^2+x-5
+                {
+                    question: "$A=x+2, B=x^2-3x+1, C=2x^2+x-5$ であるとき，次の計算をせよ。<br>$$A+B+C$$",
+                    options: [ "$3x^2-x-2$", "$3x^2+x-2$", "$x^2-2x-3$", "$3x^2-x+8$" ],
+                    answer: "$3x^2-x-2$",
+                    rationale: "$(x+2)+(x^2-3x+1)+(2x^2+x-5) = x^2+2x^2+x-3x+x+2+1-5 = 3x^2-x-2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x+2, B=x^2-3x+1, C=2x^2+x-5$ であるとき，次の計算をせよ。<br>$$A-B+C$$",
+                    options: [ "$x^2+5x-6$", "$x^2+3x-6$", "$-x^2+3x-2$", "$x^2+5x-2$" ],
+                    answer: "$x^2+5x-6$",
+                    rationale: "$(x+2)-(x^2-3x+1)+(2x^2+x-5) = x+2-x^2+3x-1+2x^2+x-5 = -x^2+2x^2+x+3x+x+2-1-5 = x^2+5x-6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x+2, B=x^2-3x+1, C=2x^2+x-5$ であるとき，次の計算をせよ。<br>$$2A+B$$",
+                    options: [ "$x^2-x+5$", "$x^2-x+3$", "$2x^2-5x+5$", "$x^2-5x+5$" ],
+                    answer: "$x^2-x+5$",
+                    rationale: "$2(x+2)+(x^2-3x+1) = 2x+4+x^2-3x+1 = x^2+2x-3x+4+1 = x^2-x+5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x+2, B=x^2-3x+1, C=2x^2+x-5$ であるとき，次の計算をせよ。<br>$$C-3A$$",
+                    options: [ "$2x^2-2x-11$", "$2x^2+4x-11$", "$-x^2-2x-1$", "$2x^2-2x-1$" ],
+                    answer: "$2x^2-2x-11$",
+                    rationale: "$(2x^2+x-5)-3(x+2) = 2x^2+x-5-3x-6 = 2x^2+x-3x-5-6 = 2x^2-2x-11$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x+2, B=x^2-3x+1, C=2x^2+x-5$ であるとき，次の計算をせよ。<br>$$B-(A+C)$$",
+                    options: [ "$-x^2-5x+4$", "$3x^2-x-2$", "$-x^2-x+4$", "$-x^2-5x-2$" ],
+                    answer: "$-x^2-5x+4$",
+                    rationale: "$A+C = (x+2)+(2x^2+x-5) = 2x^2+2x-3$.<br>$B-(A+C) = (x^2-3x+1)-(2x^2+2x-3) = x^2-3x+1-2x^2-2x+3 = -x^2-5x+4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                 {
+                    question: "$A=x+2, B=x^2-3x+1, C=2x^2+x-5$ であるとき，次の計算をせよ。<br>$$2C-(A-B)$$",
+                    options: [ "$5x^2-2x-11$", "$3x^2+6x-9$", "$5x^2+4x-11$", "$3x^2-3x-6$" ],
+                    answer: "$5x^2-2x-11$",
+                    rationale: "$A-B = (x+2)-(x^2-3x+1) = -x^2+4x+1$.<br>$2C-(A-B) = 2(2x^2+x-5)-(-x^2+4x+1) = 4x^2+2x-10+x^2-4x-1 = 5x^2-2x-11$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x+2, B=x^2-3x+1, C=2x^2+x-5$ であるとき，次の計算をせよ。<br>$$A+2(B-C)$$",
+                    options: [ "$-2x^2-7x+14$", "$-2x^2-9x+14$", "$3x^2-5x-9$", "$-2x^2-7x+11$" ],
+                    answer: "$-2x^2-7x+14$",
+                    rationale: "$B-C = (x^2-3x+1)-(2x^2+x-5) = -x^2-4x+6$.<br>$A+2(B-C) = (x+2)+2(-x^2-4x+6) = x+2-2x^2-8x+12 = -2x^2-7x+14$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x+2, B=x^2-3x+1, C=2x^2+x-5$ であるとき，次の計算をせよ。<br>$$3B-2C+A$$",
+                    options: [ "$-x^2-10x+15$", "$-x^2-8x+15$", "$7x^2-10x+5$", "$-x^2-10x+5$" ],
+                    answer: "$-x^2-10x+15$",
+                    rationale: "$3B = 3x^2-9x+3$. $2C=4x^2+2x-10$.<br>$3B-2C+A = (3x^2-9x+3)-(4x^2+2x-10)+(x+2) = 3x^2-9x+3-4x^2-2x+10+x+2 = -x^2-10x+15$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // セット 2: A=2x-1, B=-x^2+4x+3, C=3x^2-2x-2
+                {
+                    question: "$A=2x-1, B=-x^2+4x+3, C=3x^2-2x-2$ であるとき，次の計算をせよ。<br>$$A+B-C$$",
+                    options: [ "$-4x^2+8x+4$", "$-4x^2+4x+4$", "$2x^2+4x+2$", "$-4x^2+8x+2$" ],
+                    answer: "$-4x^2+8x+4$",
+                    rationale: "$(2x-1)+(-x^2+4x+3)-(3x^2-2x-2) = 2x-1-x^2+4x+3-3x^2+2x+2 = -4x^2+8x+4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=2x-1, B=-x^2+4x+3, C=3x^2-2x-2$ であるとき，次の計算をせよ。<br>$$B+C-A$$",
+                    options: [ "$2x^2+2$", "$2x^2-4x+2$", "$4x^2+2$", "$2x^2-4x$" ],
+                    answer: "$2x^2+2$",
+                    rationale: "$(-x^2+4x+3)+(3x^2-2x-2)-(2x-1) = -x^2+4x+3+3x^2-2x-2-2x+1 = 2x^2+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=2x-1, B=-x^2+4x+3, C=3x^2-2x-2$ であるとき，次の計算をせよ。<br>$$3A-B$$",
+                    options: [ "$x^2+2x-6$", "$x^2-2x$", "$-x^2+2x-6$", "$x^2+2x$" ],
+                    answer: "$x^2+2x-6$",
+                    rationale: "$3(2x-1)-(-x^2+4x+3) = 6x-3+x^2-4x-3 = x^2+6x-4x-3-3 = x^2+2x-6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                 {
+                    question: "$A=2x-1, B=-x^2+4x+3, C=3x^2-2x-2$ であるとき，次の計算をせよ。<br>$$2B+C$$",
+                    options: [ "$x^2+6x+4$", "$x^2+2x+1$", "$5x^2+6x+4$", "$x^2+6x+1$" ],
+                    answer: "$x^2+6x+4$",
+                    rationale: "$2(-x^2+4x+3)+(3x^2-2x-2) = -2x^2+8x+6+3x^2-2x-2 = x^2+6x+4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=2x-1, B=-x^2+4x+3, C=3x^2-2x-2$ であるとき，次の計算をせよ。<br>$$A-(B+C)$$",
+                    options: [ "$-2x^2-2$", "$-2x^2+2$", "$-2x^2+4x-2$", "$4x^2-2$" ],
+                    answer: "$-2x^2-2$",
+                    rationale: "$B+C = (-x^2+4x+3)+(3x^2-2x-2) = 2x^2+2x+1$.<br>$A-(B+C) = (2x-1)-(2x^2+2x+1) = 2x-1-2x^2-2x-1 = -2x^2-2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                 {
+                    question: "$A=2x-1, B=-x^2+4x+3, C=3x^2-2x-2$ であるとき，次の計算をせよ。<br>$$C-2(A+B)$$",
+                    options: [ "$5x^2-14x-6$", "$x^2-14x-6$", "$5x^2-10x-6$", "$5x^2-14x+2$" ],
+                    answer: "$5x^2-14x-6$",
+                    rationale: "$A+B = (2x-1)+(-x^2+4x+3) = -x^2+6x+2$.<br>$C-2(A+B) = (3x^2-2x-2)-2(-x^2+6x+2) = 3x^2-2x-2+2x^2-12x-4 = 5x^2-14x-6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                 {
+                    question: "$A=2x-1, B=-x^2+4x+3, C=3x^2-2x-2$ であるとき，次の計算をせよ。<br>$$(A-C) + 2B$$",
+                    options: [ "$-5x^2+12x+7$", "$-5x^2+4x+7$", "$x^2+4x+7$", "$-5x^2+12x+5$" ],
+                    answer: "$-5x^2+12x+7$",
+                    rationale: "$A-C = (2x-1)-(3x^2-2x-2) = -3x^2+4x+1$.<br>$2B = 2(-x^2+4x+3) = -2x^2+8x+6$.<br>$(A-C)+2B = (-3x^2+4x+1)+(-2x^2+8x+6) = -5x^2+12x+7$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // セット 3: A=x^2+1, B=2x^2-x-3, C=-x^2+3x
+                {
+                    question: "$A=x^2+1, B=2x^2-x-3, C=-x^2+3x$ であるとき，次の計算をせよ。<br>$$A+B+C$$",
+                    options: [ "$2x^2+2x-2$", "$2x^2+4x-2$", "$4x^2+2x-2$", "$2x^2+2x+4$" ],
+                    answer: "$2x^2+2x-2$",
+                    rationale: "$(x^2+1)+(2x^2-x-3)+(-x^2+3x) = x^2+2x^2-x^2-x+3x+1-3 = 2x^2+2x-2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x^2+1, B=2x^2-x-3, C=-x^2+3x$ であるとき，次の計算をせよ。<br>$$A-B-C$$",
+                    options: [ "$-2x+4$", "$0x^2-2x+4$", "$2x^2-4x+4$", "$4x^2-4x-2$" ],
+                    answer: "$-2x+4$",
+                    rationale: "$(x^2+1)-(2x^2-x-3)-(-x^2+3x) = x^2+1-2x^2+x+3+x^2-3x = x^2-2x^2+x^2+x-3x+1+3 = -2x+4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                 {
+                    question: "$A=x^2+1, B=2x^2-x-3, C=-x^2+3x$ であるとき，次の計算をせよ。<br>$$2A-3B$$",
+                    options: [ "$-4x^2+3x+11$", "$-4x^2-3x+11$", "$x^2+3x+7$", "$-4x^2+3x+7$" ],
+                    answer: "$-4x^2+3x+11$",
+                    rationale: "$2(x^2+1)-3(2x^2-x-3) = 2x^2+2-(6x^2-3x-9) = 2x^2+2-6x^2+3x+9 = -4x^2+3x+11$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x^2+1, B=2x^2-x-3, C=-x^2+3x$ であるとき，次の計算をせよ。<br>$$B+2C-A$$",
+                    options: [ "$-x^2+5x-4$", "$-x^2+7x-4$", "$2x^2+5x-2$", "$-x^2+5x-2$" ],
+                    answer: "$-x^2+5x-4$",
+                    rationale: "$2C = -2x^2+6x$.<br>$B+2C-A = (2x^2-x-3)+(-2x^2+6x)-(x^2+1) = 2x^2-x-3-2x^2+6x-x^2-1 = -x^2+5x-4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x^2+1, B=2x^2-x-3, C=-x^2+3x$ であるとき，次の計算をせよ。<br>$$(A+B)-(B+C)$$",
+                    options: [ "$2x^2-3x+1$", "$A-C$", "$4x^2-x-2$", "$2x^2-4x+1$" ],
+                    answer: "$2x^2-3x+1$",
+                    rationale: "式を整理すると $(A+B)-(B+C) = A-C$ となる。<br>$A-C = (x^2+1)-(-x^2+3x) = x^2+1+x^2-3x = 2x^2-3x+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                 {
+                    question: "$A=x^2+1, B=2x^2-x-3, C=-x^2+3x$ であるとき，次の計算をせよ。<br>$$A - 2(B - C)$$",
+                    options: [ "$-5x^2+8x+7$", "$-5x^2-8x+7$", "$7x^2-8x-5$", "$-5x^2+8x-5$" ],
+                    answer: "$-5x^2+8x+7$",
+                    rationale: "$B-C = (2x^2-x-3)-(-x^2+3x) = 3x^2-4x-3$.<br>$A-2(B-C) = (x^2+1)-2(3x^2-4x-3) = x^2+1-6x^2+8x+6 = -5x^2+8x+7$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x^2+1, B=2x^2-x-3, C=-x^2+3x$ であるとき，次の計算をせよ。<br>$$3C - (A+B)$$",
+                    options: [ "$-6x^2+10x+2$", "$-6x^2+8x-2$", "$0x^2+8x-2$", "$-6x^2+10x-2$" ],
+                    answer: "$-6x^2+10x+2$",
+                    rationale: "$A+B = (x^2+1)+(2x^2-x-3) = 3x^2-x-2$.<br>$3C = 3(-x^2+3x) = -3x^2+9x$.<br>$3C-(A+B) = (-3x^2+9x)-(3x^2-x-2) = -3x^2+9x-3x^2+x+2 = -6x^2+10x+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // セット 4: A=x^2-2x, B=3x+1, C=-x^2+x-4
+                {
+                    question: "$A=x^2-2x, B=3x+1, C=-x^2+x-4$ であるとき，次の計算をせよ。<br>$$A-B+C$$",
+                    options: [ "$-4x-5$", "$2x^2-4x-5$", "$-4x-3$", "$2x^2-4x-3$" ],
+                    answer: "$-4x-5$",
+                    rationale: "$(x^2-2x)-(3x+1)+(-x^2+x-4) = x^2-2x-3x-1-x^2+x-4 = -4x-5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                 {
+                    question: "$A=x^2-2x, B=3x+1, C=-x^2+x-4$ であるとき，次の計算をせよ。<br>$$2B+A-C$$",
+                    options: [ "$2x^2+3x+6$", "$2x^2+5x+6$", "$x^2+3x+6$", "$2x^2+3x+2$" ],
+                    answer: "$2x^2+3x+6$",
+                    rationale: "$2B = 2(3x+1)=6x+2$.<br>$2B+A-C = (6x+2)+(x^2-2x)-(-x^2+x-4) = 6x+2+x^2-2x+x^2-x+4 = 2x^2+3x+6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                 {
+                    question: "$A=x^2-2x, B=3x+1, C=-x^2+x-4$ であるとき，次の計算をせよ。<br>$$-A+B+3C$$",
+                    options: [ "$-4x^2+8x-11$", "$-4x^2+4x-11$", "$-2x^2+4x-11$", "$-4x^2+4x+13$" ],
+                    answer: "$-4x^2+8x-11$",
+                    rationale: "$3C = 3(-x^2+x-4)=-3x^2+3x-12$.<br>$-A+B+3C = -(x^2-2x)+(3x+1)+(-3x^2+3x-12) = -x^2+2x+3x+1-3x^2+3x-12 = -4x^2+8x-11$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x^2-2x, B=3x+1, C=-x^2+x-4$ であるとき，次の計算をせよ。<br>$$A-(B-C)$$",
+                    options: [ "$-4x-5$", "$2x^2-4x+5$", "$2x^2+5$", "$-4x+3$" ],
+                    answer: "$-4x-5$",
+                    rationale: "$B-C = (3x+1)-(-x^2+x-4) = x^2+2x+5$.<br>$A-(B-C) = (x^2-2x)-(x^2+2x+5) = x^2-2x-x^2-2x-5 = -4x-5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x^2-2x, B=3x+1, C=-x^2+x-4$ であるとき，次の計算をせよ。<br>$$3(A-C)-2B$$",
+                    options: [ "$6x^2-15x+10$", "$6x^2-9x+10$", "$4x^2-15x+10$", "$6x^2-15x+14$" ],
+                    answer: "$6x^2-15x+10$",
+                    rationale: "$A-C = (x^2-2x)-(-x^2+x-4) = 2x^2-3x+4$.<br>$3(A-C) = 6x^2-9x+12$.<br>$2B = 6x+2$.<br>$3(A-C)-2B = (6x^2-9x+12)-(6x+2) = 6x^2-15x+10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                {
+                    question: "$A=x^2-2x, B=3x+1, C=-x^2+x-4$ であるとき，次の計算をせよ。<br>$$-(A+B+C)$$",
+                    options: [ "$-2x+3$", "$2x+3$", "$-2x^2+2x-3$", "$-2x-3$" ],
+                    answer: "$-2x+3$",
+                    rationale: "$A+B+C = (x^2-2x)+(3x+1)+(-x^2+x-4) = 2x-3$.<br>$-(A+B+C) = -(2x-3) = -2x+3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                { // Set 1 add-on
+                    question: "$A=x+2, B=x^2-3x+1, C=2x^2+x-5$ であるとき，次の計算をせよ。<br>$$A - (2B + C)$$",
+                    options: [ "$-4x^2+6x+5$", "$-4x^2-4x+5$", "$0x^2+6x+5$", "$-4x^2+6x-5$" ],
+                    answer: "$-4x^2+6x+5$",
+                    rationale: "$2B = 2x^2-6x+2$. $2B+C = 4x^2-5x-3$.<br>$A-(2B+C) = (x+2)-(4x^2-5x-3) = x+2-4x^2+5x+3 = -4x^2+6x+5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                { // Set 2 add-on
+                    question: "$A=2x-1, B=-x^2+4x+3, C=3x^2-2x-2$ であるとき，次の計算をせよ。<br>$$3C - (B-A)$$",
+                    options: [ "$10x^2-8x-10$", "$8x^2-8x-10$", "$10x^2-4x-10$", "$10x^2-8x-2$" ],
+                    answer: "$10x^2-8x-10$",
+                    rationale: "$B-A = (-x^2+4x+3)-(2x-1) = -x^2+2x+4$.<br>$3C = 9x^2-6x-6$.<br>$3C-(B-A) = (9x^2-6x-6)-(-x^2+2x+4) = 9x^2-6x-6+x^2-2x-4 = 10x^2-8x-10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                 { // Set 3 add-on
+                    question: "$A=x^2+1, B=2x^2-x-3, C=-x^2+3x$ であるとき，次の計算をせよ。<br>$$2(A+C) - B$$",
+                    options: [ "$-2x^2+7x+5$", "$-2x^2+5x+5$", "$4x^2+7x-1$", "$7x+5$" ],
+                    answer: "$-2x^2+7x+5$",
+                    rationale: "$A+C = 3x+1$. $2(A+C)=6x+2$.<br>$2(A+C)-B = (6x+2)-(2x^2-x-3) = 6x+2-2x^2+x+3 = -2x^2+7x+5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                { // Set 4 add-on
+                    question: "$A=x^2-2x, B=3x+1, C=-x^2+x-4$ であるとき，次の計算をせよ。<br>$$B - 2A + C$$",
+                    options: [ "$-3x^2+8x-3$", "$-3x^2+6x-3$", "$-x^2+6x-3$", "$-3x^2+8x+5$" ],
+                    answer: "$-3x^2+8x-3$",
+                    rationale: "$2A = 2x^2-4x$.<br>$B-2A+C = (3x+1)-(2x^2-4x)+(-x^2+x-4) = 3x+1-2x^2+4x-x^2+x-4 = -3x^2+8x-3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                }
+
+            ]; // ← allQuizData をここで閉じる
+            // --- 元のクイズデータの終わり ---
+
+            // ★★★ ランダムに10題選ぶ処理 ★★★
+            // 1. allQuizData をシャッフルする関数
+            function shuffleArray(array) {
+                const shuffled = [...array]; // 配列をコピー
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            // 2. シャッフルして先頭10件を取得
+            const numberOfQuestions = 10;
+            const shuffledAllData = shuffleArray(allQuizData);
+            // ★ 実際に使うデータ (quizData) を定義 ★
+            const quizData = shuffledAllData.slice(0, Math.min(numberOfQuestions, allQuizData.length));
+            // ★★★ ここまで ★★★
+
+
+            // --- ここから下はクイズの仕組みです (変数 quizData を使う) ---
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const questionNumberEl = document.getElementById('question-number');
+            const questionTextEl = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const scoreTextEl = document.getElementById('score-text');
+            const finalMessageEl = document.getElementById('final-message');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            // (関数定義)
+            function loadQuestion() {
+                if (!quizData || currentQuestionIndex >= quizData.length) { console.error("Invalid question index or quizData is empty."); questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。"; questionNumberEl.textContent = "エラー"; optionsContainer.innerHTML = ''; return; }
+                feedbackEl.style.display = 'none'; nextBtn.style.display = 'none'; optionsContainer.innerHTML = '';
+                const currentQuestion = quizData[currentQuestionIndex];
+                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`; // 10題中の表示
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文なし)";
+                if (currentQuestion.layout === 'vertical') { optionsContainer.classList.add('options-vertical'); } else { optionsContainer.classList.remove('options-vertical'); }
+                if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
+                    const shuffledOptions = [...currentQuestion.options];
+                    for (let i = shuffledOptions.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; }
+                    shuffledOptions.forEach(optionText => {
+                        const optionBox = document.createElement('div');
+                        optionBox.innerHTML = optionText || "(選択肢なし)";
+                        optionBox.classList.add('option-box');
+                        optionBox.dataset.optionValue = optionText;
+                        optionBox.addEventListener('click', () => { if (feedbackEl.style.display === 'block') return; selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale); });
+                        optionsContainer.appendChild(optionBox);
+                    });
+                } else { optionsContainer.innerHTML = '<p>(選択肢なし)</p>'; }
+                try { renderMathInElement(questionTextEl, { delimiters: katexDelimiters }); renderMathInElement(optionsContainer, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX render error:", e); }
+            }
+
+            function selectAnswer(selectedBox, selectedOption, correctAnswer, rationale) {
+                Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => { box.classList.add('disabled'); if (box.dataset.optionValue === correctAnswer) { box.classList.add('correct'); } else { box.classList.add('incorrect'); } });
+                feedbackEl.style.display = 'block'; const feedbackRationale = rationale || "(解説なし)";
+                if (selectedOption === correctAnswer) { feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`; feedbackEl.className = 'correct'; score++; }
+                else { selectedBox.classList.add('selected'); feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; feedbackEl.className = 'incorrect'; }
+                try { renderMathInElement(feedbackEl, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX feedback render error:", e); }
+                if (currentQuestionIndex < quizData.length - 1) { nextBtn.style.display = 'block'; } else { resultsBtn.style.display = 'block'; }
+            }
+
+            // (イベントリスナー)
+            nextBtn.addEventListener('click', () => { if (currentQuestionIndex < quizData.length - 1) { currentQuestionIndex++; loadQuestion(); } });
+
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none'; resultsContainer.style.display = 'block';
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`; // 10題中の表示
+                let rank = "-"; if (quizData.length > 0) { if (percentage === 100) rank = "S"; else if (percentage >= 80) rank = "A"; else if (percentage >= 60) rank = "B"; else rank = "C"; }
+                const quizId = 'M1-1-1-2'; // ★ quizId ★
+                try { localStorage.setItem('quizRank_' + quizId, rank); } catch (e) { console.error("localStorage save failed:", e); }
+                let message = ""; // (メッセージ生成...)
+                 if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
+                 else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
+                 else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
+                 else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
+                 else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
+                finalMessageEl.textContent = message;
+            });
+
+            // (クイズ開始)
+            if (quizData && quizData.length > 0) {
+                loadQuestion();
+            } else {
+                 questionTextEl.innerHTML = "問題データ (allQuizData) が見つからないか空です。<br>HTMLファイルを確認してください。"; // エラーメッセージ変更
+                 questionNumberEl.textContent = "エラー";
+                 quizContainer.style.display = 'block';
+                 resultsContainer.style.display = 'none';
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+             <h1>数と式：整式の加法と減法</h1>
+        </header>
+        <main>
+            <div id="quiz-container">
+                <div id="question-header"><span id="question-number"></span></div>
+                <h2 id="question-text"></h2>
+                <div id="options-container"></div>
+                <div id="feedback"></div>
+                <button id="next-btn">次の問題へ</button>
+                <button id="results-btn">結果を見る</button>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>テスト終了！</h2>
+                <p id="score-text"></p>
+                <p id="final-message"></p>
+                <a href="index.html" id="homepage-link">トップページに戻る</a>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 [香川亮]</p>
+        </footer>
+    </div>
+</body>
+</html>
