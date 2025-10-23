@@ -176,361 +176,330 @@
                 renderMathInElement(document.body, { delimiters: katexDelimiters });
             } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
 
-            // --- ★ 元の50題のクイズデータを allQuizData とする ★ ---
-            const allQuizData = [
-                // 問題 1
+            // --- ★ allQuizData 配列 (M1-1-1-4.html 用) ★ ---
+            [
+                // --- タイプ1: (2次式) x (2次式) (25題) ---
                 {
-                    question: "次の計算をせよ。<br>$$2x^2y \\times \\left(-5xy^3\\right)$$",
-                    options: [ "$-10x^3y^4$", "$-3x^3y^4$", "$-10x^2y^3$", "$10x^3y^4$" ],
-                    answer: "$-10x^3y^4$",
-                    rationale: "係数は $2 \\times \\left(-5\\right) = -10$。<br>$x$ の指数は $2+1=3$。<br>$y$ の指数は $1+3=4$。<br>よって、$-10x^3y^4$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(3x+4\\right)\\left(2x+5\\right)$$",
+                    options: [ "$6x^2+23x+20$", "$6x^2+13x+20$", "$6x^2+23x+9$", "$5x^2+23x+20$" ],
+                    answer: "$6x^2+23x+20$",
+                    rationale: "$\\left(3x\\right)\\left(2x\\right) + \\left(3x\\right)\\left(5\\right) + \\left(4\\right)\\left(2x\\right) + \\left(4\\right)\\left(5\\right) = 6x^2+15x+8x+20 = 6x^2+23x+20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 2
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-2x^2y^2\\right)^3 \\times \\left(-2x^3y\\right)$$",
-                    options: [ "$16x^9y^7$", "$-8x^8y^7$", "$-16x^9y^7$", "$8x^9y^7$" ],
-                    answer: "$16x^9y^7$",
-                    rationale: "$\\left(-2x^2y^2\\right)^3 = \\left(-2\\right)^3 \\left(x^2\\right)^3 \\left(y^2\\right)^3 = -8x^6y^6$。<br>よって、$\\left(-8x^6y^6\\right) \\times \\left(-2x^3y\\right) = \\left(-8\\right) \\times \\left(-2\\right) \\times x^{6+3} \\times y^{6+1} = 16x^9y^7$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(2x+y\\right)\\left(x-3y\\right)$$",
+                    options: [ "$2x^2-5xy-3y^2$", "$2x^2-7xy-3y^2$", "$2x^2-5xy+3y^2$", "$3x-2y$" ],
+                    answer: "$2x^2-5xy-3y^2$",
+                    rationale: "$\\left(2x\\right)\\left(x\\right) + \\left(2x\\right)\\left(-3y\\right) + \\left(y\\right)\\left(x\\right) + \\left(y\\right)\\left(-3y\\right) = 2x^2-6xy+xy-3y^2 = 2x^2-5xy-3y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 3
                 {
-                    question: "次の計算をせよ。<br>$$36x^4y^3 \\div 9x^2y^2$$",
-                    options: [ "$4x^2y$", "$4x^6y^5$", "$27x^2y$", "$4x^2y^5$" ],
-                    answer: "$4x^2y$",
-                    rationale: "係数は $36 \\div 9 = 4$。<br>$x$ の指数は $4-2=2$。<br>$y$ の指数は $3-2=1$。<br>よって、$4x^2y$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(-x+y\\right)\\left(4x-2y\\right)$$",
+                    options: [ "$-4x^2+6xy-2y^2$", "$-4x^2+2xy-2y^2$", "$-4x^2-6xy-2y^2$", "$3x-y$" ],
+                    answer: "$-4x^2+6xy-2y^2$",
+                    rationale: "$\\left(-x\\right)\\left(4x\\right) + \\left(-x\\right)\\left(-2y\\right) + \\left(y\\right)\\left(4x\\right) + \\left(y\\right)\\left(-2y\\right) = -4x^2+2xy+4xy-2y^2 = -4x^2+6xy-2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 4
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-3a^3b^2\\right) \\times \\left(4a^2b\\right)$$",
-                    options: [ "$-12a^5b^3$", "$12a^5b^3$", "$-12a^6b^2$", "$a^5b^3$" ],
-                    answer: "$-12a^5b^3$",
-                    rationale: "係数は $\\left(-3\\right) \\times 4 = -12$。<br>$a$ の指数は $3+2=5$。<br>$b$ の指数は $2+1=3$。<br>よって、$-12a^5b^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x+3\\right)\\left(x^2-x+1\\right)$$",
+                    options: [ "$x^3+2x^2-2x+3$", "$x^3-x^2+x+3$", "$x^3+3x^2-x+3$", "$x^3+2x^2+x+3$" ],
+                    answer: "$x^3+2x^2-2x+3$",
+                    rationale: "$x\\left(x^2-x+1\\right) + 3\\left(x^2-x+1\\right) = \\left(x^3-x^2+x\\right) + \\left(3x^2-3x+3\\right) = x^3+2x^2-2x+3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 5
                 {
-                    question: "次の計算をせよ。<br>$$\\left(5xy\\right)^2$$",
-                    options: [ "$25x^2y^2$", "$5x^2y^2$", "$10x^2y^2$", "$25xy^2$" ],
-                    answer: "$25x^2y^2$",
-                    rationale: "$\\left(5xy\\right)^2 = 5^2 x^2 y^2 = 25x^2y^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(2a-1\\right)\\left(a^2+a-3\\right)$$",
+                    options: [ "$2a^3+a^2-7a+3$", "$2a^3-a^2-7a+3$", "$2a^3+a^2-5a+3$", "$2a^3+3a^2-7a+3$" ],
+                    answer: "$2a^3+a^2-7a+3$",
+                    rationale: "$2a\\left(a^2+a-3\\right) - 1\\left(a^2+a-3\\right) = \\left(2a^3+2a^2-6a\\right) + \\left(-a^2-a+3\\right) = 2a^3+a^2-7a+3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 6
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-a^2b^3\\right)^4$$",
-                    options: [ "$a^8b^{12}$", "$-a^8b^{12}$", "$a^6b^7$", "$-4a^8b^{12}$" ],
-                    answer: "$a^8b^{12}$",
-                    rationale: "$\\left(-a^2b^3\\right)^4 = \\left(-1\\right)^4 \\left(a^2\\right)^4 \\left(b^3\\right)^4 = 1 \\times a^{2 \\times 4} \\times b^{3 \\times 4} = a^8b^{12}$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2+2x+3\\right)\\left(x-1\\right)$$",
+                    options: [ "$x^3+x^2+x-3$", "$x^3+x^2-x-3$", "$x^3+2x^2+x-3$", "$x^3-x^2-x-3$" ],
+                    answer: "$x^3+x^2+x-3$",
+                    rationale: "$x^2\\left(x-1\\right) + 2x\\left(x-1\\right) + 3\\left(x-1\\right) = \\left(x^3-x^2\\right) + \\left(2x^2-2x\\right) + \\left(3x-3\\right) = x^3+x^2+x-3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 7
                 {
-                    question: "次の計算をせよ。<br>$$18a^5b^4 \\div \\left(-6a^2b\\right)$$",
-                    options: [ "$-3a^3b^3$", "$3a^3b^3$", "$-3a^7b^5$", "$-12a^3b^3$" ],
-                    answer: "$-3a^3b^3$",
-                    rationale: "係数は $18 \\div \\left(-6\\right) = -3$。<br>$a$ の指数は $5-2=3$。<br>$b$ の指数は $4-1=3$。<br>よって、$-3a^3b^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a-b\\right)\\left(a^2+ab+b^2\\right)$$",
+                    options: [ "$a^3-b^3$", "$a^3+b^3$", "$a^3-2a^2b+2ab^2-b^3$", "$a^3+2a^2b+2ab^2+b^3$" ],
+                    answer: "$a^3-b^3$",
+                    rationale: "これは乗法公式 $\\left(a-b\\right)\\left(a^2+ab+b^2\\right)=a^3-b^3$ です。展開すると $a\\left(a^2+ab+b^2\\right) - b\\left(a^2+ab+b^2\\right) = \\left(a^3+a^2b+ab^2\\right) - \\left(a^2b+ab^2+b^3\\right) = a^3-b^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 8
                 {
-                    question: "次の計算をせよ。<br>$$x^3 \\times \\left(-x\\right)^2 \\times x$$",
-                    options: [ "$x^6$", "$-x^6$", "$x^5$", "$-x^5$" ],
-                    answer: "$x^6$",
-                    rationale: "$\\left(-x\\right)^2 = x^2$ なので、$x^3 \\times x^2 \\times x = x^{3+2+1} = x^6$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x+y\\right)\\left(x^2-xy+y^2\\right)$$",
+                    options: [ "$x^3+y^3$", "$x^3-y^3$", "$x^3+2x^2y+2xy^2+y^3$", "$x^3-2x^2y+2xy^2-y^3$" ],
+                    answer: "$x^3+y^3$",
+                    rationale: "これは乗法公式 $\\left(x+y\\right)\\left(x^2-xy+y^2\\right)=x^3+y^3$ です。展開すると $x\\left(x^2-xy+y^2\\right) + y\\left(x^2-xy+y^2\\right) = \\left(x^3-x^2y+xy^2\\right) + \\left(x^2y-xy^2+y^3\\right) = x^3+y^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 9
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-2a^2b\\right)^3 \\div \\left(4ab^2\\right)$$",
-                    options: [ "$-2a^5b$", "$2a^5b$", "$-8a^5b$", "$-2a^4b$" ],
-                    answer: "$-2a^5b$",
-                    rationale: "$\\left(-2a^2b\\right)^3 = \\left(-2\\right)^3\\left(a^2\\right)^3b^3 = -8a^6b^3$。<br>よって、$\\left(-8a^6b^3\\right) \\div \\left(4ab^2\\right) = \\left(-8 \\div 4\\right) \\times a^{6-1} \\times b^{3-2} = -2a^5b$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(2x-y\\right)\\left(3x+4y\\right)$$",
+                    options: [ "$6x^2+5xy-4y^2$", "$6x^2-11xy-4y^2$", "$6x^2+11xy-4y^2$", "$6x^2+5xy+4y^2$" ],
+                    answer: "$6x^2+5xy-4y^2$",
+                    rationale: "$\\left(2x\\right)\\left(3x\\right) + \\left(2x\\right)\\left(4y\\right) + \\left(-y\\right)\\left(3x\\right) + \\left(-y\\right)\\left(4y\\right) = 6x^2+8xy-3xy-4y^2 = 6x^2+5xy-4y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 10
                 {
-                    question: "次の計算をせよ。<br>$$6x^2y \\times \\left(-3xy^2\\right) \\div \\left(2x^2y^2\\right)$$",
-                    options: [ "$-9xy$", "$9xy$", "$-9x$", "$-9y$" ],
-                    answer: "$-9xy$",
-                    rationale: "$\\dfrac{6x^2y \\times \\left(-3xy^2\\right)}{2x^2y^2} = \\dfrac{-18x^3y^3}{2x^2y^2} = -9x^{3-2}y^{3-2} = -9xy$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x-5\\right)\\left(x-6\\right)$$",
+                    options: [ "$x^2-11x+30$", "$x^2+11x+30$", "$x^2-x+30$", "$x^2-11x-30$" ],
+                    answer: "$x^2-11x+30$",
+                    rationale: "$\\left(x\\right)\\left(x\\right) + \\left(x\\right)\\left(-6\\right) + \\left(-5\\right)\\left(x\\right) + \\left(-5\\right)\\left(-6\\right) = x^2-6x-5x+30 = x^2-11x+30$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 11
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-x^4y^2z\\right) \\times \\left(3xyz^3\\right)$$",
-                    options: [ "$-3x^5y^3z^4$", "$3x^5y^3z^4$", "$-3x^4y^2z^3$", "$-3x^5y^2z^4$" ],
-                    answer: "$-3x^5y^3z^4$",
-                    rationale: "係数は $\\left(-1\\right) \\times 3 = -3$。<br>$x^{4+1}=x^5$。<br>$y^{2+1}=y^3$。<br>$z^{1+3}=z^4$。<br>よって、$-3x^5y^3z^4$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(3a-2b\\right)\\left(3a+2b\\right)$$",
+                    options: [ "$9a^2-4b^2$", "$9a^2+4b^2$", "$9a^2-12ab+4b^2$", "$6a^2-4b^2$" ],
+                    answer: "$9a^2-4b^2$",
+                    rationale: "和と差の積の公式 $\\left(x-y\\right)\\left(x+y\\right)=x^2-y^2$ を使います。$\\left(3a\\right)^2 - \\left(2b\\right)^2 = 9a^2-4b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 12
                 {
-                    question: "次の計算をせよ。<br>$$\\left(2a^3b\\right)^3$$",
-                    options: [ "$8a^9b^3$", "$6a^9b^3$", "$8a^6b^3$", "$8a^9b$" ],
-                    answer: "$8a^9b^3$",
-                    rationale: "$\\left(2a^3b\\right)^3 = 2^3 \\left(a^3\\right)^3 b^3 = 8 a^{3 \\times 3} b^3 = 8a^9b^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x+1\\right)\\left(x^2-x-1\\right)$$",
+                    options: [ "$x^3-2x-1$", "$x^3-x^2-x-1$", "$x^3-1$", "$x^3-2x+1$" ],
+                    answer: "$x^3-2x-1$",
+                    rationale: "$x\\left(x^2-x-1\\right) + 1\\left(x^2-x-1\\right) = \\left(x^3-x^2-x\\right) + \\left(x^2-x-1\\right) = x^3-2x-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                 // 問題 13
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-10x^6y^5\\right) \\div \\left(-2x^3y^2\\right)$$",
-                    options: [ "$5x^3y^3$", "$-5x^3y^3$", "$8x^3y^3$", "$5x^9y^7$" ],
-                    answer: "$5x^3y^3$",
-                    rationale: "係数は $\\left(-10\\right) \\div \\left(-2\\right) = 5$。<br>$x^{6-3}=x^3$。<br>$y^{5-2}=y^3$。<br>よって、$5x^3y^3$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(y-3\\right)\\left(y^2+2y-1\\right)$$",
+                    options: [ "$y^3-y^2-7y+3$", "$y^3+y^2-7y+3$", "$y^3-y^2-5y+3$", "$y^3-5y^2-7y+3$" ],
+                    answer: "$y^3-y^2-7y+3$",
+                    rationale: "$y\\left(y^2+2y-1\\right) - 3\\left(y^2+2y-1\\right) = \\left(y^3+2y^2-y\\right) + \\left(-3y^2-6y+3\\right) = y^3-y^2-7y+3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 14
                 {
-                    question: "次の計算をせよ。<br>$$\\left(4a^2b^3\\right)^2 \\times \\left(-ab\\right)$$",
-                    options: [ "$-16a^5b^7$", "$16a^5b^7$", "$-16a^4b^6$", "$-8a^5b^7$" ],
-                    answer: "$-16a^5b^7$",
-                    rationale: "$\\left(4a^2b^3\\right)^2 = 16a^4b^6$。<br>よって、$\\left(16a^4b^6\\right) \\times \\left(-ab\\right) = -16a^{4+1}b^{6+1} = -16a^5b^7$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a^2+a-1\\right)\\left(a+1\\right)$$",
+                    options: [ "$a^3+2a^2-1$", "$a^3-1$", "$a^3+2a^2+a-1$", "$a^3+a^2-a-1$" ],
+                    answer: "$a^3+2a^2-1$",
+                    rationale: "$a^2\\left(a+1\\right) + a\\left(a+1\\right) - 1\\left(a+1\\right) = \\left(a^3+a^2\\right) + \\left(a^2+a\\right) + \\left(-a-1\\right) = a^3+2a^2-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 15
                 {
-                    question: "次の計算をせよ。<br>$$x^5 \\div x^2 \\times x^3$$",
-                    options: [ "$x^6$", "$x^4$", "$x^{10}$", "$x^0=1$" ],
-                    answer: "$x^6$",
-                    rationale: "左から順に計算します。$x^5 \\div x^2 = x^{3}$。<br>$x^3 \\times x^3 = x^{3+3} = x^6$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(2x-3\\right)\\left(3x-2\\right)$$",
+                    options: [ "$6x^2-13x+6$", "$6x^2-5x+6$", "$6x^2-13x-6$", "$5x^2-13x+6$" ],
+                    answer: "$6x^2-13x+6$",
+                    rationale: "$\\left(2x\\right)\\left(3x\\right) + \\left(2x\\right)\\left(-2\\right) + \\left(-3\\right)\\left(3x\\right) + \\left(-3\\right)\\left(-2\\right) = 6x^2-4x-9x+6 = 6x^2-13x+6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                 // 問題 16
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-y\\right)^3 \\times \\left(2y\\right)^2$$",
-                    options: [ "$-4y^5$", "$4y^5$", "$4y^6$", "$-4y^6$" ],
-                    answer: "$-4y^5$",
-                    rationale: "$\\left(-y\\right)^3 = -y^3$。<br>$\\left(2y\\right)^2 = 4y^2$。<br>よって、$\\left(-y^3\\right) \\times \\left(4y^2\\right) = -4y^{3+2} = -4y^5$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2+1\\right)\\left(x^2-2\\right)$$",
+                    options: [ "$x^4-x^2-2$", "$x^4+x^2-2$", "$x^4-2$", "$x^4-3x^2-2$" ],
+                    answer: "$x^4-x^2-2$",
+                    rationale: "$x^2\\left(x^2-2\\right) + 1\\left(x^2-2\\right) = \\left(x^4-2x^2\\right) + \\left(x^2-2\\right) = x^4-x^2-2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                 // 問題 17
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-a^3b^2c\\right)^2 \\div \\left(a^2b^3c\\right)$$",
-                    options: [ "$a^4bc$", "$a^4b$", "$-a^4bc$", "$a^3b$" ],
-                    answer: "$a^4bc$",
-                    rationale: "$\\left(-a^3b^2c\\right)^2 = a^6b^4c^2$。<br>よって、$\\left(a^6b^4c^2\\right) \\div \\left(a^2b^3c\\right) = a^{6-2}b^{4-3}c^{2-1} = a^4bc$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a-4b\\right)\\left(2a-b\\right)$$",
+                    options: [ "$2a^2-9ab+4b^2$", "$2a^2-7ab+4b^2$", "$2a^2+9ab+4b^2$", "$3a^2-9ab+4b^2$" ],
+                    answer: "$2a^2-9ab+4b^2$",
+                    rationale: "$\\left(a\\right)\\left(2a\\right) + \\left(a\\right)\\left(-b\\right) + \\left(-4b\\right)\\left(2a\\right) + \\left(-4b\\right)\\left(-b\\right) = 2a^2-ab-8ab+4b^2 = 2a^2-9ab+4b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                 // 問題 18
                 {
-                    question: "次の計算をせよ。<br>$$24x^3y^4 \\div \\left(-4xy\\right) \\times \\left(-x^2y\\right)$$",
-                    options: [ "$6x^4y^4$", "$-6x^4y^4$", "$6x^3y^3$", "$-6x^3y^3$" ],
-                    answer: "$6x^4y^4$",
-                    rationale: "前から順に計算します。$\\left(24x^3y^4\\right) \\div \\left(-4xy\\right) = -6x^2y^3$。<br>次に乗法を行うと、$\\left(-6x^2y^3\\right) \\times \\left(-x^2y\\right) = 6x^4y^4$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2-y\\right)\\left(x+y^2\\right)$$",
+                    options: [ "$x^3+x^2y^2-xy-y^3$", "$x^3-y^3$", "$x^3-x^2y^2+xy-y^3$", "$x^3+x^2y^2-xy+y^3$" ],
+                    answer: "$x^3+x^2y^2-xy-y^3$",
+                    rationale: "$\\left(x^2\\right)\\left(x\\right) + \\left(x^2\\right)\\left(y^2\\right) + \\left(-y\\right)\\left(x\\right) + \\left(-y\\right)\\left(y^2\\right) = x^3+x^2y^2-xy-y^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                 // 問題 19
                 {
-                    question: "次の計算をせよ。<br>$$\\left(ab^2\\right)^3 \\times a^2b$$",
-                    options: [ "$a^5b^7$", "$a^5b^6$", "$a^6b^7$", "$a^6b^6$" ],
-                    answer: "$a^5b^7$",
-                    rationale: "$\\left(ab^2\\right)^3 = a^3\\left(b^2\\right)^3 = a^3b^6$。<br>よって、$\\left(a^3b^6\\right) \\times \\left(a^2b\\right) = a^{3+2}b^{6+1} = a^5b^7$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x-3y\\right)\\left(x^2+2y\\right)$$",
+                    options: [ "$x^3-3x^2y+2xy-6y^2$", "$x^3+2xy-6y^2$", "$x^3-3x^2y-2xy-6y^2$", "$x^3-3x^2y+2xy+6y^2$" ],
+                    answer: "$x^3-3x^2y+2xy-6y^2$",
+                    rationale: "$x\\left(x^2+2y\\right) - 3y\\left(x^2+2y\\right) = \\left(x^3+2xy\\right) + \\left(-3x^2y-6y^2\\right) = x^3-3x^2y+2xy-6y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                 // 問題 20
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-3x^2\\right)^2 \\div x^3$$",
-                    options: [ "$9x$", "$9x^7$", "$-9x$", "$6x$" ],
-                    answer: "$9x$",
-                    rationale: "$\\left(-3x^2\\right)^2 = \\left(-3\\right)^2\\left(x^2\\right)^2 = 9x^4$。<br>よって、$9x^4 \\div x^3 = 9x^{4-3} = 9x$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a-1\\right)\\left(a^3+a^2+a+1\\right)$$",
+                    options: [ "$a^4-1$", "$a^4+1$", "$a^4+2a^3+2a^2+2a+1$", "$a^4-2a^3-2a^2-2a-1$" ],
+                    answer: "$a^4-1$",
+                    rationale: "$a\\left(a^3+a^2+a+1\\right) - 1\\left(a^3+a^2+a+1\\right) = \\left(a^4+a^3+a^2+a\\right) - \\left(a^3+a^2+a+1\\right) = a^4-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 21
                 {
-                    question: "次の計算をせよ。<br>$$5a^4b \\times \\left(-2b^3\\right)$$",
-                    options: [ "$-10a^4b^4$", "$10a^4b^4$", "$-10a^4b^3$", "$3a^4b^4$" ],
-                    answer: "$-10a^4b^4$",
-                    rationale: "係数は $5 \\times \\left(-2\\right) = -10$。$a$ は $a^4$ のまま。$b$ の指数は $1+3=4$。よって $-10a^4b^4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2+x+1\\right)\\left(x^2-x+1\\right)$$",
+                    options: [ "$x^4+x^2+1$", "$x^4+2x^3+x^2+2x+1$", "$x^4+1$", "$x^4+x^2-1$" ],
+                    answer: "$x^4+x^2+1$",
+                    rationale: "$\\left(\\left(x^2+1\\right)+x\\right)\\left(\\left(x^2+1\\right)-x\\right) = \\left(x^2+1\\right)^2-x^2 = \\left(x^4+2x^2+1\\right)-x^2 = x^4+x^2+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                 // 問題 22
                 {
-                    question: "次の計算をせよ。<br>$$\\left(xy^2z^3\\right)^4$$",
-                    options: [ "$x^4y^8z^{12}$", "$x^4y^6z^7$", "$4x^4y^8z^{12}$", "$x^5y^8z^{12}$" ],
-                    answer: "$x^4y^8z^{12}$",
-                    rationale: "$\\left(xy^2z^3\\right)^4 = x^4 \\left(y^2\\right)^4 \\left(z^3\\right)^4 = x^4 y^{8} z^{12}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a+b-c\\right)\\left(a-b+c\\right)$$",
+                    options: [ "$a^2-b^2+2bc-c^2$", "$a^2-b^2-c^2$", "$a^2-b^2-2bc-c^2$", "$a^2+b^2-c^2+2ab$" ],
+                    answer: "$a^2-b^2+2bc-c^2$",
+                    rationale: "$\\left(a+\\left(b-c\\right)\\right)\\left(a-\\left(b-c\\right)\\right) = a^2 - \\left(b-c\\right)^2 = a^2 - \\left(b^2-2bc+c^2\\right) = a^2-b^2+2bc-c^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                 // 問題 23
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-x^2y\\right)^3 \\div \\left(-xy\\right)$$",
-                    options: [ "$x^5y^2$", "$-x^5y^2$", "$x^4y^2$", "$-x^4y^2$" ],
-                    answer: "$x^5y^2$",
-                    rationale: "$\\left(-x^2y\\right)^3 = -x^6y^3$。<br>よって、$\\left(-x^6y^3\\right) \\div \\left(-xy\\right) = \\left(-1 \\div -1\\right) x^{6-1}y^{3-1} = x^5y^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2+2xy+y^2\\right)\\left(x-y\\right)$$",
+                    options: [ "$x^3+x^2y-xy^2-y^3$", "$x^3-y^3$", "$x^3+y^3$", "$x^3-x^2y+xy^2-y^3$" ],
+                    answer: "$x^3+x^2y-xy^2-y^3$",
+                    rationale: "$\\left(x+y\\right)^2\\left(x-y\\right) = \\left(x+y\\right)\\left(x+y\\right)\\left(x-y\\right) = \\left(x+y\\right)\\left(x^2-y^2\\right) = x\\left(x^2-y^2\\right)+y\\left(x^2-y^2\\right) = x^3-xy^2+x^2y-y^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                 // 問題 24
                 {
-                    question: "次の計算をせよ。<br>$$a^2 \\times a^3 \\div a^4$$",
-                    options: [ "$a$", "$a^9$", "$a^5$", "$a^{0}=1$" ],
-                    answer: "$a$",
-                    rationale: "指数は $2+3-4 = 1$。よって $a^1 = a$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(3x-1\\right)\\left(x^2-5x-2\\right)$$",
+                    options: [ "$3x^3-16x^2-x+2$", "$3x^3-14x^2-x+2$", "$3x^3-16x^2+x+2$", "$3x^3+16x^2-x+2$" ],
+                    answer: "$3x^3-16x^2-x+2$",
+                    rationale: "$3x\\left(x^2-5x-2\\right) - 1\\left(x^2-5x-2\\right) = \\left(3x^3-15x^2-6x\\right) + \\left(-x^2+5x+2\\right) = 3x^3-16x^2-x+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                 // 問題 25
                 {
-                    question: "次の計算をせよ。<br>$$\\left(2x\\right)^3 \\times x^2$$",
-                    options: [ "$8x^5$", "$6x^5$", "$8x^6$", "$2x^5$" ],
-                    answer: "$8x^5$",
-                    rationale: "$\\left(2x\\right)^3 = 8x^3$。<br>よって、$8x^3 \\times x^2 = 8x^{3+2} = 8x^5$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a-b+1\\right)\\left(a-b-1\\right)$$",
+                    options: [ "$a^2-2ab+b^2-1$", "$a^2-b^2-1$", "$a^2-2ab+b^2+1$", "$a^2-2ab-b^2-1$" ],
+                    answer: "$a^2-2ab+b^2-1$",
+                    rationale: "$\\left(\\left(a-b\\right)+1\\right)\\left(\\left(a-b\\right)-1\\right) = \\left(a-b\\right)^2 - 1^2 = \\left(a^2-2ab+b^2\\right)-1 = a^2-2ab+b^2-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 26
+                // --- タイプ2: (3次式) x (2次式/3次式) (25題) ---
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-a^2b^4c\\right)^3$$",
-                    options: [ "$-a^6b^{12}c^3$", "$a^6b^{12}c^3$", "$-a^5b^7c^3$", "$-3a^6b^{12}c^3$" ],
-                    answer: "$-a^6b^{12}c^3$",
-                    rationale: "$\\left(-a^2b^4c\\right)^3 = \\left(-1\\right)^3\\left(a^2\\right)^3\\left(b^4\\right)^3c^3 = -a^6b^{12}c^3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2-3x-5\\right)\\left(2x^2+3x-4\\right)$$",
+                    options: [ "$2x^4-3x^3-23x^2-3x+20$", "$2x^4+3x^3-23x^2-3x+20$", "$2x^4-3x^3-23x^2+3x+20$", "$2x^4-3x^3-15x^2-3x+20$" ],
+                    answer: "$2x^4-3x^3-23x^2-3x+20$",
+                    rationale: "$x^2\\left(2x^2+3x-4\\right)-3x\\left(2x^2+3x-4\\right)-5\\left(2x^2+3x-4\\right) = \\left(2x^4+3x^3-4x^2\\right) + \\left(-6x^3-9x^2+12x\\right) + \\left(-10x^2-15x+20\\right) = 2x^4 - 3x^3 - 23x^2 - 3x + 20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                 // 問題 27
                 {
-                    question: "次の計算をせよ。<br>$$15x^7y^2 \\div 3x^5y$$",
-                    options: [ "$5x^2y$", "$-5x^2y$", "$12x^2y$", "$5x^{12}y^3$" ],
-                    answer: "$5x^2y$",
-                    rationale: "係数は $15 \\div 3 = 5$。<br>$x^{7-5}=x^2$。<br>$y^{2-1}=y$。<br>よって、$5x^2y$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2+x+1\\right)\\left(x^2+x-1\\right)$$",
+                    options: [ "$x^4+2x^3+x^2-1$", "$x^4+2x^3+2x^2-1$", "$x^4+x^2-1$", "$x^4+2x^2-1$" ],
+                    answer: "$x^4+2x^3+x^2-1$",
+                    rationale: "$\\left( \\left(x^2+x\\right)+1 \\right) \\left( \\left(x^2+x\\right)-1 \\right) = \\left(x^2+x\\right)^2 - 1^2 = \\left(x^4+2x^3+x^2\\right) - 1 = x^4+2x^3+x^2-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                 // 問題 28
                 {
-                    question: "次の計算をせよ。<br>$$\\left(x^2y\\right)^3 \\times \\left(xy^3\\right)$$",
-                    options: [ "$x^7y^6$", "$x^6y^6$", "$x^7y^9$", "$x^5y^6$" ],
-                    answer: "$x^7y^6$",
-                    rationale: "$\\left(x^2y\\right)^3 = x^6y^3$。<br>よって、$\\left(x^6y^3\\right) \\times \\left(xy^3\\right) = x^{6+1}y^{3+3} = x^7y^6$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a^2-2a+3\\right)\\left(a^2+2a-3\\right)$$",
+                    options: [ "$a^4-4a^2+12a-9$", "$a^4-4a^2-12a-9$", "$a^4+4a^2-12a+9$", "$a^4-4a^2+12a+9$" ],
+                    answer: "$a^4-4a^2+12a-9$",
+                    rationale: "$\\left(a^2 - \\left(2a-3\\right)\\right)\\left(a^2 + \\left(2a-3\\right)\\right) = \\left(a^2\\right)^2 - \\left(2a-3\\right)^2 = a^4 - \\left(4a^2-12a+9\\right) = a^4-4a^2+12a-9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                 // 問題 29
                 {
-                    question: "次の計算をせよ。<br>$$\\left(4a^3b^2\\right)^2 \\div \\left(-8a^5b^3\\right)$$",
-                    options: [ "$-2ab$", "$2ab$", "$-2a$", "$-2b$" ],
-                    answer: "$-2ab$",
-                    rationale: "$\\left(4a^3b^2\\right)^2 = 16a^6b^4$。<br>よって、$\\left(16a^6b^4\\right) \\div \\left(-8a^5b^3\\right) = -2a^{6-5}b^{4-3} = -2ab$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^3-x+1\\right)\\left(x^2+2\\right)$$",
+                    options: [ "$x^5+x^3+x^2-2x+2$", "$x^5-x^3+x^2+2x+2$", "$x^5+x^3+x^2-2x-2$", "$x^5+2x^3+x^2-x+2$" ],
+                    answer: "$x^5+x^3+x^2-2x+2$",
+                    rationale: "$x^3\\left(x^2+2\\right) - x\\left(x^2+2\\right) + 1\\left(x^2+2\\right) = \\left(x^5+2x^3\\right) + \\left(-x^3-2x\\right) + \\left(x^2+2\\right) = x^5+x^3+x^2-2x+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                 // 問題 30
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-xy^2z\\right)^3 \\times 2xz^2 \\div \\left(-x^3yz^4\\right)$$",
-                    options: [ "$2xy^5z$", "$2x^2y^5z$", "$-2xy^5z$", "$2y^5z$" ],
-                    answer: "$2xy^5z$",
-                    rationale: "$\\left(-xy^2z\\right)^3 = -x^3y^6z^3$。<br>乗法: $\\left(-x^3y^6z^3\\right) \\times \\left(2xz^2\\right) = -2x^4y^6z^5$。<br>除法: $\\left(-2x^4y^6z^5\\right) \\div \\left(-x^3yz^4\\right) = 2x^{4-3}y^{6-1}z^{5-4} = 2xy^5z$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2+xy+y^2\\right)\\left(x^2-xy+y^2\\right)$$",
+                    options: [ "$x^4+x^2y^2+y^4$", "$x^4-x^2y^2+y^4$", "$x^4+2x^2y^2+y^4$", "$x^4-y^4$" ],
+                    answer: "$x^4+x^2y^2+y^4$",
+                    rationale: "$\\left(\\left(x^2+y^2\\right)+xy\\right)\\left(\\left(x^2+y^2\\right)-xy\\right) = \\left(x^2+y^2\\right)^2 - \\left(xy\\right)^2 = \\left(x^4+2x^2y^2+y^4\\right) - x^2y^2 = x^4+x^2y^2+y^4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 31
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-4a^2b^3\\right) \\times \\left(-a^3b\\right)$$",
-                    options: [ "$4a^5b^4$", "$-4a^5b^4$", "$4a^6b^3$", "$4a^5b^3$" ],
-                    answer: "$4a^5b^4$",
-                    rationale: "係数は $\\left(-4\\right) \\times \\left(-1\\right) = 4$。$a$ は $a^{2+3}=a^5$。$b$ は $b^{3+1}=b^4$。よって $4a^5b^4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a-b\\right)\\left(a+b\\right)\\left(a^2+b^2\\right)$$",
+                    options: [ "$a^4-b^4$", "$a^4+b^4$", "$a^4-2a^2b^2+b^4$", "$a^4+2a^2b^2+b^4$" ],
+                    answer: "$a^4-b^4$",
+                    rationale: "$\\left(a-b\\right)\\left(a+b\\right) = a^2-b^2$。<br>よって、$\\left(a^2-b^2\\right)\\left(a^2+b^2\\right) = \\left(a^2\\right)^2 - \\left(b^2\\right)^2 = a^4-b^4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 32 (★ \dfrac -> \\dfrac 修正 ★)
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-\\dfrac{1}{2}x^2y\\right)^3$$",
-                    options: [ "$-\\dfrac{1}{8}x^6y^3$", "$\\dfrac{1}{8}x^6y^3$", "$-\\dfrac{1}{6}x^6y^3$", "$-\\dfrac{1}{8}x^5y^3$" ],
-                    answer: "$-\\dfrac{1}{8}x^6y^3$",
-                    rationale: "$\\left( -\\dfrac{1}{2} x^2y \\right)^3 = \\left( -\\dfrac{1}{2} \\right)^3 \\left(x^2\\right)^3 y^3 = -\\dfrac{1}{8} x^6 y^3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x+2\\right)\\left(x-3\\right)\\left(x+1\\right)$$",
+                    options: [ "$x^3-7x-6$", "$x^3-x-6$", "$x^3-6x-6$", "$x^3-2x^2-7x-6$" ],
+                    answer: "$x^3-7x-6$",
+                    rationale: "$\\left(x+2\\right)\\left(x-3\\right) = x^2-x-6$。<br>よって、$\\left(x^2-x-6\\right)\\left(x+1\\right) = x\\left(x^2-x-6\\right)+1\\left(x^2-x-6\\right) = \\left(x^3-x^2-6x\\right) + \\left(x^2-x-6\\right) = x^3-7x-6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 33
                 {
-                    question: "次の計算をせよ。<br>$$a^7b^3 \\div \\left(a^2b^3\\right)$$",
-                    options: [ "$a^5$", "$a^9b^6$", "$a^5b$", "$a^5b^6$" ],
-                    answer: "$a^5$",
-                    rationale: "$a^7b^3 \\div \\left(a^2b^3\\right) = a^{7-2}b^{3-3} = a^5b^0 = a^5$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2-2x+1\\right)\\left(x^2+2x+1\\right)$$",
+                    options: [ "$x^4-2x^2+1$", "$x^4+1$", "$x^4+2x^2+1$", "$x^4+4x^3+4x^2+2x+1$" ],
+                    answer: "$x^4-2x^2+1$",
+                    rationale: "$\\left(\\left(x^2+1\\right)-2x\\right)\\left(\\left(x^2+1\\right)+2x\\right) = \\left(x^2+1\\right)^2 - \\left(2x\\right)^2 = \\left(x^4+2x^2+1\\right) - 4x^2 = x^4-2x^2+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                 // 問題 34
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-x\\right)^5 \\times \\left(-x\\right)^2$$",
-                    options: [ "$-x^7$", "$x^7$", "$x^{10}$", "$-x^{10}$" ],
-                    answer: "$-x^7$",
-                    rationale: "$\\left(-x\\right)^5 = -x^5$。<br>$\\left(-x\\right)^2 = x^2$。<br>よって、$\\left(-x^5\\right) \\times \\left(x^2\\right) = -x^{5+2} = -x^7$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x-1\\right)\\left(x-2\\right)\\left(x-3\\right)$$",
+                    options: [ "$x^3-6x^2+11x-6$", "$x^3+6x^2+11x+6$", "$x^3-6x^2-11x-6$", "$x^3-6$" ],
+                    answer: "$x^3-6x^2+11x-6$",
+                    rationale: "$\\left(x-1\\right)\\left(x-2\\right) = x^2-3x+2$。<br>$\\left(x^2-3x+2\\right)\\left(x-3\\right) = x\\left(x^2-3x+2\\right)-3\\left(x^2-3x+2\\right) = \\left(x^3-3x^2+2x\\right) + \\left(-3x^2+9x-6\\right) = x^3-6x^2+11x-6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                 // 問題 35
                 {
-                    question: "次の計算をせよ。<br>$$8a^4 \\div \\left(-2a\\right)^3$$",
-                    options: [ "$-a$", "$a$", "$-4a$", "$4a$" ],
-                    answer: "$-a$",
-                    rationale: "$\\left(-2a\\right)^3 = -8a^3$。<br>よって、$8a^4 \\div \\left(-8a^3\\right) = \\left(8 \\div -8\\right)a^{4-3} = -a$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(2x^2-x+3\\right)\\left(x^2-5x-1\\right)$$",
+                    options: [ "$2x^4-11x^3+6x^2-14x-3$", "$2x^4-11x^3+11x^2-14x-3$", "$2x^4-11x^3+6x^2+16x-3$", "$2x^4-9x^3+6x^2-14x-3$" ],
+                    answer: "$2x^4-11x^3+6x^2-14x-3$",
+                    rationale: "$2x^2\\left(...\\right)-x\\left(...\\right)+3\\left(...\\right) = \\left(2x^4-10x^3-2x^2\\right) + \\left(-x^3+5x^2+x\\right) + \\left(3x^2-15x-3\\right) = 2x^4 - 11x^3 + 6x^2 - 14x - 3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 36
                 {
-                    question: "次の計算をせよ。<br>$$\\left(x^2y^3\\right)^2 \\times x \\div \\left(xy^2\\right)^3$$",
-                    options: [ "$x^2$", "$x^2y$", "$x^2y^3$", "$x^3y$" ],
-                    answer: "$x^2$",
-                    rationale: "$\\left(x^2y^3\\right)^2 = x^4y^6$。<br>$\\left(xy^2\\right)^3 = x^3y^6$。<br>よって、$x^4y^6 \\times x \\div \\left(x^3y^6\\right) = x^5y^6 \\div x^3y^6 = x^{5-3}y^{6-6} = x^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a-b\\right)\\left(a-2b\\right)\\left(a+3b\\right)$$",
+                    options: [ "$a^3-7ab^2+6b^3$", "$a^3-3a^2b-7ab^2+6b^3$", "$a^3-b^3$", "$a^3-6b^3$" ],
+                    answer: "$a^3-7ab^2+6b^3$",
+                    rationale: "$\\left(a-b\\right)\\left(a-2b\\right) = a^2-3ab+2b^2$。<br>$\\left(a^2-3ab+2b^2\\right)\\left(a+3b\\right) = a\\left(a^2-3ab+2b^2\\right) + 3b\\left(a^2-3ab+2b^2\\right) = \\left(a^3-3a^2b+2ab^2\\right) + \\left(3a^2b-9ab^2+6b^3\\right) = a^3-7ab^2+6b^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 37
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-a\\right)^2 \\times \\left(-b\\right)^3$$",
-                    options: [ "$-a^2b^3$", "$a^2b^3$", "$a^2b^5$", "$-a^2b^6$" ],
-                    answer: "$-a^2b^3$",
-                    rationale: "$\\left(-a\\right)^2 = a^2$。<br>$\\left(-b\\right)^3 = -b^3$。<br>よって、$a^2 \\times \\left(-b^3\\right) = -a^2b^3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2+4\\right)\\left(x^2-3\\right)$$",
+                    options: [ "$x^4+x^2-12$", "$x^4-x^2-12$", "$x^4+7x^2-12$", "$x^4-12$" ],
+                    answer: "$x^4+x^2-12$",
+                    rationale: "$\\left(x^2\\right)^2 + \\left(4-3\\right)x^2 + \\left(4\\right)\\left(-3\\right) = x^4+x^2-12$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 38
                 {
-                    question: "次の計算をせよ。<br>$$\\left(3x^3y\\right)^2$$",
-                    options: [ "$9x^6y^2$", "$6x^6y^2$", "$9x^5y^2$", "$9x^6y$" ],
-                    answer: "$9x^6y^2$",
-                    rationale: "$\\left(3x^3y\\right)^2 = 3^2\\left(x^3\\right)^2y^2 = 9x^6y^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a^2-ab+b^2\\right)\\left(a^2+ab+b^2\\right)$$",
+                    options: [ "$a^4+a^2b^2+b^4$", "$a^4-b^4$", "$a^4+2a^2b^2+b^4$", "$a^4-a^2b^2+b^4$" ],
+                    answer: "$a^4+a^2b^2+b^4$",
+                    rationale: "$\\left(\\left(a^2+b^2\\right)-ab\\right)\\left(\\left(a^2+b^2\\right)+ab\\right) = \\left(a^2+b^2\\right)^2 - \\left(ab\\right)^2 = \\left(a^4+2a^2b^2+b^4\\right) - a^2b^2 = a^4+a^2b^2+b^4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 39
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-12a^4b^5c^6\\right) \\div \\left(4a^2b^3c^4\\right)$$",
-                    options: [ "$-3a^2b^2c^2$", "$3a^2b^2c^2$", "$-3a^6b^8c^{10}$", "$-8a^2b^2c^2$" ],
-                    answer: "$-3a^2b^2c^2$",
-                    rationale: "係数は $-12 \\div 4 = -3$。<br>$a^{4-2}=a^2$。<br>$b^{5-3}=b^2$。<br>$c^{6-4}=c^2$。<br>よって $-3a^2b^2c^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2-2\\right)\\left(x^3+2x-1\\right)$$",
+                    options: [ "$x^5-x^2-4x+2$", "$x^5+x^3-x^2+4x-2$", "$x^5-x^2+4x-2$", "$x^5-3x^2+4x+2$" ],
+                    answer: "$x^5-x^2-4x+2$",
+                    rationale: "$x^2\\left(x^3+2x-1\\right) - 2\\left(x^3+2x-1\\right) = \\left(x^5+2x^3-x^2\\right) + \\left(-2x^3-4x+2\\right) = x^5-x^2-4x+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 40
                 {
-                    question: "次の計算をせよ。<br>$$5x^2y \\times \\left(-x^3y^2\\right)^3$$",
-                    options: [ "$-5x^{11}y^7$", "$5x^{11}y^7$", "$-5x^8y^7$", "$-125x^{11}y^7$" ],
-                    answer: "$-5x^{11}y^7$",
-                    rationale: "$\\left(-x^3y^2\\right)^3 = -x^9y^6$。<br>よって、$5x^2y \\times \\left(-x^9y^6\\right) = -5x^{2+9}y^{1+6} = -5x^{11}y^7$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x+y+z\\right)\\left(x-y-z\\right)$$",
+                    options: [ "$x^2-y^2-2yz-z^2$", "$x^2-y^2-z^2$", "$x^2-y^2+2yz-z^2$", "$x^2+y^2+z^2-2yz$" ],
+                    answer: "$x^2-y^2-2yz-z^2$",
+                    rationale: "$\\left(x+\\left(y+z\\right)\\right)\\left(x-\\left(y+z\\right)\\right) = x^2 - \\left(y+z\\right)^2 = x^2 - \\left(y^2+2yz+z^2\\right) = x^2-y^2-2yz-z^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 41
                 {
-                    question: "次の計算をせよ。<br>$$a^6 \\div a^2 \\div a^3$$",
-                    options: [ "$a$", "$a^{11}$", "$a^7$", "$a^0=1$" ],
-                    answer: "$a$",
-                    rationale: "前から順に計算します。$a^6 \\div a^2 = a^4$。<br>$a^4 \\div a^3 = a^{4-3} = a$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a-2b+3\\right)\\left(a+2b-3\\right)$$",
+                    options: [ "$a^2-4b^2+12b-9$", "$a^2+4b^2-9$", "$a^2-4b^2-12b-9$", "$a^2-4b^2-9$" ],
+                    answer: "$a^2-4b^2+12b-9$",
+                    rationale: "$\\left(a-\\left(2b-3\\right)\\right)\\left(a+\\left(2b-3\\right)\\right) = a^2 - \\left(2b-3\\right)^2 = a^2 - \\left(4b^2-12b+9\\right) = a^2-4b^2+12b-9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 42 (★ \dfrac -> \\dfrac 修正 ★)
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-\\dfrac{2}{3}ab^2\\right)^2$$",
-                    options: [ "$\\dfrac{4}{9}a^2b^4$", "$-\\dfrac{4}{9}a^2b^4$", "$\\dfrac{4}{6}a^2b^4$", "$\\dfrac{4}{9}a^2b^2$" ],
-                    answer: "$\\dfrac{4}{9}a^2b^4$",
-                    rationale: "$\\left( -\\dfrac{2}{3} ab^2 \\right)^2 = \\left( -\\dfrac{2}{3} \\right)^2 a^2 \\left(b^2\\right)^2 = \\dfrac{4}{9} a^2 b^4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2-3x+9\\right)\\left(x+3\\right)$$",
+                    options: [ "$x^3+27$", "$x^3-27$", "$x^3-6x^2+18x+27$", "$x^3+6x^2-18x+27$" ],
+                    answer: "$x^3+27$",
+                    rationale: "乗法公式 $\\left(x+3\\right)\\left(x^2-3x+9\\right) = x^3+3^3 = x^3+27$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 43
                 {
-                    question: "次の計算をせよ。<br>$$x^4y^6 \\div \\left(xy^2\\right)^3$$",
-                    options: [ "$x$", "$xy^0$", "$x^7y^{12}$", "$y$" ],
-                    answer: "$x$",
-                    rationale: "$\\left(xy^2\\right)^3 = x^3y^6$。<br>よって、$x^4y^6 \\div x^3y^6 = x^{4-3}y^{6-6} = x^1y^0 = x$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(2a-b\\right)\\left(4a^2+2ab+b^2\\right)$$",
+                    options: [ "$8a^3-b^3$", "$8a^3+b^3$", "$8a^3-4a^2b+2ab^2-b^3$", "$2a^3-b^3$" ],
+                    answer: "$8a^3-b^3$",
+                    rationale: "乗法公式 $\\left(x-y\\right)\\left(x^2+xy+y^2\\right)=x^3-y^3$ で $x=2a, y=b$ としたものです。$\\left(2a\\right)^3 - b^3 = 8a^3-b^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                 // 問題 44
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-a\\right)^3 \\times b^2 \\times \\left(-a\\right)$$",
-                    options: [ "$a^4b^2$", "$-a^4b^2$", "$a^3b^2$", "$-a^3b^2$" ],
-                    answer: "$a^4b^2$",
-                    rationale: "$\\left(-a\\right)^3 = -a^3$。<br>よって、$\\left(-a^3\\right) \\times b^2 \\times \\left(-a\\right) = \\left(-1\\right) \\times \\left(-1\\right) a^{3+1}b^2 = a^4b^2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x-y-z\\right)\\left(x+y+z\\right)$$",
+                    options: [ "$x^2-y^2-2yz-z^2$", "$x^2-y^2-z^2$", "$x^2+y^2+z^2+2yz$", "$x^2-y^2+2yz-z^2$" ],
+                    answer: "$x^2-y^2-2yz-z^2$",
+                    rationale: "$\\left(x-\\left(y+z\\right)\\right)\\left(x+\\left(y+z\\right)\\right) = x^2 - \\left(y+z\\right)^2 = x^2 - \\left(y^2+2yz+z^2\\right) = x^2-y^2-2yz-z^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                 // 問題 45
                 {
-                    question: "次の計算をせよ。<br>$$\\left(9x^2y^4\\right) \\div \\left(-3xy^2\\right)^2$$",
-                    options: [ "$1$", "$y^0$", "$-1$", "$x^0y^0$" ],
-                    answer: "$1$",
-                    rationale: "$\\left(-3xy^2\\right)^2 = 9x^2y^4$。<br>よって、$\\left(9x^2y^4\\right) \\div \\left(9x^2y^4\\right) = 1$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2-x+1\\right)\\left(x^2+x+1\\right)$$",
+                    options: [ "$x^4+x^2+1$", "$x^4+2x^3+3x^2+2x+1$", "$x^4-x^2+1$", "$x^4-1$" ],
+                    answer: "$x^4+x^2+1$",
+                    rationale: "$\\left(\\left(x^2+1\\right)-x\\right)\\left(\\left(x^2+1\\right)+x\\right) = \\left(x^2+1\\right)^2 - x^2 = \\left(x^4+2x^2+1\\right) - x^2 = x^4+x^2+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                // 問題 46
                 {
-                    question: "次の計算をせよ。<br>$$\\left(-2x^3y\\right)^2 \\times 3y^3 \\div \\left(6x^5y^4\\right)$$",
-                    options: [ "$2xy$", "$2x$", "$2y$", "$12xy$" ],
-                    answer: "$2xy$",
-                    rationale: "$\\left(-2x^3y\\right)^2 = 4x^6y^2$。<br>乗法: $\\left(4x^6y^2\\right) \\times \\left(3y^3\\right) = 12x^6y^5$。<br>除法: $\\left(12x^6y^5\\right) \\div \\left(6x^5y^4\\right) = 2x^{6-5}y^{5-4} = 2xy$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^3+2x-1\\right)\\left(x-3\\right)$$",
+                    options: [ "$x^4-3x^3+2x^2-7x+3$", "$x^4-3x^3+2x^2-5x+3$", "$x^4+2x^2-4x+3$", "$x^4-3x^3-2x^2-7x+3$" ],
+                    answer: "$x^4-3x^3+2x^2-7x+3$",
+                    rationale: "$x\\left(x^3+2x-1\\right) - 3\\left(x^3+2x-1\\right) = \\left(x^4+2x^2-x\\right) + \\left(-3x^3-6x+3\\right) = x^4-3x^3+2x^2-7x+3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                 // 問題 47
                 {
-                    question: "次の計算をせよ。<br>$$a^m \\times a^n$$",
-                    options: [ "$a^{m+n}$", "$a^{mn}$", "$a^{m-n}$", "$\\left(2a\\right)^{m+n}$" ],
-                    answer: "$a^{m+n}$",
-                    rationale: "指数法則 $a^m \\times a^n = a^{m+n}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(a^2-3\\right)\\left(a^2-3\\right)$$",
+                    options: [ "$a^4-6a^2+9$", "$a^4-9$", "$a^4+6a^2+9$", "$a^4+9$" ],
+                    answer: "$a^4-6a^2+9$",
+                    rationale: "$\\left(a^2-3\\right)^2 = \\left(a^2\\right)^2 - 2\\left(a^2\\right)\\left(3\\right) + 3^2 = a^4-6a^2+9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                 // 問題 48
                 {
-                    question: "次の計算をせよ。<br>$$\\left(a^m\\right)^n$$",
-                    options: [ "$a^{mn}$", "$a^{m+n}$", "$a^{m^n}$", "$na^m$" ],
-                    answer: "$a^{mn}$",
-                    rationale: "指数法則 $\\left(a^m\\right)^n = a^{mn}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2+x+1\\right)\\left(x^2-x-1\\right)$$",
+                    options: [ "$x^4-x^2-2x-1$", "$x^4-x^2+2x-1$", "$x^4+2x^3-x^2-2x-1$", "$x^4-2x^2-1$" ],
+                    answer: "$x^4-x^2-2x-1$",
+                    rationale: "$\\left(x^2+\\left(x+1\\right)\\right)\\left(x^2-\\left(x+1\\right)\\right) = \\left(x^2\\right)^2 - \\left(x+1\\right)^2 = x^4 - \\left(x^2+2x+1\\right) = x^4-x^2-2x-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
                 },
-                 // 問題 49
                 {
-                    question: "次の計算をせよ。<br>$$a^m \\div a^n \quad \\left(m>n\\right)$$",
-                    options: [ "$a^{m-n}$", "$a^{m+n}$", "$a^{m/n}$", "$a^{m \\times n}$" ],
-                    answer: "$a^{m-n}$",
-                    rationale: "指数法則 $a^m \\div a^n = a^{m-n}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
-                },
-                 // 問題 50
-                {
-                    question: "次の計算をせよ。<br>$$\\left(ab\\right)^n$$",
-                    options: [ "$a^nb^n$", "$a^n+b^n$", "$ab^n$", "$a^nb$" ],
-                    answer: "$a^nb^n$",
-                    rationale: "指数法則 $\\left(ab\\right)^n = a^nb^n$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63105' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を計算せよ。<br>$$\\left(x^2+2x+4\\right)\\left(x-2\\right)$$",
+                    options: [ "$x^3-8$", "$x^3+8$", "$x^3+4x^2+8x-8$", "$x^3-4x^2-8x-8$" ],
+                    answer: "$x^3-8$",
+                    rationale: "乗法公式 $\\left(x-2\\right)\\left(x^2+2x+4\\right) = x^3-2^3 = x^3-8$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 }
-            ]; // ← allQuizData をここで閉じる
-            // --- 元のクイズデータの終わり ---
-
+            ]
+            // --- ★★★ 50題データここまで ★★★
+            
             // ★★★ ランダムに10題選ぶ処理 ★★★
             // 1. allQuizData をシャッフルする関数
             function shuffleArray(array) {
