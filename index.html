@@ -246,6 +246,29 @@
         body.bg-light-blue { background-color: #e7f5ff; } /* 水色 */
         body.bg-light-green { background-color: #e6fcf5; } /* 薄い緑 */
         body.bg-beige { background-color: #fcf8e3; } /* ベージュ */
+
+        /* ★★★ リセットボタン用のスタイルを追加 ★★★ */
+        .reset-container {
+            text-align: center;
+            margin-top: 40px;
+            border-top: 1px solid #dee2e6;
+            padding-top: 20px;
+        }
+        .reset-button {
+            padding: 10px 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #dc3545; /* 赤色 */
+            background-color: #fff;
+            border: 1px solid #dc3545; /* 赤色の枠線 */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .reset-button:hover {
+            background-color: #dc3545; /* ホバーで背景を赤に */
+            color: #fff; /* ホバーで文字を白に */
+        }
         
         footer {
             text-align: center;
@@ -357,6 +380,9 @@
 
         </main>
 
+        <div class="reset-container">
+            <button id="reset-ranks-button" class="reset-button">学習履歴（ランク）をリセット</button>
+        </div>
         <footer>
             <p>&copy; 2025 [香川亮]</p>
         </footer>
