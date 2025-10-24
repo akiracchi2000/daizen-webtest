@@ -388,47 +388,74 @@
         </footer>
 
     </div>
-
-    <script>
+<script>
         document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- 1. ランク表示・リセット処理 ---
+            
             // 表示したいランクの対象となる quizId のリスト
-            // ★★ テストページで設定した quizId と一致させてください ★★
             const quizIds = ['M1-1-1-1', 'M1-1-1-2', 'M1-1-1-3', 'M1-1-1-4', 'M1-2-1', 'M1-3-1', 'MA-1-1']; 
 
-            quizIds.forEach(quizId => {
-                const rankSpan = document.getElementById('rank-' + quizId);
-                if (rankSpan) {
-                    try {
-                        const savedRank = localStorage.getItem('quizRank_' + quizId);
-                        if (savedRank && savedRank !== "-") { // 保存されたランクがあれば表示
-                            rankSpan.textContent = `(Rank: ${savedRank})`;
-                            rankSpan.className = 'quiz-rank'; // Reset classes
-                            rankSpan.classList.add('rank-' + savedRank); 
-                        } else {
-                            // まだ受験していない、またはランクがない場合
-                            rankSpan.textContent = "(未)"; 
-                            rankSpan.className = 'quiz-rank rank-yet'; // 未受験スタイル
+            // ★ ランクを読み込んで表示する関数
+            function loadRanks() {
+                quizIds.forEach(quizId => {
+                    const rankSpan = document.getElementById('rank-' + quizId);
+                    if (rankSpan) {
+                        try {
+                            const savedRank = localStorage.getItem('quizRank_' + quizId);
+                            if (savedRank && savedRank !== "-") {
+                                rankSpan.textContent = `(Rank: ${savedRank})`;
+                                rankSpan.className = 'quiz-rank'; // Reset classes
+                                rankSpan.classList.add('rank-' + savedRank); 
+                            } else {
+                                rankSpan.textContent = "(未)"; 
+                                rankSpan.className = 'quiz-rank rank-yet';
+                            }
+                        } catch (e) { 
+                            console.error("localStorageからのランク読み込みに失敗しました:", e);
+                            rankSpan.textContent = "(Error)";
+                            rankSpan.style.color = 'red';
                         }
-                    } catch (e) {
-                        console.error("localStorageからのランク読み込みに失敗しました:", e);
-                        rankSpan.textContent = "(Error)";
-                        rankSpan.style.color = 'red';
                     }
-                }
-            });
-        });
-    </script>
+                });
+            }
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+            // ★ リセットボタンの処理
+            const resetButton = document.getElementById('reset-ranks-button');
+            if (resetButton) {
+                resetButton.addEventListener('click', () => {
+                    // 本当にリセットするか確認
+                    if (confirm("すべての学習履歴（ランク）をリセットします。よろしいですか？")) {
+                        try {
+                            // すべてのランク情報をlocalStorageから削除
+                            quizIds.forEach(quizId => {
+                                localStorage.removeItem('quizRank_' + quizId);
+                            });
+                            
+                            // 画面上の表示を「(未)」に戻す
+                            loadRanks(); 
+                            alert("ランク情報をリセットしました。");
+                        } catch (e) {
+                            alert("リセットに失敗しました。");
+                            console.error("localStorageのリセットに失敗しました:", e);
+                        }
+                    }
+                });
+            }
+            
+            // ページ読み込み時にランクを表示
+            loadRanks();
+
+            // --- 2. 背景色変更処理 ---
+
             const body = document.body;
             const colorButtons = document.querySelectorAll('.color-selector button');
-            const storageKey = 'backgroundColorPreference';
+            const storageKey_Color = 'backgroundColorPreference'; // ランク用のキーと名前が被らないように
 
-            // 1. 保存された設定を読み込んで適用する関数
+            // ★ 保存された設定を読み込んで適用する関数
             function applySavedPreference() {
                 try {
-                    const savedColor = localStorage.getItem(storageKey);
+                    const savedColor = localStorage.getItem(storageKey_Color);
                     // 既存の色クラスを削除
                     body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
                     // 保存された色があればクラスを追加
@@ -440,32 +467,27 @@
                 }
             }
 
-            // 2. ボタンクリック時の処理
+            // ★ ボタンクリック時の処理
             colorButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const selectedColor = button.getAttribute('data-color');
-                    
-                    // すべての色クラスを一旦削除
                     body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
-                    
-                    // 選択された色クラスを追加 (default以外)
                     if (selectedColor !== 'default') {
                         body.classList.add('bg-' + selectedColor);
                     }
-                    
-                    // 設定をlocalStorageに保存
                     try {
-                        localStorage.setItem(storageKey, selectedColor);
+                        localStorage.setItem(storageKey_Color, selectedColor);
                     } catch (e) {
                         console.error("localStorageへの背景色保存に失敗:", e);
                     }
                 });
             });
 
-            // 3. ページ読み込み時に保存された設定を適用
+            // ★ ページ読み込み時に保存された設定を適用
             applySavedPreference();
         });
     </script>
     
 </body>
 </html>
+    
