@@ -176,347 +176,359 @@
                 renderMathInElement(document.body, { delimiters: katexDelimiters });
             } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
 
-            // --- ★ allQuizData 配列 (M1-1-1-4.html 用) ★ ---
-            const allQuizData = [
-                // --- タイプ1: (2次式) x (2次式) (25題) ---
+// --- ★ allQuizData 配列に追加するデータ (50題) ★ ---
+            const newQuizData = [
+                // --- タイプ1: (x+a)(x+b) 形式 (25題) ---
+                // 問題 1 (例題類似)
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(3x+4\\right)\\left(2x+5\\right)$$",
-                    options: [ "$6x^2+23x+20$", "$6x^2+13x+20$", "$6x^2+23x+9$", "$5x^2+23x+20$" ],
-                    answer: "$6x^2+23x+20$",
-                    rationale: "$\\left(3x\\right)\\left(2x\\right) + \\left(3x\\right)\\left(5\\right) + \\left(4\\right)\\left(2x\\right) + \\left(4\\right)\\left(5\\right) = 6x^2+15x+8x+20 = 6x^2+23x+20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x+3\\right)\\left(x+2\\right)$$",
+                    options: [ "$x^2+5x+6$", "$x^2+6x+5$", "$x^2+x+6$", "$x^2+5x+5$" ],
+                    answer: "$x^2+5x+6$",
+                    rationale: "$x^2+\\left(3+2\\right)x+\\left(3\\right)\\left(2\\right) = x^2+5x+6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 2 (例題類似)
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(2x+y\\right)\\left(x-3y\\right)$$",
-                    options: [ "$2x^2-5xy-3y^2$", "$2x^2-7xy-3y^2$", "$2x^2-5xy+3y^2$", "$3x-2y$" ],
-                    answer: "$2x^2-5xy-3y^2$",
-                    rationale: "$\\left(2x\\right)\\left(x\\right) + \\left(2x\\right)\\left(-3y\\right) + \\left(y\\right)\\left(x\\right) + \\left(y\\right)\\left(-3y\\right) = 2x^2-6xy+xy-3y^2 = 2x^2-5xy-3y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x+3\\right)\\left(x-2\\right)$$",
+                    options: [ "$x^2+x-6$", "$x^2-x-6$", "$x^2+5x-6$", "$x^2-6x+1$" ],
+                    answer: "$x^2+x-6$",
+                    rationale: "$x^2+\\left(3-2\\right)x+\\left(3\\right)\\left(-2\\right) = x^2+x-6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 3 (例題類似)
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(-x+y\\right)\\left(4x-2y\\right)$$",
-                    options: [ "$-4x^2+6xy-2y^2$", "$-4x^2+2xy-2y^2$", "$-4x^2-6xy-2y^2$", "$3x-y$" ],
-                    answer: "$-4x^2+6xy-2y^2$",
-                    rationale: "$\\left(-x\\right)\\left(4x\\right) + \\left(-x\\right)\\left(-2y\\right) + \\left(y\\right)\\left(4x\\right) + \\left(y\\right)\\left(-2y\\right) = -4x^2+2xy+4xy-2y^2 = -4x^2+6xy-2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x-4\\right)\\left(x+1\\right)$$",
+                    options: [ "$x^2-3x-4$", "$x^2+3x-4$", "$x^2-5x-4$", "$x^2-4x-3$" ],
+                    answer: "$x^2-3x-4$",
+                    rationale: "$x^2+\\left(-4+1\\right)x+\\left(-4\\right)\\left(1\\right) = x^2-3x-4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 4 (例題類似)
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x+3\\right)\\left(x^2-x+1\\right)$$",
-                    options: [ "$x^3+2x^2-2x+3$", "$x^3-x^2+x+3$", "$x^3+3x^2-x+3$", "$x^3+2x^2+x+3$" ],
-                    answer: "$x^3+2x^2-2x+3$",
-                    rationale: "$x\\left(x^2-x+1\\right) + 3\\left(x^2-x+1\\right) = \\left(x^3-x^2+x\\right) + \\left(3x^2-3x+3\\right) = x^3+2x^2-2x+3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x-2\\right)\\left(x-5\\right)$$",
+                    options: [ "$x^2-7x+10$", "$x^2+7x+10$", "$x^2-3x+10$", "$x^2-7x-10$" ],
+                    answer: "$x^2-7x+10$",
+                    rationale: "$x^2+\\left(-2-5\\right)x+\\left(-2\\right)\\left(-5\\right) = x^2-7x+10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 5
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(2a-1\\right)\\left(a^2+a-3\\right)$$",
-                    options: [ "$2a^3+a^2-7a+3$", "$2a^3-a^2-7a+3$", "$2a^3+a^2-5a+3$", "$2a^3+3a^2-7a+3$" ],
-                    answer: "$2a^3+a^2-7a+3$",
-                    rationale: "$2a\\left(a^2+a-3\\right) - 1\\left(a^2+a-3\\right) = \\left(2a^3+2a^2-6a\\right) + \\left(-a^2-a+3\\right) = 2a^3+a^2-7a+3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x+5\\right)\\left(x+4\\right)$$",
+                    options: [ "$x^2+9x+20$", "$x^2+x+20$", "$x^2+20x+9$", "$x^2+9x+9$" ],
+                    answer: "$x^2+9x+20$",
+                    rationale: "$x^2+\\left(5+4\\right)x+\\left(5\\right)\\left(4\\right) = x^2+9x+20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 6
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2+2x+3\\right)\\left(x-1\\right)$$",
-                    options: [ "$x^3+x^2+x-3$", "$x^3+x^2-x-3$", "$x^3+2x^2+x-3$", "$x^3-x^2-x-3$" ],
-                    answer: "$x^3+x^2+x-3$",
-                    rationale: "$x^2\\left(x-1\\right) + 2x\\left(x-1\\right) + 3\\left(x-1\\right) = \\left(x^3-x^2\\right) + \\left(2x^2-2x\\right) + \\left(3x-3\\right) = x^3+x^2+x-3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(a-1\\right)\\left(a+3\\right)$$",
+                    options: [ "$a^2+2a-3$", "$a^2-2a-3$", "$a^2+4a-3$", "$a^2-3a+2$" ],
+                    answer: "$a^2+2a-3$",
+                    rationale: "$a^2+\\left(-1+3\\right)a+\\left(-1\\right)\\left(3\\right) = a^2+2a-3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 7
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(a-b\\right)\\left(a^2+ab+b^2\\right)$$",
-                    options: [ "$a^3-b^3$", "$a^3+b^3$", "$a^3-2a^2b+2ab^2-b^3$", "$a^3+2a^2b+2ab^2+b^3$" ],
-                    answer: "$a^3-b^3$",
-                    rationale: "これは乗法公式 $\\left(a-b\\right)\\left(a^2+ab+b^2\\right)=a^3-b^3$ です。展開すると $a\\left(a^2+ab+b^2\\right) - b\\left(a^2+ab+b^2\\right) = \\left(a^3+a^2b+ab^2\\right) - \\left(a^2b+ab^2+b^3\\right) = a^3-b^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(y-6\\right)\\left(y-3\\right)$$",
+                    options: [ "$y^2-9y+18$", "$y^2+9y+18$", "$y^2-3y+18$", "$y^2-9y-18$" ],
+                    answer: "$y^2-9y+18$",
+                    rationale: "$y^2+\\left(-6-3\\right)y+\\left(-6\\right)\\left(-3\\right) = y^2-9y+18$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 8
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x+y\\right)\\left(x^2-xy+y^2\\right)$$",
-                    options: [ "$x^3+y^3$", "$x^3-y^3$", "$x^3+2x^2y+2xy^2+y^3$", "$x^3-2x^2y+2xy^2-y^3$" ],
-                    answer: "$x^3+y^3$",
-                    rationale: "これは乗法公式 $\\left(x+y\\right)\\left(x^2-xy+y^2\\right)=x^3+y^3$ です。展開すると $x\\left(x^2-xy+y^2\\right) + y\\left(x^2-xy+y^2\\right) = \\left(x^3-x^2y+xy^2\\right) + \\left(x^2y-xy^2+y^3\\right) = x^3+y^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x+7\\right)\\left(x-1\\right)$$",
+                    options: [ "$x^2+6x-7$", "$x^2-6x-7$", "$x^2+8x-7$", "$x^2-7x+6$" ],
+                    answer: "$x^2+6x-7$",
+                    rationale: "$x^2+\\left(7-1\\right)x+\\left(7\\right)\\left(-1\\right) = x^2+6x-7$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 9
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(2x-y\\right)\\left(3x+4y\\right)$$",
-                    options: [ "$6x^2+5xy-4y^2$", "$6x^2-11xy-4y^2$", "$6x^2+11xy-4y^2$", "$6x^2+5xy+4y^2$" ],
-                    answer: "$6x^2+5xy-4y^2$",
-                    rationale: "$\\left(2x\\right)\\left(3x\\right) + \\left(2x\\right)\\left(4y\\right) + \\left(-y\\right)\\left(3x\\right) + \\left(-y\\right)\\left(4y\\right) = 6x^2+8xy-3xy-4y^2 = 6x^2+5xy-4y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(a-8\\right)\\left(a+5\\right)$$",
+                    options: [ "$a^2-3a-40$", "$a^2+3a-40$", "$a^2-13a-40$", "$a^2-3a+40$" ],
+                    answer: "$a^2-3a-40$",
+                    rationale: "$a^2+\\left(-8+5\\right)a+\\left(-8\\right)\\left(5\\right) = a^2-3a-40$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 10
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x-5\\right)\\left(x-6\\right)$$",
-                    options: [ "$x^2-11x+30$", "$x^2+11x+30$", "$x^2-x+30$", "$x^2-11x-30$" ],
-                    answer: "$x^2-11x+30$",
-                    rationale: "$\\left(x\\right)\\left(x\\right) + \\left(x\\right)\\left(-6\\right) + \\left(-5\\right)\\left(x\\right) + \\left(-5\\right)\\left(-6\\right) = x^2-6x-5x+30 = x^2-11x+30$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x+1\\right)\\left(x+10\\right)$$",
+                    options: [ "$x^2+11x+10$", "$x^2+10x+11$", "$x^2+x+10$", "$x^2+11x+11$" ],
+                    answer: "$x^2+11x+10$",
+                    rationale: "$x^2+\\left(1+10\\right)x+\\left(1\\right)\\left(10\\right) = x^2+11x+10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 11
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(3a-2b\\right)\\left(3a+2b\\right)$$",
-                    options: [ "$9a^2-4b^2$", "$9a^2+4b^2$", "$9a^2-12ab+4b^2$", "$6a^2-4b^2$" ],
-                    answer: "$9a^2-4b^2$",
-                    rationale: "和と差の積の公式 $\\left(x-y\\right)\\left(x+y\\right)=x^2-y^2$ を使います。$\\left(3a\\right)^2 - \\left(2b\\right)^2 = 9a^2-4b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(y+2\\right)\\left(y-2\\right)$$",
+                    options: [ "$y^2-4$", "$y^2+4$", "$y^2+4y+4$", "$y^2-4y+4$" ],
+                    answer: "$y^2-4$",
+                    rationale: "和と差の積の公式 $\\left(a+b\\right)\\left(a-b\\right)=a^2-b^2$ です。$y^2-2^2 = y^2-4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 12
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x+1\\right)\\left(x^2-x-1\\right)$$",
-                    options: [ "$x^3-2x-1$", "$x^3-x^2-x-1$", "$x^3-1$", "$x^3-2x+1$" ],
-                    answer: "$x^3-2x-1$",
-                    rationale: "$x\\left(x^2-x-1\\right) + 1\\left(x^2-x-1\\right) = \\left(x^3-x^2-x\\right) + \\left(x^2-x-1\\right) = x^3-2x-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x-8\\right)\\left(x-2\\right)$$",
+                    options: [ "$x^2-10x+16$", "$x^2+10x+16$", "$x^2-6x+16$", "$x^2-10x-16$" ],
+                    answer: "$x^2-10x+16$",
+                    rationale: "$x^2+\\left(-8-2\\right)x+\\left(-8\\right)\\left(-2\\right) = x^2-10x+16$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 13
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(y-3\\right)\\left(y^2+2y-1\\right)$$",
-                    options: [ "$y^3-y^2-7y+3$", "$y^3+y^2-7y+3$", "$y^3-y^2-5y+3$", "$y^3-5y^2-7y+3$" ],
-                    answer: "$y^3-y^2-7y+3$",
-                    rationale: "$y\\left(y^2+2y-1\\right) - 3\\left(y^2+2y-1\\right) = \\left(y^3+2y^2-y\\right) + \\left(-3y^2-6y+3\\right) = y^3-y^2-7y+3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(a+4\\right)\\left(a-9\\right)$$",
+                    options: [ "$a^2-5a-36$", "$a^2+5a-36$", "$a^2-13a-36$", "$a^2-5a+36$" ],
+                    answer: "$a^2-5a-36$",
+                    rationale: "$a^2+\\left(4-9\\right)a+\\left(4\\right)\\left(-9\\right) = a^2-5a-36$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 14
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(a^2+a-1\\right)\\left(a+1\\right)$$",
-                    options: [ "$a^3+2a^2-1$", "$a^3-1$", "$a^3+2a^2+a-1$", "$a^3+a^2-a-1$" ],
-                    answer: "$a^3+2a^2-1$",
-                    rationale: "$a^2\\left(a+1\\right) + a\\left(a+1\\right) - 1\\left(a+1\\right) = \\left(a^3+a^2\\right) + \\left(a^2+a\\right) + \\left(-a-1\\right) = a^3+2a^2-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x+5\\right)^2$$",
+                    options: [ "$x^2+10x+25$", "$x^2+25$", "$x^2+5x+25$", "$x^2+10x+10$" ],
+                    answer: "$x^2+10x+25$",
+                    rationale: "平方の公式 $\\left(x+a\\right)^2=x^2+2ax+a^2$ です。$x^2+2\\left(5\\right)x+5^2 = x^2+10x+25$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 15
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(2x-3\\right)\\left(3x-2\\right)$$",
-                    options: [ "$6x^2-13x+6$", "$6x^2-5x+6$", "$6x^2-13x-6$", "$5x^2-13x+6$" ],
-                    answer: "$6x^2-13x+6$",
-                    rationale: "$\\left(2x\\right)\\left(3x\\right) + \\left(2x\\right)\\left(-2\\right) + \\left(-3\\right)\\left(3x\\right) + \\left(-3\\right)\\left(-2\\right) = 6x^2-4x-9x+6 = 6x^2-13x+6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x-6\\right)^2$$",
+                    options: [ "$x^2-12x+36$", "$x^2+36$", "$x^2-6x+36$", "$x^2-12x-36$" ],
+                    answer: "$x^2-12x+36$",
+                    rationale: "平方の公式 $\\left(x-a\\right)^2=x^2-2ax+a^2$ です。$x^2-2\\left(6\\right)x+6^2 = x^2-12x+36$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 16
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2+1\\right)\\left(x^2-2\\right)$$",
-                    options: [ "$x^4-x^2-2$", "$x^4+x^2-2$", "$x^4-2$", "$x^4-3x^2-2$" ],
-                    answer: "$x^4-x^2-2$",
-                    rationale: "$x^2\\left(x^2-2\\right) + 1\\left(x^2-2\\right) = \\left(x^4-2x^2\\right) + \\left(x^2-2\\right) = x^4-x^2-2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(y+8\\right)\\left(y-3\\right)$$",
+                    options: [ "$y^2+5y-24$", "$y^2-5y-24$", "$y^2+11y-24$", "$y^2+5y+24$" ],
+                    answer: "$y^2+5y-24$",
+                    rationale: "$y^2+\\left(8-3\\right)y+\\left(8\\right)\\left(-3\\right) = y^2+5y-24$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 17
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(a-4b\\right)\\left(2a-b\\right)$$",
-                    options: [ "$2a^2-9ab+4b^2$", "$2a^2-7ab+4b^2$", "$2a^2+9ab+4b^2$", "$3a^2-9ab+4b^2$" ],
-                    answer: "$2a^2-9ab+4b^2$",
-                    rationale: "$\\left(a\\right)\\left(2a\\right) + \\left(a\\right)\\left(-b\\right) + \\left(-4b\\right)\\left(2a\\right) + \\left(-4b\\right)\\left(-b\\right) = 2a^2-ab-8ab+4b^2 = 2a^2-9ab+4b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x-7\\right)\\left(x-4\\right)$$",
+                    options: [ "$x^2-11x+28$", "$x^2+11x+28$", "$x^2-3x+28$", "$x^2-11x-28$" ],
+                    answer: "$x^2-11x+28$",
+                    rationale: "$x^2+\\left(-7-4\\right)x+\\left(-7\\right)\\left(-4\\right) = x^2-11x+28$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 18
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2-y\\right)\\left(x+y^2\\right)$$",
-                    options: [ "$x^3+x^2y^2-xy-y^3$", "$x^3-y^3$", "$x^3-x^2y^2+xy-y^3$", "$x^3+x^2y^2-xy+y^3$" ],
-                    answer: "$x^3+x^2y^2-xy-y^3$",
-                    rationale: "$\\left(x^2\\right)\\left(x\\right) + \\left(x^2\\right)\\left(y^2\\right) + \\left(-y\\right)\\left(x\\right) + \\left(-y\\right)\\left(y^2\\right) = x^3+x^2y^2-xy-y^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(a+9\\right)\\left(a-9\\right)$$",
+                    options: [ "$a^2-81$", "$a^2+81$", "$a^2+18a+81$", "$a^2-18a+81$" ],
+                    answer: "$a^2-81$",
+                    rationale: "和と差の積の公式 $\\left(a+b\\right)\\left(a-b\\right)=a^2-b^2$ です。$a^2-9^2 = a^2-81$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 19
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x-3y\\right)\\left(x^2+2y\\right)$$",
-                    options: [ "$x^3-3x^2y+2xy-6y^2$", "$x^3+2xy-6y^2$", "$x^3-3x^2y-2xy-6y^2$", "$x^3-3x^2y+2xy+6y^2$" ],
-                    answer: "$x^3-3x^2y+2xy-6y^2$",
-                    rationale: "$x\\left(x^2+2y\\right) - 3y\\left(x^2+2y\\right) = \\left(x^3+2xy\\right) + \\left(-3x^2y-6y^2\\right) = x^3-3x^2y+2xy-6y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x+6\\right)\\left(x-4\\right)$$",
+                    options: [ "$x^2+2x-24$", "$x^2-2x-24$", "$x^2+10x-24$", "$x^2+2x+24$" ],
+                    answer: "$x^2+2x-24$",
+                    rationale: "$x^2+\\left(6-4\\right)x+\\left(6\\right)\\left(-4\\right) = x^2+2x-24$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 20
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(a-1\\right)\\left(a^3+a^2+a+1\\right)$$",
-                    options: [ "$a^4-1$", "$a^4+1$", "$a^4+2a^3+2a^2+2a+1$", "$a^4-2a^3-2a^2-2a-1$" ],
-                    answer: "$a^4-1$",
-                    rationale: "$a\\left(a^3+a^2+a+1\\right) - 1\\left(a^3+a^2+a+1\\right) = \\left(a^4+a^3+a^2+a\\right) - \\left(a^3+a^2+a+1\\right) = a^4-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x-12\\right)\\left(x+1\\right)$$",
+                    options: [ "$x^2-11x-12$", "$x^2+11x-12$", "$x^2-13x-12$", "$x^2-11x+12$" ],
+                    answer: "$x^2-11x-12$",
+                    rationale: "$x^2+\\left(-12+1\\right)x+\\left(-12\\right)\\left(1\\right) = x^2-11x-12$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 21
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2+x+1\\right)\\left(x^2-x+1\\right)$$",
-                    options: [ "$x^4+x^2+1$", "$x^4+2x^3+x^2+2x+1$", "$x^4+1$", "$x^4+x^2-1$" ],
-                    answer: "$x^4+x^2+1$",
-                    rationale: "$\\left(\\left(x^2+1\\right)+x\\right)\\left(\\left(x^2+1\\right)-x\\right) = \\left(x^2+1\\right)^2-x^2 = \\left(x^4+2x^2+1\\right)-x^2 = x^4+x^2+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(y+8\\right)\\left(y+3\\right)$$",
+                    options: [ "$y^2+11y+24$", "$y^2+5y+24$", "$y^2+24y+11$", "$y^2+11y+11$" ],
+                    answer: "$y^2+11y+24$",
+                    rationale: "$y^2+\\left(8+3\\right)y+\\left(8\\right)\\left(3\\right) = y^2+11y+24$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 22
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(a+b-c\\right)\\left(a-b+c\\right)$$",
-                    options: [ "$a^2-b^2+2bc-c^2$", "$a^2-b^2-c^2$", "$a^2-b^2-2bc-c^2$", "$a^2+b^2-c^2+2ab$" ],
-                    answer: "$a^2-b^2+2bc-c^2$",
-                    rationale: "$\\left(a+\\left(b-c\\right)\\right)\\left(a-\\left(b-c\\right)\\right) = a^2 - \\left(b-c\\right)^2 = a^2 - \\left(b^2-2bc+c^2\\right) = a^2-b^2+2bc-c^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'                },
-                {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2+2xy+y^2\\right)\\left(x-y\\right)$$",
-                    options: [ "$x^3+x^2y-xy^2-y^3$", "$x^3-y^3$", "$x^3+y^3$", "$x^3-x^2y+xy^2-y^3$" ],
-                    answer: "$x^3+x^2y-xy^2-y^3$",
-                    rationale: "$\\left(x+y\\right)^2\\left(x-y\\right) = \\left(x+y\\right)\\left(x+y\\right)\\left(x-y\\right) = \\left(x+y\\right)\\left(x^2-y^2\\right) = x\\left(x^2-y^2\\right)+y\\left(x^2-y^2\\right) = x^3-xy^2+x^2y-y^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'                },
-                {
-                    question: "次の式を計算せよ。<br>$$\\left(3x-1\\right)\\left(x^2-5x-2\\right)$$",
-                    options: [ "$3x^3-16x^2-x+2$", "$3x^3-14x^2-x+2$", "$3x^3-16x^2+x+2$", "$3x^3+16x^2-x+2$" ],
-                    answer: "$3x^3-16x^2-x+2$",
-                    rationale: "$3x\\left(x^2-5x-2\\right) - 1\\left(x^2-5x-2\\right) = \\left(3x^3-15x^2-6x\\right) + \\left(-x^2+5x+2\\right) = 3x^3-16x^2-x+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'                },
-                {
-                    question: "次の式を計算せよ。<br>$$\\left(a-b+1\\right)\\left(a-b-1\\right)$$",
-                    options: [ "$a^2-2ab+b^2-1$", "$a^2-b^2-1$", "$a^2-2ab+b^2+1$", "$a^2-2ab-b^2-1$" ],
-                    answer: "$a^2-2ab+b^2-1$",
-                    rationale: "$\\left(\\left(a-b\\right)+1\\right)\\left(\\left(a-b\\right)-1\\right) = \\left(a-b\\right)^2 - 1^2 = \\left(a^2-2ab+b^2\\right)-1 = a^2-2ab+b^2-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'                },
-                // --- タイプ2: (3次式) x (2次式/3次式) (25題) ---
-                {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2-3x-5\\right)\\left(2x^2+3x-4\\right)$$",
-                    options: [ "$2x^4-3x^3-23x^2-3x+20$", "$2x^4+3x^3-23x^2-3x+20$", "$2x^4-3x^3-23x^2+3x+20$", "$2x^4-3x^3-15x^2-3x+20$" ],
-                    answer: "$2x^4-3x^3-23x^2-3x+20$",
-                    rationale: "$x^2\\left(2x^2+3x-4\\right)-3x\\left(2x^2+3x-4\\right)-5\\left(2x^2+3x-4\\right) = \\left(2x^4+3x^3-4x^2\\right) + \\left(-6x^3-9x^2+12x\\right) + \\left(-10x^2-15x+20\\right) = 2x^4 - 3x^3 - 23x^2 - 3x + 20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x-5\\right)\\left(x+5\\right)$$",
+                    options: [ "$x^2-25$", "$x^2+25$", "$x^2-10x+25$", "$x^2+10x+25$" ],
+                    answer: "$x^2-25$",
+                    rationale: "和と差の積の公式 $\\left(a-b\\right)\\left(a+b\\right)=a^2-b^2$ です。$x^2-5^2 = x^2-25$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 23
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2+x+1\\right)\\left(x^2+x-1\\right)$$",
-                    options: [ "$x^4+2x^3+x^2-1$", "$x^4+2x^3+2x^2-1$", "$x^4+x^2-1$", "$x^4+2x^2-1$" ],
-                    answer: "$x^4+2x^3+x^2-1$",
-                    rationale: "$\\left( \\left(x^2+x\\right)+1 \\right) \\left( \\left(x^2+x\\right)-1 \\right) = \\left(x^2+x\\right)^2 - 1^2 = \\left(x^4+2x^3+x^2\\right) - 1 = x^4+2x^3+x^2-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(a+1\\right)^2$$",
+                    options: [ "$a^2+2a+1$", "$a^2+1$", "$a^2+a+1$", "$a^2+2a+2$" ],
+                    answer: "$a^2+2a+1$",
+                    rationale: "平方の公式 $\\left(a+b\\right)^2=a^2+2ab+b^2$ です。$a^2+2\\left(a\\right)\\left(1\\right)+1^2 = a^2+2a+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 24
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(a^2-2a+3\\right)\\left(a^2+2a-3\\right)$$",
-                    options: [ "$a^4-4a^2+12a-9$", "$a^4-4a^2-12a-9$", "$a^4+4a^2-12a+9$", "$a^4-4a^2+12a+9$" ],
-                    answer: "$a^4-4a^2+12a-9$",
-                    rationale: "$\\left(a^2 - \\left(2a-3\\right)\\right)\\left(a^2 + \\left(2a-3\\right)\\right) = \\left(a^2\\right)^2 - \\left(2a-3\\right)^2 = a^4 - \\left(4a^2-12a+9\\right) = a^4-4a^2+12a-9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x-9\\right)\\left(x-2\\right)$$",
+                    options: [ "$x^2-11x+18$", "$x^2+11x+18$", "$x^2-7x+18$", "$x^2-11x-18$" ],
+                    answer: "$x^2-11x+18$",
+                    rationale: "$x^2+\\left(-9-2\\right)x+\\left(-9\\right)\\left(-2\\right) = x^2-11x+18$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 25
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^3-x+1\\right)\\left(x^2+2\\right)$$",
-                    options: [ "$x^5+x^3+x^2-2x+2$", "$x^5-x^3+x^2+2x+2$", "$x^5+x^3+x^2-2x-2$", "$x^5+2x^3+x^2-x+2$" ],
-                    answer: "$x^5+x^3+x^2-2x+2$",
-                    rationale: "$x^3\\left(x^2+2\\right) - x\\left(x^2+2\\right) + 1\\left(x^2+2\\right) = \\left(x^5+2x^3\\right) + \\left(-x^3-2x\\right) + \\left(x^2+2\\right) = x^5+x^3+x^2-2x+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(b+6\\right)\\left(b-1\\right)$$",
+                    options: [ "$b^2+5b-6$", "$b^2-5b-6$", "$b^2+7b-6$", "$b^2-6b+5$" ],
+                    answer: "$b^2+5b-6$",
+                    rationale: "$b^2+\\left(6-1\\right)b+\\left(6\\right)\\left(-1\\right) = b^2+5b-6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- タイプ2: (ax+b)(cx+d) 形式 (25題) ---
+                // 問題 26 (例題類似)
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2+xy+y^2\\right)\\left(x^2-xy+y^2\\right)$$",
-                    options: [ "$x^4+x^2y^2+y^4$", "$x^4-x^2y^2+y^4$", "$x^4+2x^2y^2+y^4$", "$x^4-y^4$" ],
-                    answer: "$x^4+x^2y^2+y^4$",
-                    rationale: "$\\left(\\left(x^2+y^2\\right)+xy\\right)\\left(\\left(x^2+y^2\\right)-xy\\right) = \\left(x^2+y^2\\right)^2 - \\left(xy\\right)^2 = \\left(x^4+2x^2y^2+y^4\\right) - x^2y^2 = x^4+x^2y^2+y^4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(a+3b\\right)\\left(a-4b\\right)$$",
+                    options: [ "$a^2-ab-12b^2$", "$a^2-7ab-12b^2$", "$a^2+ab-12b^2$", "$a^2-12b^2$" ],
+                    answer: "$a^2-ab-12b^2$",
+                    rationale: "$a\\left(a-4b\\right)+3b\\left(a-4b\\right) = (a^2-4ab) + (3ab-12b^2) = a^2-ab-12b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 27 (例題類似)
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(a-b\\right)\\left(a+b\\right)\\left(a^2+b^2\\right)$$",
-                    options: [ "$a^4-b^4$", "$a^4+b^4$", "$a^4-2a^2b^2+b^4$", "$a^4+2a^2b^2+b^4$" ],
-                    answer: "$a^4-b^4$",
-                    rationale: "$\\left(a-b\\right)\\left(a+b\\right) = a^2-b^2$。<br>よって、$\\left(a^2-b^2\\right)\\left(a^2+b^2\\right) = \\left(a^2\\right)^2 - \\left(b^2\\right)^2 = a^4-b^4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x-y\\right)\\left(x-2y\\right)$$",
+                    options: [ "$x^2-3xy+2y^2$", "$x^2+3xy+2y^2$", "$x^2-xy+2y^2$", "$x^2-3xy-2y^2$" ],
+                    answer: "$x^2-3xy+2y^2$",
+                    rationale: "$x\\left(x-2y\\right)-y\\left(x-2y\\right) = (x^2-2xy) + (-xy+2y^2) = x^2-3xy+2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 28
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x+2\\right)\\left(x-3\\right)\\left(x+1\\right)$$",
-                    options: [ "$x^3-7x-6$", "$x^3-x-6$", "$x^3-6x-6$", "$x^3-2x^2-7x-6$" ],
-                    answer: "$x^3-7x-6$",
-                    rationale: "$\\left(x+2\\right)\\left(x-3\\right) = x^2-x-6$。<br>よって、$\\left(x^2-x-6\\right)\\left(x+1\\right) = x\\left(x^2-x-6\\right)+1\\left(x^2-x-6\\right) = \\left(x^3-x^2-6x\\right) + \\left(x^2-x-6\\right) = x^3-7x-6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(2x+1\\right)\\left(3x+2\\right)$$",
+                    options: [ "$6x^2+7x+2$", "$6x^2+5x+2$", "$6x^2+7x+3$", "$5x^2+7x+2$" ],
+                    answer: "$6x^2+7x+2$",
+                    rationale: "$\\left(2x\\right)\\left(3x\\right) + \\left(2x\\right)\\left(2\\right) + \\left(1\\right)\\left(3x\\right) + \\left(1\\right)\\left(2\\right) = 6x^2+4x+3x+2 = 6x^2+7x+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 29
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2-2x+1\\right)\\left(x^2+2x+1\\right)$$",
-                    options: [ "$x^4-2x^2+1$", "$x^4+1$", "$x^4+2x^2+1$", "$x^4+4x^3+4x^2+2x+1$" ],
-                    answer: "$x^4-2x^2+1$",
-                    rationale: "$\\left(\\left(x^2+1\\right)-2x\\right)\\left(\\left(x^2+1\\right)+2x\\right) = \\left(x^2+1\\right)^2 - \\left(2x\\right)^2 = \\left(x^4+2x^2+1\\right) - 4x^2 = x^4-2x^2+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(3a-1\\right)\\left(a+5\\right)$$",
+                    options: [ "$3a^2+14a-5$", "$3a^2-14a-5$", "$3a^2+4a-5$", "$3a^2+16a-5$" ],
+                    answer: "$3a^2+14a-5$",
+                    rationale: "$\\left(3a\\right)\\left(a\\right) + \\left(3a\\right)\\left(5\\right) + \\left(-1\\right)\\left(a\\right) + \\left(-1\\right)\\left(5\\right) = 3a^2+15a-a-5 = 3a^2+14a-5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 30
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x-1\\right)\\left(x-2\\right)\\left(x-3\\right)$$",
-                    options: [ "$x^3-6x^2+11x-6$", "$x^3+6x^2+11x+6$", "$x^3-6x^2-11x-6$", "$x^3-6$" ],
-                    answer: "$x^3-6x^2+11x-6$",
-                    rationale: "$\\left(x-1\\right)\\left(x-2\\right) = x^2-3x+2$。<br>$\\left(x^2-3x+2\\right)\\left(x-3\\right) = x\\left(x^2-3x+2\\right)-3\\left(x^2-3x+2\\right) = \\left(x^3-3x^2+2x\\right) + \\left(-3x^2+9x-6\\right) = x^3-6x^2+11x-6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(2x-5\\right)\\left(4x-1\\right)$$",
+                    options: [ "$8x^2-22x+5$", "$8x^2+22x+5$", "$8x^2-18x+5$", "$8x^2-22x-5$" ],
+                    answer: "$8x^2-22x+5$",
+                    rationale: "$\\left(2x\\right)\\left(4x\\right) + \\left(2x\\right)\\left(-1\\right) + \\left(-5\\right)\\left(4x\\right) + \\left(-5\\right)\\left(-1\\right) = 8x^2-2x-20x+5 = 8x^2-22x+5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 31
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(2x^2-x+3\\right)\\left(x^2-5x-1\\right)$$",
-                    options: [ "$2x^4-11x^3+6x^2-14x-3$", "$2x^4-11x^3+11x^2-14x-3$", "$2x^4-11x^3+6x^2+16x-3$", "$2x^4-9x^3+6x^2-14x-3$" ],
-                    answer: "$2x^4-11x^3+6x^2-14x-3$",
-                    rationale: "$2x^2\\left(...\\right)-x\\left(...\\right)+3\\left(...\\right) = \\left(2x^4-10x^3-2x^2\\right) + \\left(-x^3+5x^2+x\\right) + \\left(3x^2-15x-3\\right) = 2x^4 - 11x^3 + 6x^2 - 14x - 3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x+2y\\right)\\left(3x-y\\right)$$",
+                    options: [ "$3x^2+5xy-2y^2$", "$3x^2-5xy-2y^2$", "$3x^2+7xy-2y^2$", "$3x^2+xy-2y^2$" ],
+                    answer: "$3x^2+5xy-2y^2$",
+                    rationale: "$\\left(x\\right)\\left(3x\\right) + \\left(x\\right)\\left(-y\\right) + \\left(2y\\right)\\left(3x\\right) + \\left(2y\\right)\\left(-y\\right) = 3x^2-xy+6xy-2y^2 = 3x^2+5xy-2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 32
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(a-b\\right)\\left(a-2b\\right)\\left(a+3b\\right)$$",
-                    options: [ "$a^3-7ab^2+6b^3$", "$a^3-3a^2b-7ab^2+6b^3$", "$a^3-b^3$", "$a^3-6b^3$" ],
-                    answer: "$a^3-7ab^2+6b^3$",
-                    rationale: "$\\left(a-b\\right)\\left(a-2b\\right) = a^2-3ab+2b^2$。<br>$\\left(a^2-3ab+2b^2\\right)\\left(a+3b\\right) = a\\left(a^2-3ab+2b^2\\right) + 3b\\left(a^2-3ab+2b^2\\right) = \\left(a^3-3a^2b+2ab^2\\right) + \\left(3a^2b-9ab^2+6b^3\\right) = a^3-7ab^2+6b^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(2a-3b\\right)\\left(a-b\\right)$$",
+                    options: [ "$2a^2-5ab+3b^2$", "$2a^2+ab+3b^2$", "$2a^2-ab+3b^2$", "$2a^2-5ab-3b^2$" ],
+                    answer: "$2a^2-5ab+3b^2$",
+                    rationale: "$\\left(2a\\right)\\left(a\\right) + \\left(2a\\right)\\left(-b\\right) + \\left(-3b\\right)\\left(a\\right) + \\left(-3b\\right)\\left(-b\\right) = 2a^2-2ab-3ab+3b^2 = 2a^2-5ab+3b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 33
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2+4\\right)\\left(x^2-3\\right)$$",
-                    options: [ "$x^4+x^2-12$", "$x^4-x^2-12$", "$x^4+7x^2-12$", "$x^4-12$" ],
-                    answer: "$x^4+x^2-12$",
-                    rationale: "$\\left(x^2\\right)^2 + \\left(4-3\\right)x^2 + \\left(4\\right)\\left(-3\\right) = x^4+x^2-12$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(4x+y\\right)\\left(3x+2y\\right)$$",
+                    options: [ "$12x^2+11xy+2y^2$", "$12x^2+8xy+2y^2$", "$12x^2+3xy+2y^2$", "$7x^2+11xy+3y^2$" ],
+                    answer: "$12x^2+11xy+2y^2$",
+                    rationale: "$\\left(4x\\right)\\left(3x\\right) + \\left(4x\\right)\\left(2y\\right) + \\left(y\\right)\\left(3x\\right) + \\left(y\\right)\\left(2y\\right) = 12x^2+8xy+3xy+2y^2 = 12x^2+11xy+2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 34
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(a^2-ab+b^2\\right)\\left(a^2+ab+b^2\\right)$$",
-                    options: [ "$a^4+a^2b^2+b^4$", "$a^4-b^4$", "$a^4+2a^2b^2+b^4$", "$a^4-a^2b^2+b^4$" ],
-                    answer: "$a^4+a^2b^2+b^4$",
-                    rationale: "$\\left(\\left(a^2+b^2\\right)-ab\\right)\\left(\\left(a^2+b^2\\right)+ab\\right) = \\left(a^2+b^2\\right)^2 - \\left(ab\\right)^2 = \\left(a^4+2a^2b^2+b^4\\right) - a^2b^2 = a^4+a^2b^2+b^4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(5x-2y\\right)\\left(x-y\\right)$$",
+                    options: [ "$5x^2-7xy+2y^2$", "$5x^2-3xy+2y^2$", "$5x^2-7xy-2y^2$", "$5x^2-3xy-2y^2$" ],
+                    answer: "$5x^2-7xy+2y^2$",
+                    rationale: "$\\left(5x\\right)\\left(x\\right) + \\left(5x\\right)\\left(-y\\right) + \\left(-2y\\right)\\left(x\\right) + \\left(-2y\\right)\\left(-y\\right) = 5x^2-5xy-2xy+2y^2 = 5x^2-7xy+2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 35
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2-2\\right)\\left(x^3+2x-1\\right)$$",
-                    options: [ "$x^5-x^2-4x+2$", "$x^5+x^3-x^2+4x-2$", "$x^5-x^2+4x-2$", "$x^5-3x^2+4x+2$" ],
-                    answer: "$x^5-x^2-4x+2$",
-                    rationale: "$x^2\\left(x^3+2x-1\\right) - 2\\left(x^3+2x-1\\right) = \\left(x^5+2x^3-x^2\\right) + \\left(-2x^3-4x+2\\right) = x^5-x^2-4x+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(a+b\\right)\\left(c+d\\right)$$",
+                    options: [ "$ac+ad+bc+bd$", "$ac+bd$", "$abcd$", "$a+b+c+d$" ],
+                    answer: "$ac+ad+bc+bd$",
+                    rationale: "分配法則の基本です。$a\\left(c+d\\right) + b\\left(c+d\\right) = ac+ad+bc+bd$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 36
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x+y+z\\right)\\left(x-y-z\\right)$$",
-                    options: [ "$x^2-y^2-2yz-z^2$", "$x^2-y^2-z^2$", "$x^2-y^2+2yz-z^2$", "$x^2+y^2+z^2-2yz$" ],
-                    answer: "$x^2-y^2-2yz-z^2$",
-                    rationale: "$\\left(x+\\left(y+z\\right)\\right)\\left(x-\\left(y+z\\right)\\right) = x^2 - \\left(y+z\\right)^2 = x^2 - \\left(y^2+2yz+z^2\\right) = x^2-y^2-2yz-z^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(3x-2\\right)\\left(x+4\\right)$$",
+                    options: [ "$3x^2+10x-8$", "$3x^2+14x-8$", "$3x^2+2x-8$", "$3x^2-10x-8$" ],
+                    answer: "$3x^2+10x-8$",
+                    rationale: "$\\left(3x\\right)\\left(x\\right) + \\left(3x\\right)\\left(4\\right) + \\left(-2\\right)\\left(x\\right) + \\left(-2\\right)\\left(4\\right) = 3x^2+12x-2x-8 = 3x^2+10x-8$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 37
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(a-2b+3\\right)\\left(a+2b-3\\right)$$",
-                    options: [ "$a^2-4b^2+12b-9$", "$a^2+4b^2-9$", "$a^2-4b^2-12b-9$", "$a^2-4b^2-9$" ],
-                    answer: "$a^2-4b^2+12b-9$",
-                    rationale: "$\\left(a-\\left(2b-3\\right)\\right)\\left(a+\\left(2b-3\\right)\\right) = a^2 - \\left(2b-3\\right)^2 = a^2 - \\left(4b^2-12b+9\\right) = a^2-4b^2+12b-9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(4a+1\\right)\\left(2a-3\\right)$$",
+                    options: [ "$8a^2-10a-3$", "$8a^2+10a-3$", "$8a^2-14a-3$", "$8a^2-10a+3$" ],
+                    answer: "$8a^2-10a-3$",
+                    rationale: "$\\left(4a\\right)\\left(2a\\right) + \\left(4a\\right)\\left(-3\\right) + \\left(1\\right)\\left(2a\\right) + \\left(1\\right)\\left(-3\\right) = 8a^2-12a+2a-3 = 8a^2-10a-3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 38
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2-3x+9\\right)\\left(x+3\\right)$$",
-                    options: [ "$x^3+27$", "$x^3-27$", "$x^3-6x^2+18x+27$", "$x^3+6x^2-18x+27$" ],
-                    answer: "$x^3+27$",
-                    rationale: "乗法公式 $\\left(x+3\\right)\\left(x^2-3x+9\\right) = x^3+3^3 = x^3+27$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(5x-y\\right)\\left(x+2y\\right)$$",
+                    options: [ "$5x^2+9xy-2y^2$", "$5x^2-11xy-2y^2$", "$5x^2+11xy-2y^2$", "$5x^2-9xy-2y^2$" ],
+                    answer: "$5x^2+9xy-2y^2$",
+                    rationale: "$\\left(5x\\right)\\left(x\\right) + \\left(5x\\right)\\left(2y\\right) + \\left(-y\\right)\\left(x\\right) + \\left(-y\\right)\\left(2y\\right) = 5x^2+10xy-xy-2y^2 = 5x^2+9xy-2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 39
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(2a-b\\right)\\left(4a^2+2ab+b^2\\right)$$",
-                    options: [ "$8a^3-b^3$", "$8a^3+b^3$", "$8a^3-4a^2b+2ab^2-b^3$", "$2a^3-b^3$" ],
-                    answer: "$8a^3-b^3$",
-                    rationale: "乗法公式 $\\left(x-y\\right)\\left(x^2+xy+y^2\\right)=x^3-y^3$ で $x=2a, y=b$ としたものです。$\\left(2a\\right)^3 - b^3 = 8a^3-b^3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(2a-5b\\right)\\left(2a-b\\right)$$",
+                    options: [ "$4a^2-12ab+5b^2$", "$4a^2+12ab+5b^2$", "$4a^2-8ab+5b^2$", "$4a^2-12ab-5b^2$" ],
+                    answer: "$4a^2-12ab+5b^2$",
+                    rationale: "$\\left(2a\\right)\\left(2a\\right) + \\left(2a\\right)\\left(-b\\right) + \\left(-5b\\right)\\left(2a\\right) + \\left(-5b\\right)\\left(-b\\right) = 4a^2-2ab-10ab+5b^2 = 4a^2-12ab+5b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 40
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x-y-z\\right)\\left(x+y+z\\right)$$",
-                    options: [ "$x^2-y^2-2yz-z^2$", "$x^2-y^2-z^2$", "$x^2+y^2+z^2+2yz$", "$x^2-y^2+2yz-z^2$" ],
-                    answer: "$x^2-y^2-2yz-z^2$",
-                    rationale: "$\\left(x-\\left(y+z\\right)\\right)\\left(x+\\left(y+z\\right)\\right) = x^2 - \\left(y+z\\right)^2 = x^2 - \\left(y^2+2yz+z^2\\right) = x^2-y^2-2yz-z^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x+7y\\right)\\left(x-7y\\right)$$",
+                    options: [ "$x^2-49y^2$", "$x^2+49y^2$", "$x^2-14xy+49y^2$", "$x^2+14xy+49y^2$" ],
+                    answer: "$x^2-49y^2$",
+                    rationale: "和と差の積の公式 $\\left(a+b\\right)\\left(a-b\\right)=a^2-b^2$ です。$x^2-\\left(7y\\right)^2 = x^2-49y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 41
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2-x+1\\right)\\left(x^2+x+1\\right)$$",
-                    options: [ "$x^4+x^2+1$", "$x^4+2x^3+3x^2+2x+1$", "$x^4-x^2+1$", "$x^4-1$" ],
-                    answer: "$x^4+x^2+1$",
-                    rationale: "$\\left(\\left(x^2+1\\right)-x\\right)\\left(\\left(x^2+1\\right)+x\\right) = \\left(x^2+1\\right)^2 - x^2 = \\left(x^4+2x^2+1\\right) - x^2 = x^4+x^2+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(3x+1\\right)\\left(2x-5\\right)$$",
+                    options: [ "$6x^2-13x-5$", "$6x^2+13x-5$", "$6x^2-17x-5$", "$6x^2-13x+5$" ],
+                    answer: "$6x^2-13x-5$",
+                    rationale: "$\\left(3x\\right)\\left(2x\\right) + \\left(3x\\right)\\left(-5\\right) + \\left(1\\right)\\left(2x\\right) + \\left(1\\right)\\left(-5\\right) = 6x^2-15x+2x-5 = 6x^2-13x-5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 42
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^3+2x-1\\right)\\left(x-3\\right)$$",
-                    options: [ "$x^4-3x^3+2x^2-7x+3$", "$x^4-3x^3+2x^2-5x+3$", "$x^4+2x^2-4x+3$", "$x^4-3x^3-2x^2-7x+3$" ],
-                    answer: "$x^4-3x^3+2x^2-7x+3$",
-                    rationale: "$x\\left(x^3+2x-1\\right) - 3\\left(x^3+2x-1\\right) = \\left(x^4+2x^2-x\\right) + \\left(-3x^3-6x+3\\right) = x^4-3x^3+2x^2-7x+3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(2x+5y\\right)\\left(x+3y\\right)$$",
+                    options: [ "$2x^2+11xy+15y^2$", "$2x^2+13xy+15y^2$", "$2x^2+xy+15y^2$", "$3x^2+11xy+8y^2$" ],
+                    answer: "$2x^2+11xy+15y^2$",
+                    rationale: "$\\left(2x\\right)\\left(x\\right) + \\left(2x\\right)\\left(3y\\right) + \\left(5y\\right)\\left(x\\right) + \\left(5y\\right)\\left(3y\\right) = 2x^2+6xy+5xy+15y^2 = 2x^2+11xy+15y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 43
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(a^2-3\\right)\\left(a^2-3\\right)$$",
-                    options: [ "$a^4-6a^2+9$", "$a^4-9$", "$a^4+6a^2+9$", "$a^4+9$" ],
-                    answer: "$a^4-6a^2+9$",
-                    rationale: "$\\left(a^2-3\\right)^2 = \\left(a^2\\right)^2 - 2\\left(a^2\\right)\\left(3\\right) + 3^2 = a^4-6a^2+9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(3a-4b\\right)\\left(2a+b\\right)$$",
+                    options: [ "$6a^2-5ab-4b^2$", "$6a^2-11ab-4b^2$", "$6a^2+5ab-4b^2$", "$6a^2-5ab+4b^2$" ],
+                    answer: "$6a^2-5ab-4b^2$",
+                    rationale: "$\\left(3a\\right)\\left(2a\\right) + \\left(3a\\right)\\left(b\\right) + \\left(-4b\\right)\\left(2a\\right) + \\left(-4b\\right)\\left(b\\right) = 6a^2+3ab-8ab-4b^2 = 6a^2-5ab-4b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 44
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2+x+1\\right)\\left(x^2-x-1\\right)$$",
-                    options: [ "$x^4-x^2-2x-1$", "$x^4-x^2+2x-1$", "$x^4+2x^3-x^2-2x-1$", "$x^4-2x^2-1$" ],
-                    answer: "$x^4-x^2-2x-1$",
-                    rationale: "$\\left(x^2+\\left(x+1\\right)\\right)\\left(x^2-\\left(x+1\\right)\\right) = \\left(x^2\\right)^2 - \\left(x+1\\right)^2 = x^4 - \\left(x^2+2x+1\\right) = x^4-x^2-2x-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の式を展開せよ。<br>$$\\left(x-10\\right)\\left(x+2\\right)$$",
+                    options: [ "$x^2-8x-20$", "$x^2+8x-20$", "$x^2-12x-20$", "$x^2-8x+20$" ],
+                    answer: "$x^2-8x-20$",
+                    rationale: "$x^2+\\left(-10+2\\right)x+\\left(-10\\right)\\left(2\\right) = x^2-8x-20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // 問題 45
                 {
-                    question: "次の式を計算せよ。<br>$$\\left(x^2+2x+4\\right)\\left(x-2\\right)$$",
-                    options: [ "$x^3-8$", "$x^3+8$", "$x^3+4x^2+8x-8$", "$x^3-4x^2-8x-8$" ],
-                    answer: "$x^3-8$",
-                    rationale: "乗法公式 $\\left(x-2\\right)\\left(x^2+2x+4\\right) = x^3-2^3 = x^3-8$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63107' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式を展開せよ。<br>$$\\left(y-3\\right)^2$$",
+                    options: [ "$y^2-6y+9$", "$y^2-9$", "$y^2+6y+9$", "$y^2-3y+9$" ],
+                    answer: "$y^2-6y+9$",
+                    rationale: "平方の公式 $\\left(a-b\\right)^2=a^2-2ab+b^2$ です。$y^2-2\\left(y\\right)\\left(3\\right)+3^2 = y^2-6y+9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 46
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a+11\\right)\\left(a-1\\right)$$",
+                    options: [ "$a^2+10a-11$", "$a^2-10a-11$", "$a^2+12a-11$", "$a^2+10a+11$" ],
+                    answer: "$a^2+10a-11$",
+                    rationale: "$a^2+\\left(11-1\\right)a+\\left(11\\right)\\left(-1\\right) = a^2+10a-11$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 47
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(5x+2\\right)\\left(5x-2\\right)$$",
+                    options: [ "$25x^2-4$", "$25x^2+4$", "$25x^2-20x+4$", "$10x^2-4$" ],
+                    answer: "$25x^2-4$",
+                    rationale: "和と差の積の公式 $\\left(a+b\\right)\\left(a-b\\right)=a^2-b^2$ です。$\\left(5x\\right)^2-2^2 = 25x^2-4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 48
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(3a-b\\right)\\left(2a-5b\\right)$$",
+                    options: [ "$6a^2-17ab+5b^2$", "$6a^2-13ab+5b^2$", "$6a^2-17ab-5b^2$", "$5a^2-17ab+5b^2$" ],
+                    answer: "$6a^2-17ab+5b^2$",
+                    rationale: "$\\left(3a\\right)\\left(2a\\right) + \\left(3a\\right)\\left(-5b\\right) + \\left(-b\\right)\\left(2a\\right) + \\left(-b\\right)\\left(-5b\\right) = 6a^2-15ab-2ab+5b^2 = 6a^2-17ab+5b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 49
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(-x+3\\right)\\left(-x-3\\right)$$",
+                    options: [ "$x^2-9$", "$x^2+9$", "$-x^2+9$", "$x^2-6x+9$" ],
+                    answer: "$x^2-9$",
+                    rationale: "$\\left(-x\\right)^2 - 3^2 = x^2-9$。または、$\\left(3-x\\right)\\left(-3-x\\right) = -\\left(3-x\\right)\\left(3+x\\right) = -\\left(9-x^2\\right) = x^2-9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 50
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(4x+3y\\right)\\left(x-y\\right)$$",
+                    options: [ "$4x^2-xy-3y^2$", "$4x^2+xy-3y^2$", "$4x^2-7xy-3y^2$", "$4x^2-xy+3y^2$" ],
+                    answer: "$4x^2-xy-3y^2$",
+                    rationale: "$\\left(4x\\right)\\left(x\\right) + \\left(4x\\right)\\left(-y\\right) + \\left(3y\\right)\\left(x\\right) + \\left(3y\\right)\\left(-y\\right) = 4x^2-4xy+3xy-3y^2 = 4x^2-xy-3y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 }
             ]
             // --- ★★★ 50題データここまで ★★★
