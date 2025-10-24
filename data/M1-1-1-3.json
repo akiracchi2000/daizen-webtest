@@ -9,7 +9,6 @@
     }
   },
   "questions": [
-  [
   {
     "question": "次の計算をせよ。<br>$$2x^2y \\times \\left(-5xy^3\\right)$$",
     "options": ["$-10x^3y^4$", "$-3x^3y^4$", "$-10x^2y^3$", "$10x^3y^4$"],
@@ -311,6 +310,4 @@
     "rationale": "指数法則 $\\left(ab\\right)^n = a^nb^n$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br><a href=\"https://www.manabi-aid.jp/lesson/id/7707/63105\" target=\"_blank\">解説動画を見る</a><br><small>（※学びエイドのログインが必要です）</small>"
   }
 ]
-  
-  ]
 }
