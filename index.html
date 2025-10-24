@@ -438,8 +438,12 @@
                                 localStorage.removeItem('quizRank_' + quizId);
                             });
                             
-                            // 画面上の表示を「(未)」に戻す
-                            loadRanks(); 
+                            // 既存DOMの全ランク表示を即時リセット → その後 loadRanks で再描画
+                            document.querySelectorAll('.quiz-rank').forEach(el => {
+                              el.textContent = '(未)';
+                              el.className = 'quiz-rank rank-yet';
+                            });
+                            loadRanks();
                             alert("ランク情報をリセットしました。");
                         } catch (e) {
                             alert("リセットに失敗しました。");
