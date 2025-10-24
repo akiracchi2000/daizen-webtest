@@ -595,7 +595,7 @@
                 const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
                 scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`; // 10題中の表示
                 let rank = "-"; if (quizData.length > 0) { if (percentage === 100) rank = "S"; else if (percentage >= 80) rank = "A"; else if (percentage >= 60) rank = "B"; else rank = "C"; }
-                const quizId = 'M1-1-1-3'; // ★ quizId ★
+                const quizId = 'M1-1-1-4'; // ★ quizId ★
                 try { localStorage.setItem('quizRank_' + quizId, rank); } catch (e) { console.error("localStorage save failed:", e); }
                 let message = ""; // (メッセージ生成...)
                  if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
