@@ -407,8 +407,9 @@
                     const rankSpan = document.getElementById('rank-' + quizId);
                     if (rankSpan) {
                         try {
-                            const savedRank = localStorage.getItem('quizRank_' + quizId);
-                            if (savedRank && savedRank !== "-") {
+                             const savedRank = localStorage.getItem('quizRank_' + quizId);
+                             const valid = new Set(['S','A','B','C']);
+                             if (valid.has(savedRank)) {
                                 rankSpan.textContent = `(Rank: ${savedRank})`;
                                 rankSpan.className = 'quiz-rank'; // Reset classes
                                 rankSpan.classList.add('rank-' + savedRank); 
