@@ -1,111 +1,95 @@
 {
   "allQuizData": [
-                                // 問題 1 
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$x^2+2x-3-(-x^2+3x+6)$$",
                     options: [ "$2x^2-x-9$", "$x-9$", "$2x^2+5x+3$", "$-x-9$" ],
                     answer: "$2x^2-x-9$",
                     rationale: "かっこを外すと $x^2+2x-3+x^2-3x-6$ となります。同類項をまとめると $(x^2+x^2) + (2x-3x) + (-3-6) = 2x^2-x-9$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 2
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(3a^2-5a+1)-(2a^2+a-4)$$",
                     options: [ "$a^2-6a+5$", "$a^2-4a-3$", "$5a^2-4a-3$", "$a^2-6a-3$" ],
                     answer: "$a^2-6a+5$",
                     rationale: "かっこを外すと $3a^2-5a+1-2a^2-a+4$ となります。同類項をまとめると $(3a^2-2a^2) + (-5a-a) + (1+4) = a^2-6a+5$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 3
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x-y+z)-(2x+3y-z)$$",
                     options: [ "$-x-4y+2z$", "$3x+2y$", "$-x-2y$", "$-x-4y$" ],
                     answer: "$-x-4y+2z$",
                     rationale: "かっこを外すと $x-y+z-2x-3y+z$ となります。同類項をまとめると $(x-2x) + (-y-3y) + (z+z) = -x-4y+2z$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 4
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(4x^2+7)-(-x^2+3x-2)$$",
                     options: [ "$5x^2-3x+9$", "$3x^2-3x+5$", "$5x^2+3x+5$", "$5x^2-3x+5$" ],
                     answer: "$5x^2-3x+9$",
                     rationale: "かっこを外すと $4x^2+7+x^2-3x+2$ となります。同類項をまとめると $(4x^2+x^2) - 3x + (7+2) = 5x^2-3x+9$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 5
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(2a+3b)-(a-b)$$",
                     options: [ "$a+4b$", "$a+2b$", "$3a+2b$", "$a-4b$" ],
                     answer: "$a+4b$",
                     rationale: "かっこを外すと $2a+3b-a+b$ となります。同類項をまとめると $(2a-a) + (3b+b) = a+4b$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 6
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2-xy+y^2)-(x^2+xy-y^2)$$",
                     options: [ "$-2xy+2y^2$", "$2x^2+2y^2$", "$2y^2$", "$-2xy$" ],
                     answer: "$-2xy+2y^2$",
                     rationale: "かっこを外すと $x^2-xy+y^2-x^2-xy+y^2$ となります。同類項をまとめると $(x^2-x^2) + (-xy-xy) + (y^2+y^2) = -2xy+2y^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 7
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(5x+3y-1)-(-2x+y+4)$$",
                     options: [ "$7x+2y-5$", "$3x+2y-5$", "$7x+4y+3$", "$7x+2y+3$" ],
                     answer: "$7x+2y-5$",
                     rationale: "かっこを外すと $5x+3y-1+2x-y-4$ となります。同類項をまとめると $(5x+2x) + (3y-y) + (-1-4) = 7x+2y-5$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 8
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a^3-a)-(2a^3+a^2)$$",
                     options: [ "$-a^3-a^2-a$", "$3a^3+a^2-a$", "$-a^3+a^2-a$", "$-a^3-a$" ],
                     answer: "$-a^3-a^2-a$",
                     rationale: "かっこを外すと $a^3-a-2a^3-a^2$ となります。同類項をまとめ、降べきの順に整理すると $(a^3-2a^3) - a^2 - a = -a^3-a^2-a$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 9
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2+6x)-(4x^2-x+7)$$",
                     options: [ "$-3x^2+7x-7$", "$5x^2+5x-7$", "$-3x^2+5x-7$", "$-3x^2+7x+7$" ],
                     answer: "$-3x^2+7x-7$",
                     rationale: "かっこを外すと $x^2+6x-4x^2+x-7$ となります。同類項をまとめると $(x^2-4x^2) + (6x+x) - 7 = -3x^2+7x-7$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 10
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(7)-(2x-3)$$",
                     options: [ "$-2x+10$", "$2x+4$", "$-2x+4$", "$2x+10$" ],
                     answer: "$-2x+10$",
                     rationale: "かっこを外すと $7-2x+3$ となります。同類項をまとめると $-2x + (7+3) = -2x+10$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                 // 問題 11
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(ab+bc+ca)-(ab-bc+ca)$$",
                     options: [ "$2bc$", "$2ab+2ca$", "$0$", "$2bc+2ca$" ],
                     answer: "$2bc$",
                     rationale: "かっこを外すと $ab+bc+ca-ab+bc-ca$ となります。同類項をまとめると $(ab-ab) + (bc+bc) + (ca-ca) = 2bc$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 12
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^2-3x+5)-(-x^2-3x-5)$$",
                     options: [ "$2x^2+10$", "$-6x$", "$2x^2$", "$10$" ],
                     answer: "$2x^2+10$",
                     rationale: "かっこを外すと $x^2-3x+5+x^2+3x+5$ となります。同類項をまとめると $(x^2+x^2) + (-3x+3x) + (5+5) = 2x^2+10$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 13
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(a-2b+3c)-(3a-2b+c)$$",
                     options: [ "$-2a+2c$", "$4a-4b+4c$", "$-2a-4b+2c$", "$-2a+4c$" ],
                     answer: "$-2a+2c$",
                     rationale: "かっこを外すと $a-2b+3c-3a+2b-c$ となります。同類項をまとめると $(a-3a) + (-2b+2b) + (3c-c) = -2a+2c$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 14
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(5x^2y+3xy^2)-(2x^2y-xy^2)$$",
                     options: [ "$3x^2y+4xy^2$", "$7x^2y+2xy^2$", "$3x^2y+2xy^2$", "$3x^2y-4xy^2$" ],
                     answer: "$3x^2y+4xy^2$",
                     rationale: "かっこを外すと $5x^2y+3xy^2-2x^2y+xy^2$ となります。同類項をまとめると $(5x^2y-2x^2y) + (3xy^2+xy^2) = 3x^2y+4xy^2$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 15
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(4x+1)-(x-5)$$",
                     options: [ "$3x+6$", "$5x-4$", "$3x-4$", "$5x+6$" ],
                     answer: "$3x+6$",
                     rationale: "かっこを外すと $4x+1-x+5$ となります。同類項をまとめると $(4x-x) + (1+5) = 3x+6$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7707/63102' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // 問題 16
                 {
                     question: "同類項をまとめて，次の整式を簡単にせよ。<br>$$(x^3-2x^2+x-1)-(x^3+x^2-x+1)$$",
                     options: [ "$-3x^2+2x-2$", "$2x^3-x^2-2$", "$-x^2+2x-2$", "$-3x^2-2$" ],
