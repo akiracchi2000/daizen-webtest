@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数と式：単項式の乗法 (ランダム10題)</title>
+    <title>数と式：単項式の乗法と除法 (ランダム10題)</title>
     <style>
         /* index.htmlと共通のスタイル */
         body {
@@ -24,7 +24,6 @@
         body.bg-light-blue { background-color: #e7f5ff; } /* 水色 */
         body.bg-light-green { background-color: #e6fcf5; } /* 薄い緑 */
         body.bg-beige { background-color: #fcf8e3; } /* ベージュ */
-        /* body (デフォルト) は background-color: #f8f9fa; が適用される */
 
         .container {
             max-width: 800px;
@@ -58,7 +57,7 @@
         /* --- クイズ用のスタイル --- */
         #quiz-container { min-height: 300px; }
         #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
-        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; /* 選択肢との間隔を少し空ける */ }
+        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; }
 
         /* 選択肢コンテナ (Gridレイアウト - デフォルトは2x2) */
         #options-container {
@@ -150,21 +149,17 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
-        　　// ★★★ 背景色を適用する処理 (ここから追加) ★★★
+            // ★★★ 背景色を適用する処理 ★★★
             const storageKey = 'backgroundColorPreference';
             try {
                 const savedColor = localStorage.getItem(storageKey);
-                // 既存の色クラスを削除 (念のため)
                 document.body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
-                // 保存された色があればクラスを追加
                 if (savedColor && savedColor !== 'default') {
                     document.body.classList.add('bg-' + savedColor);
                 }
-            } catch (e) {
-                console.error("localStorageからの背景色読み込みに失敗:", e);
-            }
-            // ★★★ (ここまで追加) ★★★
-            
+            } catch (e) { console.error("localStorageからの背景色読み込みに失敗:", e); }
+            // ★★★ (ここまで) ★★★
+
             // KaTeXが認識する区切り文字の設定
             const katexDelimiters = [
                 {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false},
@@ -176,7 +171,8 @@
                 renderMathInElement(document.body, { delimiters: katexDelimiters });
             } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
 
-// --- ★ allQuizData 配列に追加するデータ (50題) ★ ---
+            // --- ★ 元の50題のクイズデータを allQuizData とする ★ ---
+            // --- ★ allQuizData 配列に追加するデータ (50題) ★ ---
             const newQuizData = [
                 // --- タイプ1: (x+a)(x+b) 形式 (25題) ---
                 // 問題 1 (例題類似)
@@ -532,7 +528,8 @@
                 }
             ]
             // --- ★★★ 50題データここまで ★★★
-            
+            // --- 元のクイズデータの終わり ---
+
             // ★★★ ランダムに10題選ぶ処理 ★★★
             // 1. allQuizData をシャッフルする関数
             function shuffleArray(array) {
@@ -599,15 +596,22 @@
                 if (currentQuestionIndex < quizData.length - 1) { nextBtn.style.display = 'block'; } else { resultsBtn.style.display = 'block'; }
             }
 
-            // (イベントリスナー)
-            nextBtn.addEventListener('click', () => { if (currentQuestionIndex < quizData.length - 1) { currentQuestionIndex++; loadQuestion(); } });
+            // (イベントリスナーをセット)
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestionIndex < quizData.length - 1) { // 範囲チェック
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            });
 
             resultsBtn.addEventListener('click', () => {
                 quizContainer.style.display = 'none'; resultsContainer.style.display = 'block';
                 const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
                 scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`; // 10題中の表示
                 let rank = "-"; if (quizData.length > 0) { if (percentage === 100) rank = "S"; else if (percentage >= 80) rank = "A"; else if (percentage >= 60) rank = "B"; else rank = "C"; }
-                const quizId = 'M1-1-1-3'; // ★ quizId ★
+                
+                const quizId = 'M1-1-1-3'; // ★★★★★ quizId を 'M1-1-1-3' に設定 ★★★★★
+                
                 try { localStorage.setItem('quizRank_' + quizId, rank); } catch (e) { console.error("localStorage save failed:", e); }
                 let message = ""; // (メッセージ生成...)
                  if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
@@ -618,7 +622,7 @@
                 finalMessageEl.textContent = message;
             });
 
-            // (クイズ開始)
+            // (QDが空でないか確認してからクイズを開始)
             if (quizData && quizData.length > 0) {
                 loadQuestion();
             } else {
@@ -656,5 +660,5 @@
             <p>&copy; 2025 [香川亮]</p>
         </footer>
     </div>
-</body>
+    </body>
 </html>
