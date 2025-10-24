@@ -171,7 +171,7 @@
                 renderMathInElement(document.body, { delimiters: katexDelimiters });
             } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
 
-// --- ★ allQuizData 配列 (M1-1-1-6.html 用) ★ ---
+// --- ★ allQuizData 配列 (M1-1-1-5.html 用) ★ ---
             const allQuizData = [
                 // 問題 1 (例題類似)
                 {
@@ -199,10 +199,10 @@
                 },
                 // 問題 4
                 {
-                    question: "次の式を展開せよ。<br>$$\\left(x+y+1\\right)^2$$",
-                    options: [ "$x^2+y^2+1+2xy+2y+2x$", "$x^2+y^2+1+xy+y+x$", "$x^2+y^2+1$", "$x^2+y^2+1+2xy+2y+x$" ],
-                    answer: "$x^2+y^2+1+2xy+2y+2x$",
-                    rationale: "公式 $\\left(a+b+c\\right)^2=a^2+b^2+c^2+2ab+2bc+2ca$ で $a=x, b=y, c=1$ とします。<br>$x^2+y^2+1^2+2xy+2y(1)+2(1)x = x^2+y^2+1+2xy+2y+2x$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    question: "次の式を展開せよ。<br>$$\\left(a+b+c\\right)^2$$",
+                    options: [ "$a^2+b^2+c^2+2ab+2bc+2ca$", "$a^2+b^2+c^2+ab+bc+ca$", "$a^2+b^2+c^2$", "$a^2+b^2+c^2-2ab-2bc-2ca$" ],
+                    answer: "$a^2+b^2+c^2+2ab+2bc+2ca$",
+                    rationale: "公式 $\\left(a+b+c\\right)^2=a^2+b^2+c^2+2ab+2bc+2ca$ そのものです。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
                     layout: 'vertical'
                 },
                 // 問題 5
@@ -253,7 +253,6 @@
                     rationale: "公式 $\\left(a+b+c\\right)^2$ で $a=a, b=2b, c=-3c$ とします。<br>$a^2+\\left(2b\\right)^2+\\left(-3c\\right)^2+2\\left(a\\right)\\left(2b\\right)+2\\left(2b\\right)\\left(-3c\\right)+2\\left(-3c\\right)\\left(a\\right) = a^2+4b^2+9c^2+4ab-12bc-6ca$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
                     layout: 'vertical'
                 },
-                // ... (問題 11 から 49 まで、同様にバリエーションを生成) ...
                 // 問題 11
                 {
                     question: "次の式を展開せよ。<br>$$\\left(2x-y+z\\right)^2$$",
@@ -294,18 +293,288 @@
                     rationale: "$a=x, b=2y, c=3z$ とします。<br>$x^2+\\left(2y\\right)^2+\\left(3z\\right)^2+2\\left(x\\right)\\left(2y\\right)+2\\left(2y\\right)\\left(3z\\right)+2\\left(3z\\right)\\left(x\\right) = x^2+4y^2+9z^2+4xy+12yz+6zx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
                     layout: 'vertical'
                 },
-                // ... (中略) ...
+                // 問題 16
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-y-2\\right)^2$$",
+                    options: [ "$x^2+y^2+4-2xy+4y-4x$", "$x^2+y^2+4-2xy-4y-4x$", "$x^2+y^2+4-2xy+4y+4x$", "$x^2+y^2+4+2xy+4y-4x$" ],
+                    answer: "$x^2+y^2+4-2xy+4y-4x$",
+                    rationale: "$a=x, b=-y, c=-2$ とします。<br>$x^2+\\left(-y\\right)^2+\\left(-2\\right)^2+2x\\left(-y\\right)+2\\left(-y\\right)\\left(-2\\right)+2\\left(-2\\right)x = x^2+y^2+4-2xy+4y-4x$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 17
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a+b+1\\right)^2$$",
+                    options: [ "$a^2+b^2+1+2ab+2b+2a$", "$a^2+b^2+1+ab+b+a$", "$a^2+b^2+1+2ab+b+a$", "$a^2+b^2+1+2ab+2b+a$" ],
+                    answer: "$a^2+b^2+1+2ab+2b+2a$",
+                    rationale: "公式 $\\left(a+b+c\\right)^2$ で $c=1$ とします。<br>$a^2+b^2+1^2+2ab+2b(1)+2(1)a = a^2+b^2+1+2ab+2b+2a$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 18
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-y+1\\right)^2$$",
+                    options: [ "$x^2+y^2+1-2xy-2y+2x$", "$x^2+y^2+1+2xy-2y+2x$", "$x^2+y^2+1-2xy+2y-2x$", "$x^2-y^2+1-2xy-2y+2x$" ],
+                    answer: "$x^2+y^2+1-2xy-2y+2x$",
+                    rationale: "$a=x, b=-y, c=1$ とします。<br>$x^2+\\left(-y\\right)^2+1^2+2x\\left(-y\\right)+2\\left(-y\\right)(1)+2(1)x = x^2+y^2+1-2xy-2y+2x$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 19
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a-b+5\\right)^2$$",
+                    options: [ "$a^2+b^2+25-2ab-10b+10a$", "$a^2+b^2+25+2ab-10b+10a$", "$a^2+b^2+25-2ab-10b-10a$", "$a^2+b^2+5-2ab-10b+10a$" ],
+                    answer: "$a^2+b^2+25-2ab-10b+10a$",
+                    rationale: "$a=a, b=-b, c=5$ とします。<br>$a^2+\\left(-b\\right)^2+5^2+2a\\left(-b\\right)+2\\left(-b\\right)(5)+2(5)a = a^2+b^2+25-2ab-10b+10a$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 20
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+y-z\\right)^2$$",
+                    options: [ "$x^2+y^2+z^2+2xy-2yz-2zx$", "$x^2+y^2+z^2-2xy-2yz-2zx$", "$x^2+y^2+z^2+2xy+2yz+2zx$", "$x^2+y^2-z^2+2xy-2yz-2zx$" ],
+                    answer: "$x^2+y^2+z^2+2xy-2yz-2zx$",
+                    rationale: "$a=x, b=y, c=-z$ とします。<br>$x^2+y^2+\\left(-z\\right)^2+2xy+2y\\left(-z\\right)+2\\left(-z\\right)x = x^2+y^2+z^2+2xy-2yz-2zx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 21
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a-b-c\\right)^2$$",
+                    options: [ "$a^2+b^2+c^2-2ab+2bc-2ca$", "$a^2+b^2+c^2+2ab+2bc-2ca$", "$a^2+b^2+c^2-2ab-2bc+2ca$", "$a^2+b^2+c^2-2ab-2bc-2ca$" ],
+                    answer: "$a^2+b^2+c^2-2ab+2bc-2ca$",
+                    rationale: "$a=a, b=-b, c=-c$ とします。<br>$a^2+\\left(-b\\right)^2+\\left(-c\\right)^2+2a\\left(-b\\right)+2\\left(-b\\right)\\left(-c\\right)+2\\left(-c\\right)a = a^2+b^2+c^2-2ab+2bc-2ca$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 22
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-1+y\\right)^2$$",
+                    options: [ "$x^2+1+y^2-2x-2y+2xy$", "$x^2+1+y^2+2x-2y-2xy$", "$x^2+1+y^2-2x+2y-2xy$", "$x^2+1+y^2-2x-2y-2xy$" ],
+                    answer: "$x^2+1+y^2-2x-2y+2xy$",
+                    rationale: "$\\left(x+y-1\\right)^2$ と同じです。$a=x, b=y, c=-1$ とします。<br>$x^2+y^2+\\left(-1\\right)^2+2xy+2y\\left(-1\\right)+2\\left(-1\\right)x = x^2+y^2+1+2xy-2y-2x$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 23
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a+2b+3\\right)^2$$",
+                    options: [ "$a^2+4b^2+9+4ab+12b+6a$", "$a^2+4b^2+9+2ab+6b+3a$", "$a^2+4b^2+9+4ab+6b+6a$", "$a^2+2b^2+9+4ab+12b+6a$" ],
+                    answer: "$a^2+4b^2+9+4ab+12b+6a$",
+                    rationale: "$a=a, b=2b, c=3$ とします。<br>$a^2+\\left(2b\\right)^2+3^2+2a\\left(2b\\right)+2\\left(2b\\right)\\left(3\\right)+2\\left(3\\right)a = a^2+4b^2+9+4ab+12b+6a$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 24
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(2x-y+3z\\right)^2$$",
+                    options: [ "$4x^2+y^2+9z^2-4xy-6yz+12zx$", "$4x^2+y^2+9z^2+4xy-6yz+12zx$", "$4x^2+y^2+9z^2-4xy-6yz-12zx$", "$4x^2+y^2+9z^2-4xy+6yz-12zx$" ],
+                    answer: "$4x^2+y^2+9z^2-4xy-6yz+12zx$",
+                    rationale: "$a=2x, b=-y, c=3z$ とします。<br>$\\left(2x\\right)^2+\\left(-y\\right)^2+\\left(3z\\right)^2+2\\left(2x\\right)\\left(-y\\right)+2\\left(-y\\right)\\left(3z\\right)+2\\left(3z\\right)\\left(2x\\right) = 4x^2+y^2+9z^2-4xy-6yz+12zx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 25
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a+b+2\\right)^2$$",
+                    options: [ "$a^2+b^2+4+2ab+4b+4a$", "$a^2+b^2+4+2ab+2b+2a$", "$a^2+b^2+2+2ab+4b+4a$", "$a^2+b^2+4+ab+2b+2a$" ],
+                    answer: "$a^2+b^2+4+2ab+4b+4a$",
+                    rationale: "$a=a, b=b, c=2$ とします。<br>$a^2+b^2+2^2+2ab+2b\\left(2\\right)+2\\left(2\\right)a = a^2+b^2+4+2ab+4b+4a$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 26
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-y-5\\right)^2$$",
+                    options: [ "$x^2+y^2+25-2xy+10y-10x$", "$x^2+y^2+25+2xy+10y-10x$", "$x^2+y^2+25-2xy-10y+10x$", "$x^2+y^2+5-2xy+10y-10x$" ],
+                    answer: "$x^2+y^2+25-2xy+10y-10x$",
+                    rationale: "$a=x, b=-y, c=-5$ とします。<br>$x^2+\\left(-y\\right)^2+\\left(-5\\right)^2+2x\\left(-y\\right)+2\\left(-y\\right)\\left(-5\\right)+2\\left(-5\\right)x = x^2+y^2+25-2xy+10y-10x$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 27
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(2x+y-z\\right)^2$$",
+                    options: [ "$4x^2+y^2+z^2+4xy-2yz-4zx$", "$4x^2+y^2+z^2-4xy-2yz-4zx$", "$4x^2+y^2+z^2+4xy+2yz-4zx$", "$4x^2+y^2+z^2+4xy-2yz+4zx$" ],
+                    answer: "$4x^2+y^2+z^2+4xy-2yz-4zx$",
+                    rationale: "$a=2x, b=y, c=-z$ とします。<br>$\\left(2x\\right)^2+y^2+\\left(-z\\right)^2+2\\left(2x\\right)y+2y\\left(-z\\right)+2\\left(-z\\right)\\left(2x\\right) = 4x^2+y^2+z^2+4xy-2yz-4zx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 28
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-2y+z\\right)^2$$",
+                    options: [ "$x^2+4y^2+z^2-4xy-4yz+2zx$", "$x^2+4y^2+z^2+4xy-4yz+2zx$", "$x^2+4y^2+z^2-4xy+4yz-2zx$", "$x^2+2y^2+z^2-4xy-4yz+2zx$" ],
+                    answer: "$x^2+4y^2+z^2-4xy-4yz+2zx$",
+                    rationale: "$a=x, b=-2y, c=z$ とします。<br>$x^2+\\left(-2y\\right)^2+z^2+2x\\left(-2y\\right)+2\\left(-2y\\right)z+2zx = x^2+4y^2+z^2-4xy-4yz+2zx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 29
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a-b+4\\right)^2$$",
+                    options: [ "$a^2+b^2+16-2ab-8b+8a$", "$a^2+b^2+16+2ab-8b+8a$", "$a^2+b^2+16-2ab+8b-8a$", "$a^2+b^2+16-2ab-8b-8a$" ],
+                    answer: "$a^2+b^2+16-2ab-8b+8a$",
+                    rationale: "$a=a, b=-b, c=4$ とします。<br>$a^2+\\left(-b\\right)^2+4^2+2a\\left(-b\\right)+2\\left(-b\\right)\\left(4\\right)+2\\left(4\\right)a = a^2+b^2+16-2ab-8b+8a$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 30
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+y+z\\right)^2$$",
+                    options: [ "$x^2+y^2+z^2+2xy+2yz+2zx$", "$x^2+y^2+z^2$", "$x^2+y^2+z^2+xy+yz+zx$", "$x^2+y^2+z^2-2xy-2yz-2zx$" ],
+                    answer: "$x^2+y^2+z^2+2xy+2yz+2zx$",
+                    rationale: "公式 $\\left(a+b+c\\right)^2=a^2+b^2+c^2+2ab+2bc+2ca$ そのものです。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 31
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(p+q-r\\right)^2$$",
+                    options: [ "$p^2+q^2+r^2+2pq-2qr-2rp$", "$p^2+q^2+r^2-2pq-2qr-2rp$", "$p^2+q^2-r^2+2pq-2qr-2rp$", "$p^2+q^2+r^2+2pq+2qr+2rp$" ],
+                    answer: "$p^2+q^2+r^2+2pq-2qr-2rp$",
+                    rationale: "$a=p, b=q, c=-r$ とします。<br>$p^2+q^2+\\left(-r\\right)^2+2pq+2q\\left(-r\\right)+2\\left(-r\\right)p = p^2+q^2+r^2+2pq-2qr-2rp$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 32
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-2y-1\\right)^2$$",
+                    options: [ "$x^2+4y^2+1-4xy+4y-2x$", "$x^2+4y^2+1+4xy+4y-2x$", "$x^2+4y^2+1-4xy-4y+2x$", "$x^2+4y^2+1-4xy+4y+2x$" ],
+                    answer: "$x^2+4y^2+1-4xy+4y-2x$",
+                    rationale: "$a=x, b=-2y, c=-1$ とします。<br>$x^2+\\left(-2y\\right)^2+\\left(-1\\right)^2+2x\\left(-2y\\right)+2\\left(-2y\\right)\\left(-1\\right)+2\\left(-1\\right)x = x^2+4y^2+1-4xy+4y-2x$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 33
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(3x+y-z\\right)^2$$",
+                    options: [ "$9x^2+y^2+z^2+6xy-2yz-6zx$", "$9x^2+y^2+z^2-6xy-2yz-6zx$", "$9x^2+y^2+z^2+6xy+2yz-6zx$", "$9x^2+y^2+z^2+6xy-2yz+6zx$" ],
+                    answer: "$9x^2+y^2+z^2+6xy-2yz-6zx$",
+                    rationale: "$a=3x, b=y, c=-z$ とします。<br>$\\left(3x\\right)^2+y^2+\\left(-z\\right)^2+2\\left(3x\\right)y+2y\\left(-z\\right)+2\\left(-z\\right)\\left(3x\\right) = 9x^2+y^2+z^2+6xy-2yz-6zx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 34
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-4y+z\\right)^2$$",
+                    options: [ "$x^2+16y^2+z^2-8xy-8yz+2zx$", "$x^2+16y^2+z^2+8xy-8yz+2zx$", "$x^2+16y^2+z^2-8xy+8yz-2zx$", "$x^2+16y^2+z^2-8xy-8yz-2zx$" ],
+                    answer: "$x^2+16y^2+z^2-8xy-8yz+2zx$",
+                    rationale: "$a=x, b=-4y, c=z$ とします。<br>$x^2+\\left(-4y\\right)^2+z^2+2x\\left(-4y\\right)+2\\left(-4y\\right)z+2zx = x^2+16y^2+z^2-8xy-8yz+2zx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 35
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a+1-b\\right)^2$$",
+                    options: [ "$a^2+1+b^2+2a-2b-2ab$", "$a^2+1+b^2-2a-2b+2ab$", "$a^2+1+b^2+2a+2b-2ab$", "$a^2-1+b^2+2a-2b-2ab$" ],
+                    answer: "$a^2+1+b^2+2a-2b-2ab$",
+                    rationale: "$\\left(a-b+1\\right)^2$ と同じです。$A=a, B=-b, C=1$ とします。<br>$a^2+\\left(-b\\right)^2+1^2+2a\\left(-b\\right)+2\\left(-b\\right)(1)+2(1)a = a^2+b^2+1-2ab-2b+2a$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 36
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-y-2z\\right)^2$$",
+                    options: [ "$x^2+y^2+4z^2-2xy+4yz-4zx$", "$x^2+y^2+4z^2+2xy+4yz-4zx$", "$x^2+y^2+4z^2-2xy-4yz+4zx$", "$x^2+y^2+4z^2-2xy-4yz-4zx$" ],
+                    answer: "$x^2+y^2+4z^2-2xy+4yz-4zx$",
+                    rationale: "$a=x, b=-y, c=-2z$ とします。<br>$x^2+\\left(-y\\right)^2+\\left(-2z\\right)^2+2x\\left(-y\\right)+2\\left(-y\\right)\\left(-2z\\right)+2\\left(-2z\\right)x = x^2+y^2+4z^2-2xy+4yz-4zx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 37
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a+b+3\\right)^2$$",
+                    options: [ "$a^2+b^2+9+2ab+6b+6a$", "$a^2+b^2+9+ab+3b+3a$", "$a^2+b^2+9+2ab+3b+3a$", "$a^2+b^2+6+2ab+6b+6a$" ],
+                    answer: "$a^2+b^2+9+2ab+6b+6a$",
+                    rationale: "$a=a, b=b, c=3$ とします。<br>$a^2+b^2+3^2+2ab+2b\\left(3\\right)+2\\left(3\\right)a = a^2+b^2+9+2ab+6b+6a$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 38
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-y+z\\right)^2$$",
+                    options: [ "$x^2+y^2+z^2-2xy-2yz+2zx$", "$x^2+y^2+z^2+2xy-2yz-2zx$", "$x^2-y^2+z^2-2xy-2yz+2zx$", "$x^2+y^2+z^2-2xy+2yz-2zx$" ],
+                    answer: "$x^2+y^2+z^2-2xy-2yz+2zx$",
+                    rationale: "$a=x, b=-y, c=z$ とします。<br>$x^2+\\left(-y\\right)^2+z^2+2x\\left(-y\\right)+2\\left(-y\\right)z+2zx = x^2+y^2+z^2-2xy-2yz+2zx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 39
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(2a-3b-1\\right)^2$$",
+                    options: [ "$4a^2+9b^2+1-12ab+6b-4a$", "$4a^2+9b^2+1+12ab+6b-4a$", "$4a^2+9b^2+1-12ab-6b+4a$", "$4a^2+9b^2+1-12ab-6b-4a$" ],
+                    answer: "$4a^2+9b^2+1-12ab+6b-4a$",
+                    rationale: "$a=2a, b=-3b, c=-1$ とします。<br>$\\left(2a\\right)^2+\\left(-3b\\right)^2+\\left(-1\\right)^2+2\\left(2a\\right)\\left(-3b\\right)+2\\left(-3b\\right)\\left(-1\\right)+2\\left(-1\\right)\\left(2a\\right) = 4a^2+9b^2+1-12ab+6b-4a$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 40
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+y-5\\right)^2$$",
+                    options: [ "$x^2+y^2+25+2xy-10y-10x$", "$x^2+y^2+25-2xy-10y-10x$", "$x^2+y^2+25+2xy+10y+10x$", "$x^2+y^2+10+2xy-10y-10x$" ],
+                    answer: "$x^2+y^2+25+2xy-10y-10x$",
+                    rationale: "$a=x, b=y, c=-5$ とします。<br>$x^2+y^2+\\left(-5\\right)^2+2xy+2y\\left(-5\\right)+2\\left(-5\\right)x = x^2+y^2+25+2xy-10y-10x$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 41
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a^2+b+1\\right)^2$$",
+                    options: [ "$a^4+b^2+1+2a^2b+2b+2a^2$", "$a^4+b^2+1+a^2b+b+a^2$", "$a^4+b^2+1+2a^2b+2b+a^2$", "$a^2+b^2+1+2a^2b+2b+2a^2$" ],
+                    answer: "$a^4+b^2+1+2a^2b+2b+2a^2$",
+                    rationale: "$a=a^2, b=b, c=1$ とします。<br>$\\left(a^2\\right)^2+b^2+1^2+2\\left(a^2\\right)b+2b\\left(1\\right)+2\\left(1\\right)a^2 = a^4+b^2+1+2a^2b+2b+2a^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 42
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+y^2+z\\right)^2$$",
+                    options: [ "$x^2+y^4+z^2+2xy^2+2y^2z+2zx$", "$x^2+y^4+z^2+xy^2+y^2z+zx$", "$x^2+y^2+z^2+2xy^2+2y^2z+2zx$", "$x^2+y^4+z^2+2xy^2+2yz+2zx$" ],
+                    answer: "$x^2+y^4+z^2+2xy^2+2y^2z+2zx$",
+                    rationale: "$a=x, b=y^2, c=z$ とします。<br>$x^2+\\left(y^2\\right)^2+z^2+2x\\left(y^2\\right)+2\\left(y^2\\right)z+2zx = x^2+y^4+z^2+2xy^2+2y^2z+2zx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 43
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a-b^2-c\\right)^2$$",
+                    options: [ "$a^2+b^4+c^2-2ab^2+2b^2c-2ca$", "$a^2+b^4+c^2+2ab^2-2b^2c-2ca$", "$a^2+b^4+c^2-2ab^2-2b^2c+2ca$", "$a^2+b^4+c^2-2ab^2+2b^2c+2ca$" ],
+                    answer: "$a^2+b^4+c^2-2ab^2+2b^2c-2ca$",
+                    rationale: "$a=a, b=-b^2, c=-c$ とします。<br>$a^2+\\left(-b^2\\right)^2+\\left(-c\\right)^2+2a\\left(-b^2\\right)+2\\left(-b^2\\right)\\left(-c\\right)+2\\left(-c\\right)a = a^2+b^4+c^2-2ab^2+2b^2c-2ca$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 44
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x^2+y+z^2\\right)^2$$",
+                    options: [ "$x^4+y^2+z^4+2x^2y+2yz^2+2z^2x^2$", "$x^4+y^2+z^4+x^2y+yz^2+z^2x^2$", "$x^4+y^2+z^4+2x^2y+2yz^2+2x^2z^2$", "$x^2+y^2+z^2+2x^2y+2yz^2+2z^2x^2$" ],
+                    answer: "$x^4+y^2+z^4+2x^2y+2yz^2+2z^2x^2$",
+                    rationale: "$a=x^2, b=y, c=z^2$ とします。<br>$\\left(x^2\\right)^2+y^2+\\left(z^2\\right)^2+2\\left(x^2\\right)y+2y\\left(z^2\\right)+2\\left(z^2\\right)\\left(x^2\\right) = x^4+y^2+z^4+2x^2y+2yz^2+2z^2x^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 45
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(2a+3b+4c\\right)^2$$",
+                    options: [ "$4a^2+9b^2+16c^2+12ab+24bc+16ca$", "$4a^2+9b^2+16c^2+6ab+12bc+8ca$", "$4a^2+9b^2+16c^2+12ab+12bc+8ca$", "$4a^2+9b^2+16c^2+12ab+24bc+8ca$" ],
+                    answer: "$4a^2+9b^2+16c^2+12ab+24bc+16ca$",
+                    rationale: "$a=2a, b=3b, c=4c$ とします。<br>$\\left(2a\\right)^2+\\left(3b\\right)^2+\\left(4c\\right)^2+2\\left(2a\\right)\\left(3b\\right)+2\\left(3b\\right)\\left(4c\\right)+2\\left(4c\\right)\\left(2a\\right) = 4a^2+9b^2+16c^2+12ab+24bc+16ca$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 46
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-2y+3\\right)^2$$",
+                    options: [ "$x^2+4y^2+9-4xy-12y+6x$", "$x^2+4y^2+9+4xy-12y+6x$", "$x^2+4y^2+9-4xy+12y-6x$", "$x^2+4y^2+9-4xy-12y-6x$" ],
+                    answer: "$x^2+4y^2+9-4xy-12y+6x$",
+                    rationale: "$a=x, b=-2y, c=3$ とします。<br>$x^2+\\left(-2y\\right)^2+3^2+2x\\left(-2y\\right)+2\\left(-2y\\right)\\left(3\\right)+2\\left(3\\right)x = x^2+4y^2+9-4xy-12y+6x$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 47
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(3a-b-c\\right)^2$$",
+                    options: [ "$9a^2+b^2+c^2-6ab+2bc-6ca$", "$9a^2+b^2+c^2+6ab+2bc-6ca$", "$9a^2+b^2+c^2-6ab-2bc+6ca$", "$9a^2+b^2+c^2-6ab-2bc-6ca$" ],
+                    answer: "$9a^2+b^2+c^2-6ab+2bc-6ca$",
+                    rationale: "$a=3a, b=-b, c=-c$ とします。<br>$\\left(3a\\right)^2+\\left(-b\\right)^2+\\left(-c\\right)^2+2\\left(3a\\right)\\left(-b\\right)+2\\left(-b\\right)\\left(-c\\right)+2\\left(-c\\right)\\left(3a\\right) = 9a^2+b^2+c^2-6ab+2bc-6ca$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 48
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+y-ab\\right)^2$$",
+                    options: [ "$x^2+y^2+a^2b^2+2xy-2yab-2abx$", "$x^2+y^2+a^2b^2+2xy-2yab+2abx$", "$x^2+y^2+a^2b^2+2xy+2yab-2abx$", "$x^2+y^2+ab^2+2xy-2yab-2abx$" ],
+                    answer: "$x^2+y^2+a^2b^2+2xy-2yab-2abx$",
+                    rationale: "$a=x, b=y, c=-ab$ とします。<br>$x^2+y^2+\\left(-ab\\right)^2+2xy+2y\\left(-ab\\right)+2\\left(-ab\\right)x = x^2+y^2+a^2b^2+2xy-2aby-2abx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 49
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(\\dfrac{x}{2}+y+z\\right)^2$$",
+                    options: [ "$\\dfrac{x^2}{4}+y^2+z^2+xy+2yz+zx$", "$\\dfrac{x^2}{2}+y^2+z^2+xy+2yz+zx$", "$\\dfrac{x^2}{4}+y^2+z^2+2xy+2yz+zx$", "$\\dfrac{x^2}{4}+y^2+z^2+xy+yz+zx$" ],
+                    answer: "$\\dfrac{x^2}{4}+y^2+z^2+xy+2yz+zx$",
+                    rationale: "$a=\\dfrac{x}{2}, b=y, c=z$ とします。<br>$\\left(\\dfrac{x}{2}\\right)^2+y^2+z^2+2\\left(\\dfrac{x}{2}\\right)y+2yz+2z\\left(\\dfrac{x}{2}\\right) = \\dfrac{x^2}{4}+y^2+z^2+xy+2yz+zx$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
                 // 問題 50
                 {
-                    question: "次の式を展開せよ。<br>$$\\left(x^2-y-z\\right)^2$$",
-                    options: [ "$x^4+y^2+z^2-2x^2y+2yz-2x^2z$", "$x^4+y^2+z^2+2x^2y-2yz-2x^2z$", "$x^4+y^2+z^2-2x^2y-2yz+2x^2z$", "$x^4-y^2-z^2-2x^2y+2yz-2x^2z$" ],
-                    answer: "$x^4+y^2+z^2-2x^2y+2yz-2x^2z$",
-                    rationale: "$a=x^2, b=-y, c=-z$ とします。<br>$\\left(x^2\\right)^2+\\left(-y\\right)^2+\\left(-z\\right)^2+2\\left(x^2\\right)\\left(-y\\right)+2\\left(-y\\right)\\left(-z\\right)+2\\left(-z\\right)\\left(x^2\\right) = x^4+y^2+z^2-2x^2y+2yz-2x^2z$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    question: "次の式を展開せよ。<br>$$\\left(x-y-\\dfrac{1}{2}\\right)^2$$",
+                    options: [ "$x^2+y^2+\\dfrac{1}{4}-2xy+y-x$", "$x^2+y^2+\\dfrac{1}{4}+2xy+y-x$", "$x^2+y^2+\\dfrac{1}{4}-2xy-y+x$", "$x^2+y^2+\\dfrac{1}{2}-2xy+y-x$" ],
+                    answer: "$x^2+y^2+\\dfrac{1}{4}-2xy+y-x$",
+                    rationale: "$a=x, b=-y, c=-\\dfrac{1}{2}$ とします。<br>$x^2+\\left(-y\\right)^2+\\left(-\\dfrac{1}{2}\\right)^2+2x\\left(-y\\right)+2\\left(-y\\right)\\left(-\\dfrac{1}{2}\\right)+2\\left(-\\dfrac{1}{2}\\right)x = x^2+y^2+\\dfrac{1}{4}-2xy+y-x$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63118' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
                     layout: 'vertical'
                 }
             ]
-            // --- ★★★ 50題データここまで ★★★
-            
+            // --- ★★★ 50題データここまで ★★★            
             // 1. allQuizData をシャッフルする関数
             function shuffleArray(array) {
                 const shuffled = [...array]; // 配列をコピー
