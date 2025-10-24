@@ -1,1 +1,663 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数と式：(x+a)(x+b)の展開(ランダム10題)</title>
+    <style>
+        /* index.htmlと共通のスタイル */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa; /* デフォルト背景色 */
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s; /* 背景色変更を滑らかに */
+        }
 
+        /* ★★★ 背景色用のクラスを追加 ★★★ */
+        body.bg-light-blue { background-color: #e7f5ff; } /* 水色 */
+        body.bg-light-green { background-color: #e6fcf5; } /* 薄い緑 */
+        body.bg-beige { background-color: #fcf8e3; } /* ベージュ */
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #343a40;
+            font-size: 1.8em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        /* --- クイズ用のスタイル --- */
+        #quiz-container { min-height: 300px; }
+        #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
+        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; }
+
+        /* 選択肢コンテナ (Gridレイアウト - デフォルトは2x2) */
+        #options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* デフォルト: 2列 */
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* 縦1列(4行)表示用のスタイル */
+        #options-container.options-vertical {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 10px; /* 縦の隙間を少し狭める (任意) */
+        }
+
+        /* 選択肢ボックス */
+        .option-box {
+            background-color: #f1f3f5;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .option-box:hover:not(.disabled) {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 正解のスタイル */
+        .option-box.correct {
+            background-color: #a8e6cf;
+            border-color: #17a2b8;
+            border-width: 3px;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        /* 不正解のスタイル (選択されなかったもの) */
+        .option-box.incorrect {
+            background-color: #ffcdd2;
+            border-color: #dc3545;
+            color: #721c24;
+            opacity: 0.7;
+        }
+
+        /* ユーザーが選択した不正解のスタイル */
+        .option-box.incorrect.selected {
+            opacity: 1;
+            border-width: 4px;
+            border-color: #dc3545;
+        }
+
+        /* 無効化時のスタイル */
+        .option-box.disabled {
+             cursor: not-allowed;
+             opacity: 0.7;
+             background-color: #e9ecef;
+             transform: none;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* 解説（フィードバック） */
+        #feedback { margin-top: 25px; padding: 15px; border-radius: 5px; display: none; }
+        #feedback.correct { background-color: #e6f7ff; border: 1px solid #b3e0ff; }
+        #feedback.incorrect { background-color: #fff0f1; border: 1px solid #ffccd0; }
+
+        /* 次へ/結果ボタン */
+        #next-btn, #results-btn { display: none; padding: 12px 25px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; float: right; margin-top: 20px; transition: background-color 0.3s; }
+        #next-btn:hover, #results-btn:hover { background-color: #0056b3; }
+
+        /* 結果表示 */
+        #results-container { text-align: center; font-size: 1.4em; }
+        #results-container h2 { color: #007bff; }
+        #homepage-link { display: inline-block; margin-top: 20px; padding: 12px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; }
+        #homepage-link:hover { background-color: #5a6268; }
+
+    </style>
+
+    <link rel="stylesheet" href="katex/katex.min.css">
+    <script defer src="katex/katex.min.js"></script>
+    <script defer src="katex/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // ★★★ 背景色を適用する処理 ★★★
+            const storageKey = 'backgroundColorPreference';
+            try {
+                const savedColor = localStorage.getItem(storageKey);
+                document.body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
+                if (savedColor && savedColor !== 'default') {
+                    document.body.classList.add('bg-' + savedColor);
+                }
+            } catch (e) { console.error("localStorageからの背景色読み込みに失敗:", e); }
+            // ★★★ (ここまで) ★★★
+
+            // KaTeXが認識する区切り文字の設定
+            const katexDelimiters = [
+                {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}
+            ];
+
+            // ページ読み込み時に静的コンテンツをレンダリング
+            try {
+                renderMathInElement(document.body, { delimiters: katexDelimiters });
+            } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
+
+            // --- ★ 元の50題のクイズデータを allQuizData とする ★ ---
+            // --- ★ allQuizData 配列に追加するデータ (50題) ★ ---
+            const allQuizData = [
+                // --- タイプ1: (x+a)(x+b) 形式 (25題) ---
+                // 問題 1
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+3\\right)\\left(x+2\\right)$$",
+                    options: [ "$x^2+5x+6$", "$x^2+6x+5$", "$x^2+x+6$", "$x^2+5x+5$" ],
+                    answer: "$x^2+5x+6$",
+                    rationale: "$x^2+\\left(3+2\\right)x+\\left(3\\right)\\left(2\\right) = x^2+5x+6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 2
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+3\\right)\\left(x-2\\right)$$",
+                    options: [ "$x^2+x-6$", "$x^2-x-6$", "$x^2+5x-6$", "$x^2-6x+1$" ],
+                    answer: "$x^2+x-6$",
+                    rationale: "$x^2+\\left(3-2\\right)x+\\left(3\\right)\\left(-2\\right) = x^2+x-6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 3
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-4\\right)\\left(x+1\\right)$$",
+                    options: [ "$x^2-3x-4$", "$x^2+3x-4$", "$x^2-5x-4$", "$x^2-4x-3$" ],
+                    answer: "$x^2-3x-4$",
+                    rationale: "$x^2+\\left(-4+1\\right)x+\\left(-4\\right)\\left(1\\right) = x^2-3x-4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 4
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-2\\right)\\left(x-5\\right)$$",
+                    options: [ "$x^2-7x+10$", "$x^2+7x+10$", "$x^2-3x+10$", "$x^2-7x-10$" ],
+                    answer: "$x^2-7x+10$",
+                    rationale: "$x^2+\\left(-2-5\\right)x+\\left(-2\\right)\\left(-5\\right) = x^2-7x+10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 5
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+5\\right)\\left(x+4\\right)$$",
+                    options: [ "$x^2+9x+20$", "$x^2+x+20$", "$x^2+20x+9$", "$x^2+9x+9$" ],
+                    answer: "$x^2+9x+20$",
+                    rationale: "$x^2+\\left(5+4\\right)x+\\left(5\\right)\\left(4\\right) = x^2+9x+20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 6
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a-1\\right)\\left(a+3\\right)$$",
+                    options: [ "$a^2+2a-3$", "$a^2-2a-3$", "$a^2+4a-3$", "$a^2-3a+2$" ],
+                    answer: "$a^2+2a-3$",
+                    rationale: "$a^2+\\left(-1+3\\right)a+\\left(-1\\right)\\left(3\\right) = a^2+2a-3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 7
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(y-6\\right)\\left(y-3\\right)$$",
+                    options: [ "$y^2-9y+18$", "$y^2+9y+18$", "$y^2-3y+18$", "$y^2-9y-18$" ],
+                    answer: "$y^2-9y+18$",
+                    rationale: "$y^2+\\left(-6-3\\right)y+\\left(-6\\right)\\left(-3\\right) = y^2-9y+18$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 8
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+7\\right)\\left(x-1\\right)$$",
+                    options: [ "$x^2+6x-7$", "$x^2-6x-7$", "$x^2+8x-7$", "$x^2-7x+6$" ],
+                    answer: "$x^2+6x-7$",
+                    rationale: "$x^2+\\left(7-1\\right)x+\\left(7\\right)\\left(-1\\right) = x^2+6x-7$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 9
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a-8\\right)\\left(a+5\\right)$$",
+                    options: [ "$a^2-3a-40$", "$a^2+3a-40$", "$a^2-13a-40$", "$a^2-3a+40$" ],
+                    answer: "$a^2-3a-40$",
+                    rationale: "$a^2+\\left(-8+5\\right)a+\\left(-8\\right)\\left(5\\right) = a^2-3a-40$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 10
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+1\\right)\\left(x+10\\right)$$",
+                    options: [ "$x^2+11x+10$", "$x^2+10x+11$", "$x^2+x+10$", "$x^2+11x+11$" ],
+                    answer: "$x^2+11x+10$",
+                    rationale: "$x^2+\\left(1+10\\right)x+\\left(1\\right)\\left(10\\right) = x^2+11x+10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 11
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-8\\right)\\left(x-2\\right)$$",
+                    options: [ "$x^2-10x+16$", "$x^2+10x+16$", "$x^2-6x+16$", "$x^2-10x-16$" ],
+                    answer: "$x^2-10x+16$",
+                    rationale: "$x^2+\\left(-8-2\\right)x+\\left(-8\\right)\\left(-2\\right) = x^2-10x+16$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 12
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a+4\\right)\\left(a-9\\right)$$",
+                    options: [ "$a^2-5a-36$", "$a^2+5a-36$", "$a^2-13a-36$", "$a^2-5a+36$" ],
+                    answer: "$a^2-5a-36$",
+                    rationale: "$a^2+\\left(4-9\\right)a+\\left(4\\right)\\left(-9\\right) = a^2-5a-36$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 13
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(y+8\\right)\\left(y+3\\right)$$",
+                    options: [ "$y^2+11y+24$", "$y^2+5y+24$", "$y^2+24y+11$", "$y^2+11y+11$" ],
+                    answer: "$y^2+11y+24$",
+                    rationale: "$y^2+\\left(8+3\\right)y+\\left(8\\right)\\left(3\\right) = y^2+11y+24$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 14
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-9\\right)\\left(x-2\\right)$$",
+                    options: [ "$x^2-11x+18$", "$x^2+11x+18$", "$x^2-7x+18$", "$x^2-11x-18$" ],
+                    answer: "$x^2-11x+18$",
+                    rationale: "$x^2+\\left(-9-2\\right)x+\\left(-9\\right)\\left(-2\\right) = x^2-11x+18$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 15
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(b+6\\right)\\left(b-1\\right)$$",
+                    options: [ "$b^2+5b-6$", "$b^2-5b-6$", "$b^2+7b-6$", "$b^2-6b+5$" ],
+                    answer: "$b^2+5b-6$",
+                    rationale: "$b^2+\\left(6-1\\right)b+\\left(6\\right)\\left(-1\\right) = b^2+5b-6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 16
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-12\\right)\\left(x+1\\right)$$",
+                    options: [ "$x^2-11x-12$", "$x^2+11x-12$", "$x^2-13x-12$", "$x^2-11x+12$" ],
+                    answer: "$x^2-11x-12$",
+                    rationale: "$x^2+\\left(-12+1\\right)x+\\left(-12\\right)\\left(1\\right) = x^2-11x-12$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 17
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a+11\\right)\\left(a-1\\right)$$",
+                    options: [ "$a^2+10a-11$", "$a^2-10a-11$", "$a^2+12a-11$", "$a^2+10a+11$" ],
+                    answer: "$a^2+10a-11$",
+                    rationale: "$a^2+\\left(11-1\\right)a+\\left(11\\right)\\left(-1\\right) = a^2+10a-11$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 18
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+6\\right)\\left(x+2\\right)$$",
+                    options: [ "$x^2+8x+12$", "$x^2+4x+12$", "$x^2+8x+8$", "$x^2+12x+8$" ],
+                    answer: "$x^2+8x+12$",
+                    rationale: "$x^2+\\left(6+2\\right)x+\\left(6\\right)\\left(2\\right) = x^2+8x+12$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 19
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-1\\right)\\left(x-2\\right)$$",
+                    options: [ "$x^2-3x+2$", "$x^2+3x+2$", "$x^2-x+2$", "$x^2-3x-2$" ],
+                    answer: "$x^2-3x+2$",
+                    rationale: "$x^2+\\left(-1-2\\right)x+\\left(-1\\right)\\left(-2\\right) = x^2-3x+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 20
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+5\\right)\\left(x-2\\right)$$",
+                    options: [ "$x^2+3x-10$", "$x^2-3x-10$", "$x^2+7x-10$", "$x^2-10x+3$" ],
+                    answer: "$x^2+3x-10$",
+                    rationale: "$x^2+\\left(5-2\\right)x+\\left(5\\right)\\left(-2\\right) = x^2+3x-10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 21
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a-7\\right)\\left(a+3\\right)$$",
+                    options: [ "$a^2-4a-21$", "$a^2+4a-21$", "$a^2-10a-21$", "$a^2-4a+21$" ],
+                    answer: "$a^2-4a-21$",
+                    rationale: "$a^2+\\left(-7+3\\right)a+\\left(-7\\right)\\left(3\\right) = a^2-4a-21$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 22
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(y+1\\right)\\left(y+9\\right)$$",
+                    options: [ "$y^2+10y+9$", "$y^2+9y+10$", "$y^2+8y+9$", "$y^2+10y+10$" ],
+                    answer: "$y^2+10y+9$",
+                    rationale: "$y^2+\\left(1+9\\right)y+\\left(1\\right)\\left(9\\right) = y^2+10y+9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 23
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-11\\right)\\left(x-3\\right)$$",
+                    options: [ "$x^2-14x+33$", "$x^2+14x+33$", "$x^2-8x+33$", "$x^2-14x-33$" ],
+                    answer: "$x^2-14x+33$",
+                    rationale: "$x^2+\\left(-11-3\\right)x+\\left(-11\\right)\\left(-3\\right) = x^2-14x+33$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 24
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+10\\right)\\left(x-5\\right)$$",
+                    options: [ "$x^2+5x-50$", "$x^2-5x-50$", "$x^2+15x-50$", "$x^2+5x+50$" ],
+                    answer: "$x^2+5x-50$",
+                    rationale: "$x^2+\\left(10-5\\right)x+\\left(10\\right)\\left(-5\\right) = x^2+5x-50$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 25
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a-6\\right)\\left(a+4\\right)$$",
+                    options: [ "$a^2-2a-24$", "$a^2+2a-24$", "$a^2-10a-24$", "$a^2-2a+24$" ],
+                    answer: "$a^2-2a-24$",
+                    rationale: "$a^2+\\left(-6+4\\right)a+\\left(-6\\right)\\left(4\\right) = a^2-2a-24$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ2: (ax+b)(cx+d) 形式 (25題) ---
+                // 問題 26
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a+3b\\right)\\left(a-4b\\right)$$",
+                    options: [ "$a^2-ab-12b^2$", "$a^2-7ab-12b^2$", "$a^2+ab-12b^2$", "$a^2-12b^2$" ],
+                    answer: "$a^2-ab-12b^2$",
+                    rationale: "$a\\left(a-4b\\right)+3b\\left(a-4b\\right) = (a^2-4ab) + (3ab-12b^2) = a^2-ab-12b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 27
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-y\\right)\\left(x-2y\\right)$$",
+                    options: [ "$x^2-3xy+2y^2$", "$x^2+3xy+2y^2$", "$x^2-xy+2y^2$", "$x^2-3xy-2y^2$" ],
+                    answer: "$x^2-3xy+2y^2$",
+                    rationale: "$x\\left(x-2y\\right)-y\\left(x-2y\\right) = (x^2-2xy) + (-xy+2y^2) = x^2-3xy+2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 28
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(2x+1\\right)\\left(3x+2\\right)$$",
+                    options: [ "$6x^2+7x+2$", "$6x^2+5x+2$", "$6x^2+7x+3$", "$5x^2+7x+2$" ],
+                    answer: "$6x^2+7x+2$",
+                    rationale: "$\\left(2x\\right)\\left(3x\\right) + \\left(2x\\right)\\left(2\\right) + \\left(1\\right)\\left(3x\\right) + \\left(1\\right)\\left(2\\right) = 6x^2+4x+3x+2 = 6x^2+7x+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 29
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(3a-1\\right)\\left(a+5\\right)$$",
+                    options: [ "$3a^2+14a-5$", "$3a^2-14a-5$", "$3a^2+4a-5$", "$3a^2+16a-5$" ],
+                    answer: "$3a^2+14a-5$",
+                    rationale: "$\\left(3a\\right)\\left(a\\right) + \\left(3a\\right)\\left(5\\right) + \\left(-1\\right)\\left(a\\right) + \\left(-1\\right)\\left(5\\right) = 3a^2+15a-a-5 = 3a^2+14a-5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 30
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(2x-5\\right)\\left(4x-1\\right)$$",
+                    options: [ "$8x^2-22x+5$", "$8x^2+22x+5$", "$8x^2-18x+5$", "$8x^2-22x-5$" ],
+                    answer: "$8x^2-22x+5$",
+                    rationale: "$\\left(2x\\right)\\left(4x\\right) + \\left(2x\\right)\\left(-1\\right) + \\left(-5\\right)\\left(4x\\right) + \\left(-5\\right)\\left(-1\\right) = 8x^2-2x-20x+5 = 8x^2-22x+5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 31
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x+2y\\right)\\left(3x-y\\right)$$",
+                    options: [ "$3x^2+5xy-2y^2$", "$3x^2-5xy-2y^2$", "$3x^2+7xy-2y^2$", "$3x^2+xy-2y^2$" ],
+                    answer: "$3x^2+5xy-2y^2$",
+                    rationale: "$\\left(x\\right)\\left(3x\\right) + \\left(x\\right)\\left(-y\\right) + \\left(2y\\right)\\left(3x\\right) + \\left(2y\\right)\\left(-y\\right) = 3x^2-xy+6xy-2y^2 = 3x^2+5xy-2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 32
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(2a-3b\\right)\\left(a-b\\right)$$",
+                    options: [ "$2a^2-5ab+3b^2$", "$2a^2+ab+3b^2$", "$2a^2-ab+3b^2$", "$2a^2-5ab-3b^2$" ],
+                    answer: "$2a^2-5ab+3b^2$",
+                    rationale: "$\\left(2a\\right)\\left(a\\right) + \\left(2a\\right)\\left(-b\\right) + \\left(-3b\\right)\\left(a\\right) + \\left(-3b\\right)\\left(-b\\right) = 2a^2-2ab-3ab+3b^2 = 2a^2-5ab+3b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 33
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(4x+y\\right)\\left(3x+2y\\right)$$",
+                    options: [ "$12x^2+11xy+2y^2$", "$12x^2+8xy+2y^2$", "$12x^2+3xy+2y^2$", "$7x^2+11xy+3y^2$" ],
+                    answer: "$12x^2+11xy+2y^2$",
+                    rationale: "$\\left(4x\\right)\\left(3x\\right) + \\left(4x\\right)\\left(2y\\right) + \\left(y\\right)\\left(3x\\right) + \\left(y\\right)\\left(2y\\right) = 12x^2+8xy+3xy+2y^2 = 12x^2+11xy+2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 34
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(5x-2y\\right)\\left(x-y\\right)$$",
+                    options: [ "$5x^2-7xy+2y^2$", "$5x^2-3xy+2y^2$", "$5x^2-7xy-2y^2$", "$5x^2-3xy-2y^2$" ],
+                    answer: "$5x^2-7xy+2y^2$",
+                    rationale: "$\\left(5x\\right)\\left(x\\right) + \\left(5x\\right)\\left(-y\\right) + \\left(-2y\\right)\\left(x\\right) + \\left(-2y\\right)\\left(-y\\right) = 5x^2-5xy-2xy+2y^2 = 5x^2-7xy+2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 35
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a+b\\right)\\left(c+d\\right)$$",
+                    options: [ "$ac+ad+bc+bd$", "$ac+bd$", "$abcd$", "$a+b+c+d$" ],
+                    answer: "$ac+ad+bc+bd$",
+                    rationale: "分配法則の基本です。$a\\left(c+d\\right) + b\\left(c+d\\right) = ac+ad+bc+bd$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 36
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(3x-2\\right)\\left(x+4\\right)$$",
+                    options: [ "$3x^2+10x-8$", "$3x^2+14x-8$", "$3x^2+2x-8$", "$3x^2-10x-8$" ],
+                    answer: "$3x^2+10x-8$",
+                    rationale: "$\\left(3x\\right)\\left(x\\right) + \\left(3x\\right)\\left(4\\right) + \\left(-2\\right)\\left(x\\right) + \\left(-2\\right)\\left(4\\right) = 3x^2+12x-2x-8 = 3x^2+10x-8$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 37
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(4a+1\\right)\\left(2a-3\\right)$$",
+                    options: [ "$8a^2-10a-3$", "$8a^2+10a-3$", "$8a^2-14a-3$", "$8a^2-10a+3$" ],
+                    answer: "$8a^2-10a-3$",
+                    rationale: "$\\left(4a\\right)\\left(2a\\right) + \\left(4a\\right)\\left(-3\\right) + \\left(1\\right)\\left(2a\\right) + \\left(1\\right)\\left(-3\\right) = 8a^2-12a+2a-3 = 8a^2-10a-3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 38
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(5x-y\\right)\\left(x+2y\\right)$$",
+                    options: [ "$5x^2+9xy-2y^2$", "$5x^2-11xy-2y^2$", "$5x^2+11xy-2y^2$", "$5x^2-9xy-2y^2$" ],
+                    answer: "$5x^2+9xy-2y^2$",
+                    rationale: "$\\left(5x\\right)\\left(x\\right) + \\left(5x\\right)\\left(2y\\right) + \\left(-y\\right)\\left(x\\right) + \\left(-y\\right)\\left(2y\\right) = 5x^2+10xy-xy-2y^2 = 5x^2+9xy-2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 39
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(2a-5b\\right)\\left(2a-b\\right)$$",
+                    options: [ "$4a^2-12ab+5b^2$", "$4a^2+12ab+5b^2$", "$4a^2-8ab+5b^2$", "$4a^2-12ab-5b^2$" ],
+                    answer: "$4a^2-12ab+5b^2$",
+                    rationale: "$\\left(2a\\right)\\left(2a\\right) + \\left(2a\\right)\\left(-b\\right) + \\left(-5b\\right)\\left(2a\\right) + \\left(-5b\\right)\\left(-b\\right) = 4a^2-2ab-10ab+5b^2 = 4a^2-12ab+5b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 40
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(3x+1\\right)\\left(2x-5\\right)$$",
+                    options: [ "$6x^2-13x-5$", "$6x^2+13x-5$", "$6x^2-17x-5$", "$6x^2-13x+5$" ],
+                    answer: "$6x^2-13x-5$",
+                    rationale: "$\\left(3x\\right)\\left(2x\\right) + \\left(3x\\right)\\left(-5\\right) + \\left(1\\right)\\left(2x\\right) + \\left(1\\right)\\left(-5\\right) = 6x^2-15x+2x-5 = 6x^2-13x-5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 41
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(2x+5y\\right)\\left(x+3y\\right)$$",
+                    options: [ "$2x^2+11xy+15y^2$", "$2x^2+13xy+15y^2$", "$2x^2+xy+15y^2$", "$3x^2+11xy+8y^2$" ],
+                    answer: "$2x^2+11xy+15y^2$",
+                    rationale: "$\\left(2x\\right)\\left(x\\right) + \\left(2x\\right)\\left(3y\\right) + \\left(5y\\right)\\left(x\\right) + \\left(5y\\right)\\left(3y\\right) = 2x^2+6xy+5xy+15y^2 = 2x^2+11xy+15y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 42
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(3a-4b\\right)\\left(2a+b\\right)$$",
+                    options: [ "$6a^2-5ab-4b^2$", "$6a^2-11ab-4b^2$", "$6a^2+5ab-4b^2$", "$6a^2-5ab+4b^2$" ],
+                    answer: "$6a^2-5ab-4b^2$",
+                    rationale: "$\\left(3a\\right)\\left(2a\\right) + \\left(3a\\right)\\left(b\\right) + \\left(-4b\\right)\\left(2a\\right) + \\left(-4b\\right)\\left(b\\right) = 6a^2+3ab-8ab-4b^2 = 6a^2-5ab-4b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 43
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(4x+3y\\right)\\left(x-y\\right)$$",
+                    options: [ "$4x^2-xy-3y^2$", "$4x^2+xy-3y^2$", "$4x^2-7xy-3y^2$", "$4x^2-xy+3y^2$" ],
+                    answer: "$4x^2-xy-3y^2$",
+                    rationale: "$\\left(4x\\right)\\left(x\\right) + \\left(4x\\right)\\left(-y\\right) + \\left(3y\\right)\\left(x\\right) + \\left(3y\\right)\\left(-y\\right) = 4x^2-4xy+3xy-3y^2 = 4x^2-xy-3y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 44
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(2x-y\\right)\\left(x+y\\right)$$",
+                    options: [ "$2x^2+xy-y^2$", "$2x^2-xy-y^2$", "$2x^2-3xy-y^2$", "$2x^2+y^2$" ],
+                    answer: "$2x^2+xy-y^2$",
+                    rationale: "$\\left(2x\\right)\\left(x\\right) + \\left(2x\\right)\\left(y\\right) + \\left(-y\\right)\\left(x\\right) + \\left(-y\\right)\\left(y\\right) = 2x^2+2xy-xy-y^2 = 2x^2+xy-y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 45
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(5a-b\\right)\\left(2a+b\\right)$$",
+                    options: [ "$10a^2+3ab-b^2$", "$10a^2-3ab-b^2$", "$10a^2-7ab-b^2$", "$10a^2+7ab-b^2$" ],
+                    answer: "$10a^2+3ab-b^2$",
+                    rationale: "$\\left(5a\\right)\\left(2a\\right) + \\left(5a\\right)\\left(b\\right) + \\left(-b\\right)\\left(2a\\right) + \\left(-b\\right)\\left(b\\right) = 10a^2+5ab-2ab-b^2 = 10a^2+3ab-b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 46
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(3x-5y\\right)\\left(2x+3y\\right)$$",
+                    options: [ "$6x^2-xy-15y^2$", "$6x^2+xy-15y^2$", "$6x^2-19xy-15y^2$", "$6x^2+19xy-15y^2$" ],
+                    answer: "$6x^2-xy-15y^2$",
+                    rationale: "$\\left(3x\\right)\\left(2x\\right) + \\left(3x\\right)\\left(3y\\right) + \\left(-5y\\right)\\left(2x\\right) + \\left(-5y\\right)\\left(3y\\right) = 6x^2+9xy-10xy-15y^2 = 6x^2-xy-15y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 47
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(2a+3b\\right)\\left(4a-b\\right)$$",
+                    options: [ "$8a^2+10ab-3b^2$", "$8a^2-10ab-3b^2$", "$8a^2+14ab-3b^2$", "$8a^2+10ab+3b^2$" ],
+                    answer: "$8a^2+10ab-3b^2$",
+                    rationale: "$\\left(2a\\right)\\left(4a\\right) + \\left(2a\\right)\\left(-b\\right) + \\left(3b\\right)\\left(4a\\right) + \\left(3b\\right)\\left(-b\\right) = 8a^2-2ab+12ab-3b^2 = 8a^2+10ab-3b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 48
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(x-4y\\right)\\left(5x-y\\right)$$",
+                    options: [ "$5x^2-21xy+4y^2$", "$5x^2+19xy+4y^2$", "$5x^2-19xy+4y^2$", "$5x^2-21xy-4y^2$" ],
+                    answer: "$5x^2-21xy+4y^2$",
+                    rationale: "$\\left(x\\right)\\left(5x\\right) + \\left(x\\right)\\left(-y\\right) + \\left(-4y\\right)\\left(5x\\right) + \\left(-4y\\right)\\left(-y\\right) = 5x^2-xy-20xy+4y^2 = 5x^2-21xy+4y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 49
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(6x-y\\right)\\left(x+2y\\right)$$",
+                    options: [ "$6x^2+11xy-2y^2$", "$6x^2-11xy-2y^2$", "$6x^2+13xy-2y^2$", "$6x^2+xy-2y^2$" ],
+                    answer: "$6x^2+11xy-2y^2$",
+                    rationale: "$\\left(6x\\right)\\left(x\\right) + \\left(6x\\right)\\left(2y\\right) + \\left(-y\\right)\\left(x\\right) + \\left(-y\\right)\\left(2y\\right) = 6x^2+12xy-xy-2y^2 = 6x^2+11xy-2y^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 50
+                {
+                    question: "次の式を展開せよ。<br>$$\\left(a-b\\right)\\left(3a+4b\\right)$$",
+                    options: [ "$3a^2+ab-4b^2$", "$3a^2-ab-4b^2$", "$3a^2+7ab-4b^2$", "$3a^2-7ab-4b^2$" ],
+                    answer: "$3a^2+ab-4b^2$",
+                    rationale: "$\\left(a\\right)\\left(3a\\right) + \\left(a\\right)\\left(4b\\right) + \\left(-b\\right)\\left(3a\\right) + \\left(-b\\right)\\left(4b\\right) = 3a^2+4ab-3ab-4b^2 = 3a^2+ab-4b^2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7708/63110' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                }
+            ]
+            // --- 元のクイズデータの終わり ---
+
+            // ★★★ ランダムに10題選ぶ処理 ★★★
+            // 1. allQuizData をシャッフルする関数
+            function shuffleArray(array) {
+                const shuffled = [...array]; // 配列をコピー
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            // 2. シャッフルして先頭10件を取得
+            const numberOfQuestions = 10;
+            const shuffledAllData = shuffleArray(allQuizData);
+            // ★ 実際に使うデータ (quizData) を定義 ★
+            const quizData = shuffledAllData.slice(0, Math.min(numberOfQuestions, allQuizData.length));
+            // ★★★ ここまで ★★★
+
+
+            // --- ここから下はクイズの仕組みです (変数 quizData を使う) ---
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const questionNumberEl = document.getElementById('question-number');
+            const questionTextEl = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const scoreTextEl = document.getElementById('score-text');
+            const finalMessageEl = document.getElementById('final-message');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            // (関数定義)
+            function loadQuestion() {
+                if (!quizData || currentQuestionIndex >= quizData.length) { console.error("Invalid question index or quizData is empty."); questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。"; questionNumberEl.textContent = "エラー"; optionsContainer.innerHTML = ''; return; }
+                feedbackEl.style.display = 'none'; nextBtn.style.display = 'none'; optionsContainer.innerHTML = '';
+                const currentQuestion = quizData[currentQuestionIndex];
+                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`; // 10題中の表示
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文なし)";
+                if (currentQuestion.layout === 'vertical') { optionsContainer.classList.add('options-vertical'); } else { optionsContainer.classList.remove('options-vertical'); }
+                if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
+                    const shuffledOptions = [...currentQuestion.options];
+                    for (let i = shuffledOptions.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; }
+                    shuffledOptions.forEach(optionText => {
+                        const optionBox = document.createElement('div');
+                        optionBox.innerHTML = optionText || "(選択肢なし)";
+                        optionBox.classList.add('option-box');
+                        optionBox.dataset.optionValue = optionText;
+                        optionBox.addEventListener('click', () => { if (feedbackEl.style.display === 'block') return; selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale); });
+                        optionsContainer.appendChild(optionBox);
+                    });
+                } else { optionsContainer.innerHTML = '<p>(選択肢なし)</p>'; }
+                try { renderMathInElement(questionTextEl, { delimiters: katexDelimiters }); renderMathInElement(optionsContainer, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX render error:", e); }
+            }
+
+            function selectAnswer(selectedBox, selectedOption, correctAnswer, rationale) {
+                Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => { box.classList.add('disabled'); if (box.dataset.optionValue === correctAnswer) { box.classList.add('correct'); } else { box.classList.add('incorrect'); } });
+                feedbackEl.style.display = 'block'; const feedbackRationale = rationale || "(解説なし)";
+                if (selectedOption === correctAnswer) { feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`; feedbackEl.className = 'correct'; score++; }
+                else { selectedBox.classList.add('selected'); feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; feedbackEl.className = 'incorrect'; }
+                try { renderMathInElement(feedbackEl, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX feedback render error:", e); }
+                if (currentQuestionIndex < quizData.length - 1) { nextBtn.style.display = 'block'; } else { resultsBtn.style.display = 'block'; }
+            }
+
+            // (イベントリスナーをセット)
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestionIndex < quizData.length - 1) { // 範囲チェック
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            });
+
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none'; resultsContainer.style.display = 'block';
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`; // 10題中の表示
+                let rank = "-"; if (quizData.length > 0) { if (percentage === 100) rank = "S"; else if (percentage >= 80) rank = "A"; else if (percentage >= 60) rank = "B"; else rank = "C"; }
+                
+                const quizId = 'M1-1-2-2'; // ★★★★★ quizId を 'M1-1-1-3' に設定 ★★★★★
+                
+                try { localStorage.setItem('quizRank_' + quizId, rank); } catch (e) { console.error("localStorage save failed:", e); }
+                let message = ""; // (メッセージ生成...)
+                 if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
+                 else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
+                 else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
+                 else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
+                 else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
+                finalMessageEl.textContent = message;
+            });
+
+            // (QDが空でないか確認してからクイズを開始)
+            if (quizData && quizData.length > 0) {
+                loadQuestion();
+            } else {
+                 questionTextEl.innerHTML = "問題データ (allQuizData) が見つからないか空です。<br>HTMLファイルを確認してください。"; // エラーメッセージ変更
+                 questionNumberEl.textContent = "エラー";
+                 quizContainer.style.display = 'block';
+                 resultsContainer.style.display = 'none';
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+             <h1>数と式：2乗の展開公式</h1>
+        </header>
+        <main>
+            <div id="quiz-container">
+                <div id="question-header"><span id="question-number"></span></div>
+                <h2 id="question-text"></h2>
+                <div id="options-container"></div>
+                <div id="feedback"></div>
+                <button id="next-btn">次の問題へ</button>
+                <button id="results-btn">結果を見る</button>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>テスト終了！</h2>
+                <p id="score-text"></p>
+                <p id="final-message"></p>
+                <a href="index.html" id="homepage-link">トップページに戻る</a>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 [香川亮]</p>
+        </footer>
+    </div>
+    </body>
+</html>
