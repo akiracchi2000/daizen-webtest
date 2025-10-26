@@ -1,1 +1,713 @@
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数と式：たすき掛けの因数分解(ランダム10題)</title>
+    <style>
+        /* index.htmlと共通のスタイル */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa; /* デフォルト背景色 */
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s; /* 背景色変更を滑らかに */
+        }
+
+        /* ★★★ 背景色用のクラスを追加 ★★★ */
+        body.bg-light-blue { background-color: #e7f5ff; } /* 水色 */
+        body.bg-light-green { background-color: #e6fcf5; } /* 薄い緑 */
+        body.bg-beige { background-color: #fcf8e3; } /* ベージュ */
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #343a40;
+            font-size: 1.8em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        /* --- クイズ用のスタイル --- */
+        #quiz-container { min-height: 300px; }
+        #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
+        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; }
+
+        /* 選択肢コンテナ (Gridレイアウト - デフォルトは2x2) */
+        #options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* デフォルト: 2列 */
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* 縦1列(4行)表示用のスタイル */
+        #options-container.options-vertical {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 10px; /* 縦の隙間を少し狭める (任意) */
+        }
+
+        /* 選択肢ボックス */
+        .option-box {
+            background-color: #f1f3f5;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .option-box:hover:not(.disabled) {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 正解のスタイル */
+        .option-box.correct {
+            background-color: #a8e6cf;
+            border-color: #17a2b8;
+            border-width: 3px;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        /* 不正解のスタイル (選択されなかったもの) */
+        .option-box.incorrect {
+            background-color: #ffcdd2;
+            border-color: #dc3545;
+            color: #721c24;
+            opacity: 0.7;
+        }
+
+        /* ユーザーが選択した不正解のスタイル */
+        .option-box.incorrect.selected {
+            opacity: 1;
+            border-width: 4px;
+            border-color: #dc3545;
+        }
+
+        /* 無効化時のスタイル */
+        .option-box.disabled {
+             cursor: not-allowed;
+             opacity: 0.7;
+             background-color: #e9ecef;
+             transform: none;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* 解説（フィードバック） */
+        #feedback { margin-top: 25px; padding: 15px; border-radius: 5px; display: none; }
+        #feedback.correct { background-color: #e6f7ff; border: 1px solid #b3e0ff; }
+        #feedback.incorrect { background-color: #fff0f1; border: 1px solid #ffccd0; }
+
+        /* 次へ/結果ボタン */
+        #next-btn, #results-btn { display: none; padding: 12px 25px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; float: right; margin-top: 20px; transition: background-color 0.3s; }
+        #next-btn:hover, #results-btn:hover { background-color: #0056b3; }
+
+        /* 結果表示 */
+        #results-container { text-align: center; font-size: 1.4em; }
+        #results-container h2 { color: #007bff; }
+        #homepage-link { display: inline-block; margin-top: 20px; padding: 12px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; }
+        #homepage-link:hover { background-color: #5a6268; }
+
+    </style>
+
+    <link rel="stylesheet" href="katex/katex.min.css">
+    <script defer src="katex/katex.min.js"></script>
+    <script defer src="katex/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // ★★★ 背景色を適用する処理 ★★★
+            const storageKey = 'backgroundColorPreference';
+            try {
+                const savedColor = localStorage.getItem(storageKey);
+                document.body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
+                if (savedColor && savedColor !== 'default') {
+                    document.body.classList.add('bg-' + savedColor);
+                }
+            } catch (e) { console.error("localStorageからの背景色読み込みに失敗:", e); }
+            // ★★★ (ここまで) ★★★
+
+            // KaTeXが認識する区切り文字の設定
+            const katexDelimiters = [
+                {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}
+            ];
+
+            // ページ読み込み時に静的コンテンツをレンダリング
+            try {
+                renderMathInElement(document.body, { delimiters: katexDelimiters });
+            } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
+
+// --- ★ allQuizData 配列 (M1-1-3-4.html 用) ★ ---
+            const allQuizData = [
+                // --- タイプ1: (x+a)(x+b) 形式 (25題) ---
+                // 問題 1
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+5x+6$$",
+                    options: [ "$\\left(x+2\\right)\\left(x+3\\right)$", "$\\left(x-2\\right)\\left(x-3\\right)$", "$\\left(x+1\\right)\\left(x+6\\right)$", "$\\left(x+5\\right)\\left(x+1\\right)$" ],
+                    answer: "$\\left(x+2\\right)\\left(x+3\\right)$",
+                    rationale: "和が $5$、積が $6$ になる2数は $2$ と $3$ です。<br>よって $\\left(x+2\\right)\\left(x+3\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 2
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-5x+6$$",
+                    options: [ "$\\left(x-2\\right)\\left(x-3\\right)$", "$\\left(x+2\\right)\\left(x+3\\right)$", "$\\left(x-1\\right)\\left(x-6\\right)$", "$\\left(x-5\\right)\\left(x-1\\right)$" ],
+                    answer: "$\\left(x-2\\right)\\left(x-3\\right)$",
+                    rationale: "和が $-5$、積が $6$ になる2数は $-2$ と $-3$ です。<br>よって $\\left(x-2\\right)\\left(x-3\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 3
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+x-6$$",
+                    options: [ "$\\left(x+3\\right)\\left(x-2\\right)$", "$\\left(x-3\\right)\\left(x+2\\right)$", "$\\left(x+6\\right)\\left(x-1\\right)$", "$\\left(x-6\\right)\\left(x+1\\right)$" ],
+                    answer: "$\\left(x+3\\right)\\left(x-2\\right)$",
+                    rationale: "和が $1$、積が $-6$ になる2数は $3$ と $-2$ です。<br>よって $\\left(x+3\\right)\\left(x-2\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 4
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-x-6$$",
+                    options: [ "$\\left(x-3\\right)\\left(x+2\\right)$", "$\\left(x+3\\right)\\left(x-2\\right)$", "$\\left(x-6\\right)\\left(x+1\\right)$", "$\\left(x+6\\right)\\left(x-1\\right)$" ],
+                    answer: "$\\left(x-3\\right)\\left(x+2\\right)$",
+                    rationale: "和が $-1$、積が $-6$ になる2数は $-3$ と $2$ です。<br>よって $\\left(x-3\\right)\\left(x+2\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 5
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+7x+10$$",
+                    options: [ "$\\left(x+2\\right)\\left(x+5\\right)$", "$\\left(x-2\\right)\\left(x-5\\right)$", "$\\left(x+1\\right)\\left(x+10\\right)$", "$\\left(x+7\\right)\\left(x+10\\right)$" ],
+                    answer: "$\\left(x+2\\right)\\left(x+5\\right)$",
+                    rationale: "和が $7$、積が $10$ になる2数は $2$ と $5$ です。<br>よって $\\left(x+2\\right)\\left(x+5\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 6
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-7x+10$$",
+                    options: [ "$\\left(x-2\\right)\\left(x-5\\right)$", "$\\left(x+2\\right)\\left(x+5\\right)$", "$\\left(x-1\\right)\\left(x-10\\right)$", "$\\left(x-7\\right)\\left(x-1\\right)$" ],
+                    answer: "$\\left(x-2\\right)\\left(x-5\\right)$",
+                    rationale: "和が $-7$、積が $10$ になる2数は $-2$ と $-5$ です。<br>よって $\\left(x-2\\right)\\left(x-5\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 7
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+3x-10$$",
+                    options: [ "$\\left(x+5\\right)\\left(x-2\\right)$", "$\\left(x-5\\right)\\left(x+2\\right)$", "$\\left(x+1\\right)\\left(x-10\\right)$", "$\\left(x+10\\right)\\left(x-1\\right)$" ],
+                    answer: "$\\left(x+5\\right)\\left(x-2\\right)$",
+                    rationale: "和が $3$、積が $-10$ になる2数は $5$ と $-2$ です。<br>よって $\\left(x+5\\right)\\left(x-2\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 8
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-3x-10$$",
+                    options: [ "$\\left(x-5\\right)\\left(x+2\\right)$", "$\\left(x+5\\right)\\left(x-2\\right)$", "$\\left(x-1\\right)\\left(x+10\\right)$", "$\\left(x-10\\right)\\left(x+1\\right)$" ],
+                    answer: "$\\left(x-5\\right)\\left(x+2\\right)$",
+                    rationale: "和が $-3$、積が $-10$ になる2数は $-5$ と $2$ です。<br>よって $\\left(x-5\\right)\\left(x+2\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 9
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+8x+12$$",
+                    options: [ "$\\left(x+2\\right)\\left(x+6\\right)$", "$\\left(x-2\\right)\\left(x-6\\right)$", "$\\left(x+3\\right)\\left(x+4\\right)$", "$\\left(x+1\\right)\\left(x+12\\right)$" ],
+                    answer: "$\\left(x+2\\right)\\left(x+6\\right)$",
+                    rationale: "和が $8$、積が $12$ になる2数は $2$ と $6$ です。<br>よって $\\left(x+2\\right)\\left(x+6\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 10
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-8x+12$$",
+                    options: [ "$\\left(x-2\\right)\\left(x-6\\right)$", "$\\left(x+2\\right)\\left(x+6\\right)$", "$\\left(x-3\\right)\\left(x-4\\right)$", "$\\left(x-1\\right)\\left(x-12\\right)$" ],
+                    answer: "$\\left(x-2\\right)\\left(x-6\\right)$",
+                    rationale: "和が $-8$、積が $12$ になる2数は $-2$ と $-6$ です。<br>よって $\\left(x-2\\right)\\left(x-6\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 11
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+4x-12$$",
+                    options: [ "$\\left(x+6\\right)\\left(x-2\\right)$", "$\\left(x-6\\right)\\left(x+2\\right)$", "$\\left(x+4\\right)\\left(x-3\\right)$", "$\\left(x-12\\right)\\left(x+1\\right)$" ],
+                    answer: "$\\left(x+6\\right)\\left(x-2\\right)$",
+                    rationale: "和が $4$、積が $-12$ になる2数は $6$ と $-2$ です。<br>よって $\\left(x+6\\right)\\left(x-2\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 12
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-4x-12$$",
+                    options: [ "$\\left(x-6\\right)\\left(x+2\\right)$", "$\\left(x+6\\right)\\left(x-2\\right)$", "$\\left(x-4\\right)\\left(x+3\\right)$", "$\\left(x-12\\right)\\left(x-1\\right)$" ],
+                    answer: "$\\left(x-6\\right)\\left(x+2\\right)$",
+                    rationale: "和が $-4$、積が $-12$ になる2数は $-6$ と $2$ です。<br>よって $\\left(x-6\\right)\\left(x+2\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 13
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-9x+20$$",
+                    options: [ "$\\left(x-4\\right)\\left(x-5\\right)$", "$\\left(x+4\\right)\\left(x+5\\right)$", "$\\left(x-2\\right)\\left(x-10\\right)$", "$\\left(x-1\\right)\\left(x-20\\right)$" ],
+                    answer: "$\\left(x-4\\right)\\left(x-5\\right)$",
+                    rationale: "和が $-9$、積が $20$ になる2数は $-4$ と $-5$ です。<br>よって $\\left(x-4\\right)\\left(x-5\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 14
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+x-20$$",
+                    options: [ "$\\left(x+5\\right)\\left(x-4\\right)$", "$\\left(x-5\\right)\\left(x+4\\right)$", "$\\left(x+2\\right)\\left(x-10\\right)$", "$\\left(x+20\\right)\\left(x-1\\right)$" ],
+                    answer: "$\\left(x+5\\right)\\left(x-4\\right)$",
+                    rationale: "和が $1$、積が $-20$ になる2数は $5$ と $-4$ です。<br>よって $\\left(x+5\\right)\\left(x-4\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 15
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-10x+21$$",
+                    options: [ "$\\left(x-3\\right)\\left(x-7\\right)$", "$\\left(x+3\\right)\\left(x+7\\right)$", "$\\left(x-1\\right)\\left(x-21\\right)$", "$\\left(x-10\\right)\\left(x-1\\right)$" ],
+                    answer: "$\\left(x-3\\right)\\left(x-7\\right)$",
+                    rationale: "和が $-10$、積が $21$ になる2数は $-3$ と $-7$ です。<br>よって $\\left(x-3\\right)\\left(x-7\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 16
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+4x-21$$",
+                    options: [ "$\\left(x+7\\right)\\left(x-3\\right)$", "$\\left(x-7\\right)\\left(x+3\\right)$", "$\\left(x+1\\right)\\left(x-21\\right)$", "$\\left(x-7\\right)\\left(x-3\\right)$" ],
+                    answer: "$\\left(x+7\\right)\\left(x-3\\right)$",
+                    rationale: "和が $4$、積が $-21$ になる2数は $7$ と $-3$ です。<br>よって $\\left(x+7\\right)\\left(x-3\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 17
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+9x+14$$",
+                    options: [ "$\\left(x+2\\right)\\left(x+7\\right)$", "$\\left(x-2\\right)\\left(x-7\\right)$", "$\\left(x+1\\right)\\left(x+14\\right)$", "$\\left(x+9\\right)\\left(x+1\\right)$" ],
+                    answer: "$\\left(x+2\\right)\\left(x+7\\right)$",
+                    rationale: "和が $9$、積が $14$ になる2数は $2$ と $7$ です。<br>よって $\\left(x+2\\right)\\left(x+7\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 18
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-9x+14$$",
+                    options: [ "$\\left(x-2\\right)\\left(x-7\\right)$", "$\\left(x+2\\right)\\left(x+7\\right)$", "$\\left(x-1\\right)\\left(x-14\\right)$", "$\\left(x-9\\right)\\left(x-1\\right)$" ],
+                    answer: "$\\left(x-2\\right)\\left(x-7\\right)$",
+                    rationale: "和が $-9$、積が $14$ になる2数は $-2$ と $-7$ です。<br>よって $\\left(x-2\\right)\\left(x-7\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 19
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+5x-14$$",
+                    options: [ "$\\left(x+7\\right)\\left(x-2\\right)$", "$\\left(x-7\\right)\\left(x+2\\right)$", "$\\left(x+1\\right)\\left(x-14\\right)$", "$\\left(x+14\\right)\\left(x-1\\right)$" ],
+                    answer: "$\\left(x+7\\right)\\left(x-2\\right)$",
+                    rationale: "和が $5$、積が $-14$ になる2数は $7$ と $-2$ です。<br>よって $\\left(x+7\\right)\\left(x-2\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 20
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-5x-14$$",
+                    options: [ "$\\left(x-7\\right)\\left(x+2\\right)$", "$\\left(x+7\\right)\\left(x-2\\right)$", "$\\left(x-14\\right)\\left(x+1\\right)$", "$\\left(x-1\\right)\\left(x+14\\right)$" ],
+                    answer: "$\\left(x-7\\right)\\left(x+2\\right)$",
+                    rationale: "和が $-5$、積が $-14$ になる2数は $-7$ と $2$ です。<br>よって $\\left(x-7\\right)\\left(x+2\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 21
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+11x+24$$",
+                    options: [ "$\\left(x+3\\right)\\left(x+8\\right)$", "$\\left(x-3\\right)\\left(x-8\\right)$", "$\\left(x+2\\right)\\left(x+12\\right)$", "$\\left(x+4\\right)\\left(x+6\\right)$" ],
+                    answer: "$\\left(x+3\\right)\\left(x+8\\right)$",
+                    rationale: "和が $11$、積が $24$ になる2数は $3$ と $8$ です。<br>よって $\\left(x+3\\right)\\left(x+8\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 22
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-11x+24$$",
+                    options: [ "$\\left(x-3\\right)\\left(x-8\\right)$", "$\\left(x+3\\right)\\left(x+8\\right)$", "$\\left(x-2\\right)\\left(x-12\\right)$", "$\\left(x-4\\right)\\left(x-6\\right)$" ],
+                    answer: "$\\left(x-3\\right)\\left(x-8\\right)$",
+                    rationale: "和が $-11$、積が $24$ になる2数は $-3$ と $-8$ です。<br>よって $\\left(x-3\\right)\\left(x-8\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 23
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+5x-24$$",
+                    options: [ "$\\left(x+8\\right)\\left(x-3\\right)$", "$\\left(x-8\\right)\\left(x+3\\right)$", "$\\left(x+6\\right)\\left(x-4\\right)$", "$\\left(x-6\\right)\\left(x+4\\right)$" ],
+                    answer: "$\\left(x+8\\right)\\left(x-3\\right)$",
+                    rationale: "和が $5$、積が $-24$ になる2数は $8$ と $-3$ です。<br>よって $\\left(x+8\\right)\\left(x-3\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 24
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-5x-24$$",
+                    options: [ "$\\left(x-8\\right)\\left(x+3\\right)$", "$\\left(x+8\\right)\\left(x-3\\right)$", "$\\left(x-6\\right)\\left(x+4\\right)$", "$\\left(x+6\\right)\\left(x-4\\right)$" ],
+                    answer: "$\\left(x-8\\right)\\left(x+3\\right)$",
+                    rationale: "和が $-5$、積が $-24$ になる2数は $-8$ と $3$ です。<br>よって $\\left(x-8\\right)\\left(x+3\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 25
+                {
+                    question: "次の式を因数分解せよ。<br>$$a^2-a-72$$",
+                    options: [ "$\\left(a-9\\right)\\left(a+8\\right)$", "$\\left(a+9\\right)\\left(a-8\\right)$", "$\\left(a-6\\right)\\left(a+12\\right)$", "$\\left(a-72\\right)\\left(a+1\\right)$" ],
+                    answer: "$\\left(a-9\\right)\\left(a+8\\right)$",
+                    rationale: "和が $-1$、積が $-72$ になる2数は $-9$ と $8$ です。<br>よって $\\left(a-9\\right)\\left(a+8\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // --- タイプ2: x^2+(a+b)xy+aby^2 形式 (25題) ---
+                // 問題 26
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+17xy+60y^2$$",
+                    options: [ "$\\left(x+5y\\right)\\left(x+12y\\right)$", "$\\left(x+6y\\right)\\left(x+10y\\right)$", "$\\left(x+3y\\right)\\left(x+20y\\right)$", "$\\left(x+4y\\right)\\left(x+15y\\right)$" ],
+                    answer: "$\\left(x+5y\\right)\\left(x+12y\\right)$",
+                    rationale: "和が $17$、積が $60$ になる2数は $5$ と $12$ です。<br>よって $\\left(x+5y\\right)\\left(x+12y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 27
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-11xy+30y^2$$",
+                    options: [ "$\\left(x-5y\\right)\\left(x-6y\\right)$", "$\\left(x+5y\\right)\\left(x+6y\\right)$", "$\\left(x-3y\\right)\\left(x-10y\\right)$", "$\\left(x-y\\right)\\left(x-30y\\right)$" ],
+                    answer: "$\\left(x-5y\\right)\\left(x-6y\\right)$",
+                    rationale: "和が $-11$、積が $30$ になる2数は $-5$ と $-6$ です。<br>よって $\\left(x-5y\\right)\\left(x-6y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 28
+                {
+                    question: "次の式を因数分解せよ。<br>$$a^2-5ab-14b^2$$",
+                    options: [ "$\\left(a-7b\\right)\\left(a+2b\\right)$", "$\\left(a+7b\\right)\\left(a-2b\\right)$", "$\\left(a-14b\\right)\\left(a+b\\right)$", "$\\left(a-14b\\right)\\left(a-b\\right)$" ],
+                    answer: "$\\left(a-7b\\right)\\left(a+2b\\right)$",
+                    rationale: "和が $-5$、積が $-14$ になる2数は $-7$ と $2$ です。<br>よって $\\left(a-7b\\right)\\left(a+2b\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 29
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+3xy-28y^2$$",
+                    options: [ "$\\left(x+7y\\right)\\left(x-4y\\right)$", "$\\left(x-7y\\right)\\left(x+4y\\right)$", "$\\left(x+2y\\right)\\left(x-14y\\right)$", "$\\left(x-2y\\right)\\left(x+14y\\right)$" ],
+                    answer: "$\\left(x+7y\\right)\\left(x-4y\\right)$",
+                    rationale: "和が $3$、積が $-28$ になる2数は $7$ と $-4$ です。<br>よって $\\left(x+7y\\right)\\left(x-4y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 30
+                {
+                    question: "次の式を因数分解せよ。<br>$$a^2-ab-42b^2$$",
+                    options: [ "$\\left(a-7b\\right)\\left(a+6b\\right)$", "$\\left(a+7b\\right)\\left(a-6b\\right)$", "$\\left(a-3b\\right)\\left(a+14b\\right)$", "$\\left(a+3b\\right)\\left(a-14b\\right)$" ],
+                    answer: "$\\left(a-7b\\right)\\left(a+6b\\right)$",
+                    rationale: "和が $-1$、積が $-42$ になる2数は $-7$ と $6$ です。<br>よって $\\left(a-7b\\right)\\left(a+6b\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 31
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+6xy-72y^2$$",
+                    options: [ "$\\left(x+12y\\right)\\left(x-6y\\right)$", "$\\left(x-12y\\right)\\left(x+6y\\right)$", "$\\left(x+9y\\right)\\left(x-8y\\right)$", "$\\left(x-9y\\right)\\left(x+8y\\right)$" ],
+                    answer: "$\\left(x+12y\\right)\\left(x-6y\\right)$",
+                    rationale: "和が $6$、積が $-72$ になる2数は $12$ と $-6$ です。<br>よって $\\left(x+12y\\right)\\left(x-6y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 32
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+2xy-15y^2$$",
+                    options: [ "$\\left(x+5y\\right)\\left(x-3y\\right)$", "$\\left(x-5y\\right)\\left(x+3y\\right)$", "$\\left(x+15y\\right)\\left(x-y\\right)$", "$\\left(x-15y\\right)\\left(x+y\\right)$" ],
+                    answer: "$\\left(x+5y\\right)\\left(x-3y\\right)$",
+                    rationale: "和が $2$、積が $-15$ になる2数は $5$ と $-3$ です。<br>よって $\\left(x+5y\\right)\\left(x-3y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 33
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-2xy-15y^2$$",
+                    options: [ "$\\left(x-5y\\right)\\left(x+3y\\right)$", "$\\left(x+5y\\right)\\left(x-3y\\right)$", "$\\left(x-y\\right)\\left(x+15y\\right)$", "$\\left(x-15y\\right)\\left(x+y\\right)$" ],
+                    answer: "$\\left(x-5y\\right)\\left(x+3y\\right)$",
+                    rationale: "和が $-2$、積が $-15$ になる2数は $-5$ と $3$ です。<br>よって $\\left(x-5y\\right)\\left(x+3y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 34
+                {
+                    question: "次の式を因数分解せよ。<br>$$a^2+7ab+12b^2$$",
+                    options: [ "$\\left(a+3b\\right)\\left(a+4b\\right)$", "$\\left(a-3b\\right)\\left(a-4b\\right)$", "$\\left(a+2b\\right)\\left(a+6b\\right)$", "$\\left(a+b\\right)\\left(a+12b\\right)$" ],
+                    answer: "$\\left(a+3b\\right)\\left(a+4b\\right)$",
+                    rationale: "和が $7$、積が $12$ になる2数は $3$ と $4$ です。<br>よって $\\left(a+3b\\right)\\left(a+4b\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 35
+                {
+                    question: "次の式を因数分解せよ。<br>$$a^2-7ab+12b^2$$",
+                    options: [ "$\\left(a-3b\\right)\\left(a-4b\\right)$", "$\\left(a+3b\\right)\\left(a+4b\\right)$", "$\\left(a-2b\\right)\\left(a-6b\\right)$", "$\\left(a-b\\right)\\left(a-12b\\right)$" ],
+                    answer: "$\\left(a-3b\\right)\\left(a-4b\\right)$",
+                    rationale: "和が $-7$、積が $12$ になる2数は $-3$ と $-4$ です。<br>よって $\\left(a-3b\\right)\\left(a-4b\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 36
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+xy-12y^2$$",
+                    options: [ "$\\left(x+4y\\right)\\left(x-3y\\right)$", "$\\left(x-4y\\right)\\left(x+3y\\right)$", "$\\left(x+6y\\right)\\left(x-2y\\right)$", "$\\left(x-6y\\right)\\left(x+2y\\right)$" ],
+                    answer: "$\\left(x+4y\\right)\\left(x-3y\\right)$",
+                    rationale: "和が $1$、積が $-12$ になる2数は $4$ と $-3$ です。<br>よって $\\left(x+4y\\right)\\left(x-3y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 37
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-xy-12y^2$$",
+                    options: [ "$\\left(x-4y\\right)\\left(x+3y\\right)$", "$\\left(x+4y\\right)\\left(x-3y\\right)$", "$\\left(x-6y\\right)\\left(x+2y\\right)$", "$\\left(x+6y\\right)\\left(x-2y\\right)$" ],
+                    answer: "$\\left(x-4y\\right)\\left(x+3y\\right)$",
+                    rationale: "和が $-1$、積が $-12$ になる2数は $-4$ と $3$ です。<br>よって $\\left(x-4y\\right)\\left(x+3y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 38
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+8xy+15y^2$$",
+                    options: [ "$\\left(x+3y\\right)\\left(x+5y\\right)$", "$\\left(x-3y\\right)\\left(x-5y\\right)$", "$\\left(x+y\\right)\\left(x+15y\\right)$", "$\\left(x+8y\\right)\\left(x+y\\right)$" ],
+                    answer: "$\\left(x+3y\\right)\\left(x+5y\\right)$",
+                    rationale: "和が $8$、積が $15$ になる2数は $3$ と $5$ です。<br>よって $\\left(x+3y\\right)\\left(x+5y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 39
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-8xy+15y^2$$",
+                    options: [ "$\\left(x-3y\\right)\\left(x-5y\\right)$", "$\\left(x+3y\\right)\\left(x+5y\\right)$", "$\\left(x-y\\right)\\left(x-15y\\right)$", "$\\left(x-8y\\right)\\left(x-y\\right)$" ],
+                    answer: "$\\left(x-3y\\right)\\left(x-5y\\right)$",
+                    rationale: "和が $-8$、積が $15$ になる2数は $-3$ と $-5$ です。<br>よって $\\left(x-3y\\right)\\left(x-5y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 40
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+2xy-8y^2$$",
+                    options: [ "$\\left(x+4y\\right)\\left(x-2y\\right)$", "$\\left(x-4y\\right)\\left(x+2y\\right)$", "$\\left(x+8y\\right)\\left(x-y\\right)$", "$\\left(x-8y\\right)\\left(x+y\\right)$" ],
+                    answer: "$\\left(x+4y\\right)\\left(x-2y\\right)$",
+                    rationale: "和が $2$、積が $-8$ になる2数は $4$ と $-2$ です。<br>よって $\\left(x+4y\\right)\\left(x-2y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 41
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-2xy-8y^2$$",
+                    options: [ "$\\left(x-4y\\right)\\left(x+2y\\right)$", "$\\left(x+4y\\right)\\left(x-2y\\right)$", "$\\left(x-8y\\right)\\left(x+y\\right)$", "$\\left(x+8y\\right)\\left(x-y\\right)$" ],
+                    answer: "$\\left(x-4y\\right)\\left(x+2y\\right)$",
+                    rationale: "和が $-2$、積が $-8$ になる2数は $-4$ と $2$ です。<br>よって $\\left(x-4y\\right)\\left(x+2y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 42
+                {
+                    question: "次の式を因数分解せよ。<br>$$a^2+9ab+18b^2$$",
+                    options: [ "$\\left(a+3b\\right)\\left(a+6b\\right)$", "$\\left(a-3b\\right)\\left(a-6b\\right)$", "$\\left(a+2b\\right)\\left(a+9b\\right)$", "$\\left(a+b\\right)\\left(a+18b\\right)$" ],
+                    answer: "$\\left(a+3b\\right)\\left(a+6b\\right)$",
+                    rationale: "和が $9$、積が $18$ になる2数は $3$ と $6$ です。<br>よって $\\left(a+3b\\right)\\left(a+6b\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 43
+                {
+                    question: "次の式を因数分解せよ。<br>$$a^2-9ab+18b^2$$",
+                    options: [ "$\\left(a-3b\\right)\\left(a-6b\\right)$", "$\\left(a+3b\\right)\\left(a+6b\\right)$", "$\\left(a-2b\\right)\\left(a-9b\\right)$", "$\\left(a-b\\right)\\left(a-18b\\right)$" ],
+                    answer: "$\\left(a-3b\\right)\\left(a-6b\\right)$",
+                    rationale: "和が $-9$、積が $18$ になる2数は $-3$ と $-6$ です。<br>よって $\\left(a-3b\\right)\\left(a-6b\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 44
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+3xy-18y^2$$",
+                    options: [ "$\\left(x+6y\\right)\\left(x-3y\\right)$", "$\\left(x-6y\\right)\\left(x+3y\\right)$", "$\\left(x+9y\\right)\\left(x-2y\\right)$", "$\\left(x-9y\\right)\\left(x+2y\\right)$" ],
+                    answer: "$\\left(x+6y\\right)\\left(x-3y\\right)$",
+                    rationale: "和が $3$、積が $-18$ になる2数は $6$ と $-3$ です。<br>よって $\\left(x+6y\\right)\\left(x-3y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 45
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-3xy-18y^2$$",
+                    options: [ "$\\left(x-6y\\right)\\left(x+3y\\right)$", "$\\left(x+6y\\right)\\left(x-3y\\right)$", "$\\left(x-9y\\right)\\left(x+2y\\right)$", "$\\left(x+9y\\right)\\left(x-2y\\right)$" ],
+                    answer: "$\\left(x-6y\\right)\\left(x+3y\\right)$",
+                    rationale: "和が $-3$、積が $-18$ になる2数は $-6$ と $3$ です。<br>よって $\\left(x-6y\\right)\\left(x+3y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 46
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+10xy+21y^2$$",
+                    options: [ "$\\left(x+3y\\right)\\left(x+7y\\right)$", "$\\left(x-3y\\right)\\left(x-7y\\right)$", "$\\left(x+y\\right)\\left(x+21y\\right)$", "$\\left(x+10y\\right)\\left(x+y\\right)$" ],
+                    answer: "$\\left(x+3y\\right)\\left(x+7y\\right)$",
+                    rationale: "和が $10$、積が $21$ になる2数は $3$ と $7$ です。<br>よって $\\left(x+3y\\right)\\left(x+7y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 47
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-10xy+21y^2$$",
+                    options: [ "$\\left(x-3y\\right)\\left(x-7y\\right)$", "$\\left(x+3y\\right)\\left(x+7y\\right)$", "$\\left(x-y\\right)\\left(x-21y\\right)$", "$\\left(x-10y\\right)\\left(x-y\\right)$" ],
+                    answer: "$\\left(x-3y\\right)\\left(x-7y\\right)$",
+                    rationale: "和が $-10$、積が $21$ になる2数は $-3$ と $-7$ です。<br>よって $\\left(x-3y\\right)\\left(x-7y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 48
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2+4xy-21y^2$$",
+                    options: [ "$\\left(x+7y\\right)\\left(x-3y\\right)$", "$\\left(x-7y\\right)\\left(x+3y\\right)$", "$\\left(x+21y\\right)\\left(x-y\\right)$", "$\\left(x-21y\\right)\\left(x+y\\right)$" ],
+                    answer: "$\\left(x+7y\\right)\\left(x-3y\\right)$",
+                    rationale: "和が $4$、積が $-21$ になる2数は $7$ と $-3$ です。<br>よって $\\left(x+7y\\right)\\left(x-3y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 49
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-4xy-21y^2$$",
+                    options: [ "$\\left(x-7y\\right)\\left(x+3y\\right)$", "$\\left(x+7y\\right)\\left(x-3y\\right)$", "$\\left(x-y\\right)\\left(x+21y\\right)$", "$\\left(x+y\\right)\\left(x-21y\\right)$" ],
+                    answer: "$\\left(x-7y\\right)\\left(x+3y\\right)$",
+                    rationale: "和が $-4$、積が $-21$ になる2数は $-7$ と $3$ です。<br>よって $\\left(x-7y\\right)\\left(x+3y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                },
+                // 問題 50
+                {
+                    question: "次の式を因数分解せよ。<br>$$x^2-xy-30y^2$$",
+                    options: [ "$\\left(x-6y\\right)\\left(x+5y\\right)$", "$\\left(x+6y\\right)\\left(x-5y\\right)$", "$\\left(x-3y\\right)\\left(x+10y\\right)$", "$\\left(x+3y\\right)\\left(x-10y\\right)$" ],
+                    answer: "$\\left(x-6y\\right)\\left(x+5y\\right)$",
+                    rationale: "和が $-1$、積が $-30$ になる2数は $-6$ と $5$ です。<br>よって $\\left(x-6y\\right)\\left(x+5y\\right)$ と因数分解できます。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63128' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
+                    layout: 'vertical'
+                }
+            ]
+            // --- ★★★ 50題データここまで ★★★
+            
+            // 1. allQuizData をシャッフルする関数
+            function shuffleArray(array) {
+                const shuffled = [...array]; // 配列をコピー
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            // 2. シャッフルして先頭10件を取得
+            const numberOfQuestions = 10;
+            const shuffledAllData = shuffleArray(allQuizData);
+            // ★ 実際に使うデータ (quizData) を定義 ★
+            const quizData = shuffledAllData.slice(0, Math.min(numberOfQuestions, allQuizData.length));
+            // ★★★ ここまで ★★★
+
+
+            // --- ここから下はクイズの仕組みです (変数 quizData を使う) ---
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const questionNumberEl = document.getElementById('question-number');
+            const questionTextEl = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const scoreTextEl = document.getElementById('score-text');
+            const finalMessageEl = document.getElementById('final-message');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            // (関数定義)
+            function loadQuestion() {
+                if (!quizData || currentQuestionIndex >= quizData.length) { console.error("Invalid question index or quizData is empty."); questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。"; questionNumberEl.textContent = "エラー"; optionsContainer.innerHTML = ''; return; }
+                feedbackEl.style.display = 'none'; nextBtn.style.display = 'none'; optionsContainer.innerHTML = '';
+                const currentQuestion = quizData[currentQuestionIndex];
+                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`; // 10題中の表示
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文なし)";
+                if (currentQuestion.layout === 'vertical') { optionsContainer.classList.add('options-vertical'); } else { optionsContainer.classList.remove('options-vertical'); }
+                if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
+                    const shuffledOptions = [...currentQuestion.options];
+                    for (let i = shuffledOptions.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; }
+                    shuffledOptions.forEach(optionText => {
+                        const optionBox = document.createElement('div');
+                        optionBox.innerHTML = optionText || "(選択肢なし)";
+                        optionBox.classList.add('option-box');
+                        optionBox.dataset.optionValue = optionText;
+                        optionBox.addEventListener('click', () => { if (feedbackEl.style.display === 'block') return; selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale); });
+                        optionsContainer.appendChild(optionBox);
+                    });
+                } else { optionsContainer.innerHTML = '<p>(選択肢なし)</p>'; }
+                try { renderMathInElement(questionTextEl, { delimiters: katexDelimiters }); renderMathInElement(optionsContainer, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX render error:", e); }
+            }
+
+            function selectAnswer(selectedBox, selectedOption, correctAnswer, rationale) {
+                Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => { box.classList.add('disabled'); if (box.dataset.optionValue === correctAnswer) { box.classList.add('correct'); } else { box.classList.add('incorrect'); } });
+                feedbackEl.style.display = 'block'; const feedbackRationale = rationale || "(解説なし)";
+                if (selectedOption === correctAnswer) { feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`; feedbackEl.className = 'correct'; score++; }
+                else { selectedBox.classList.add('selected'); feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; feedbackEl.className = 'incorrect'; }
+                try { renderMathInElement(feedbackEl, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX feedback render error:", e); }
+                if (currentQuestionIndex < quizData.length - 1) { nextBtn.style.display = 'block'; } else { resultsBtn.style.display = 'block'; }
+            }
+
+            // (イベントリスナーをセット)
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestionIndex < quizData.length - 1) { // 範囲チェック
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            });
+
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none'; resultsContainer.style.display = 'block';
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`; // 10題中の表示
+                let rank = "-"; if (quizData.length > 0) { if (percentage === 100) rank = "S"; else if (percentage >= 80) rank = "A"; else if (percentage >= 60) rank = "B"; else rank = "C"; }
+                
+                const quizId = 'M1-1-3-5'; // ★★★★★ quizId を 'M1-1-1-3' に設定 ★★★★★
+                
+                try { localStorage.setItem('quizRank_' + quizId, rank); } catch (e) { console.error("localStorage save failed:", e); }
+                let message = ""; // (メッセージ生成...)
+                 if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
+                 else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
+                 else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
+                 else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
+                 else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
+                finalMessageEl.textContent = message;
+            });
+
+            // (QDが空でないか確認してからクイズを開始)
+            if (quizData && quizData.length > 0) {
+                loadQuestion();
+            } else {
+                 questionTextEl.innerHTML = "問題データ (allQuizData) が見つからないか空です。<br>HTMLファイルを確認してください。"; // エラーメッセージ変更
+                 questionNumberEl.textContent = "エラー";
+                 quizContainer.style.display = 'block';
+                 resultsContainer.style.display = 'none';
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+             <h1>数と式：たすき掛けのの因数分解</h1>
+        </header>
+        <main>
+            <div id="quiz-container">
+                <div id="question-header"><span id="question-number"></span></div>
+                <h2 id="question-text"></h2>
+                <div id="options-container"></div>
+                <div id="feedback"></div>
+                <button id="next-btn">次の問題へ</button>
+                <button id="results-btn">結果を見る</button>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>テスト終了！</h2>
+                <p id="score-text"></p>
+                <p id="final-message"></p>
+                <a href="index.html" id="homepage-link">トップページに戻る</a>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 [香川亮]</p>
+        </footer>
+    </div>
+    </body>
+</html>
+
