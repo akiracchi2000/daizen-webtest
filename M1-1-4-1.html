@@ -172,407 +172,363 @@
                 renderMathInElement(document.body, { delimiters: katexDelimiters });
             } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
 
-// --- ★ allQuizData 配列 (M1-1-3-5.html 用) ★ ---
+// --- ★ allQuizData 配列 (M1-1-4-1.html 用) ★ ---
             const allQuizData = [
+                // --- パターン1: 0.a (繰り返し1桁) ---
                 // 問題 1
                 {
-                    question: "次の式を因数分解せよ。<br>$$2x^2+3x+1$$",
-                    options: [ "$\\left(2x+1\\right)\\left(x+1\\right)$", "$\\left(2x-1\\right)\\left(x-1\\right)$", "$\\left(2x+1\\right)\\left(x-1\\right)$", "$\\left(2x-1\\right)\\left(x+1\\right)$" ],
-                    answer: "$\\left(2x+1\\right)\\left(x+1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $2$ は $1, 2$。積が $1$ は $1, 1$。和が $3$ になるのは $2 \\times 1 + 1 \\times 1 = 3$。<br>よって $\\left(2x+1\\right)\\left(x+1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{5}$$",
+                    options: [ "$\\dfrac{5}{9}$", "$\\dfrac{5}{10}$", "$\\dfrac{5}{99}$", "$\\dfrac{1}{2}$" ],
+                    answer: "$\\dfrac{5}{9}$",
+                    rationale: "$x = 0.\\dot{5}$ とおくと、$10x = 5.\\dot{5}$ です。<br>$10x - x = 5$ より $9x = 5$。<br>よって $x = \\dfrac{5}{9}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 2
                 {
-                    question: "次の式を因数分解せよ。<br>$$3x^2+5x+2$$",
-                    options: [ "$\\left(3x+2\\right)\\left(x+1\\right)$", "$\\left(3x-2\\right)\\left(x-1\\right)$", "$\\left(3x+1\\right)\\left(x+2\\right)$", "$\\left(3x-1\\right)\\left(x-2\\right)$" ],
-                    answer: "$\\left(3x+2\\right)\\left(x+1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $3$ は $1, 3$。積が $2$ は $1, 2$。和が $5$ になるのは $3 \\times 1 + 1 \\times 2 = 5$。<br>よって $\\left(3x+2\\right)\\left(x+1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{2}$$",
+                    options: [ "$\\dfrac{2}{9}$", "$\\dfrac{2}{10}$", "$\\dfrac{1}{5}$", "$\\dfrac{2}{99}$" ],
+                    answer: "$\\dfrac{2}{9}$",
+                    rationale: "$x = 0.\\dot{2}$ とおくと、$10x = 2.\\dot{2}$ です。<br>$10x - x = 2$ より $9x = 2$。<br>よって $x = \\dfrac{2}{9}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 3
                 {
-                    question: "次の式を因数分解せよ。<br>$$2x^2-3x+1$$",
-                    options: [ "$\\left(2x-1\\right)\\left(x-1\\right)$", "$\\left(2x+1\\right)\\left(x+1\\right)$", "$\\left(2x-1\\right)\\left(x+1\\right)$", "$\\left(2x+1\\right)\\left(x-1\\right)$" ],
-                    answer: "$\\left(2x-1\\right)\\left(x-1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $2$ は $1, 2$。積が $1$ は $-1, -1$。和が $-3$ になるのは $2 \\times (-1) + 1 \\times (-1) = -3$。<br>よって $\\left(2x-1\\right)\\left(x-1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{7}$$",
+                    options: [ "$\\dfrac{7}{9}$", "$\\dfrac{7}{10}$", "$\\dfrac{7}{99}$", "$\\dfrac{7}{90}$" ],
+                    answer: "$\\dfrac{7}{9}$",
+                    rationale: "$x = 0.\\dot{7}$ とおくと、$10x = 7.\\dot{7}$ です。<br>$10x - x = 7$ より $9x = 7$。<br>よって $x = \\dfrac{7}{9}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 4
                 {
-                    question: "次の式を因数分解せよ。<br>$$3x^2-5x+2$$",
-                    options: [ "$\\left(3x-2\\right)\\left(x-1\\right)$", "$\\left(3x+2\\right)\\left(x+1\\right)$", "$\\left(3x-1\\right)\\left(x-2\\right)$", "$\\left(3x+1\\right)\\left(x+2\\right)$" ],
-                    answer: "$\\left(3x-2\\right)\\left(x-1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $3$ は $1, 3$。積が $2$ は $-1, -2$。和が $-5$ になるのは $3 \\times (-1) + 1 \\times (-2) = -5$。<br>よって $\\left(3x-2\\right)\\left(x-1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{6}$$",
+                    options: [ "$\\dfrac{2}{3}$", "$\\dfrac{6}{10}$", "$\\dfrac{6}{99}$", "$\\dfrac{3}{5}$" ],
+                    answer: "$\\dfrac{2}{3}$",
+                    rationale: "$x = 0.\\dot{6} = \\dfrac{6}{9} = \\dfrac{2}{3}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 5
                 {
-                    question: "次の式を因数分解せよ。<br>$$2x^2+5x-3$$",
-                    options: [ "$\\left(2x-1\\right)\\left(x+3\\right)$", "$\\left(2x+1\\right)\\left(x-3\\right)$", "$\\left(2x-3\\right)\\left(x+1\\right)$", "$\\left(2x+3\\right)\\left(x-1\\right)$" ],
-                    answer: "$\\left(2x-1\\right)\\left(x+3\\right)$",
-                    rationale: "たすき掛けを考えます。積が $2$ は $1, 2$。積が $-3$ は $-1, 3$。和が $5$ になるのは $2 \\times 3 + 1 \\times (-1) = 5$。<br>よって $\\left(2x-1\\right)\\left(x+3\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{8}$$",
+                    options: [ "$\\dfrac{8}{9}$", "$\\dfrac{4}{5}$", "$\\dfrac{8}{99}$", "$\\dfrac{8}{90}$" ],
+                    answer: "$\\dfrac{8}{9}$",
+                    rationale: "$x = 0.\\dot{8} = \\dfrac{8}{9}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 6
                 {
-                    question: "次の式を因数分解せよ。<br>$$2x^2-5x-3$$",
-                    options: [ "$\\left(2x+1\\right)\\left(x-3\\right)$", "$\\left(2x-1\\right)\\left(x+3\\right)$", "$\\left(2x+3\\right)\\left(x-1\\right)$", "$\\left(2x-3\\right)\\left(x+1\\right)$" ],
-                    answer: "$\\left(2x+1\\right)\\left(x-3\\right)$",
-                    rationale: "たすき掛けを考えます。積が $2$ は $1, 2$。積が $-3$ は $1, -3$。和が $-5$ になるのは $2 \\times (-3) + 1 \\times 1 = -5$。<br>よって $\\left(2x+1\\right)\\left(x-3\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{3}$$",
+                    options: [ "$\\dfrac{1}{3}$", "$\\dfrac{3}{10}$", "$\\dfrac{3}{99}$", "$\\dfrac{1}{30}$" ],
+                    answer: "$\\dfrac{1}{3}$",
+                    rationale: "$x = 0.\\dot{3} = \\dfrac{3}{9} = \\dfrac{1}{3}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- パターン2: 0.ab (繰り返し2桁) ---
                 // 問題 7
                 {
-                    question: "次の式を因数分解せよ。<br>$$3x^2+x-2$$",
-                    options: [ "$\\left(3x-2\\right)\\left(x+1\\right)$", "$\\left(3x+2\\right)\\left(x-1\\right)$", "$\\left(3x-1\\right)\\left(x+2\\right)$", "$\\left(3x+1\\right)\\left(x-2\\right)$" ],
-                    answer: "$\\left(3x-2\\right)\\left(x+1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $3$ は $1, 3$。積が $-2$ は $-2, 1$。和が $1$ になるのは $3 \\times 1 + 1 \\times (-2) = 1$。<br>よって $\\left(3x-2\\right)\\left(x+1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{1}\\dot{5}$$",
+                    options: [ "$\\dfrac{5}{33}$", "$\\dfrac{15}{100}$", "$\\dfrac{15}{90}$", "$\\dfrac{1}{6}$" ],
+                    answer: "$\\dfrac{5}{33}$",
+                    rationale: "$x = 0.\\dot{1}\\dot{5}$ とおくと、$100x = 15.\\dot{1}\\dot{5}$ です。<br>$100x - x = 15$ より $99x = 15$。<br>$x = \\dfrac{15}{99} = \\dfrac{5}{33}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 8
                 {
-                    question: "次の式を因数分解せよ。<br>$$3x^2-x-2$$",
-                    options: [ "$\\left(3x+2\\right)\\left(x-1\\right)$", "$\\left(3x-2\\right)\\left(x+1\\right)$", "$\\left(3x+1\\right)\\left(x-2\\right)$", "$\\left(3x-1\\right)\\left(x+2\\right)$" ],
-                    answer: "$\\left(3x+2\\right)\\left(x-1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $3$ は $1, 3$。積が $-2$ は $2, -1$。和が $-1$ になるのは $3 \\times (-1) + 1 \\times 2 = -1$。<br>よって $\\left(3x+2\\right)\\left(x-1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{2}\\dot{7}$$",
+                    options: [ "$\\dfrac{3}{11}$", "$\\dfrac{27}{100}$", "$\\dfrac{27}{90}$", "$\\dfrac{3}{10}$" ],
+                    answer: "$\\dfrac{3}{11}$",
+                    rationale: "$x = 0.\\dot{2}\\dot{7} = \\dfrac{27}{99} = \\dfrac{3}{11}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 9
                 {
-                    question: "次の式を因数分解せよ。<br>$$6x^2+5x+1$$",
-                    options: [ "$\\left(2x+1\\right)\\left(3x+1\\right)$", "$\\left(2x-1\\right)\\left(3x-1\\right)$", "$\\left(6x+1\\right)\\left(x+1\\right)$", "$\\left(6x-1\\right)\\left(x-1\\right)$" ],
-                    answer: "$\\left(2x+1\\right)\\left(3x+1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $6$ は $2, 3$。積が $1$ は $1, 1$。和が $5$ になるのは $2 \\times 1 + 3 \\times 1 = 5$。<br>よって $\\left(2x+1\\right)\\left(3x+1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{4}\\dot{5}$$",
+                    options: [ "$\\dfrac{5}{11}$", "$\\dfrac{45}{100}$", "$\\dfrac{9}{20}$", "$\\dfrac{45}{90}$" ],
+                    answer: "$\\dfrac{5}{11}$",
+                    rationale: "$x = 0.\\dot{4}\\dot{5} = \\dfrac{45}{99} = \\dfrac{5}{11}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 10
                 {
-                    question: "次の式を因数分解せよ。<br>$$6x^2-5x+1$$",
-                    options: [ "$\\left(2x-1\\right)\\left(3x-1\\right)$", "$\\left(2x+1\\right)\\left(3x+1\\right)$", "$\\left(6x-1\\right)\\left(x-1\\right)$", "$\\left(6x+1\\right)\\left(x+1\\right)$" ],
-                    answer: "$\\left(2x-1\\right)\\left(3x-1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $6$ は $2, 3$。積が $1$ は $-1, -1$。和が $-5$ になるのは $2 \\times (-1) + 3 \\times (-1) = -5$。<br>よって $\\left(2x-1\\right)\\left(3x-1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{6}\\dot{3}$$",
+                    options: [ "$\\dfrac{7}{11}$", "$\\dfrac{63}{100}$", "$\\dfrac{63}{90}$", "$\\dfrac{7}{10}$" ],
+                    answer: "$\\dfrac{7}{11}$",
+                    rationale: "$x = 0.\\dot{6}\\dot{3} = \\dfrac{63}{99} = \\dfrac{7}{11}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 11
                 {
-                    question: "次の式を因数分解せよ。<br>$$6x^2+x-1$$",
-                    options: [ "$\\left(2x+1\\right)\\left(3x-1\\right)$", "$\\left(2x-1\\right)\\left(3x+1\\right)$", "$\\left(6x+1\\right)\\left(x-1\\right)$", "$\\left(6x-1\\right)\\left(x+1\\right)$" ],
-                    answer: "$\\left(2x+1\\right)\\left(3x-1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $6$ は $2, 3$。積が $-1$ は $1, -1$。和が $1$ になるのは $2 \\times (-1) + 3 \\times 1 = 1$。<br>よって $\\left(2x+1\\right)\\left(3x-1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{1}\\dot{2}$$",
+                    options: [ "$\\dfrac{4}{33}$", "$\\dfrac{12}{100}$", "$\\dfrac{3}{25}$", "$\\dfrac{12}{90}$" ],
+                    answer: "$\\dfrac{4}{33}$",
+                    rationale: "$x = 0.\\dot{1}\\dot{2} = \\dfrac{12}{99} = \\dfrac{4}{33}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 12
                 {
-                    question: "次の式を因数分解せよ。<br>$$6x^2-x-1$$",
-                    options: [ "$\\left(2x-1\\right)\\left(3x+1\\right)$", "$\\left(2x+1\\right)\\left(3x-1\\right)$", "$\\left(6x-1\\right)\\left(x+1\\right)$", "$\\left(6x+1\\right)\\left(x-1\\right)$" ],
-                    answer: "$\\left(2x-1\\right)\\left(3x+1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $6$ は $2, 3$。積が $-1$ は $-1, 1$。和が $-1$ になるのは $2 \\times 1 + 3 \\times (-1) = -1$。<br>よって $\\left(2x-1\\right)\\left(3x+1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{0}\\dot{9}$$",
+                    options: [ "$\\dfrac{1}{11}$", "$\\dfrac{9}{100}$", "$\\dfrac{9}{90}$", "$\\dfrac{1}{10}$" ],
+                    answer: "$\\dfrac{1}{11}$",
+                    rationale: "$x = 0.\\dot{0}\\dot{9} = \\dfrac{9}{99} = \\dfrac{1}{11}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 13
                 {
-                    question: "次の式を因数分解せよ。<br>$$5x^2+13x-6$$",
-                    options: [ "$\\left(5x-2\\right)\\left(x+3\\right)$", "$\\left(5x+2\\right)\\left(x-3\\right)$", "$\\left(5x-3\\right)\\left(x+2\\right)$", "$\\left(5x+3\\right)\\left(x-2\\right)$" ],
-                    answer: "$\\left(5x-2\\right)\\left(x+3\\right)$",
-                    rationale: "たすき掛けを考えます。積が $5$ は $1, 5$。積が $-6$ は $-2, 3$。和が $13$ になるのは $5 \\times 3 + 1 \\times (-2) = 13$。<br>よって $\\left(5x-2\\right)\\left(x+3\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{3}\\dot{6}$$",
+                    options: [ "$\\dfrac{4}{11}$", "$\\dfrac{36}{100}$", "$\\dfrac{9}{25}$", "$\\dfrac{36}{90}$" ],
+                    answer: "$\\dfrac{4}{11}$",
+                    rationale: "$x = 0.\\dot{3}\\dot{6} = \\dfrac{36}{99} = \\dfrac{4}{11}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- パターン3: 0.abc (繰り返し3桁) ---
                 // 問題 14
                 {
-                    question: "次の式を因数分解せよ。<br>$$4x^2-8x+3$$",
-                    options: [ "$\\left(2x-1\\right)\\left(2x-3\\right)$", "$\\left(2x+1\\right)\\left(2x+3\\right)$", "$\\left(4x-1\\right)\\left(x-3\\right)$", "$\\left(4x-3\\right)\\left(x-1\\right)$" ],
-                    answer: "$\\left(2x-1\\right)\\left(2x-3\\right)$",
-                    rationale: "たすき掛けを考えます。積が $4$ は $2, 2$。積が $3$ は $-1, -3$。和が $-8$ になるのは $2 \\times (-3) + 2 \\times (-1) = -8$。<br>よって $\\left(2x-1\\right)\\left(2x-3\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{1}\\dot{0}\\dot{1}$$",
+                    options: [ "$\\dfrac{101}{999}$", "$\\dfrac{101}{1000}$", "$\\dfrac{101}{990}$", "$\\dfrac{1}{10}$" ],
+                    answer: "$\\dfrac{101}{999}$",
+                    rationale: "$x = 0.\\dot{1}\\dot{0}\\dot{1}$ とおくと、$1000x = 101.\\dot{1}\\dot{0}\\dot{1}$ です。<br>$1000x - x = 101$ より $999x = 101$。<br>$x = \\dfrac{101}{999}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 15
                 {
-                    question: "次の式を因数分解せよ。<br>$$2x^2-xy-y^2$$",
-                    options: [ "$\\left(2x+y\\right)\\left(x-y\\right)$", "$\\left(2x-y\\right)\\left(x+y\\right)$", "$\\left(2x-y\\right)\\left(x-y\\right)$", "$\\left(2x+y\\right)\\left(x+y\\right)$" ],
-                    answer: "$\\left(2x+y\\right)\\left(x-y\\right)$",
-                    rationale: "たすき掛けを考えます。$x$ について $2x^2-yx-y^2$。積が $2$ は $1, 2$。積が $-y^2$ は $y, -y$。和が $-y$ になるのは $2 \\times (-y) + 1 \\times y = -y$。<br>よって $\\left(2x+y\\right)\\left(x-y\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{1}\\dot{2}\\dot{3}$$",
+                    options: [ "$\\dfrac{41}{333}$", "$\\dfrac{123}{1000}$", "$\\dfrac{123}{990}$", "$\\dfrac{41}{330}$" ],
+                    answer: "$\\dfrac{41}{333}$",
+                    rationale: "$x = 0.\\dot{1}\\dot{2}\\dot{3} = \\dfrac{123}{999} = \\dfrac{41}{333}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 16
                 {
-                    question: "次の式を因数分解せよ。<br>$$3a^2+5ab-2b^2$$",
-                    options: [ "$\\left(3a-b\\right)\\left(a+2b\\right)$", "$\\left(3a+b\\right)\\left(a-2b\\right)$", "$\\left(3a-2b\\right)\\left(a+b\\right)$", "$\\left(3a+2b\\right)\\left(a-b\\right)$" ],
-                    answer: "$\\left(3a-b\\right)\\left(a+2b\\right)$",
-                    rationale: "たすき掛けを考えます。$a$ について $3a^2+5ba-2b^2$。積が $3$ は $1, 3$。積が $-2b^2$ は $-b, 2b$。和が $5b$ になるのは $3 \\times (2b) + 1 \\times (-b) = 5b$。<br>よって $\\left(3a-b\\right)\\left(a+2b\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{0}\\dot{3}\\dot{7}$$",
+                    options: [ "$\\dfrac{1}{27}$", "$\\dfrac{37}{1000}$", "$\\dfrac{37}{990}$", "$\\dfrac{1}{37}$" ],
+                    answer: "$\\dfrac{1}{27}$",
+                    rationale: "$x = 0.\\dot{0}\\dot{3}\\dot{7} = \\dfrac{37}{999} = \\dfrac{1}{27}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 17
                 {
-                    question: "次の式を因数分解せよ。<br>$$2x^2+7x+3$$",
-                    options: [ "$\\left(2x+1\\right)\\left(x+3\\right)$", "$\\left(2x-1\\right)\\left(x-3\\right)$", "$\\left(2x+3\\right)\\left(x+1\\right)$", "$\\left(2x-3\\right)\\left(x-1\\right)$" ],
-                    answer: "$\\left(2x+1\\right)\\left(x+3\\right)$",
-                    rationale: "たすき掛けを考えます。積が $2$ は $1, 2$。積が $3$ は $1, 3$。和が $7$ になるのは $2 \\times 3 + 1 \\times 1 = 7$。<br>よって $\\left(2x+1\\right)\\left(x+3\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{0}\\dot{0}\\dot{9}$$",
+                    options: [ "$\\dfrac{1}{111}$", "$\\dfrac{9}{1000}$", "$\\dfrac{1}{100}$", "$\\dfrac{9}{990}$" ],
+                    answer: "$\\dfrac{1}{111}$",
+                    rationale: "$x = 0.\\dot{0}\\dot{0}\\dot{9} = \\dfrac{9}{999} = \\dfrac{1}{111}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 18
                 {
-                    question: "次の式を因数分解せよ。<br>$$3x^2-14x+8$$",
-                    options: [ "$\\left(3x-2\\right)\\left(x-4\\right)$", "$\\left(3x+2\\right)\\left(x+4\\right)$", "$\\left(3x-4\\right)\\left(x-2\\right)$", "$\\left(3x-1\\right)\\left(x-8\\right)$" ],
-                    answer: "$\\left(3x-2\\right)\\left(x-4\\right)$",
-                    rationale: "たすき掛けを考えます。積が $3$ は $1, 3$。積が $8$ は $-2, -4$。和が $-14$ になるのは $3 \\times (-4) + 1 \\times (-2) = -14$。<br>よって $\\left(3x-2\\right)\\left(x-4\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{3}\\dot{0}\\dot{3}$$",
+                    options: [ "$\\dfrac{101}{333}$", "$\\dfrac{303}{1000}$", "$\\dfrac{303}{990}$", "$\\dfrac{101}{330}$" ],
+                    answer: "$\\dfrac{101}{333}$",
+                    rationale: "$x = 0.\\dot{3}\\dot{0}\\dot{3} = \\dfrac{303}{999} = \\dfrac{101}{333}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- パターン4: 0.ab... (繰り返しが途中から) ---
                 // 問題 19
                 {
-                    question: "次の式を因数分解せよ。<br>$$6x^2+7x-3$$",
-                    options: [ "$\\left(2x+3\\right)\\left(3x-1\\right)$", "$\\left(2x-3\\right)\\left(3x+1\\right)$", "$\\left(6x+1\\right)\\left(x-3\\right)$", "$\\left(6x-3\\right)\\left(x+1\\right)$" ],
-                    answer: "$\\left(2x+3\\right)\\left(3x-1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $6$ は $2, 3$。積が $-3$ は $3, -1$。和が $7$ になるのは $2 \\times (-1) + 3 \\times 3 = 7$。<br>よって $\\left(2x+3\\right)\\left(3x-1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.1\\dot{2}$$",
+                    options: [ "$\\dfrac{11}{90}$", "$\\dfrac{12}{99}$", "$\\dfrac{12}{100}$", "$\\dfrac{11}{99}$" ],
+                    answer: "$\\dfrac{11}{90}$",
+                    rationale: "$x = 0.1\\dot{2}$ とおくと、$10x = 1.\\dot{2}$、$100x = 12.\\dot{2}$ です。<br>$100x - 10x = 11$ より $90x = 11$。<br>$x = \\dfrac{11}{90}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 20
                 {
-                    question: "次の式を因数分解せよ。<br>$$4x^2-11x-3$$",
-                    options: [ "$\\left(4x+1\\right)\\left(x-3\\right)$", "$\\left(4x-1\\right)\\left(x+3\\right)$", "$\\left(2x+1\\right)\\left(2x-3\\right)$", "$\\left(4x-3\\right)\\left(x+1\\right)$" ],
-                    answer: "$\\left(4x+1\\right)\\left(x-3\\right)$",
-                    rationale: "たすき掛けを考えます。積が $4$ は $1, 4$。積が $-3$ は $1, -3$。和が $-11$ になるのは $4 \\times (-3) + 1 \\times 1 = -11$。<br>よって $\\left(4x+1\\right)\\left(x-3\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.4\\dot{3}$$",
+                    options: [ "$\\dfrac{39}{90}$", "$\\dfrac{43}{99}$", "$\\dfrac{43}{100}$", "$\\dfrac{39}{99}$" ],
+                    answer: "$\\dfrac{39}{90}$",
+                    rationale: "$x = 0.4\\dot{3}$ とおくと、$10x = 4.\\dot{3}$、$100x = 43.\\dot{3}$ です。<br>$100x - 10x = 39$ より $90x = 39$。<br>$x = \\dfrac{39}{90}$。($\\dfrac{13}{30}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 21
                 {
-                    question: "次の式を因数分解せよ。<br>$$5x^2+2x-3$$",
-                    options: [ "$\\left(5x-3\\right)\\left(x+1\\right)$", "$\\left(5x+3\\right)\\left(x-1\\right)$", "$\\left(5x-1\\right)\\left(x+3\\right)$", "$\\left(5x+1\\right)\\left(x-3\\right)$" ],
-                    answer: "$\\left(5x-3\\right)\\left(x+1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $5$ は $1, 5$。積が $-3$ は $-3, 1$。和が $2$ になるのは $5 \\times 1 + 1 \\times (-3) = 2$。<br>よって $\\left(5x-3\\right)\\left(x+1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.2\\dot{5}$$",
+                    options: [ "$\\dfrac{23}{90}$", "$\\dfrac{25}{99}$", "$\\dfrac{25}{100}$", "$\\dfrac{23}{99}$" ],
+                    answer: "$\\dfrac{23}{90}$",
+                    rationale: "$x = 0.2\\dot{5} = \\dfrac{25-2}{90} = \\dfrac{23}{90}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 22
                 {
-                    question: "次の式を因数分解せよ。<br>$$2x^2-xy-6y^2$$",
-                    options: [ "$\\left(2x+3y\\right)\\left(x-2y\\right)$", "$\\left(2x-3y\\right)\\left(x+2y\\right)$", "$\\left(2x-y\\right)\\left(x+6y\\right)$", "$\\left(2x+y\\right)\\left(x-6y\\right)$" ],
-                    answer: "$\\left(2x+3y\\right)\\left(x-2y\\right)$",
-                    rationale: "たすき掛けを考えます。$x$ について $2x^2-yx-6y^2$。積が $2$ は $1, 2$。積が $-6y^2$ は $3y, -2y$。和が $-y$ になるのは $2 \\times (-2y) + 1 \\times (3y) = -y$。<br>よって $\\left(2x+3y\\right)\\left(x-2y\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.1\\dot{6}$$",
+                    options: [ "$\\dfrac{1}{6}$", "$\\dfrac{16}{99}$", "$\\dfrac{16}{100}$", "$\\dfrac{15}{99}$" ],
+                    answer: "$\\dfrac{1}{6}$",
+                    rationale: "$x = 0.1\\dot{6} = \\dfrac{16-1}{90} = \\dfrac{15}{90} = \\dfrac{1}{6}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 23
                 {
-                    question: "次の式を因数分解せよ。<br>$$6a^2-5ab-4b^2$$",
-                    options: [ "$\\left(2a+b\\right)\\left(3a-4b\\right)$", "$\\left(2a-b\\right)\\left(3a+4b\\right)$", "$\\left(6a+1b\\right)\\left(a-4b\\right)$", "$\\left(6a-b\\right)\\left(a+4b\\right)$" ],
-                    answer: "$\\left(2a+b\\right)\\left(3a-4b\\right)$",
-                    rationale: "たすき掛けを考えます。$a$ について $6a^2-5ba-4b^2$。積が $6$ は $2, 3$。積が $-4b^2$ は $b, -4b$。和が $-5b$ になるのは $2 \\times (-4b) + 3 \\times b = -5b$。<br>よって $\\left(2a+b\\right)\\left(3a-4b\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.1\\dot{2}\\dot{3}$$",
+                    options: [ "$\\dfrac{122}{990}$", "$\\dfrac{123}{999}$", "$\\dfrac{123}{1000}$", "$\\dfrac{122}{900}$" ],
+                    answer: "$\\dfrac{122}{990}$",
+                    rationale: "$x = 0.1\\dot{2}\\dot{3}$ とおくと、$10x = 1.\\dot{2}\\dot{3}$、$1000x = 123.\\dot{2}\\dot{3}$ です。<br>$1000x - 10x = 122$ より $990x = 122$。<br>$x = \\dfrac{122}{990}$。($\\dfrac{61}{495}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 24
                 {
-                    question: "次の式を因数分解せよ。<br>$$5x^2+7xy-6y^2$$",
-                    options: [ "$\\left(5x-3y\\right)\\left(x+2y\\right)$", "$\\left(5x+3y\\right)\\left(x-2y\\right)$", "$\\left(5x-2y\\right)\\left(x+3y\\right)$", "$\\left(5x+2y\\right)\\left(x-3y\\right)$" ],
-                    answer: "$\\left(5x-3y\\right)\\left(x+2y\\right)$",
-                    rationale: "たすき掛けを考えます。$x$ について $5x^2+7yx-6y^2$。積が $5$ は $1, 5$。積が $-6y^2$ は $-3y, 2y$。和が $7y$ になるのは $5 \\times (2y) + 1 \\times (-3y) = 7y$。<br>よって $\\left(5x-3y\\right)\\left(x+2y\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.4\\dot{5}\\dot{6}$$",
+                    options: [ "$\\dfrac{452}{990}$", "$\\dfrac{456}{999}$", "$\\dfrac{456}{1000}$", "$\\dfrac{452}{900}$" ],
+                    answer: "$\\dfrac{452}{990}$",
+                    rationale: "$x = 0.4\\dot{5}\\dot{6} = \\dfrac{456-4}{990} = \\dfrac{452}{990}$。($\\dfrac{226}{495}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 25
                 {
-                    question: "次の式を因数分解せよ。<br>$$12x^2+11xy+2y^2$$",
-                    options: [ "$\\left(4x+y\\right)\\left(3x+2y\\right)$", "$\\left(4x-y\\right)\\left(3x-2y\\right)$", "$\\left(2x+y\\right)\\left(6x+2y\\right)$", "$\\left(12x+y\\right)\\left(x+2y\\right)$" ],
-                    answer: "$\\left(4x+y\\right)\\left(3x+2y\\right)$",
-                    rationale: "たすき掛けを考えます。$x$ について $12x^2+11yx+2y^2$。積が $12$ は $3, 4$。積が $2y^2$ は $y, 2y$。和が $11y$ になるのは $4 \\times (2y) + 3 \\times y = 11y$。<br>よって $\\left(4x+y\\right)\\left(3x+2y\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.3\\dot{1}\\dot{8}$$",
+                    options: [ "$\\dfrac{7}{22}$", "$\\dfrac{318}{999}$", "$\\dfrac{318}{1000}$", "$\\dfrac{315}{900}$" ],
+                    answer: "$\\dfrac{7}{22}$",
+                    rationale: "$x = 0.3\\dot{1}\\dot{8} = \\dfrac{318-3}{990} = \\dfrac{315}{990} = \\dfrac{7}{22}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 26
                 {
-                    question: "次の式を因数分解せよ。<br>$$4x^2+8x+3$$",
-                    options: [ "$\\left(2x+1\\right)\\left(2x+3\\right)$", "$\\left(2x-1\\right)\\left(2x-3\\right)$", "$\\left(4x+1\\right)\\left(x+3\\right)$", "$\\left(4x+3\\right)\\left(x+1\\right)$" ],
-                    answer: "$\\left(2x+1\\right)\\left(2x+3\\right)$",
-                    rationale: "たすき掛けを考えます。積が $4$ は $2, 2$。積が $3$ は $1, 3$。和が $8$ になるのは $2 \\times 3 + 2 \\times 1 = 8$。<br>よって $\\left(2x+1\\right)\\left(2x+3\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.12\\dot{3}$$",
+                    options: [ "$\\dfrac{111}{900}$", "$\\dfrac{123}{999}$", "$\\dfrac{123}{990}$", "$\\dfrac{122}{900}$" ],
+                    answer: "$\\dfrac{111}{900}$",
+                    rationale: "$x = 0.12\\dot{3} = \\dfrac{123-12}{900} = \\dfrac{111}{900}$。($\\dfrac{37}{300}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 27
                 {
-                    question: "次の式を因数分解せよ。<br>$$3a^2-10a+8$$",
-                    options: [ "$\\left(3a-4\\right)\\left(a-2\\right)$", "$\\left(3a+4\\right)\\left(a+2\\right)$", "$\\left(3a-2\\right)\\left(a-4\\right)$", "$\\left(3a-8\\right)\\left(a-1\\right)$" ],
-                    answer: "$\\left(3a-4\\right)\\left(a-2\\right)$",
-                    rationale: "たすき掛けを考えます。積が $3$ は $1, 3$。積が $8$ は $-2, -4$。和が $-10$ になるのは $3 \\times (-2) + 1 \\times (-4) = -10$。<br>よって $\\left(3a-4\\right)\\left(a-2\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.0\\dot{4}\\dot{5}$$",
+                    options: [ "$\\dfrac{45}{990}$", "$\\dfrac{45}{999}$", "$\\dfrac{45}{1000}$", "$\\dfrac{45}{900}$" ],
+                    answer: "$\\dfrac{45}{990}$",
+                    rationale: "$x = 0.0\\dot{4}\\dot{5} = \\dfrac{45-0}{990} = \\dfrac{45}{990}$。($\\dfrac{1}{22}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- パターン5: 整数部分あり ---
                 // 問題 28
                 {
-                    question: "次の式を因数分解せよ。<br>$$5x^2-12x+4$$",
-                    options: [ "$\\left(5x-2\\right)\\left(x-2\\right)$", "$\\left(5x+2\\right)\\left(x+2\\right)$", "$\\left(5x-4\\right)\\left(x-1\\right)$", "$\\left(5x-1\\right)\\left(x-4\\right)$" ],
-                    answer: "$\\left(5x-2\\right)\\left(x-2\\right)$",
-                    rationale: "たすき掛けを考えます。積が $5$ は $1, 5$。積が $4$ は $-2, -2$。和が $-12$ になるのは $5 \\times (-2) + 1 \\times (-2) = -12$。<br>よって $\\left(5x-2\\right)\\left(x-2\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$1.\\dot{2}$$",
+                    options: [ "$\\dfrac{11}{9}$", "$\\dfrac{12}{9}$", "$\\dfrac{12}{10}$", "$\\dfrac{11}{90}$" ],
+                    answer: "$\\dfrac{11}{9}$",
+                    rationale: "$x = 1.\\dot{2} = 1 + 0.\\dot{2} = 1 + \\dfrac{2}{9} = \\dfrac{9}{9} + \\dfrac{2}{9} = \\dfrac{11}{9}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 29
                 {
-                    question: "次の式を因数分解せよ。<br>$$2y^2+y-1$$",
-                    options: [ "$\\left(2y-1\\right)\\left(y+1\\right)$", "$\\left(2y+1\\right)\\left(y-1\\right)$", "$\\left(2y+1\\right)\\left(y+1\\right)$", "$\\left(2y-1\\right)\\left(y-1\\right)$" ],
-                    answer: "$\\left(2y-1\\right)\\left(y+1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $2$ は $1, 2$。積が $-1$ は $-1, 1$。和が $1$ になるのは $2 \\times 1 + 1 \\times (-1) = 1$。<br>よって $\\left(2y-1\\right)\\left(y+1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$2.\\dot{5}$$",
+                    options: [ "$\\dfrac{23}{9}$", "$\\dfrac{25}{9}$", "$\\dfrac{25}{10}$", "$\\dfrac{23}{90}$" ],
+                    answer: "$\\dfrac{23}{9}$",
+                    rationale: "$x = 2.\\dot{5} = 2 + 0.\\dot{5} = 2 + \\dfrac{5}{9} = \\dfrac{18}{9} + \\dfrac{5}{9} = \\dfrac{23}{9}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 30
                 {
-                    question: "次の式を因数分解せよ。<br>$$4x^2-3x-1$$",
-                    options: [ "$\\left(4x+1\\right)\\left(x-1\\right)$", "$\\left(4x-1\\right)\\left(x+1\\right)$", "$\\left(2x-1\\right)\\left(2x+1\\right)$", "$\\left(4x-1\\right)\\left(x-1\\right)$" ],
-                    answer: "$\\left(4x+1\\right)\\left(x-1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $4$ は $1, 4$。積が $-1$ は $1, -1$。和が $-3$ になるのは $4 \\times (-1) + 1 \\times 1 = -3$。<br>よって $\\left(4x+1\\right)\\left(x-1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$3.\\dot{1}\\dot{4}$$",
+                    options: [ "$\\dfrac{311}{99}$", "$\\dfrac{314}{99}$", "$\\dfrac{314}{100}$", "$\\dfrac{311}{90}$" ],
+                    answer: "$\\dfrac{311}{99}$",
+                    rationale: "$x = 3.\\dot{1}\\dot{4} = 3 + 0.\\dot{1}\\dot{4} = 3 + \\dfrac{14}{99} = \\dfrac{297}{99} + \\dfrac{14}{99} = \\dfrac{311}{99}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 31
                 {
-                    question: "次の式を因数分解せよ。<br>$$8a^2-2a-3$$",
-                    options: [ "$\\left(4a-3\\right)\\left(2a+1\\right)$", "$\\left(4a+3\\right)\\left(2a-1\\right)$", "$\\left(8a-3\\right)\\left(a+1\\right)$", "$\\left(8a+1\\right)\\left(a-3\\right)$" ],
-                    answer: "$\\left(4a-3\\right)\\left(2a+1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $8$ は $2, 4$。積が $-3$ は $-3, 1$。和が $-2$ になるのは $4 \\times 1 + 2 \\times (-3) = -2$。<br>よって $\\left(4a-3\\right)\\left(2a+1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$1.\\dot{2}\\dot{5}$$",
+                    options: [ "$\\dfrac{124}{99}$", "$\\dfrac{125}{99}$", "$\\dfrac{125}{100}$", "$\\dfrac{124}{90}$" ],
+                    answer: "$\\dfrac{124}{99}$",
+                    rationale: "$x = 1.\\dot{2}\\dot{5} = 1 + 0.\\dot{2}\\dot{5} = 1 + \\dfrac{25}{99} = \\dfrac{99}{99} + \\dfrac{25}{99} = \\dfrac{124}{99}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 32
                 {
-                    question: "次の式を因数分解せよ。<br>$$6x^2+11x-10$$",
-                    options: [ "$\\left(2x+5\\right)\\left(3x-2\\right)$", "$\\left(2x-5\\right)\\left(3x+2\\right)$", "$\\left(6x+5\\right)\\left(x-2\\right)$", "$\\left(6x-5\\right)\\left(x+2\\right)$" ],
-                    answer: "$\\left(2x+5\\right)\\left(3x-2\\right)$",
-                    rationale: "たすき掛けを考えます。積が $6$ は $2, 3$。積が $-10$ は $5, -2$。和が $11$ になるのは $2 \\times (-2) + 3 \\times 5 = 11$。<br>よって $\\left(2x+5\\right)\\left(3x-2\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$1.2\\dot{3}$$",
+                    options: [ "$\\dfrac{111}{90}$", "$\\dfrac{122}{90}$", "$\\dfrac{123}{99}$", "$\\dfrac{123}{100}$" ],
+                    answer: "$\\dfrac{111}{90}$",
+                    rationale: "$x = 1.2\\dot{3} = 1 + 0.2\\dot{3} = 1 + \\dfrac{23-2}{90} = 1 + \\dfrac{21}{90} = \\dfrac{90}{90} + \\dfrac{21}{90} = \\dfrac{111}{90}$。($\\dfrac{37}{30}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 33
                 {
-                    question: "次の式を因数分解せよ。<br>$$4y^2+y-3$$",
-                    options: [ "$\\left(4y-3\\right)\\left(y+1\\right)$", "$\\left(4y+3\\right)\\left(y-1\\right)$", "$\\left(2y-3\\right)\\left(2y+1\\right)$", "$\\left(4y-1\\right)\\left(y+3\\right)$" ],
-                    answer: "$\\left(4y-3\\right)\\left(y+1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $4$ は $1, 4$。積が $-3$ は $-3, 1$。和が $1$ になるのは $4 \\times 1 + 1 \\times (-3) = 1$。<br>よって $\\left(4y-3\\right)\\left(y+1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$2.0\\dot{1}$$",
+                    options: [ "$\\dfrac{181}{90}$", "$\\dfrac{201}{99}$", "$\\dfrac{201}{100}$", "$\\dfrac{199}{90}$" ],
+                    answer: "$\\dfrac{181}{90}$",
+                    rationale: "$x = 2.0\\dot{1} = 2 + 0.0\\dot{1} = 2 + \\dfrac{1-0}{90} = 2 + \\dfrac{1}{90} = \\dfrac{180}{90} + \\dfrac{1}{90} = \\dfrac{181}{90}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- 組み合わせ (50まで) ---
                 // 問題 34
                 {
-                    question: "次の式を因数分解せよ。<br>$$10a^2-11a-6$$",
-                    options: [ "$\\left(2a-3\\right)\\left(5a+2\\right)$", "$\\left(2a+3\\right)\\left(5a-2\\right)$", "$\\left(10a+1\\right)\\left(a-6\\right)$", "$\\left(10a-3\\right)\\left(a+2\\right)$" ],
-                    answer: "$\\left(2a-3\\right)\\left(5a+2\\right)$",
-                    rationale: "たすき掛けを考えます。積が $10$ は $2, 5$。積が $-6$ は $-3, 2$。和が $-11$ になるのは $2 \\times 2 + 5 \\times (-3) = -11$。<br>よって $\\left(2a-3\\right)\\left(5a+2\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{4}$$",
+                    options: [ "$\\dfrac{4}{9}$", "$\\dfrac{4}{10}$", "$\\dfrac{2}{5}$", "$\\dfrac{4}{99}$" ],
+                    answer: "$\\dfrac{4}{9}$",
+                    rationale: "$x = 0.\\dot{4} = \\dfrac{4}{9}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 35
                 {
-                    question: "次の式を因数分解せよ。<br>$$8x^2+14x+3$$",
-                    options: [ "$\\left(2x+3\\right)\\left(4x+1\\right)$", "$\\left(2x+1\\right)\\left(4x+3\\right)$", "$\\left(8x+1\\right)\\left(x+3\\right)$", "$\\left(8x+3\\right)\\left(x+1\\right)$" ],
-                    answer: "$\\left(2x+3\\right)\\left(4x+1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $8$ は $2, 4$。積が $3$ は $3, 1$。和が $14$ になるのは $2 \\times 1 + 4 \\times 3 = 14$。<br>よって $\\left(2x+3\\right)\\left(4x+1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{1}\\dot{8}$$",
+                    options: [ "$\\dfrac{2}{11}$", "$\\dfrac{18}{100}$", "$\\dfrac{18}{90}$", "$\\dfrac{9}{50}$" ],
+                    answer: "$\\dfrac{2}{11}$",
+                    rationale: "$x = 0.\\dot{1}\\dot{8} = \\dfrac{18}{99} = \\dfrac{2}{11}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 36
                 {
-                    question: "次の式を因数分解せよ。<br>$$12x^2-x-1$$",
-                    options: [ "$\\left(3x-1\\right)\\left(4x+1\\right)$", "$\\left(3x+1\\right)\\left(4x-1\\right)$", "$\\left(2x-1\\right)\\left(6x+1\\right)$", "$\\left(12x-1\\right)\\left(x+1\\right)$" ],
-                    answer: "$\\left(3x-1\\right)\\left(4x+1\\right)$",
-                    rationale: "たすき掛けを考えます。積が $12$ は $3, 4$。積が $-1$ は $-1, 1$。和が $-1$ になるのは $3 \\times 1 + 4 \\times (-1) = -1$。<br>よって $\\left(3x-1\\right)\\left(4x+1\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.3\\dot{2}$$",
+                    options: [ "$\\dfrac{29}{90}$", "$\\dfrac{32}{99}$", "$\\dfrac{32}{100}$", "$\\dfrac{29}{99}$" ],
+                    answer: "$\\dfrac{29}{90}$",
+                    rationale: "$x = 0.3\\dot{2} = \\dfrac{32-3}{90} = \\dfrac{29}{90}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 37
                 {
-                    question: "次の式を因数分解せよ。<br>$$3a^2-14ab+8b^2$$",
-                    options: [ "$\\left(3a-2b\\right)\\left(a-4b\\right)$", "$\\left(3a+2b\\right)\\left(a+4b\\right)$", "$\\left(3a-4b\\right)\\left(a-2b\\right)$", "$\\left(3a-8b\\right)\\left(a-b\\right)$" ],
-                    answer: "$\\left(3a-2b\\right)\\left(a-4b\\right)$",
-                    rationale: "たすき掛けを考えます。$a$ について $3a^2-14ba+8b^2$。積が $3$ は $1, 3$。積が $8b^2$ は $-2b, -4b$。和が $-14b$ になるのは $3 \\times (-4b) + 1 \\times (-2b) = -14b$。<br>よって $\\left(3a-2b\\right)\\left(a-4b\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$1.\\dot{7}$$",
+                    options: [ "$\\dfrac{16}{9}$", "$\\dfrac{17}{9}$", "$\\dfrac{17}{10}$", "$\\dfrac{16}{90}$" ],
+                    answer: "$\\dfrac{16}{9}$",
+                    rationale: "$x = 1.\\dot{7} = 1 + \\dfrac{7}{9} = \\dfrac{9}{9} + \\dfrac{7}{9} = \\dfrac{16}{9}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 38
                 {
-                    question: "次の式を因数分解せよ。<br>$$4x^2+16xy+15y^2$$",
-                    options: [ "$\\left(2x+3y\\right)\\left(2x+5y\\right)$", "$\\left(2x-3y\\right)\\left(2x-5y\\right)$", "$\\left(4x+3y\\right)\\left(x+5y\\right)$", "$\\left(4x+5y\\right)\\left(x+3y\\right)$" ],
-                    answer: "$\\left(2x+3y\\right)\\left(2x+5y\\right)$",
-                    rationale: "たすき掛けを考えます。$x$ について $4x^2+16yx+15y^2$。積が $4$ は $2, 2$。積が $15y^2$ は $3y, 5y$。和が $16y$ になるのは $2 \\times (5y) + 2 \\times (3y) = 16y$。<br>よって $\\left(2x+3y\\right)\\left(2x+5y\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{8}\\dot{1}$$",
+                    options: [ "$\\dfrac{9}{11}$", "$\\dfrac{81}{100}$", "$\\dfrac{81}{90}$", "$\\dfrac{8}{11}$" ],
+                    answer: "$\\dfrac{9}{11}$",
+                    rationale: "$x = 0.\\dot{8}\\dot{1} = \\dfrac{81}{99} = \\dfrac{9}{11}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 39
                 {
-                    question: "次の式を因数分解せよ。<br>$$5a^2-12ab+4b^2$$",
-                    options: [ "$\\left(5a-2b\\right)\\left(a-2b\\right)$", "$\\left(5a+2b\\right)\\left(a+2b\\right)$", "$\\left(5a-4b\\right)\\left(a-b\\right)$", "$\\left(5a-b\\right)\\left(a-4b\\right)$" ],
-                    answer: "$\\left(5a-2b\\right)\\left(a-2b\\right)$",
-                    rationale: "たすき掛けを考えます。$a$ について $5a^2-12ba+4b^2$。積が $5$ は $1, 5$。積が $4b^2$ は $-2b, -2b$。和が $-12b$ になるのは $5 \\times (-2b) + 1 \\times (-2b) = -12b$。<br>よって $\\left(5a-2b\\right)\\left(a-2b\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{2}\\dot{0}\\dot{1}$$",
+                    options: [ "$\\dfrac{67}{333}$", "$\\dfrac{201}{1000}$", "$\\dfrac{201}{990}$", "$\\dfrac{67}{330}$" ],
+                    answer: "$\\dfrac{67}{333}$",
+                    rationale: "$x = 0.\\dot{2}\\dot{0}\\dot{1} = \\dfrac{201}{999} = \\dfrac{67}{333}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 40
                 {
-                    question: "次の式を因数分解せよ。<br>$$2x^2+xy-y^2$$",
-                    options: [ "$\\left(2x-y\\right)\\left(x+y\\right)$", "$\\left(2x+y\\right)\\left(x-y\\right)$", "$\\left(2x-y\\right)\\left(x-y\\right)$", "$\\left(2x+y\\right)\\left(x+y\\right)$" ],
-                    answer: "$\\left(2x-y\\right)\\left(x+y\\right)$",
-                    rationale: "たすき掛けを考えます。$x$ について $2x^2+yx-y^2$。積が $2$ は $1, 2$。積が $-y^2$ は $-y, y$。和が $y$ になるのは $2 \\times y + 1 \\times (-y) = y$。<br>よって $\\left(2x-y\\right)\\left(x+y\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.5\\dot{4}$$",
+                    options: [ "$\\dfrac{49}{90}$", "$\\dfrac{54}{99}$", "$\\dfrac{54}{100}$", "$\\dfrac{49}{99}$" ],
+                    answer: "$\\dfrac{49}{90}$",
+                    rationale: "$x = 0.5\\dot{4} = \\dfrac{54-5}{90} = \\dfrac{49}{90}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 41
                 {
-                    question: "次の式を因数分解せよ。<br>$$3a^2-5ab-2b^2$$",
-                    options: [ "$\\left(3a+b\\right)\\left(a-2b\\right)$", "$\\left(3a-b\\right)\\left(a+2b\\right)$", "$\\left(3a+2b\\right)\\left(a-b\\right)$", "$\\left(3a-2b\\right)\\left(a+b\\right)$" ],
-                    answer: "$\\left(3a+b\\right)\\left(a-2b\\right)$",
-                    rationale: "たすき掛けを考えます。$a$ について $3a^2-5ba-2b^2$。積が $3$ は $1, 3$。積が $-2b^2$ は $b, -2b$。和が $-5b$ になるのは $3 \\times (-2b) + 1 \\times b = -5b$。<br>よって $\\left(3a+b\\right)\\left(a-2b\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.4\\dot{1}\\dot{2}$$",
+                    options: [ "$\\dfrac{408}{990}$", "$\\dfrac{412}{999}$", "$\\dfrac{412}{1000}$", "$\\dfrac{408}{900}$" ],
+                    answer: "$\\dfrac{408}{990}$",
+                    rationale: "$x = 0.4\\dot{1}\\dot{2} = \\dfrac{412-4}{990} = \\dfrac{408}{990}$。($\\dfrac{68}{165}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 42
                 {
-                    question: "次の式を因数分解せよ。<br>$$6x^2-xy-2y^2$$",
-                    options: [ "$\\left(2x+y\\right)\\left(3x-2y\\right)$", "$\\left(2x-y\\right)\\left(3x+2y\\right)$", "$\\left(6x+y\\right)\\left(x-2y\\right)$", "$\\left(6x-y\\right)\\left(x+2y\\right)$" ],
-                    answer: "$\\left(2x+y\\right)\\left(3x-2y\\right)$",
-                    rationale: "たすき掛けを考えます。$x$ について $6x^2-yx-2y^2$。積が $6$ は $2, 3$。積が $-2y^2$ は $y, -2y$。和が $-y$ になるのは $2 \\times (-2y) + 3 \\times y = -y$。<br>よって $\\left(2x+y\\right)\\left(3x-2y\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$3.\\dot{1}$$",
+                    options: [ "$\\dfrac{28}{9}$", "$\\dfrac{31}{9}$", "$\\dfrac{31}{10}$", "$\\dfrac{28}{90}$" ],
+                    answer: "$\\dfrac{28}{9}$",
+                    rationale: "$x = 3.\\dot{1} = 3 + 0.\\dot{1} = 3 + \\dfrac{1}{9} = \\dfrac{27}{9} + \\dfrac{1}{9} = \\dfrac{28}{9}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 43
                 {
-                    question: "次の式を因数分解せよ。<br>$$5x^2+13xy+6y^2$$",
-                    options: [ "$\\left(5x+3y\\right)\\left(x+2y\\right)$", "$\\left(5x-3y\\right)\\left(x-2y\\right)$", "$\\left(5x+2y\\right)\\left(x+3y\\right)$", "$\\left(5x+6y\\right)\\left(x+y\\right)$" ],
-                    answer: "$\\left(5x+3y\\right)\\left(x+2y\\right)$",
-                    rationale: "たすき掛けを考えます。$x$ について $5x^2+13yx+6y^2$。積が $5$ は $1, 5$。積が $6y^2$ は $3y, 2y$。和が $13y$ になるのは $5 \\times (2y) + 1 \\times (3y) = 13y$。<br>よって $\\left(5x+3y\\right)\\left(x+2y\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$1.\\dot{0}\\dot{9}$$",
+                    options: [ "$\\dfrac{108}{99}$", "$\\dfrac{109}{99}$", "$\\dfrac{109}{100}$", "$\\dfrac{108}{90}$" ],
+                    answer: "$\\dfrac{108}{99}$",
+                    rationale: "$x = 1.\\dot{0}\\dot{9} = 1 + 0.\\dot{0}\\dot{9} = 1 + \\dfrac{9}{99} = 1 + \\dfrac{1}{11} = \\dfrac{11}{11} + \\dfrac{1}{11} = \\dfrac{12}{11}$。($\\dfrac{108}{99}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 44
                 {
-                    question: "次の式を因数分解せよ。<br>$$4a^2-4ab-3b^2$$",
-                    options: [ "$\\left(2a+b\\right)\\left(2a-3b\\right)$", "$\\left(2a-b\\right)\\left(2a+3b\\right)$", "$\\left(4a-3b\\right)\\left(a+b\\right)$", "$\\left(4a+b\\right)\\left(a-3b\\right)$" ],
-                    answer: "$\\left(2a+b\\right)\\left(2a-3b\\right)$",
-                    rationale: "たすき掛けを考えます。$a$ について $4a^2-4ba-3b^2$。積が $4$ は $2, 2$。積が $-3b^2$ は $b, -3b$。和が $-4b$ になるのは $2 \\times (-3b) + 2 \\times b = -4b$。<br>よって $\\left(2a+b\\right)\\left(2a-3b\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.8\\dot{3}$$",
+                    options: [ "$\\dfrac{5}{6}$", "$\\dfrac{83}{99}$", "$\\dfrac{83}{100}$", "$\\dfrac{75}{99}$" ],
+                    answer: "$\\dfrac{5}{6}$",
+                    rationale: "$x = 0.8\\dot{3} = \\dfrac{83-8}{90} = \\dfrac{75}{90} = \\dfrac{5}{6}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 45
                 {
-                    question: "次の式を因数分解せよ。<br>$$6x^2+xy-2y^2$$",
-                    options: [ "$\\left(2x-y\\right)\\left(3x+2y\\right)$", "$\\left(2x+y\\right)\\left(3x-2y\\right)$", "$\\left(6x-y\\right)\\left(x+2y\\right)$", "$\\left(6x+y\\right)\\left(x-2y\\right)$" ],
-                    answer: "$\\left(2x-y\\right)\\left(3x+2y\\right)$",
-                    rationale: "たすき掛けを考えます。$x$ について $6x^2+yx-2y^2$。積が $6$ は $2, 3$。積が $-2y^2$ は $-y, 2y$。和が $y$ になるのは $2 \\times (2y) + 3 \\times (-y) = y$。<br>よって $\\left(2x-y\\right)\\left(3x+2y\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{0}\\dot{1}$$",
+                    options: [ "$\\dfrac{1}{99}$", "$\\dfrac{1}{100}$", "$\\dfrac{1}{90}$", "$\\dfrac{1}{9}$" ],
+                    answer: "$\\dfrac{1}{99}$",
+                    rationale: "$x = 0.\\dot{0}\\dot{1} = \\dfrac{1}{99}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 46
                 {
-                    question: "次の式を因数分解せよ。<br>$$2x^2+9x-18$$",
-                    options: [ "$\\left(2x-3\\right)\\left(x+6\\right)$", "$\\left(2x+3\\right)\\left(x-6\\right)$", "$\\left(2x-6\\right)\\left(x+3\\right)$", "$\\left(2x+6\\right)\\left(x-3\\right)$" ],
-                    answer: "$\\left(2x-3\\right)\\left(x+6\\right)$",
-                    rationale: "たすき掛けを考えます。積が $2$ は $1, 2$。積が $-18$ は $-3, 6$。和が $9$ になるのは $2 \\times 6 + 1 \\times (-3) = 9$。<br>よって $\\left(2x-3\\right)\\left(x+6\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.3\\dot{1}$$",
+                    options: [ "$\\dfrac{28}{90}$", "$\\dfrac{31}{99}$", "$\\dfrac{31}{100}$", "$\\dfrac{28}{99}$" ],
+                    answer: "$\\dfrac{28}{90}$",
+                    rationale: "$x = 0.3\\dot{1} = \\dfrac{31-3}{90} = \\dfrac{28}{90}$。($\\dfrac{14}{45}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 47
                 {
-                    question: "次の式を因数分解せよ。<br>$$5x^2-13x-6$$",
-                    options: [ "$\\left(5x+2\\right)\\left(x-3\\right)$", "$\\left(5x-2\\right)\\left(x+3\\right)$", "$\\left(5x+3\\right)\\left(x-2\\right)$", "$\\left(5x-3\\right)\\left(x+2\\right)$" ],
-                    answer: "$\\left(5x+2\\right)\\left(x-3\\right)$",
-                    rationale: "たすき掛けを考えます。積が $5$ は $1, 5$。積が $-6$ は $2, -3$。和が $-13$ になるのは $5 \\times (-3) + 1 \\times 2 = -13$。<br>よって $\\left(5x+2\\right)\\left(x-3\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.1\\dot{2}\\dot{1}$$",
+                    options: [ "$\\dfrac{120}{990}$", "$\\dfrac{121}{999}$", "$\\dfrac{121}{1000}$", "$\\dfrac{120}{900}$" ],
+                    answer: "$\\dfrac{120}{990}$",
+                    rationale: "$x = 0.1\\dot{2}\\dot{1} = \\dfrac{121-1}{990} = \\dfrac{120}{990}$。($\\dfrac{4}{33}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 48
                 {
-                    question: "次の式を因数分解せよ。<br>$$6x^2-11x-10$$",
-                    options: [ "$\\left(2x-5\\right)\\left(3x+2\\right)$", "$\\left(2x+5\\right)\\left(3x-2\\right)$", "$\\left(6x-5\\right)\\left(x+2\\right)$", "$\\left(6x+2\\right)\\left(x-5\\right)$" ],
-                    answer: "$\\left(2x-5\\right)\\left(3x+2\\right)$",
-                    rationale: "たすき掛けを考えます。積が $6$ は $2, 3$。積が $-10$ は $-5, 2$。和が $-11$ になるのは $2 \\times 2 + 3 \\times (-5) = -11$。<br>よって $\\left(2x-5\\right)\\left(3x+2\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.12\\dot{3}\\dot{4}$$",
+                    options: [ "$\\dfrac{1222}{9900}$", "$\\dfrac{1234}{9999}$", "$\\dfrac{1234}{9900}$", "$\\dfrac{1222}{9000}$" ],
+                    answer: "$\\dfrac{1222}{9900}$",
+                    rationale: "$x = 0.12\\dot{3}\\dot{4} = \\dfrac{1234-12}{9900} = \\dfrac{1222}{9900}$。($\\dfrac{611}{4950}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 49
                 {
-                    question: "次の式を因数分解せよ。<br>$$3a^2+7ab-6b^2$$",
-                    options: [ "$\\left(3a-2b\\right)\\left(a+3b\\right)$", "$\\left(3a+2b\\right)\\left(a-3b\\right)$", "$\\left(3a-b\\right)\\left(a+6b\\right)$", "$\\left(3a+b\\right)\\left(a-6b\\right)$" ],
-                    answer: "$\\left(3a-2b\\right)\\left(a+3b\\right)$",
-                    rationale: "たすき掛けを考えます。$a$ について $3a^2+7ba-6b^2$。積が $3$ は $1, 3$。積が $-6b^2$ は $-2b, 3b$。和が $7b$ になるのは $3 \\times (3b) + 1 \\times (-2b) = 7b$。<br>よって $\\left(3a-2b\\right)\\left(a+3b\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$1.2\\dot{3}\\dot{4}$$",
+                    options: [ "$\\dfrac{1222}{990}$", "$\\dfrac{1234}{990}$", "$\\dfrac{1234}{999}$", "$\\dfrac{1222}{900}$" ],
+                    answer: "$\\dfrac{1222}{990}$",
+                    rationale: "$x = 1.2\\dot{3}\\dot{4} = 1 + 0.2\\dot{3}\\dot{4} = 1 + \\dfrac{234-2}{990} = 1 + \\dfrac{232}{990} = \\dfrac{990+232}{990} = \\dfrac{1222}{990}$。($\\dfrac{611}{495}$ でも同じ)<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 50
                 {
-                    question: "次の式を因数分解せよ。<br>$$4x^2-16x+15$$",
-                    options: [ "$\\left(2x-3\\right)\\left(2x-5\\right)$", "$\\left(2x+3\\right)\\left(2x+5\\right)$", "$\\left(4x-3\\right)\\left(x-5\\right)$", "$\\left(4x-5\\right)\\left(x-3\\right)$" ],
-                    answer: "$\\left(2x-3\\right)\\left(2x-5\\right)$",
-                    rationale: "たすき掛けを考えます。積が $4$ は $2, 2$。積が $15$ は $-3, -5$。和が $-16$ になるのは $2 \\times (-5) + 2 \\times (-3) = -16$。<br>よって $\\left(2x-3\\right)\\left(2x-5\\right)$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7709/63131' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "次の循環小数を分数で表せ。<br>$$0.\\dot{9}$$",
+                    options: [ "$1$", "$\\dfrac{9}{10}$", "$\\dfrac{9}{99}$", "$\\dfrac{1}{9}$" ],
+                    answer: "$1$",
+                    rationale: "$x = 0.\\dot{9}$ とおくと、$10x = 9.\\dot{9}$ です。<br>$10x - x = 9$ より $9x = 9$。<br>$x = \\dfrac{9}{9} = 1$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63133' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 }
             ]
             // --- ★★★ 50題データここまで ★★★
