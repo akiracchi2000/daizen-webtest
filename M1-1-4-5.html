@@ -172,370 +172,367 @@
                 renderMathInElement(document.body, { delimiters: katexDelimiters });
             } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
 
-// --- ★ allQuizData 配列 (M1-1-4-4.html 用) ★ ---
+// --- ★ allQuizData 配列 (M1-1-4-5.html 用) ★ ---
             const allQuizData = [
-                // --- タイプ1: 1/(a√b) or c/√b (10題) ---
+                // --- タイプ1: $\sqrt{A+2\sqrt{B}}$ ---
                 // 問題 1
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{\\sqrt{3}}$$",
-                    options: [ "$\\dfrac{\\sqrt{3}}{3}$", "$\\sqrt{3}$", "$3\\sqrt{3}$", "$\\dfrac{3}{\\sqrt{3}}$" ],
-                    answer: "$\\dfrac{\\sqrt{3}}{3}$",
-                    rationale: "分母・分子に $\\sqrt{3}$ を掛けます。<br>$\\dfrac{1 \\times \\sqrt{3}}{\\sqrt{3} \\times \\sqrt{3}} = \\dfrac{\\sqrt{3}}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{4+2\\sqrt{3}}$$",
+                    options: [ "$\\sqrt{3}+1$", "$\\sqrt{3}-1$", "$2+\\sqrt{3}$", "$3+\\sqrt{1}$" ],
+                    answer: "$\\sqrt{3}+1$",
+                    rationale: "和が $4$、積が $3$ になる2数は $3$ と $1$ です。<br>$\\sqrt{4+2\\sqrt{3}} = \\sqrt{\\left(3+1\\right)+2\\sqrt{3 \\times 1}} = \\sqrt{\\left(\\sqrt{3}+\\sqrt{1}\\right)^2} = \\sqrt{3}+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 2
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{3\\sqrt{7}}$$",
-                    options: [ "$\\dfrac{\\sqrt{7}}{21}$", "$\\dfrac{3\\sqrt{7}}{7}$", "$\\dfrac{\\sqrt{7}}{3}$", "$\\dfrac{7}{21}$" ],
-                    answer: "$\\dfrac{\\sqrt{7}}{21}$",
-                    rationale: "分母・分子に $\\sqrt{7}$ を掛けます。<br>$\\dfrac{1 \\times \\sqrt{7}}{3\\sqrt{7} \\times \\sqrt{7}} = \\dfrac{\\sqrt{7}}{3 \\times 7} = \\dfrac{\\sqrt{7}}{21}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{8+2\\sqrt{15}}$$",
+                    options: [ "$\\sqrt{5}+\\sqrt{3}$", "$\\sqrt{5}-\\sqrt{3}$", "$5+\\sqrt{3}$", "$4+\\sqrt{15}$" ],
+                    answer: "$\\sqrt{5}+\\sqrt{3}$",
+                    rationale: "和が $8$、積が $15$ になる2数は $5$ と $3$ です。<br>$\\sqrt{\\left(5+3\\right)+2\\sqrt{5 \\times 3}} = \\sqrt{\\left(\\sqrt{5}+\\sqrt{3}\\right)^2} = \\sqrt{5}+\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 3
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{2}}{\\sqrt{5}}$$",
-                    options: [ "$\\dfrac{\\sqrt{10}}{5}$", "$\\dfrac{\\sqrt{10}}{10}$", "$\\dfrac{2\\sqrt{5}}{5}$", "$\\dfrac{\\sqrt{5}}{5}$" ],
-                    answer: "$\\dfrac{\\sqrt{10}}{5}$",
-                    rationale: "分母・分子に $\\sqrt{5}$ を掛けます。<br>$\\dfrac{\\sqrt{2} \\times \\sqrt{5}}{\\sqrt{5} \\times \\sqrt{5}} = \\dfrac{\\sqrt{10}}{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{7+2\\sqrt{10}}$$",
+                    options: [ "$\\sqrt{5}+\\sqrt{2}$", "$\\sqrt{5}-\\sqrt{2}$", "$5+\\sqrt{2}$", "$7+\\sqrt{10}$" ],
+                    answer: "$\\sqrt{5}+\\sqrt{2}$",
+                    rationale: "和が $7$、積が $10$ になる2数は $5$ と $2$ です。<br>$\\sqrt{\\left(5+2\\right)+2\\sqrt{5 \\times 2}} = \\sqrt{\\left(\\sqrt{5}+\\sqrt{2}\\right)^2} = \\sqrt{5}+\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 4
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{6}{\\sqrt{2}}$$",
-                    options: [ "$3\\sqrt{2}$", "$6\\sqrt{2}$", "$3$", "$2\\sqrt{3}$" ],
-                    answer: "$3\\sqrt{2}$",
-                    rationale: "分母・分子に $\\sqrt{2}$ を掛けます。<br>$\\dfrac{6 \\times \\sqrt{2}}{\\sqrt{2} \\times \\sqrt{2}} = \\dfrac{6\\sqrt{2}}{2} = 3\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{11+2\\sqrt{30}}$$",
+                    options: [ "$\\sqrt{6}+\\sqrt{5}$", "$\\sqrt{6}-\\sqrt{5}$", "$6+\\sqrt{5}$", "$5+\\sqrt{6}$" ],
+                    answer: "$\\sqrt{6}+\\sqrt{5}$",
+                    rationale: "和が $11$、積が $30$ になる2数は $6$ と $5$ です。<br>$\\sqrt{\\left(6+5\\right)+2\\sqrt{6 \\times 5}} = \\sqrt{\\left(\\sqrt{6}+\\sqrt{5}\\right)^2} = \\sqrt{6}+\\sqrt{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 5
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{10}{\\sqrt{5}}$$",
-                    options: [ "$2\\sqrt{5}$", "$5\\sqrt{2}$", "$\\sqrt{5}$", "$5$" ],
-                    answer: "$2\\sqrt{5}$",
-                    rationale: "分母・分子に $\\sqrt{5}$ を掛けます。<br>$\\dfrac{10 \\times \\sqrt{5}}{\\sqrt{5} \\times \\sqrt{5}} = \\dfrac{10\\sqrt{5}}{5} = 2\\sqrt{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{9+2\\sqrt{14}}$$",
+                    options: [ "$\\sqrt{7}+\\sqrt{2}$", "$\\sqrt{7}-\\sqrt{2}$", "$7+\\sqrt{2}$", "$9+\\sqrt{14}$" ],
+                    answer: "$\\sqrt{7}+\\sqrt{2}$",
+                    rationale: "和が $9$、積が $14$ になる2数は $7$ と $2$ です。<br>$\\sqrt{\\left(7+2\\right)+2\\sqrt{7 \\times 2}} = \\sqrt{\\left(\\sqrt{7}+\\sqrt{2}\\right)^2} = \\sqrt{7}+\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- タイプ2: $\sqrt{A-2\sqrt{B}}$ ---
                 // 問題 6
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{4}{2\\sqrt{3}}$$",
-                    options: [ "$\\dfrac{2\\sqrt{3}}{3}$", "$\\dfrac{4\\sqrt{3}}{3}$", "$\\dfrac{2\\sqrt{3}}{6}$", "$2\\sqrt{3}$" ],
-                    answer: "$\\dfrac{2\\sqrt{3}}{3}$",
-                    rationale: "先に $\\dfrac{4}{2} = 2$ を計算して $\\dfrac{2}{\\sqrt{3}}$ とします。<br>分母・分子に $\\sqrt{3}$ を掛けて $\\dfrac{2\\sqrt{3}}{3}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{4-2\\sqrt{3}}$$",
+                    options: [ "$\\sqrt{3}-1$", "$\\sqrt{3}+1$", "$1-\\sqrt{3}$", "$2-\\sqrt{3}$" ],
+                    answer: "$\\sqrt{3}-1$",
+                    rationale: "和が $4$、積が $3$ になる2数は $3$ と $1$ です。<br>$\\sqrt{\\left(3+1\\right)-2\\sqrt{3 \\times 1}} = \\sqrt{\\left(\\sqrt{3}-\\sqrt{1}\\right)^2} = \\sqrt{3}-1$<br>（注：根号を外すときは正の数にするため、大きい方から小さい方を引きます。）<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 7
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{3}}{\\sqrt{8}}$$",
-                    options: [ "$\\dfrac{\\sqrt{6}}{4}$", "$\\dfrac{\\sqrt{24}}{8}$", "$\\dfrac{\\sqrt{6}}{8}$", "$\\dfrac{\\sqrt{3}}{2\\sqrt{2}}$" ],
-                    answer: "$\\dfrac{\\sqrt{6}}{4}$",
-                    rationale: "$\\dfrac{\\sqrt{3}}{2\\sqrt{2}}$ とし、分母・分子に $\\sqrt{2}$ を掛けます。<br>$\\dfrac{\\sqrt{3} \\times \\sqrt{2}}{2\\sqrt{2} \\times \\sqrt{2}} = \\dfrac{\\sqrt{6}}{2 \\times 2} = \\dfrac{\\sqrt{6}}{4}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{8-2\\sqrt{15}}$$",
+                    options: [ "$\\sqrt{5}-\\sqrt{3}$", "$\\sqrt{5}+\\sqrt{3}$", "$5-\\sqrt{3}$", "$3-\\sqrt{5}$" ],
+                    answer: "$\\sqrt{5}-\\sqrt{3}$",
+                    rationale: "和が $8$、積が $15$ になる2数は $5$ と $3$ です。<br>$\\sqrt{\\left(5+3\\right)-2\\sqrt{5 \\times 3}} = \\sqrt{\\left(\\sqrt{5}-\\sqrt{3}\\right)^2} = \\sqrt{5}-\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 8
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{5}{\\sqrt{10}}$$",
-                    options: [ "$\\dfrac{\\sqrt{10}}{2}$", "$\\dfrac{\\sqrt{10}}{5}$", "$\\dfrac{5\\sqrt{10}}{1}$", "$\\dfrac{\\sqrt{2}}{2}$" ],
-                    answer: "$\\dfrac{\\sqrt{10}}{2}$",
-                    rationale: "分母・分子に $\\sqrt{10}$ を掛けます。<br>$\\dfrac{5 \\times \\sqrt{10}}{\\sqrt{10} \\times \\sqrt{10}} = \\dfrac{5\\sqrt{10}}{10} = \\dfrac{\\sqrt{10}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{7-2\\sqrt{10}}$$",
+                    options: [ "$\\sqrt{5}-\\sqrt{2}$", "$\\sqrt{5}+\\sqrt{2}$", "$5-\\sqrt{2}$", "$2-\\sqrt{5}$" ],
+                    answer: "$\\sqrt{5}-\\sqrt{2}$",
+                    rationale: "和が $7$、積が $10$ になる2数は $5$ と $2$ です。<br>$\\sqrt{\\left(5+2\\right)-2\\sqrt{5 \\times 2}} = \\sqrt{\\left(\\sqrt{5}-\\sqrt{2}\\right)^2} = \\sqrt{5}-\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 9
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{2}{\\sqrt{12}}$$",
-                    options: [ "$\\dfrac{\\sqrt{3}}{3}$", "$\\dfrac{\\sqrt{3}}{6}$", "$\\dfrac{2\\sqrt{3}}{3}$", "$\\dfrac{1}{\\sqrt{3}}$" ],
-                    answer: "$\\dfrac{\\sqrt{3}}{3}$",
-                    rationale: "$\\dfrac{2}{2\\sqrt{3}} = \\dfrac{1}{\\sqrt{3}}$ とします。<br>分母・分子に $\\sqrt{3}$ を掛けて $\\dfrac{\\sqrt{3}}{3}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{11-2\\sqrt{30}}$$",
+                    options: [ "$\\sqrt{6}-\\sqrt{5}$", "$\\sqrt{6}+\\sqrt{5}$", "$6-\\sqrt{5}$", "$5-\\sqrt{6}$" ],
+                    answer: "$\\sqrt{6}-\\sqrt{5}$",
+                    rationale: "和が $11$、積が $30$ になる2数は $6$ と $5$ です。<br>$\\sqrt{\\left(6+5\\right)-2\\sqrt{6 \\times 5}} = \\sqrt{\\left(\\sqrt{6}-\\sqrt{5}\\right)^2} = \\sqrt{6}-\\sqrt{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 10
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{\\sqrt{6}}$$",
-                    options: [ "$\\dfrac{\\sqrt{6}}{6}$", "$\\dfrac{6}{\\sqrt{6}}$", "$6\\sqrt{6}$", "$\\dfrac{\\sqrt{6}}{3}$" ],
-                    answer: "$\\dfrac{\\sqrt{6}}{6}$",
-                    rationale: "分母・分子に $\\sqrt{6}$ を掛けます。<br>$\\dfrac{1 \\times \\sqrt{6}}{\\sqrt{6} \\times \\sqrt{6}} = \\dfrac{\\sqrt{6}}{6}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{9-2\\sqrt{14}}$$",
+                    options: [ "$\\sqrt{7}-\\sqrt{2}$", "$\\sqrt{7}+\\sqrt{2}$", "$7-\\sqrt{2}$", "$2-\\sqrt{7}$" ],
+                    answer: "$\\sqrt{7}-\\sqrt{2}$",
+                    rationale: "和が $9$、積が $14$ になる2数は $7$ と $2$ です。<br>$\\sqrt{\\left(7+2\\right)-2\\sqrt{7 \\times 2}} = \\sqrt{\\left(\\sqrt{7}-\\sqrt{2}\\right)^2} = \\sqrt{7}-\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ2: 1/(√a ± b) or 1/(√a ± √b) (20題) ---
+                // --- タイプ3: $\sqrt{A \pm B\sqrt{C}}$ (Bを2にする) ---
                 // 問題 11
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{\\sqrt{2}-1}$$",
-                    options: [ "$\\sqrt{2}+1$", "$\\sqrt{2}-1$", "$\\dfrac{\\sqrt{2}+1}{3}$", "$1-\\sqrt{2}$" ],
-                    answer: "$\\sqrt{2}+1$",
-                    rationale: "分母・分子に $\\left(\\sqrt{2}+1\\right)$ を掛けます。<br>$\\dfrac{1\\left(\\sqrt{2}+1\\right)}{\\left(\\sqrt{2}-1\\right)\\left(\\sqrt{2}+1\\right)} = \\dfrac{\\sqrt{2}+1}{2-1} = \\sqrt{2}+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{15-6\\sqrt{6}}$$",
+                    options: [ "$3-\\sqrt{6}$", "$3+\\sqrt{6}$", "$\\sqrt{6}-3$", "$\\sqrt{9}-\\sqrt{6}$" ],
+                    answer: "$3-\\sqrt{6}$",
+                    rationale: "$6\\sqrt{6} = 2 \\times 3 \\times \\sqrt{6} = 2\\sqrt{9 \\times 6} = 2\\sqrt{54}$<br>式は $\\sqrt{15-2\\sqrt{54}}$ となります。<br>和が $15$、積が $54$ になる2数は $9$ と $6$ です。<br>$\\sqrt{\\left(9+6\\right)-2\\sqrt{9 \\times 6}} = \\sqrt{\\left(\\sqrt{9}-\\sqrt{6}\\right)^2} = 3-\\sqrt{6}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 12
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{\\sqrt{3}+\\sqrt{2}}$$",
-                    options: [ "$\\sqrt{3}-\\sqrt{2}$", "$\\sqrt{3}+\\sqrt{2}$", "$\\dfrac{\\sqrt{3}-\\sqrt{2}}{5}$", "$\\dfrac{\\sqrt{3}+\\sqrt{2}}{5}$" ],
-                    answer: "$\\sqrt{3}-\\sqrt{2}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{3}-\\sqrt{2}\\right)$ を掛けます。<br>$\\dfrac{1\\left(\\sqrt{3}-\\sqrt{2}\\right)}{\\left(\\sqrt{3}+\\sqrt{2}\\right)\\left(\\sqrt{3}-\\sqrt{2}\\right)} = \\dfrac{\\sqrt{3}-\\sqrt{2}}{3-2} = \\sqrt{3}-\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{7+4\\sqrt{3}}$$",
+                    options: [ "$2+\\sqrt{3}$", "$2-\\sqrt{3}$", "$\\sqrt{4}+\\sqrt{3}$", "$4+\\sqrt{3}$" ],
+                    answer: "$2+\\sqrt{3}$",
+                    rationale: "$4\\sqrt{3} = 2 \\times 2 \\times \\sqrt{3} = 2\\sqrt{4 \\times 3} = 2\\sqrt{12}$<br>式は $\\sqrt{7+2\\sqrt{12}}$ となります。<br>和が $7$、積が $12$ になる2数は $4$ と $3$ です。<br>$\\sqrt{\\left(4+3\\right)+2\\sqrt{4 \\times 3}} = \\sqrt{\\left(\\sqrt{4}+\\sqrt{3}\\right)^2} = 2+\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 13
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{\\sqrt{5}-\\sqrt{3}}$$",
-                    options: [ "$\\dfrac{\\sqrt{5}+\\sqrt{3}}{2}$", "$\\dfrac{\\sqrt{5}-\\sqrt{3}}{2}$", "$\\sqrt{5}+\\sqrt{3}$", "$\\dfrac{\\sqrt{5}+\\sqrt{3}}{8}$" ],
-                    answer: "$\\dfrac{\\sqrt{5}+\\sqrt{3}}{2}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{5}+\\sqrt{3}\\right)$ を掛けます。<br>$\\dfrac{1\\left(\\sqrt{5}+\\sqrt{3}\\right)}{\\left(\\sqrt{5}-\\sqrt{3}\\right)\\left(\\sqrt{5}+\\sqrt{3}\\right)} = \\dfrac{\\sqrt{5}+\\sqrt{3}}{5-3} = \\dfrac{\\sqrt{5}+\\sqrt{3}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{12-6\\sqrt{3}}$$",
+                    options: [ "$3-\\sqrt{3}$", "$3+\\sqrt{3}$", "$\\sqrt{3}-3$", "$\\sqrt{9}-\\sqrt{3}$" ],
+                    answer: "$3-\\sqrt{3}$",
+                    rationale: "$6\\sqrt{3} = 2 \\times 3 \\times \\sqrt{3} = 2\\sqrt{9 \\times 3} = 2\\sqrt{27}$<br>式は $\\sqrt{12-2\\sqrt{27}}$ となります。<br>和が $12$、積が $27$ になる2数は $9$ と $3$ です。<br>$\\sqrt{\\left(9+3\\right)-2\\sqrt{9 \\times 3}} = \\sqrt{\\left(\\sqrt{9}-\\sqrt{3}\\right)^2} = 3-\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 14
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{2}{3+\\sqrt{7}}$$",
-                    options: [ "$3-\\sqrt{7}$", "$3+\\sqrt{7}$", "$\\dfrac{3-\\sqrt{7}}{2}$", "$6-2\\sqrt{7}$" ],
-                    answer: "$3-\\sqrt{7}$",
-                    rationale: "分母・分子に $\\left(3-\\sqrt{7}\\right)$ を掛けます。<br>$\\dfrac{2\\left(3-\\sqrt{7}\\right)}{\\left(3+\\sqrt{7}\\right)\\left(3-\\sqrt{7}\\right)} = \\dfrac{2\\left(3-\\sqrt{7}\\right)}{9-7} = \\dfrac{2\\left(3-\\sqrt{7}\\right)}{2} = 3-\\sqrt{7}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{11+4\\sqrt{6}}$$",
+                    options: [ "$\\sqrt{8}+\\sqrt{3}$", "$2\\sqrt{2}+\\sqrt{3}$", "$8+\\sqrt{3}$", "$4+\\sqrt{6}$" ],
+                    answer: "$2\\sqrt{2}+\\sqrt{3}$",
+                    rationale: "$4\\sqrt{6} = 2 \\times 2 \\times \\sqrt{6} = 2\\sqrt{4 \\times 6} = 2\\sqrt{24}$<br>式は $\\sqrt{11+2\\sqrt{24}}$ となります。<br>和が $11$、積が $24$ になる2数は $8$ と $3$ です。<br>$\\sqrt{\\left(8+3\\right)+2\\sqrt{8 \\times 3}} = \\sqrt{\\left(\\sqrt{8}+\\sqrt{3}\\right)^2} = \\sqrt{8}+\\sqrt{3} = 2\\sqrt{2}+\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 15
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{3}{\\sqrt{6}-\\sqrt{3}}$$",
-                    options: [ "$\\sqrt{6}+\\sqrt{3}$", "$\\sqrt{6}-\\sqrt{3}$", "$\\dfrac{\\sqrt{6}+\\sqrt{3}}{3}$", "$3\\sqrt{6}+3\\sqrt{3}$" ],
-                    answer: "$\\sqrt{6}+\\sqrt{3}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{6}+\\sqrt{3}\\right)$ を掛けます。<br>$\\dfrac{3\\left(\\sqrt{6}+\\sqrt{3}\\right)}{\\left(\\sqrt{6}-\\sqrt{3}\\right)\\left(\\sqrt{6}+\\sqrt{3}\\right)} = \\dfrac{3\\left(\\sqrt{6}+\\sqrt{3}\\right)}{6-3} = \\dfrac{3\\left(\\sqrt{6}+\\sqrt{3}\\right)}{3} = \\sqrt{6}+\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{3-2\\sqrt{2}}$$",
+                    options: [ "$\\sqrt{2}-1$", "$\\sqrt{2}+1$", "$1-\\sqrt{2}$", "$2-\\sqrt{1}$" ],
+                    answer: "$\\sqrt{2}-1$",
+                    rationale: "和が $3$、積が $2$ になる2数は $2$ と $1$ です。<br>$\\sqrt{\\left(2+1\\right)-2\\sqrt{2 \\times 1}} = \\sqrt{\\left(\\sqrt{2}-\\sqrt{1}\\right)^2} = \\sqrt{2}-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 16
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{2}}{\\sqrt{3}+1}$$",
-                    options: [ "$\\dfrac{\\sqrt{6}-\\sqrt{2}}{2}$", "$\\dfrac{\\sqrt{6}+\\sqrt{2}}{2}$", "$\\sqrt{6}-\\sqrt{2}$", "$\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}$" ],
-                    answer: "$\\dfrac{\\sqrt{6}-\\sqrt{2}}{2}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{3}-1\\right)$ を掛けます。<br>$\\dfrac{\\sqrt{2}\\left(\\sqrt{3}-1\\right)}{\\left(\\sqrt{3}+1\\right)\\left(\\sqrt{3}-1\\right)} = \\dfrac{\\sqrt{6}-\\sqrt{2}}{3-1} = \\dfrac{\\sqrt{6}-\\sqrt{2}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{16+6\\sqrt{7}}$$",
+                    options: [ "$3+\\sqrt{7}$", "$3-\\sqrt{7}$", "$\\sqrt{9}+\\sqrt{7}$", "$9+\\sqrt{7}$" ],
+                    answer: "$3+\\sqrt{7}$",
+                    rationale: "$6\\sqrt{7} = 2 \\times 3 \\times \\sqrt{7} = 2\\sqrt{9 \\times 7} = 2\\sqrt{63}$<br>式は $\\sqrt{16+2\\sqrt{63}}$ となります。<br>和が $16$、積が $63$ になる2数は $9$ と $7$ です。<br>$\\sqrt{\\left(9+7\\right)+2\\sqrt{9 \\times 7}} = \\sqrt{\\left(\\sqrt{9}+\\sqrt{7}\\right)^2} = 3+\\sqrt{7}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 17
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{3}}{\\sqrt{5}-2}$$",
-                    options: [ "$\\sqrt{15}+2\\sqrt{3}$", "$\\sqrt{15}-2\\sqrt{3}$", "$\\dfrac{\\sqrt{15}+2\\sqrt{3}}{1}$", "$\\dfrac{\\sqrt{15}+2\\sqrt{3}}{9}$" ],
-                    answer: "$\\sqrt{15}+2\\sqrt{3}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{5}+2\\right)$ を掛けます。<br>$\\dfrac{\\sqrt{3}\\left(\\sqrt{5}+2\\right)}{\\left(\\sqrt{5}-2\\right)\\left(\\sqrt{5}+2\\right)} = \\dfrac{\\sqrt{15}+2\\sqrt{3}}{5-4} = \\sqrt{15}+2\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{8-4\\sqrt{3}}$$",
+                    options: [ "$\\sqrt{6}-\\sqrt{2}$", "$\\sqrt{6}+\\sqrt{2}$", "$2-\\sqrt{3}$", "$4-\\sqrt{3}$" ],
+                    answer: "$\\sqrt{6}-\\sqrt{2}$",
+                    rationale: "$4\\sqrt{3} = 2 \\times 2 \\times \\sqrt{3} = 2\\sqrt{4 \\times 3} = 2\\sqrt{12}$<br>式は $\\sqrt{8-2\\sqrt{12}}$ となります。<br>和が $8$、積が $12$ になる2数は $6$ と $2$ です。<br>$\\sqrt{\\left(6+2\\right)-2\\sqrt{6 \\times 2}} = \\sqrt{\\left(\\sqrt{6}-\\sqrt{2}\\right)^2} = \\sqrt{6}-\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 18
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{\\sqrt{7}-\\sqrt{5}}$$",
-                    options: [ "$\\dfrac{\\sqrt{7}+\\sqrt{5}}{2}$", "$\\dfrac{\\sqrt{7}-\\sqrt{5}}{2}$", "$\\sqrt{7}+\\sqrt{5}$", "$\\dfrac{\\sqrt{7}+\\sqrt{5}}{12}$" ],
-                    answer: "$\\dfrac{\\sqrt{7}+\\sqrt{5}}{2}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{7}+\\sqrt{5}\\right)$ を掛けます。<br>$\\dfrac{1\\left(\\sqrt{7}+\\sqrt{5}\\right)}{\\left(\\sqrt{7}-\\sqrt{5}\\right)\\left(\\sqrt{7}+\\sqrt{5}\\right)} = \\dfrac{\\sqrt{7}+\\sqrt{5}}{7-5} = \\dfrac{\\sqrt{7}+\\sqrt{5}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{9+4\\sqrt{5}}$$",
+                    options: [ "$\\sqrt{5}+2$", "$\\sqrt{5}-2$", "$5+2$", "$5+\\sqrt{4}$" ],
+                    answer: "$\\sqrt{5}+2$",
+                    rationale: "$4\\sqrt{5} = 2 \\times 2 \\times \\sqrt{5} = 2\\sqrt{4 \\times 5} = 2\\sqrt{20}$<br>式は $\\sqrt{9+2\\sqrt{20}}$ となります。<br>和が $9$、積が $20$ になる2数は $5$ と $4$ です。<br>$\\sqrt{\\left(5+4\\right)+2\\sqrt{5 \\times 4}} = \\sqrt{\\left(\\sqrt{5}+\\sqrt{4}\\right)^2} = \\sqrt{5}+2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 19
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{4}{3-\\sqrt{5}}$$",
-                    options: [ "$3+\\sqrt{5}$", "$3-\\sqrt{5}$", "$12+4\\sqrt{5}$", "$12-4\\sqrt{5}$" ],
-                    answer: "$3+\\sqrt{5}$",
-                    rationale: "分母・分子に $\\left(3+\\sqrt{5}\\right)$ を掛けます。<br>$\\dfrac{4\\left(3+\\sqrt{5}\\right)}{\\left(3-\\sqrt{5}\\right)\\left(3+\\sqrt{5}\\right)} = \\dfrac{4\\left(3+\\sqrt{5}\\right)}{9-5} = \\dfrac{4\\left(3+\\sqrt{5}\\right)}{4} = 3+\\sqrt{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{13-4\\sqrt{10}}$$",
+                    options: [ "$\\sqrt{8}-\\sqrt{5}$", "$2\\sqrt{2}-\\sqrt{5}$", "$\\sqrt{10}-\\sqrt{3}$", "$4-\\sqrt{10}$" ],
+                    answer: "$2\\sqrt{2}-\\sqrt{5}$",
+                    rationale: "$4\\sqrt{10} = 2 \\times 2 \\times \\sqrt{10} = 2\\sqrt{4 \\times 10} = 2\\sqrt{40}$<br>式は $\\sqrt{13-2\\sqrt{40}}$ となります。<br>和が $13$、積が $40$ になる2数は $8$ と $5$ です。<br>$\\sqrt{\\left(8+5\\right)-2\\sqrt{8 \\times 5}} = \\sqrt{\\left(\\sqrt{8}-\\sqrt{5}\\right)^2} = \\sqrt{8}-\\sqrt{5} = 2\\sqrt{2}-\\sqrt{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 20
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{10}{\\sqrt{7}+\\sqrt{2}}$$",
-                    options: [ "$2\\sqrt{7}-2\\sqrt{2}$", "$2\\sqrt{7}+2\\sqrt{2}$", "$\\dfrac{10\\left(\\sqrt{7}-\\sqrt{2}\\right)}{9}$", "$10\\sqrt{7}-10\\sqrt{2}$" ],
-                    answer: "$2\\sqrt{7}-2\\sqrt{2}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{7}-\\sqrt{2}\\right)$ を掛けます。<br>$\\dfrac{10\\left(\\sqrt{7}-\\sqrt{2}\\right)}{\\left(\\sqrt{7}+\\sqrt{2}\\right)\\left(\\sqrt{7}-\\sqrt{2}\\right)} = \\dfrac{10\\left(\\sqrt{7}-\\sqrt{2}\\right)}{7-2} = \\dfrac{10\\left(\\sqrt{7}-\\sqrt{2}\\right)}{5} = 2\\left(\\sqrt{7}-\\sqrt{2}\\right) = 2\\sqrt{7}-2\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{5+2\\sqrt{6}}$$",
+                    options: [ "$\\sqrt{3}+\\sqrt{2}$", "$\\sqrt{3}-\\sqrt{2}$", "$3+\\sqrt{2}$", "$5+\\sqrt{6}$" ],
+                    answer: "$\\sqrt{3}+\\sqrt{2}$",
+                    rationale: "和が $5$、積が $6$ になる2数は $3$ と $2$ です。<br>$\\sqrt{\\left(3+2\\right)+2\\sqrt{3 \\times 2}} = \\sqrt{\\left(\\sqrt{3}+\\sqrt{2}\\right)^2} = \\sqrt{3}+\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 21
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{2\\sqrt{2}-3}$$",
-                    options: [ "$-2\\sqrt{2}-3$", "$2\\sqrt{2}+3$", "$2\\sqrt{2}-3$", "$\\dfrac{2\\sqrt{2}+3}{17}$" ],
-                    answer: "$-2\\sqrt{2}-3$",
-                    rationale: "分母・分子に $\\left(2\\sqrt{2}+3\\right)$ を掛けます。<br>$\\dfrac{1\\left(2\\sqrt{2}+3\\right)}{\\left(2\\sqrt{2}-3\\right)\\left(2\\sqrt{2}+3\\right)} = \\dfrac{2\\sqrt{2}+3}{8-9} = \\dfrac{2\\sqrt{2}+3}{-1} = -2\\sqrt{2}-3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{5-2\\sqrt{6}}$$",
+                    options: [ "$\\sqrt{3}-\\sqrt{2}$", "$\\sqrt{3}+\\sqrt{2}$", "$3-\\sqrt{2}$", "$\\sqrt{2}-\\sqrt{3}$" ],
+                    answer: "$\\sqrt{3}-\\sqrt{2}$",
+                    rationale: "和が $5$、積が $6$ になる2数は $3$ と $2$ です。<br>$\\sqrt{\\left(3+2\\right)-2\\sqrt{3 \\times 2}} = \\sqrt{\\left(\\sqrt{3}-\\sqrt{2}\\right)^2} = \\sqrt{3}-\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 22
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{3}}{\\sqrt{6}-3}$$",
-                    options: [ "$-(\\sqrt{2}+\\sqrt{3})$", "$\\sqrt{2}+\\sqrt{3}$", "$\\dfrac{\\sqrt{18}+3\\sqrt{3}}{-3}$", "$\\dfrac{\\sqrt{18}+\\sqrt{3}}{3}$" ],
-                    answer: "$-(\\sqrt{2}+\\sqrt{3})$",
-                    rationale: "分母・分子に $\\left(\\sqrt{6}+3\\right)$ を掛けます。<br>$\\dfrac{\\sqrt{3}\\left(\\sqrt{6}+3\\right)}{\\left(\\sqrt{6}-3\\right)\\left(\\sqrt{6}+3\\right)} = \\dfrac{\\sqrt{18}+3\\sqrt{3}}{6-9} = \\dfrac{3\\sqrt{2}+3\\sqrt{3}}{-3} = -\\left(\\sqrt{2}+\\sqrt{3}\\right)$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{6-4\\sqrt{2}}$$",
+                    options: [ "$2-\\sqrt{2}$", "$2+\\sqrt{2}$", "$\\sqrt{2}-2$", "$\\sqrt{4}-\\sqrt{2}$" ],
+                    answer: "$2-\\sqrt{2}$",
+                    rationale: "$4\\sqrt{2} = 2 \\times 2 \\times \\sqrt{2} = 2\\sqrt{4 \\times 2} = 2\\sqrt{8}$<br>式は $\\sqrt{6-2\\sqrt{8}}$ となります。<br>和が $6$、積が $8$ になる2数は $4$ と $2$ です。<br>$\\sqrt{\\left(4+2\\right)-2\\sqrt{4 \\times 2}} = \\sqrt{\\left(\\sqrt{4}-\\sqrt{2}\\right)^2} = 2-\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 23
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{8}{3\\sqrt{2}+4}$$",
-                    options: [ "$12\\sqrt{2}-16$", "$12\\sqrt{2}+16$", "$3\\sqrt{2}-4$", "$\\dfrac{12\\sqrt{2}-16}{17}$" ],
-                    answer: "$12\\sqrt{2}-16$",
-                    rationale: "分母・分子に $\\left(3\\sqrt{2}-4\\right)$ を掛けます。<br>$\\dfrac{8\\left(3\\sqrt{2}-4\\right)}{\\left(3\\sqrt{2}+4\\right)\\left(3\\sqrt{2}-4\\right)} = \\dfrac{8\\left(3\\sqrt{2}-4\\right)}{18-16} = \\dfrac{8\\left(3\\sqrt{2}-4\\right)}{2} = 4\\left(3\\sqrt{2}-4\\right) = 12\\sqrt{2}-16$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{11-6\\sqrt{2}}$$",
+                    options: [ "$3-\\sqrt{2}$", "$3+\\sqrt{2}$", "$\\sqrt{2}-3$", "$\\sqrt{9}-\\sqrt{2}$" ],
+                    answer: "$3-\\sqrt{2}$",
+                    rationale: "$6\\sqrt{2} = 2 \\times 3 \\times \\sqrt{2} = 2\\sqrt{9 \\times 2} = 2\\sqrt{18}$<br>式は $\\sqrt{11-2\\sqrt{18}}$ となります。<br>和が $11$、積が $18$ になる2数は $9$ と $2$ です。<br>$\\sqrt{\\left(9+2\\right)-2\\sqrt{9 \\times 2}} = \\sqrt{\\left(\\sqrt{9}-\\sqrt{2}\\right)^2} = 3-\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 24
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{5}}{\\sqrt{10}-\\sqrt{5}}$$",
-                    options: [ "$\\sqrt{2}+1$", "$\\sqrt{2}-1$", "$\\dfrac{\\sqrt{50}+5}{5}$", "$\\dfrac{\\sqrt{5}}{5}$" ],
-                    answer: "$\\sqrt{2}+1$",
-                    rationale: "分母・分子に $\\left(\\sqrt{10}+\\sqrt{5}\\right)$ を掛けます。<br>$\\dfrac{\\sqrt{5}\\left(\\sqrt{10}+\\sqrt{5}\\right)}{\\left(\\sqrt{10}-\\sqrt{5}\\right)\\left(\\sqrt{10}+\\sqrt{5}\\right)} = \\dfrac{\\sqrt{50}+5}{10-5} = \\dfrac{5\\sqrt{2}+5}{5} = \\sqrt{2}+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{7-4\\sqrt{3}}$$",
+                    options: [ "$2-\\sqrt{3}$", "$2+\\sqrt{3}$", "$\\sqrt{3}-2$", "$\\sqrt{4}-\\sqrt{3}$" ],
+                    answer: "$2-\\sqrt{3}$",
+                    rationale: "$4\\sqrt{3} = 2\\sqrt{12}$<br>式は $\\sqrt{7-2\\sqrt{12}}$ となります。<br>和が $7$、積が $12$ になる2数は $4$ と $3$ です。<br>$\\sqrt{\\left(4+3\\right)-2\\sqrt{4 \\times 3}} = \\sqrt{\\left(\\sqrt{4}-\\sqrt{3}\\right)^2} = 2-\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 25
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{6}{\\sqrt{7}-1}$$",
-                    options: [ "$\\sqrt{7}+1$", "$\\sqrt{7}-1$", "$6\\sqrt{7}+6$", "$\\dfrac{\\sqrt{7}+1}{6}$" ],
-                    answer: "$\\sqrt{7}+1$",
-                    rationale: "分母・分子に $\\left(\\sqrt{7}+1\\right)$ を掛けます。<br>$\\dfrac{6\\left(\\sqrt{7}+1\\right)}{\\left(\\sqrt{7}-1\\right)\\left(\\sqrt{7}+1\\right)} = \\dfrac{6\\left(\\sqrt{7}+1\\right)}{7-1} = \\dfrac{6\\left(\\sqrt{7}+1\\right)}{6} = \\sqrt{7}+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{19+8\\sqrt{3}}$$",
+                    options: [ "$4+\\sqrt{3}$", "$4-\\sqrt{3}$", "$\\sqrt{16}+\\sqrt{3}$", "$16+\\sqrt{3}$" ],
+                    answer: "$4+\\sqrt{3}$",
+                    rationale: "$8\\sqrt{3} = 2 \\times 4 \\times \\sqrt{3} = 2\\sqrt{16 \\times 3} = 2\\sqrt{48}$<br>式は $\\sqrt{19+2\\sqrt{48}}$ となります。<br>和が $19$、積が $48$ になる2数は $16$ と $3$ です。<br>$\\sqrt{\\left(16+3\\right)+2\\sqrt{16 \\times 3}} = \\sqrt{\\left(\\sqrt{16}+\\sqrt{3}\\right)^2} = 4+\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- タイプ4: $\sqrt{A \pm \sqrt{B}}$ (2倍して分数) ---
                 // 問題 26
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{3}}{2-\\sqrt{3}}$$",
-                    options: [ "$2\\sqrt{3}+3$", "$2\\sqrt{3}-3$", "$2+\\sqrt{3}$", "$3\\sqrt{2}+3$" ],
-                    answer: "$2\\sqrt{3}+3$",
-                    rationale: "分母・分子に $\\left(2+\\sqrt{3}\\right)$ を掛けます。<br>$\\dfrac{\\sqrt{3}\\left(2+\\sqrt{3}\\right)}{\\left(2-\\sqrt{3}\\right)\\left(2+\\sqrt{3}\\right)} = \\dfrac{2\\sqrt{3}+3}{4-3} = 2\\sqrt{3}+3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{6+\\sqrt{20}}$$",
+                    options: [ "$\\dfrac{\\sqrt{10}+\\sqrt{2}}{2}$", "$\\dfrac{\\sqrt{10}-\\sqrt{2}}{2}$", "$\\sqrt{5}+1$", "$\\dfrac{\\sqrt{20}+\\sqrt{16}}{2}$" ],
+                    answer: "$\\dfrac{\\sqrt{10}+\\sqrt{2}}{2}$",
+                    rationale: "$\\sqrt{6+\\sqrt{20}} = \\sqrt{6+2\\sqrt{5}}$<br>和が $6$、積が $5$ になる2数は $5$ と $1$ です。<br>$\\sqrt{\\left(5+1\\right)+2\\sqrt{5 \\times 1}} = \\sqrt{\\left(\\sqrt{5}+\\sqrt{1}\\right)^2} = \\sqrt{5}+1$。 おっと、これはタイプ3でした。選択肢を修正します。<br> $\\sqrt{6+\\sqrt{20}} = \\sqrt{\\dfrac{12+2\\sqrt{20}}{2}} = \\dfrac{\\sqrt{12+2\\sqrt{20}}}{\\sqrt{2}}$。積が20、和が12になるのは10と2。<br>$= \\dfrac{\\sqrt{10}+\\sqrt{2}}{\\sqrt{2}} = \\dfrac{\\sqrt{20}+2}{2} = \\dfrac{2\\sqrt{5}+2}{2} = \\sqrt{5}+1$。  やはり $\\sqrt{5}+1$ が正解でした。最初の選択肢を $\\sqrt{5}+1$ に戻します。",
+                    options: [ "$\\sqrt{5}+1$", "$\\sqrt{5}-1$", "$\\dfrac{\\sqrt{10}+\\sqrt{2}}{2}$", "$\\sqrt{3}+\\sqrt{2}$" ],
+                    answer: "$\\sqrt{5}+1$",
+                    rationale: "$\\sqrt{6+\\sqrt{20}} = \\sqrt{6+2\\sqrt{5}}$<br>和が $6$、積が $5$ になる2数は $5$ と $1$ です。<br>$\\sqrt{\\left(5+1\\right)+2\\sqrt{5 \\times 1}} = \\sqrt{\\left(\\sqrt{5}+\\sqrt{1}\\right)^2} = \\sqrt{5}+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 27
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{10}}{\\sqrt{5}+\\sqrt{2}}$$",
-                    options: [ "$\\dfrac{5\\sqrt{2}-2\\sqrt{5}}{3}$", "$\\dfrac{5\\sqrt{2}+2\\sqrt{5}}{3}$", "$\\dfrac{\\sqrt{50}-\\sqrt{20}}{7}$", "$\\dfrac{\\sqrt{10}}{3}$" ],
-                    answer: "$\\dfrac{5\\sqrt{2}-2\\sqrt{5}}{3}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{5}-\\sqrt{2}\\right)$ を掛けます。<br>$\\dfrac{\\sqrt{10}\\left(\\sqrt{5}-\\sqrt{2}\\right)}{\\left(\\sqrt{5}+\\sqrt{2}\\right)\\left(\\sqrt{5}-\\sqrt{2}\\right)} = \\dfrac{\\sqrt{50}-\\sqrt{20}}{5-2} = \\dfrac{5\\sqrt{2}-2\\sqrt{5}}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{4-\\sqrt{15}}$$",
+                    options: [ "$\\dfrac{\\sqrt{10}-\\sqrt{6}}{2}$", "$\\dfrac{\\sqrt{10}+\\sqrt{6}}{2}$", "$\\dfrac{\\sqrt{15}-1}{2}$", "$\\sqrt{5}-\\sqrt{3}$" ],
+                    answer: "$\\dfrac{\\sqrt{10}-\\sqrt{6}}{2}$",
+                    rationale: "$\\sqrt{4-\\sqrt{15}} = \\sqrt{\\dfrac{8-2\\sqrt{15}}{2}} = \\dfrac{\\sqrt{8-2\\sqrt{15}}}{\\sqrt{2}}$<br>和が $8$、積が $15$ になる2数は $5$ と $3$ です。<br>$= \\dfrac{\\sqrt{\\left(\\sqrt{5}-\\sqrt{3}\\right)^2}}{\\sqrt{2}} = \\dfrac{\\sqrt{5}-\\sqrt{3}}{\\sqrt{2}} = \\dfrac{\\sqrt{10}-\\sqrt{6}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 28
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{\\sqrt{3}+\\sqrt{5}}$$",
-                    options: [ "$\\dfrac{\\sqrt{5}-\\sqrt{3}}{2}$", "$\\dfrac{\\sqrt{3}-\\sqrt{5}}{2}$", "$\\dfrac{\\sqrt{3}+\\sqrt{5}}{-2}$", "$\\dfrac{\\sqrt{5}-\\sqrt{3}}{-2}$" ],
-                    answer: "$\\dfrac{\\sqrt{5}-\\sqrt{3}}{2}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{5}-\\sqrt{3}\\right)$ を掛けます。（$\\left(\\sqrt{3}-\\sqrt{5}\\right)$ でも可）<br>$\\dfrac{1\\left(\\sqrt{5}-\\sqrt{3}\\right)}{\\left(\\sqrt{5}+\\sqrt{3}\\right)\\left(\\sqrt{5}-\\sqrt{3}\\right)} = \\dfrac{\\sqrt{5}-\\sqrt{3}}{5-3} = \\dfrac{\\sqrt{5}-\\sqrt{3}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{2+\\sqrt{3}}$$",
+                    options: [ "$\\dfrac{\\sqrt{6}+\\sqrt{2}}{2}$", "$\\dfrac{\\sqrt{6}-\\sqrt{2}}{2}$", "$\\sqrt{3}+1$", "$\\dfrac{\\sqrt{3}+1}{2}$" ],
+                    answer: "$\\dfrac{\\sqrt{6}+\\sqrt{2}}{2}$",
+                    rationale: "$\\sqrt{2+\\sqrt{3}} = \\sqrt{\\dfrac{4+2\\sqrt{3}}{2}} = \\dfrac{\\sqrt{4+2\\sqrt{3}}}{\\sqrt{2}}$<br>和が $4$、積が $3$ になる2数は $3$ と $1$ です。<br>$= \\dfrac{\\sqrt{\\left(\\sqrt{3}+\\sqrt{1}\\right)^2}}{\\sqrt{2}} = \\dfrac{\\sqrt{3}+1}{\\sqrt{2}} = \\dfrac{\\sqrt{6}+\\sqrt{2}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 29
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{3}}{\\sqrt{3}-1}$$",
-                    options: [ "$\\dfrac{3+\\sqrt{3}}{2}$", "$\\dfrac{3-\\sqrt{3}}{2}$", "$3+\\sqrt{3}$", "$\\dfrac{\\sqrt{3}+1}{2}$" ],
-                    answer: "$\\dfrac{3+\\sqrt{3}}{2}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{3}+1\\right)$ を掛けます。<br>$\\dfrac{\\sqrt{3}\\left(\\sqrt{3}+1\\right)}{\\left(\\sqrt{3}-1\\right)\\left(\\sqrt{3}+1\\right)} = \\dfrac{3+\\sqrt{3}}{3-1} = \\dfrac{3+\\sqrt{3}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{3-\\sqrt{8}}$$",
+                    options: [ "$\\dfrac{\\sqrt{4}-\\sqrt{2}}{\\sqrt{2}}$", "$\\sqrt{2}-1$", "$\\dfrac{\\sqrt{6}-\\sqrt{2}}{2}$", "$1-\\sqrt{2}$" ],
+                    answer: "$\\sqrt{2}-1$",
+                    rationale: "$\\sqrt{3-\\sqrt{8}} = \\sqrt{3-2\\sqrt{2}}$<br>和が $3$、積が $2$ になる2数は $2$ と $1$ です。<br>$\\sqrt{\\left(2+1\\right)-2\\sqrt{2 \\times 1}} = \\sqrt{\\left(\\sqrt{2}-\\sqrt{1}\\right)^2} = \\sqrt{2}-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 30
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{\\sqrt{5}-1}$$",
-                    options: [ "$\\dfrac{\\sqrt{5}+1}{4}$", "$\\dfrac{\\sqrt{5}-1}{4}$", "$\\sqrt{5}+1$", "$\\dfrac{\\sqrt{5}+1}{6}$" ],
-                    answer: "$\\dfrac{\\sqrt{5}+1}{4}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{5}+1\\right)$ を掛けます。<br>$\\dfrac{1\\left(\\sqrt{5}+1\\right)}{\\left(\\sqrt{5}-1\\right)\\left(\\sqrt{5}+1\\right)} = \\dfrac{\\sqrt{5}+1}{5-1} = \\dfrac{\\sqrt{5}+1}{4}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{5+\\sqrt{24}}$$",
+                    options: [ "$\\sqrt{3}+\\sqrt{2}$", "$\\sqrt{3}-\\sqrt{2}$", "$3+\\sqrt{2}$", "$5+\\sqrt{6}$" ],
+                    answer: "$\\sqrt{3}+\\sqrt{2}$",
+                    rationale: "$\\sqrt{5+\\sqrt{24}} = \\sqrt{5+2\\sqrt{6}}$<br>和が $5$、積が $6$ になる2数は $3$ と $2$ です。<br>$\\sqrt{\\left(3+2\\right)+2\\sqrt{3 \\times 2}} = \\sqrt{\\left(\\sqrt{3}+\\sqrt{2}\\right)^2} = \\sqrt{3}+\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ3: (√a ± √b) / (√c ± √d) (10題) ---
                 // 問題 31
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{5}+\\sqrt{3}}{\\sqrt{5}-\\sqrt{3}}$$",
-                    options: [ "$4+\\sqrt{15}$", "$4-\\sqrt{15}$", "$8+2\\sqrt{15}$", "$\\dfrac{8+2\\sqrt{15}}{8}$" ],
-                    answer: "$4+\\sqrt{15}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{5}+\\sqrt{3}\\right)$ を掛けます。<br>$\\dfrac{\\left(\\sqrt{5}+\\sqrt{3}\\right)^2}{\\left(\\sqrt{5}-\\sqrt{3}\\right)\\left(\\sqrt{5}+\\sqrt{3}\\right)} = \\dfrac{5+2\\sqrt{15}+3}{5-3} = \\dfrac{8+2\\sqrt{15}}{2} = 4+\\sqrt{15}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{5-\\sqrt{24}}$$",
+                    options: [ "$\\sqrt{3}-\\sqrt{2}$", "$\\sqrt{3}+\\sqrt{2}$", "$3-\\sqrt{2}$", "$\\sqrt{2}-\\sqrt{3}$" ],
+                    answer: "$\\sqrt{3}-\\sqrt{2}$",
+                    rationale: "$\\sqrt{5-\\sqrt{24}} = \\sqrt{5-2\\sqrt{6}}$<br>和が $5$、積が $6$ になる2数は $3$ と $2$ です。<br>$\\sqrt{\\left(3+2\\right)-2\\sqrt{3 \\times 2}} = \\sqrt{\\left(\\sqrt{3}-\\sqrt{2}\\right)^2} = \\sqrt{3}-\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 32
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{3}-1}{\\sqrt{3}+1}$$",
-                    options: [ "$2-\\sqrt{3}$", "$2+\\sqrt{3}$", "$4-2\\sqrt{3}$", "$\\dfrac{4-2\\sqrt{3}}{4}$" ],
-                    answer: "$2-\\sqrt{3}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{3}-1\\right)$ を掛けます。<br>$\\dfrac{\\left(\\sqrt{3}-1\\right)^2}{\\left(\\sqrt{3}+1\\right)\\left(\\sqrt{3}-1\\right)} = \\dfrac{3-2\\sqrt{3}+1}{3-1} = \\dfrac{4-2\\sqrt{3}}{2} = 2-\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{7+\\sqrt{48}}$$",
+                    options: [ "$2+\\sqrt{3}$", "$2-\\sqrt{3}$", "$\\sqrt{6}+1$", "$4+\\sqrt{3}$" ],
+                    answer: "$2+\\sqrt{3}$",
+                    rationale: "$\\sqrt{7+\\sqrt{48}} = \\sqrt{7+4\\sqrt{3}} = \\sqrt{7+2\\sqrt{12}}$<br>和が $7$、積が $12$ になる2数は $4$ と $3$ です。<br>$\\sqrt{\\left(4+3\\right)+2\\sqrt{4 \\times 3}} = \\sqrt{\\left(\\sqrt{4}+\\sqrt{3}\\right)^2} = 2+\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 33
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{2}+1}{\\sqrt{2}-1}$$",
-                    options: [ "$3+2\\sqrt{2}$", "$3-2\\sqrt{2}$", "$1$", "$3$" ],
-                    answer: "$3+2\\sqrt{2}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{2}+1\\right)$ を掛けます。<br>$\\dfrac{\\left(\\sqrt{2}+1\\right)^2}{\\left(\\sqrt{2}-1\\right)\\left(\\sqrt{2}+1\\right)} = \\dfrac{2+2\\sqrt{2}+1}{2-1} = 3+2\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{7-\\sqrt{48}}$$",
+                    options: [ "$2-\\sqrt{3}$", "$2+\\sqrt{3}$", "$\\sqrt{3}-2$", "$\\sqrt{6}-1$" ],
+                    answer: "$2-\\sqrt{3}$",
+                    rationale: "$\\sqrt{7-\\sqrt{48}} = \\sqrt{7-4\\sqrt{3}} = \\sqrt{7-2\\sqrt{12}}$<br>和が $7$、積が $12$ になる2数は $4$ と $3$ です。<br>$\\sqrt{\\left(4+3\\right)-2\\sqrt{4 \\times 3}} = \\sqrt{\\left(\\sqrt{4}-\\sqrt{3}\\right)^2} = 2-\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 34
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{7}-\\sqrt{5}}{\\sqrt{7}+\\sqrt{5}}$$",
-                    options: [ "$6-\\sqrt{35}$", "$6+\\sqrt{35}$", "$12-2\\sqrt{35}$", "$\\dfrac{12-2\\sqrt{35}}{12}$" ],
-                    answer: "$6-\\sqrt{35}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{7}-\\sqrt{5}\\right)$ を掛けます。<br>$\\dfrac{\\left(\\sqrt{7}-\\sqrt{5}\\right)^2}{\\left(\\sqrt{7}+\\sqrt{5}\\right)\\left(\\sqrt{7}-\\sqrt{5}\\right)} = \\dfrac{7-2\\sqrt{35}+5}{7-5} = \\dfrac{12-2\\sqrt{35}}{2} = 6-\\sqrt{35}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{11+\\sqrt{72}}$$",
+                    options: [ "$3+\\sqrt{2}$", "$3-\\sqrt{2}$", "$\\sqrt{9}+\\sqrt{2}$", "$9+\\sqrt{2}$" ],
+                    answer: "$3+\\sqrt{2}$",
+                    rationale: "$\\sqrt{11+\\sqrt{72}} = \\sqrt{11+6\\sqrt{2}} = \\sqrt{11+2\\sqrt{18}}$<br>和が $11$、積が $18$ になる2数は $9$ と $2$ です。<br>$\\sqrt{\\left(9+2\\right)+2\\sqrt{9 \\times 2}} = \\sqrt{\\left(\\sqrt{9}+\\sqrt{2}\\right)^2} = 3+\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 35
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{6}}{\\sqrt{3}+\\sqrt{2}}$$",
-                    options: [ "$3\\sqrt{2}-2\\sqrt{3}$", "$3\\sqrt{2}+2\\sqrt{3}$", "$\\sqrt{18}-\\sqrt{12}$", "$\\sqrt{3}$" ],
-                    answer: "$3\\sqrt{2}-2\\sqrt{3}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{3}-\\sqrt{2}\\right)$ を掛けます。<br>$\\dfrac{\\sqrt{6}\\left(\\sqrt{3}-\\sqrt{2}\\right)}{\\left(\\sqrt{3}+\\sqrt{2}\\right)\\left(\\sqrt{3}-\\sqrt{2}\\right)} = \\dfrac{\\sqrt{18}-\\sqrt{12}}{3-2} = 3\\sqrt{2}-2\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{11-\\sqrt{72}}$$",
+                    options: [ "$3-\\sqrt{2}$", "$3+\\sqrt{2}$", "$\\sqrt{2}-3$", "$\\sqrt{6}-\\sqrt{3}$" ],
+                    answer: "$3-\\sqrt{2}$",
+                    rationale: "$\\sqrt{11-\\sqrt{72}} = \\sqrt{11-6\\sqrt{2}} = \\sqrt{11-2\\sqrt{18}}$<br>和が $11$、積が $18$ になる2数は $9$ と $2$ です。<br>$\\sqrt{\\left(9+2\\right)-2\\sqrt{9 \\times 2}} = \\sqrt{\\left(\\sqrt{9}-\\sqrt{2}\\right)^2} = 3-\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 36
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{5}-1}{\\sqrt{5}+1}$$",
-                    options: [ "$\\dfrac{3-\\sqrt{5}}{2}$", "$\\dfrac{3+\\sqrt{5}}{2}$", "$3-\\sqrt{5}$", "$\\dfrac{6-2\\sqrt{5}}{6}$" ],
-                    answer: "$\\dfrac{3-\\sqrt{5}}{2}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{5}-1\\right)$ を掛けます。<br>$\\dfrac{\\left(\\sqrt{5}-1\\right)^2}{\\left(\\sqrt{5}+1\\right)\\left(\\sqrt{5}-1\\right)} = \\dfrac{5-2\\sqrt{5}+1}{5-1} = \\dfrac{6-2\\sqrt{5}}{4} = \\dfrac{3-\\sqrt{5}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{4+\\sqrt{12}}$$",
+                    options: [ "$\\sqrt{3}+1$", "$\\sqrt{3}-1$", "$2+\\sqrt{3}$", "$3+1$" ],
+                    answer: "$\\sqrt{3}+1$",
+                    rationale: "$\\sqrt{4+\\sqrt{12}} = \\sqrt{4+2\\sqrt{3}}$<br>和が $4$、積が $3$ になる2数は $3$ と $1$ です。<br>$\\sqrt{\\left(3+1\\right)+2\\sqrt{3 \\times 1}} = \\sqrt{\\left(\\sqrt{3}+\\sqrt{1}\\right)^2} = \\sqrt{3}+1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 37
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{7}+2}{\\sqrt{7}-2}$$",
-                    options: [ "$\\dfrac{11+4\\sqrt{7}}{3}$", "$\\dfrac{11-4\\sqrt{7}}{3}$", "$11+4\\sqrt{7}$", "$\\dfrac{11+4\\sqrt{7}}{11}$" ],
-                    answer: "$\\dfrac{11+4\\sqrt{7}}{3}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{7}+2\\right)$ を掛けます。<br>$\\dfrac{\\left(\\sqrt{7}+2\\right)^2}{\\left(\\sqrt{7}-2\\right)\\left(\\sqrt{7}+2\\right)} = \\dfrac{7+4\\sqrt{7}+4}{7-4} = \\dfrac{11+4\\sqrt{7}}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{9-\\sqrt{80}}$$",
+                    options: [ "$\\sqrt{5}-2$", "$\\sqrt{5}+2$", "$2-\\sqrt{5}$", "$5-\\sqrt{4}$" ],
+                    answer: "$\\sqrt{5}-2$",
+                    rationale: "$\\sqrt{9-\\sqrt{80}} = \\sqrt{9-4\\sqrt{5}} = \\sqrt{9-2\\sqrt{20}}$<br>和が $9$、積が $20$ になる2数は $5$ と $4$ です。<br>$\\sqrt{\\left(5+4\\right)-2\\sqrt{5 \\times 4}} = \\sqrt{\\left(\\sqrt{5}-\\sqrt{4}\\right)^2} = \\sqrt{5}-2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 38
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{3\\sqrt{2}+2\\sqrt{3}}{3\\sqrt{2}-2\\sqrt{3}}$$",
-                    options: [ "$5+2\\sqrt{6}$", "$5-2\\sqrt{6}$", "$\\dfrac{30+12\\sqrt{6}}{30}$", "$30+12\\sqrt{6}$" ],
-                    answer: "$5+2\\sqrt{6}$",
-                    rationale: "分母・分子に $\\left(3\\sqrt{2}+2\\sqrt{3}\\right)$ を掛けます。<br>$\\dfrac{\\left(3\\sqrt{2}+2\\sqrt{3}\\right)^2}{\\left(3\\sqrt{2}\\right)^2-\\left(2\\sqrt{3}\\right)^2} = \\dfrac{18+12\\sqrt{6}+12}{18-12} = \\dfrac{30+12\\sqrt{6}}{6} = 5+2\\sqrt{6}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{3+\\sqrt{5}}$$",
+                    options: [ "$\\dfrac{\\sqrt{10}+\\sqrt{2}}{2}$", "$\\dfrac{\\sqrt{10}-\\sqrt{2}}{2}$", "$\\dfrac{\\sqrt{6}+\\sqrt{2}}{2}$", "$\\dfrac{\\sqrt{5}+1}{2}$" ],
+                    answer: "$\\dfrac{\\sqrt{10}+\\sqrt{2}}{2}$",
+                    rationale: "$\\sqrt{3+\\sqrt{5}} = \\sqrt{\\dfrac{6+2\\sqrt{5}}{2}} = \\dfrac{\\sqrt{6+2\\sqrt{5}}}{\\sqrt{2}}$<br>和が $6$、積が $5$ になる2数は $5$ と $1$ です。<br>$= \\dfrac{\\sqrt{\\left(\\sqrt{5}+\\sqrt{1}\\right)^2}}{\\sqrt{2}} = \\dfrac{\\sqrt{5}+1}{\\sqrt{2}} = \\dfrac{\\sqrt{10}+\\sqrt{2}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 39
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{\\sqrt{10}-2}{\\sqrt{10}+2}$$",
-                    options: [ "$\\dfrac{7-2\\sqrt{10}}{3}$", "$\\dfrac{7+2\\sqrt{10}}{3}$", "$14-4\\sqrt{10}$", "$\\dfrac{14-4\\sqrt{10}}{14}$" ],
-                    answer: "$\\dfrac{7-2\\sqrt{10}}{3}$",
-                    rationale: "分母・分子に $\\left(\\sqrt{10}-2\\right)$ を掛けます。<br>$\\dfrac{\\left(\\sqrt{10}-2\\right)^2}{\\left(\\sqrt{10}+2\\right)\\left(\\sqrt{10}-2\\right)} = \\dfrac{10-4\\sqrt{10}+4}{10-4} = \\dfrac{14-4\\sqrt{10}}{6} = \\dfrac{7-2\\sqrt{10}}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{5-\\sqrt{21}}$$",
+                    options: [ "$\\dfrac{\\sqrt{14}-\\sqrt{6}}{2}$", "$\\dfrac{\\sqrt{14}+\\sqrt{6}}{2}$", "$\\dfrac{\\sqrt{7}-\\sqrt{3}}{2}$", "$\\dfrac{\\sqrt{21}-1}{2}$" ],
+                    answer: "$\\dfrac{\\sqrt{14}-\\sqrt{6}}{2}$",
+                    rationale: "$\\sqrt{5-\\sqrt{21}} = \\sqrt{\\dfrac{10-2\\sqrt{21}}{2}} = \\dfrac{\\sqrt{10-2\\sqrt{21}}}{\\sqrt{2}}$<br>和が $10$、積が $21$ になる2数は $7$ と $3$ です。<br>$= \\dfrac{\\sqrt{\\left(\\sqrt{7}-\\sqrt{3}\\right)^2}}{\\sqrt{2}} = \\dfrac{\\sqrt{7}-\\sqrt{3}}{\\sqrt{2}} = \\dfrac{\\sqrt{14}-\\sqrt{6}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 40
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{2+\\sqrt{3}}{2-\\sqrt{3}}$$",
-                    options: [ "$7+4\\sqrt{3}$", "$7-4\\sqrt{3}$", "$1$", "$7+2\\sqrt{3}$" ],
-                    answer: "$7+4\\sqrt{3}$",
-                    rationale: "分母・分子に $\\left(2+\\sqrt{3}\\right)$ を掛けます。<br>$\\dfrac{\\left(2+\\sqrt{3}\\right)^2}{\\left(2-\\sqrt{3}\\right)\\left(2+\\sqrt{3}\\right)} = \\dfrac{4+4\\sqrt{3}+3}{4-3} = 7+4\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{6-\\sqrt{32}}$$",
+                    options: [ "$2\\sqrt{2}-2$", "$\\sqrt{8}-\\sqrt{4}$", "$\\dfrac{\\sqrt{12}-\\sqrt{4}}{2}$", "$4-2\\sqrt{2}$" ],
+                    answer: "$2\\sqrt{2}-2$",
+                    rationale: "$\\sqrt{6-\\sqrt{32}} = \\sqrt{6-4\\sqrt{2}} = \\sqrt{6-2\\sqrt{8}}$<br>和が $6$、積が $8$ になる2数は $4$ と $2$ です。<br>$\\sqrt{\\left(4+2\\right)-2\\sqrt{4 \\times 2}} = \\sqrt{\\left(\\sqrt{4}-\\sqrt{2}\\right)^2} = 2-\\sqrt{2}$。 おっと、選択肢と答えが合いません。 $\\sqrt{6-4\\sqrt{2}} = 2-\\sqrt{2}$。 選択肢を修正します。",
+                    options: [ "$2-\\sqrt{2}$", "$2+\\sqrt{2}$", "$\\sqrt{6}-\\sqrt{2}$", "$4-\\sqrt{2}$" ],
+                    answer: "$2-\\sqrt{2}$",
+                    rationale: "$\\sqrt{6-\\sqrt{32}} = \\sqrt{6-4\\sqrt{2}} = \\sqrt{6-2\\sqrt{8}}$<br>和が $6$、積が $8$ になる2数は $4$ と $2$ です。<br>$\\sqrt{\\left(4+2\\right)-2\\sqrt{4 \\times 2}} = \\sqrt{\\left(\\sqrt{4}-\\sqrt{2}\\right)^2} = 2-\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ4: 3項の分母 (5題) ---
                 // 問題 41
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{1+\\sqrt{2}+\\sqrt{3}}$$",
-                    options: [ "$\\dfrac{2+\\sqrt{2}-\\sqrt{6}}{4}$", "$\\dfrac{2-\\sqrt{2}+\\sqrt{6}}{4}$", "$\\dfrac{2+\\sqrt{2}+\\sqrt{6}}{4}$", "$\\dfrac{1+\\sqrt{2}-\\sqrt{3}}{2}$" ],
-                    answer: "$\\dfrac{2+\\sqrt{2}-\\sqrt{6}}{4}$",
-                    rationale: "分母・分子に $\\left( (1+\\sqrt{2}) - \\sqrt{3} \\right)$ を掛けます。<br>$\\dfrac{1+\\sqrt{2}-\\sqrt{3}}{\\left(1+\\sqrt{2}\\right)^2-3} = \\dfrac{1+\\sqrt{2}-\\sqrt{3}}{1+2\\sqrt{2}+2-3} = \\dfrac{1+\\sqrt{2}-\\sqrt{3}}{2\\sqrt{2}}$<br>さらに $\\sqrt{2}$ を掛けて $\\dfrac{\\sqrt{2}+2-\\sqrt{6}}{4}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{12+2\\sqrt{35}}$$",
+                    options: [ "$\\sqrt{7}+\\sqrt{5}$", "$\\sqrt{7}-\\sqrt{5}$", "$7+\\sqrt{5}$", "$12+\\sqrt{35}$" ],
+                    answer: "$\\sqrt{7}+\\sqrt{5}$",
+                    rationale: "和が $12$、積が $35$ になる2数は $7$ と $5$ です。<br>$\\sqrt{\\left(7+5\\right)+2\\sqrt{7 \\times 5}} = \\sqrt{\\left(\\sqrt{7}+\\sqrt{5}\\right)^2} = \\sqrt{7}+\\sqrt{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 42
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{1+\\sqrt{2}-\\sqrt{3}}$$",
-                    options: [ "$\\dfrac{2+\\sqrt{2}+\\sqrt{6}}{4}$", "$\\dfrac{2+\\sqrt{2}-\\sqrt{6}}{4}$", "$\\dfrac{2-\\sqrt{2}-\\sqrt{6}}{4}$", "$\\dfrac{1+\\sqrt{2}+\\sqrt{3}}{2}$" ],
-                    answer: "$\\dfrac{2+\\sqrt{2}+\\sqrt{6}}{4}$",
-                    rationale: "分母・分子に $\\left( (1+\\sqrt{2}) + \\sqrt{3} \\right)$ を掛けます。<br>$\\dfrac{1+\\sqrt{2}+\\sqrt{3}}{\\left(1+\\sqrt{2}\\right)^2-3} = \\dfrac{1+\\sqrt{2}+\\sqrt{3}}{1+2\\sqrt{2}+2-3} = \\dfrac{1+\\sqrt{2}+\\sqrt{3}}{2\\sqrt{2}}$<br>さらに $\\sqrt{2}$ を掛けて $\\dfrac{\\sqrt{2}+2+\\sqrt{6}}{4}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{12-2\\sqrt{35}}$$",
+                    options: [ "$\\sqrt{7}-\\sqrt{5}$", "$\\sqrt{7}+\\sqrt{5}$", "$7-\\sqrt{5}$", "$5-\\sqrt{7}$" ],
+                    answer: "$\\sqrt{7}-\\sqrt{5}$",
+                    rationale: "和が $12$、積が $35$ になる2数は $7$ と $5$ です。<br>$\\sqrt{\\left(7+5\\right)-2\\sqrt{7 \\times 5}} = \\sqrt{\\left(\\sqrt{7}-\\sqrt{5}\\right)^2} = \\sqrt{7}-\\sqrt{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 43
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{\\sqrt{3}+\\sqrt{2}-1}$$",
-                    options: [ "$\\dfrac{\\sqrt{2}+2-\\sqrt{6}}{4}$", "$\\dfrac{\\sqrt{2}-2+\\sqrt{6}}{4}$", "$\\dfrac{\\sqrt{3}+\\sqrt{2}+1}{4}$", "$\\dfrac{\\sqrt{3}+\\sqrt{2}+1}{2\\sqrt{6}}$" ],
-                    answer: "$\\dfrac{\\sqrt{2}+2-\\sqrt{6}}{4}$",
-                    rationale: "分母・分子に $\\left( (\\sqrt{3}+\\sqrt{2}) + 1 \\right)$ を掛けます。<br>$\\dfrac{\\sqrt{3}+\\sqrt{2}+1}{\\left(\\sqrt{3}+\\sqrt{2}\\right)^2-1} = \\dfrac{\\sqrt{3}+\\sqrt{2}+1}{3+2\\sqrt{6}+2-1} = \\dfrac{\\sqrt{3}+\\sqrt{2}+1}{4+2\\sqrt{6}}$<br>さらに $\\left(4-2\\sqrt{6}\\right)$ を掛けると...計算が大変。$\\dfrac{\\sqrt{3}+\\sqrt{2}+1}{2\\left(2+\\sqrt{6}\\right)} = \\dfrac{\\left(\\sqrt{3}+\\sqrt{2}+1\\right)\\left(2-\\sqrt{6}\\right)}{2\\left(4-6\\right)} = \\dfrac{2\\sqrt{3}-3\\sqrt{2}+2\\sqrt{2}-\\sqrt{12}+2-\\sqrt{6}}{-4} = \\dfrac{-\\sqrt{2}+2-\\sqrt{6}}{-4} = \\dfrac{\\sqrt{2}-2+\\sqrt{6}}{4}$。おっと、符号が... $\\left(2\\sqrt{3}-3\\sqrt{2}+2\\sqrt{2}-2\\sqrt{3}+2-\\sqrt{6}\\right)/(-4) = \\left(-\\sqrt{2}+2-\\sqrt{6}\\right)/(-4) = \\left(\\sqrt{2}-2+\\sqrt{6}\\right)/4$。選択肢を見直します。$a=\\sqrt{3}, b=\\sqrt{2}-1$ $a^2-b^2 = 3-(2-2\\sqrt{2}+1) = 2\\sqrt{2}$。 $\\dfrac{\\sqrt{3}-\\left(\\sqrt{2}-1\\right)}{2\\sqrt{2}} = \\dfrac{\\sqrt{3}-\\sqrt{2}+1}{2\\sqrt{2}} = \\dfrac{\\sqrt{6}-2+\\sqrt{2}}{4}$。 OK。",
-                    options: [ "$\\dfrac{\\sqrt{6}-2+\\sqrt{2}}{4}$", "$\\dfrac{\\sqrt{6}+2-\\sqrt{2}}{4}$", "$\\dfrac{\\sqrt{3}+\\sqrt{2}+1}{4}$", "$\\dfrac{\\sqrt{3}+\\sqrt{2}+1}{2\\sqrt{6}}$" ],
-                    answer: "$\\dfrac{\\sqrt{6}-2+\\sqrt{2}}{4}$",
-                    rationale: "分母・分子に $\\left( (\\sqrt{3}) - (\\sqrt{2}-1) \\right)$ を掛けます。<br>$\\dfrac{\\sqrt{3}-\\sqrt{2}+1}{\\left(\\sqrt{3}\\right)^2-\\left(\\sqrt{2}-1\\right)^2} = \\dfrac{\\sqrt{3}-\\sqrt{2}+1}{3-(2-2\\sqrt{2}+1)} = \\dfrac{\\sqrt{3}-\\sqrt{2}+1}{2\\sqrt{2}}$<br>さらに $\\sqrt{2}$ を掛けて $\\dfrac{\\sqrt{6}-2+\\sqrt{2}}{4}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{10-4\\sqrt{6}}$$",
+                    options: [ "$\\sqrt{6}-\\sqrt{4}$", "$2\\sqrt{2}-\\sqrt{2}$", "$\\sqrt{6}-2$", "$2-\\sqrt{6}$" ],
+                    answer: "$\\sqrt{6}-2$",
+                    rationale: "$4\\sqrt{6} = 2\\sqrt{16 \\times 6} = 2\\sqrt{96}$ ではない。$4\\sqrt{6} = 2\\sqrt{4 \\times 6} = 2\\sqrt{24}$<br>式は $\\sqrt{10-2\\sqrt{24}}$ となります。<br>和が $10$、積が $24$ になる2数は $6$ と $4$ です。<br>$\\sqrt{\\left(6+4\\right)-2\\sqrt{6 \\times 4}} = \\sqrt{\\left(\\sqrt{6}-\\sqrt{4}\\right)^2} = \\sqrt{6}-2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 44
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1}{\\sqrt{2}+\\sqrt{3}-\\sqrt{5}}$$",
-                    options: [ "$\\dfrac{3\\sqrt{2}+2\\sqrt{3}+\\sqrt{30}}{12}$", "$\\dfrac{3\\sqrt{2}+2\\sqrt{3}-\\sqrt{30}}{12}$", "$\\dfrac{\\sqrt{2}+\\sqrt{3}+\\sqrt{5}}{2\\sqrt{6}}$", "$\\dfrac{\\sqrt{2}+\\sqrt{3}+\\sqrt{5}}{10}$" ],
-                    answer: "$\\dfrac{3\\sqrt{2}+2\\sqrt{3}+\\sqrt{30}}{12}$",
-                    rationale: "分母・分子に $\\left( (\\sqrt{2}+\\sqrt{3}) + \\sqrt{5} \\right)$ を掛けます。<br>$\\dfrac{\\sqrt{2}+\\sqrt{3}+\\sqrt{5}}{\\left(\\sqrt{2}+\\sqrt{3}\\right)^2-5} = \\dfrac{\\sqrt{2}+\\sqrt{3}+\\sqrt{5}}{2+2\\sqrt{6}+3-5} = \\dfrac{\\sqrt{2}+\\sqrt{3}+\\sqrt{5}}{2\\sqrt{6}}$<br>さらに $\\sqrt{6}$ を掛けて $\\dfrac{\\sqrt{12}+\\sqrt{18}+\\sqrt{30}}{12} = \\dfrac{2\\sqrt{3}+3\\sqrt{2}+\\sqrt{30}}{12}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{13+2\\sqrt{42}}$$",
+                    options: [ "$\\sqrt{7}+\\sqrt{6}$", "$\\sqrt{7}-\\sqrt{6}$", "$7+\\sqrt{6}$", "$6+\\sqrt{7}$" ],
+                    answer: "$\\sqrt{7}+\\sqrt{6}$",
+                    rationale: "和が $13$、積が $42$ になる2数は $7$ と $6$ です。<br>$\\sqrt{\\left(7+6\\right)+2\\sqrt{7 \\times 6}} = \\sqrt{\\left(\\sqrt{7}+\\sqrt{6}\\right)^2} = \\sqrt{7}+\\sqrt{6}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 45
                 {
-                    question: "次の式の分母を有理化せよ。<br>$$\\dfrac{1+\\sqrt{2}}{1-\\sqrt{2}+\\sqrt{3}}$$",
-                    options: [ "$\\dfrac{1-\\sqrt{2}-\\sqrt{6}}{2}$", "$\\dfrac{1+\\sqrt{2}+\\sqrt{6}}{2}$", "$\\dfrac{1-\\sqrt{2}+\\sqrt{6}}{2}$", "$\\dfrac{1+\\sqrt{2}-\\sqrt{6}}{-2}$" ],
-                    answer: "$\\dfrac{1-\\sqrt{2}-\\sqrt{6}}{2}$",
-                    rationale: "分母・分子に $\\left( (1-\\sqrt{2}) - \\sqrt{3} \\right)$ を掛けます。<br>$\\dfrac{\\left(1+\\sqrt{2}\\right)\\left(1-\\sqrt{2}-\\sqrt{3}\\right)}{\\left(1-\\sqrt{2}\\right)^2-3} = \\dfrac{1-\\sqrt{2}-\\sqrt{3}+\\sqrt{2}-2-\\sqrt{6}}{1-2\\sqrt{2}+2-3} = \\dfrac{-1-\\sqrt{3}-\\sqrt{6}}{-2\\sqrt{2}}$<br>$= \\dfrac{\\left(1+\\sqrt{3}+\\sqrt{6}\\right)\\sqrt{2}}{2\\sqrt{2}\\sqrt{2}} = \\dfrac{\\sqrt{2}+\\sqrt{6}+\\sqrt{12}}{4} = \\dfrac{\\sqrt{2}+\\sqrt{6}+2\\sqrt{3}}{4}$。 選択肢と合わない。やり直し。<br> $\\dfrac{1+\\sqrt{2}}{ (1-\\sqrt{2})+\\sqrt{3} } \
-                    = \\dfrac{\\left(1+\\sqrt{2}\\right)\\left(1-\\sqrt{2}-\\sqrt{3}\\right)}{ \\left(1-\\sqrt{2}\\right)^2-3 } = \\dfrac{1-\\sqrt{2}-\\sqrt{3}+\\sqrt{2}-2-\\sqrt{6}}{ 1-2\\sqrt{2}+2-3 } = \\dfrac{-1-\\sqrt{3}-\\sqrt{6}}{ -2\\sqrt{2} } = \\dfrac{\\left(1+\\sqrt{3}+\\sqrt{6}\\right)\\sqrt{2}}{ 2\\sqrt{2}\\sqrt{2} } = \\dfrac{\\sqrt{2}+\\sqrt{6}+\\sqrt{12}}{4} = \\dfrac{2\\sqrt{3}+\\sqrt{6}+\\sqrt{2}}{4}$。まだ合わない。<br> $A=1, B=\\sqrt{2}, C=\\sqrt{3}$。 $\\dfrac{1+\\sqrt{2}}{(1+\\sqrt{2})-\\sqrt{3}} \
-                    = \\dfrac{\\left(1+\\sqrt{2}\\right)\\left(1+\\sqrt{2}+\\sqrt{3}\\right)}{\\left(1+\\sqrt{2}\\right)^2-3} = \\dfrac{\\left(1+\\sqrt{2}\\right)^2 + \\sqrt{3}\\left(1+\\sqrt{2}\\right)}{1+2\\sqrt{2}+2-3} = \\dfrac{1+2\\sqrt{2}+2+\\sqrt{3}+\\sqrt{6}}{2\\sqrt{2}} = \\dfrac{3+2\\sqrt{2}+\\sqrt{3}+\\sqrt{6}}{2\\sqrt{2}} = \\dfrac{3\\sqrt{2}+4+\\sqrt{6}+\\sqrt{12}}{4} = \\dfrac{4+3\\sqrt{2}+2\\sqrt{3}+\\sqrt{6}}{4}$。 OK。選択肢を修正。",
-                    options: [ "$\\dfrac{4+3\\sqrt{2}+2\\sqrt{3}+\\sqrt{6}}{4}$", "$\\dfrac{4-3\\sqrt{2}-2\\sqrt{3}+\\sqrt{6}}{4}$", "$\\dfrac{4+3\\sqrt{2}-2\\sqrt{3}-\\sqrt{6}}{4}$", "$\\dfrac{4+3\\sqrt{2}+2\\sqrt{3}-\\sqrt{6}}{4}$" ],
-                    answer: "$\\dfrac{4+3\\sqrt{2}+2\\sqrt{3}+\\sqrt{6}}{4}$",
-                    rationale: "分母・分子に $\\left( (1+\\sqrt{2}) + \\sqrt{3} \\right)$ を掛けます。<br>$\\dfrac{\\left(1+\\sqrt{2}\\right)\\left(1+\\sqrt{2}+\\sqrt{3}\\right)}{\\left(1+\\sqrt{2}\\right)^2-3} = \\dfrac{\\left(1+\\sqrt{2}\\right)^2 + \\sqrt{3}\\left(1+\\sqrt{2}\\right)}{1+2\\sqrt{2}+2-3} = \\dfrac{3+2\\sqrt{2}+\\sqrt{3}+\\sqrt{6}}{2\\sqrt{2}}$<br>さらに $\\sqrt{2}$ を掛けて $\\dfrac{3\\sqrt{2}+4+\\sqrt{6}+\\sqrt{12}}{4} = \\dfrac{4+3\\sqrt{2}+2\\sqrt{3}+\\sqrt{6}}{4}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{10+2\\sqrt{21}}$$",
+                    options: [ "$\\sqrt{7}+\\sqrt{3}$", "$\\sqrt{7}-\\sqrt{3}$", "$7+\\sqrt{3}$", "$3+\\sqrt{7}$" ],
+                    answer: "$\\sqrt{7}+\\sqrt{3}$",
+                    rationale: "和が $10$、積が $21$ になる2数は $7$ と $3$ です。<br>$\\sqrt{\\left(7+3\\right)+2\\sqrt{7 \\times 3}} = \\sqrt{\\left(\\sqrt{7}+\\sqrt{3}\\right)^2} = \\sqrt{7}+\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ5: 和差の計算 (5題) ---
                 // 問題 46
                 {
-                    question: "次の式を簡単にせよ。<br>$$\\dfrac{1}{\\sqrt{2}+1} + \\dfrac{1}{\\sqrt{2}-1}$$",
-                    options: [ "$2\\sqrt{2}$", "$2$", "$-2$", "$0$" ],
-                    answer: "$2\\sqrt{2}$",
-                    rationale: "$\\left(\\sqrt{2}-1\\right) + \\left(\\sqrt{2}+1\\right) = 2\\sqrt{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{10-2\\sqrt{21}}$$",
+                    options: [ "$\\sqrt{7}-\\sqrt{3}$", "$\\sqrt{7}+\\sqrt{3}$", "$7-\\sqrt{3}$", "$3-\\sqrt{7}$" ],
+                    answer: "$\\sqrt{7}-\\sqrt{3}$",
+                    rationale: "和が $10$、積が $21$ になる2数は $7$ と $3$ です。<br>$\\sqrt{\\left(7+3\\right)-2\\sqrt{7 \\times 3}} = \\sqrt{\\left(\\sqrt{7}-\\sqrt{3}\\right)^2} = \\sqrt{7}-\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 47
                 {
-                    question: "次の式を簡単にせよ。<br>$$\\dfrac{1}{\\sqrt{3}+1} + \\dfrac{1}{\\sqrt{3}-1}$$",
-                    options: [ "$\\sqrt{3}$", "$2\\sqrt{3}$", "$1$", "$2$" ],
-                    answer: "$\\sqrt{3}$",
-                    rationale: "$\\dfrac{\\left(\\sqrt{3}-1\\right) + \\left(\\sqrt{3}+1\\right)}{\\left(\\sqrt{3}+1\\right)\\left(\\sqrt{3}-1\\right)} = \\dfrac{2\\sqrt{3}}{3-1} = \\dfrac{2\\sqrt{3}}{2} = \\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{14-6\\sqrt{5}}$$",
+                    options: [ "$3-\\sqrt{5}$", "$3+\\sqrt{5}$", "$\\sqrt{5}-3$", "$\\sqrt{9}-\\sqrt{5}$" ],
+                    answer: "$3-\\sqrt{5}$",
+                    rationale: "$6\\sqrt{5} = 2 \\times 3 \\times \\sqrt{5} = 2\\sqrt{9 \\times 5} = 2\\sqrt{45}$<br>式は $\\sqrt{14-2\\sqrt{45}}$ となります。<br>和が $14$、積が $45$ になる2数は $9$ と $5$ です。<br>$\\sqrt{\\left(9+5\\right)-2\\sqrt{9 \\times 5}} = \\sqrt{\\left(\\sqrt{9}-\\sqrt{5}\\right)^2} = 3-\\sqrt{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 48
                 {
-                    question: "次の式を簡単にせよ。<br>$$\\dfrac{1}{\\sqrt{5}-2} - \\dfrac{1}{\\sqrt{5}+2}$$",
-                    options: [ "$4$", "$2\\sqrt{5}$", "$0$", "$-4$" ],
-                    answer: "$4$",
-                    rationale: "$\\dfrac{\\left(\\sqrt{5}+2\\right) - \\left(\\sqrt{5}-2\\right)}{\\left(\\sqrt{5}-2\\right)\\left(\\sqrt{5}+2\\right)} = \\dfrac{4}{5-4} = 4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{8+\\sqrt{60}}$$",
+                    options: [ "$\\sqrt{5}+\\sqrt{3}$", "$\\sqrt{5}-\\sqrt{3}$", "$\\dfrac{\\sqrt{10}+\\sqrt{6}}{2}$", "$5+\\sqrt{3}$" ],
+                    answer: "$\\sqrt{5}+\\sqrt{3}$",
+                    rationale: "$\\sqrt{8+\\sqrt{60}} = \\sqrt{8+2\\sqrt{15}}$<br>和が $8$、積が $15$ になる2数は $5$ と $3$ です。<br>$\\sqrt{\\left(5+3\\right)+2\\sqrt{5 \\times 3}} = \\sqrt{\\left(\\sqrt{5}+\\sqrt{3}\\right)^2} = \\sqrt{5}+\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 49
                 {
-                    question: "次の式を簡単にせよ。<br>$$\\dfrac{\\sqrt{3}}{\\sqrt{3}+1} + \\dfrac{1}{\\sqrt{3}-1}$$",
-                    options: [ "$2$", "$\\sqrt{3}$", "$2+\\sqrt{3}$", "$2-\\sqrt{3}$" ],
-                    answer: "$2$",
-                    rationale: "$\\dfrac{\\sqrt{3}\\left(\\sqrt{3}-1\\right) + 1\\left(\\sqrt{3}+1\\right)}{\\left(\\sqrt{3}+1\\right)\\left(\\sqrt{3}-1\\right)} = \\dfrac{3-\\sqrt{3}+\\sqrt{3}+1}{3-1} = \\dfrac{4}{2} = 2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{6-\\sqrt{11}}$$",
+                    options: [ "$\\dfrac{\\sqrt{22}-\\sqrt{2}}{2}$", "$\\dfrac{\\sqrt{22}+\\sqrt{2}}{2}$", "$\\dfrac{\\sqrt{11}-1}{2}$", "$\\dfrac{11-\\sqrt{2}}{2}$" ],
+                    answer: "$\\dfrac{\\sqrt{22}-\\sqrt{2}}{2}$",
+                    rationale: "$\\sqrt{6-\\sqrt{11}} = \\sqrt{\\dfrac{12-2\\sqrt{11}}{2}} = \\dfrac{\\sqrt{12-2\\sqrt{11}}}{\\sqrt{2}}$<br>和が $12$、積が $11$ になる2数は $11$ と $1$ です。<br>$= \\dfrac{\\sqrt{\\left(\\sqrt{11}-\\sqrt{1}\\right)^2}}{\\sqrt{2}} = \\dfrac{\\sqrt{11}-1}{\\sqrt{2}} = \\dfrac{\\sqrt{22}-\\sqrt{2}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 50
                 {
-                    question: "次の式を簡単にせよ。<br>$$\\dfrac{\\sqrt{6}}{\\sqrt{3}+\\sqrt{2}}+\\dfrac{3\\sqrt{2}}{\\sqrt{6}+\\sqrt{3}}-\\dfrac{4\\sqrt{3}}{\\sqrt{6}+\\sqrt{2}}$$",
-                    options: [ "$0$", "$2\\sqrt{3}$", "$3\\sqrt{2}$", "$-\\sqrt{6}$" ],
-                    answer: "$0$",
-                    rationale: "第1項: $\\dfrac{\\sqrt{6}\\left(\\sqrt{3}-\\sqrt{2}\\right)}{3-2} = 3\\sqrt{2}-2\\sqrt{3}$<br>第2項: $\\dfrac{3\\sqrt{2}\\left(\\sqrt{6}-\\sqrt{3}\\right)}{6-3} = \\dfrac{3\\sqrt{12}-3\\sqrt{6}}{3} = 2\\sqrt{3}-\\sqrt{6}$<br>第3項: $\\dfrac{4\\sqrt{3}\\left(\\sqrt{6}-\\sqrt{2}\\right)}{6-2} = \\dfrac{4\\sqrt{18}-4\\sqrt{6}}{4} = 3\\sqrt{2}-\\sqrt{6}$<br> $\\left(3\\sqrt{2}-2\\sqrt{3}\\right) + \\left(2\\sqrt{3}-\\sqrt{6}\\right) - \\left(3\\sqrt{2}-\\sqrt{6}\\right) = 0$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63140' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "次の式の2重根号をはずして簡単にせよ。<br>$$\\sqrt{2-\\sqrt{3}}$$",
+                    options: [ "$\\dfrac{\\sqrt{6}-\\sqrt{2}}{2}$", "$\\dfrac{\\sqrt{6}+\\sqrt{2}}{2}$", "$\\dfrac{\\sqrt{3}-1}{2}$", "$\\sqrt{3}-1$" ],
+                    answer: "$\\dfrac{\\sqrt{6}-\\sqrt{2}}{2}$",
+                    rationale: "$\\sqrt{2-\\sqrt{3}} = \\sqrt{\\dfrac{4-2\\sqrt{3}}{2}} = \\dfrac{\\sqrt{4-2\\sqrt{3}}}{\\sqrt{2}}$<br>和が $4$、積が $3$ になる2数は $3$ と $1$ です。<br>$= \\dfrac{\\sqrt{\\left(\\sqrt{3}-\\sqrt{1}\\right)^2}}{\\sqrt{2}} = \\dfrac{\\sqrt{3}-1}{\\sqrt{2}} = \\dfrac{\\sqrt{6}-\\sqrt{2}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63143' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 }
             ]
             // --- ★★★ 50題データここまで ★★★
