@@ -1,1 +1,686 @@
 
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数と式：整数部分・小数部分(ランダム10題)</title>
+    <style>
+        /* index.htmlと共通のスタイル */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa; /* デフォルト背景色 */
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s; /* 背景色変更を滑らかに */
+        }
+
+        /* ★★★ 背景色用のクラスを追加 ★★★ */
+        body.bg-light-blue { background-color: #e7f5ff; } /* 水色 */
+        body.bg-light-green { background-color: #e6fcf5; } /* 薄い緑 */
+        body.bg-beige { background-color: #fcf8e3; } /* ベージュ */
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #343a40;
+            font-size: 1.8em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        /* --- クイズ用のスタイル --- */
+        #quiz-container { min-height: 300px; }
+        #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
+        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; }
+
+        /* 選択肢コンテナ (Gridレイアウト - デフォルトは2x2) */
+        #options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* デフォルト: 2列 */
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* 縦1列(4行)表示用のスタイル */
+        #options-container.options-vertical {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 10px; /* 縦の隙間を少し狭める (任意) */
+        }
+
+        /* 選択肢ボックス */
+        .option-box {
+            background-color: #f1f3f5;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .option-box:hover:not(.disabled) {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 正解のスタイル */
+        .option-box.correct {
+            background-color: #a8e6cf;
+            border-color: #17a2b8;
+            border-width: 3px;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        /* 不正解のスタイル (選択されなかったもの) */
+        .option-box.incorrect {
+            background-color: #ffcdd2;
+            border-color: #dc3545;
+            color: #721c24;
+            opacity: 0.7;
+        }
+
+        /* ユーザーが選択した不正解のスタイル */
+        .option-box.incorrect.selected {
+            opacity: 1;
+            border-width: 4px;
+            border-color: #dc3545;
+        }
+
+        /* 無効化時のスタイル */
+        .option-box.disabled {
+             cursor: not-allowed;
+             opacity: 0.7;
+             background-color: #e9ecef;
+             transform: none;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* 解説（フィードバック） */
+        #feedback { margin-top: 25px; padding: 15px; border-radius: 5px; display: none; }
+        #feedback.correct { background-color: #e6f7ff; border: 1px solid #b3e0ff; }
+        #feedback.incorrect { background-color: #fff0f1; border: 1px solid #ffccd0; }
+
+        /* 次へ/結果ボタン */
+        #next-btn, #results-btn { display: none; padding: 12px 25px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; float: right; margin-top: 20px; transition: background-color 0.3s; }
+        #next-btn:hover, #results-btn:hover { background-color: #0056b3; }
+
+        /* 結果表示 */
+        #results-container { text-align: center; font-size: 1.4em; }
+        #results-container h2 { color: #007bff; }
+        #homepage-link { display: inline-block; margin-top: 20px; padding: 12px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; }
+        #homepage-link:hover { background-color: #5a6268; }
+
+    </style>
+
+    <link rel="stylesheet" href="katex/katex.min.css">
+    <script defer src="katex/katex.min.js"></script>
+    <script defer src="katex/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // ★★★ 背景色を適用する処理 ★★★
+            const storageKey = 'backgroundColorPreference';
+            try {
+                const savedColor = localStorage.getItem(storageKey);
+                document.body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
+                if (savedColor && savedColor !== 'default') {
+                    document.body.classList.add('bg-' + savedColor);
+                }
+            } catch (e) { console.error("localStorageからの背景色読み込みに失敗:", e); }
+            // ★★★ (ここまで) ★★★
+
+            // KaTeXが認識する区切り文字の設定
+            const katexDelimiters = [
+                {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}
+            ];
+
+            // ページ読み込み時に静的コンテンツをレンダリング
+            try {
+                renderMathInElement(document.body, { delimiters: katexDelimiters });
+            } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
+
+// --- ★ allQuizData 配列 (M1-1-4-6.html 用) ★ ---
+            const allQuizData = [
+                // 問題 1 (例題類似)
+                {
+                    question: "$\\dfrac{1}{2-\\sqrt{3}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a+2b+b^2$ の値を求めよ。",
+                    options: [ "$5$", "$3$", "$2+\\sqrt{3}$", "$3+2\\sqrt{3}$" ],
+                    answer: "$5$",
+                    rationale: "$x = \\dfrac{1}{2-\\sqrt{3}} = \\dfrac{2+\\sqrt{3}}{4-3} = 2+\\sqrt{3}$。<br>$1 < \\sqrt{3} < 2$ より、$3 < 2+\\sqrt{3} < 4$。<br>よって整数部分 $a=3$。<br>小数部分 $b = (2+\\sqrt{3}) - 3 = \\sqrt{3}-1$。<br>$a+2b+b^2 = 3 + 2(\\sqrt{3}-1) + (\\sqrt{3}-1)^2$<br>$= 3 + 2\\sqrt{3}-2 + (3 - 2\\sqrt{3} + 1) = 1 + 4 = 5$。<br>（別解: $b+1=\\sqrt{3}$ より $b^2+2b+1=3$。$a+2b+b^2 = (a-1)+(b^2+2b+1) = (3-1)+3=5$）<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 2 (例題類似)
+                {
+                    question: "$\\sqrt{6+\\sqrt{20}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$\\dfrac{1}{a+b+1}+\\dfrac{1}{a-b-3}$ の値を求めよ。",
+                    options: [ "$-4$", "$0$", "$\\dfrac{\\sqrt{5}}{2}$", "$-2\\sqrt{5}$" ],
+                    answer: "$-4$",
+                    rationale: "$x = \\sqrt{6+2\\sqrt{5}} = \\sqrt{(\\sqrt{5}+1)^2} = \\sqrt{5}+1$。<br>$2 < \\sqrt{5} < 3$ より、$3 < \\sqrt{5}+1 < 4$。<br>よって $a=3$, $b = (\\sqrt{5}+1)-3 = \\sqrt{5}-2$。<br>$a+b = x = \\sqrt{5}+1$。<br>$a-b = 3-(\\sqrt{5}-2) = 5-\\sqrt{5}$。<br>与式 $= \\dfrac{1}{(\\sqrt{5}+1)+1} + \\dfrac{1}{(5-\\sqrt{5})-3} = \\dfrac{1}{\\sqrt{5}+2} + \\dfrac{1}{2-\\sqrt{5}}$<br>$= \\dfrac{1}{\\sqrt{5}+2} - \\dfrac{1}{\\sqrt{5}-2} = \\dfrac{(\\sqrt{5}-2)-(\\sqrt{5}+2)}{(\\sqrt{5}+2)(\\sqrt{5}-2)} = \\dfrac{-4}{5-4} = -4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 3
+                {
+                    question: "$\\sqrt{3}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a+b$ の値を求めよ。",
+                    options: [ "$\\sqrt{3}$", "$1$", "$1.732$", "$2$" ],
+                    answer: "$\\sqrt{3}$",
+                    rationale: "定義より、(整数部分) + (小数部分) = (元の数) です。<br>$a+b = \\sqrt{3}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 4
+                {
+                    question: "$\\sqrt{3}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$\\sqrt{3}-1$", "$\\sqrt{3}-2$", "$0.732...$", "$1$" ],
+                    answer: "$\\sqrt{3}-1$",
+                    rationale: "$1 < \\sqrt{3} < 2$ より、整数部分 $a=1$。<br>小数部分 $b = (\\text{元の数}) - (\\text{整数部分}) = \\sqrt{3}-1$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 5
+                {
+                    question: "$\\sqrt{3}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a^2+b^2$ の値を求めよ。",
+                    options: [ "$4-2\\sqrt{3}$", "$2$", "$4$", "$4+2\\sqrt{3}$" ],
+                    answer: "$4-2\\sqrt{3}$",
+                    rationale: "$a=1$, $b=\\sqrt{3}-1$ より、<br>$a^2+b^2 = 1^2 + (\\sqrt{3}-1)^2 = 1 + (3 - 2\\sqrt{3} + 1) = 1 + 4 - 2\\sqrt{3} = 5 - 2\\sqrt{3}$。計算ミス。<br>$a^2+b^2 = 1^2 + (\\sqrt{3}-1)^2 = 1 + (3-2\\sqrt{3}+1) = 1+4-2\\sqrt{3} = 5-2\\sqrt{3}$。選択肢が間違っている。$a=1, b=\\sqrt{3}-1$ $a^2+b^2 = 1 + (3-2\\sqrt{3}+1) = 5-2\\sqrt{3}$。選択肢を $5-2\\sqrt{3}$ に修正します。",
+                    options: [ "$5-2\\sqrt{3}$", "$2$", "$4$", "$5+2\\sqrt{3}$" ],
+                    answer: "$5-2\\sqrt{3}$",
+                    rationale: "$a=1$, $b=\\sqrt{3}-1$ より、<br>$a^2+b^2 = 1^2 + (\\sqrt{3}-1)^2 = 1 + (3 - 2\\sqrt{3} + 1) = 5 - 2\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 6
+                {
+                    question: "$\\sqrt{3}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b+\\dfrac{1}{b}$ の値を求めよ。",
+                    options: [ "$\\dfrac{4\\sqrt{3}-3}{3}$", "$2\\sqrt{3}$", "$4$", "$\\dfrac{4\\sqrt{3}}{3}$" ],
+                    answer: "$\\dfrac{4\\sqrt{3}-3}{3}$",
+                    rationale: "$a=1$, $b=\\sqrt{3}-1$。<br>$b+\\dfrac{1}{b} = (\\sqrt{3}-1) + \\dfrac{1}{\\sqrt{3}-1} = (\\sqrt{3}-1) + \\dfrac{\\sqrt{3}+1}{3-1} = \\sqrt{3}-1 + \\dfrac{\\sqrt{3}+1}{2}$<br>$= \\dfrac{2\\sqrt{3}-2+\\sqrt{3}+1}{2} = \\dfrac{3\\sqrt{3}-1}{2}$。選択肢が間違っている。$b+\\dfrac{1}{b} = \\dfrac{b^2+1}{b} = \\dfrac{(\\sqrt{3}-1)^2+1}{\\sqrt{3}-1} = \\dfrac{3-2\\sqrt{3}+1+1}{\\sqrt{3}-1} = \\dfrac{5-2\\sqrt{3}}{\\sqrt{3}-1} = \\dfrac{(5-2\\sqrt{3})(\\sqrt{3}+1)}{3-1} = \\dfrac{5\\sqrt{3}+5-6-2\\sqrt{3}}{2} = \\dfrac{3\\sqrt{3}-1}{2}$。選択肢を修正します。",
+                    options: [ "$\\dfrac{3\\sqrt{3}-1}{2}$", "$2\\sqrt{3}$", "$4$", "$\\dfrac{4\\sqrt{3}}{3}$" ],
+                    answer: "$\\dfrac{3\\sqrt{3}-1}{2}$",
+                    rationale: "$a=1$, $b=\\sqrt{3}-1$。<br>$b+\\dfrac{1}{b} = \\dfrac{b^2+1}{b} = \\dfrac{(\\sqrt{3}-1)^2+1}{\\sqrt{3}-1} = \\dfrac{3-2\\sqrt{3}+1+1}{\\sqrt{3}-1} = \\dfrac{5-2\\sqrt{3}}{\\sqrt{3}-1}$<br>$= \\dfrac{(5-2\\sqrt{3})(\\sqrt{3}+1)}{(\\sqrt{3}-1)(\\sqrt{3}+1)} = \\dfrac{5\\sqrt{3}+5-6-2\\sqrt{3}}{3-1} = \\dfrac{3\\sqrt{3}-1}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 7
+                {
+                    question: "$\\sqrt{10}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$3$", "$2$", "$4$", "$3.16$" ],
+                    answer: "$3$",
+                    rationale: "$9 < 10 < 16$ より、$\\sqrt{9} < \\sqrt{10} < \\sqrt{16}$。つまり $3 < \\sqrt{10} < 4$。<br>よって整数部分 $a=3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 8
+                {
+                    question: "$\\sqrt{10}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$\\sqrt{10}-3$", "$\\sqrt{10}-4$", "$0.16...$", "$3-\\sqrt{10}$" ],
+                    answer: "$\\sqrt{10}-3$",
+                    rationale: "$3 < \\sqrt{10} < 4$ より、整数部分 $a=3$。<br>小数部分 $b = (\\text{元の数}) - (\\text{整数部分}) = \\sqrt{10}-3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 9
+                {
+                    question: "$\\sqrt{10}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a^2-b^2$ の値を求めよ。",
+                    options: [ "$6\\sqrt{10}-10$", "$19$", "$1$", "$6\\sqrt{10}$" ],
+                    answer: "$6\\sqrt{10}-10$",
+                    rationale: "$a=3$, $b=\\sqrt{10}-3$。<br>$a^2-b^2 = (a+b)(a-b) = (\\sqrt{10})(3-(\\sqrt{10}-3)) = \\sqrt{10}(6-\\sqrt{10}) = 6\\sqrt{10}-10$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 10
+                {
+                    question: "$\\sqrt{10}$ の整数部分を $a$, 小数部分を $b$ とするとき，$ab$ の値を求めよ。",
+                    options: [ "$3\\sqrt{10}-9$", "$3\\sqrt{10}-10$", "$10\\sqrt{3}-9$", "$1$" ],
+                    answer: "$3\\sqrt{10}-9$",
+                    rationale: "$a=3$, $b=\\sqrt{10}-3$。<br>$ab = 3(\\sqrt{10}-3) = 3\\sqrt{10}-9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 11
+                {
+                    question: "$\\dfrac{1}{\\sqrt{5}-2}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$4$", "$3$", "$2$", "$5$" ],
+                    answer: "$4$",
+                    rationale: "$x = \\dfrac{1}{\\sqrt{5}-2} = \\dfrac{\\sqrt{5}+2}{5-4} = \\sqrt{5}+2$。<br>$2 < \\sqrt{5} < 3$ より、$4 < \\sqrt{5}+2 < 5$。<br>よって整数部分 $a=4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 12
+                {
+                    question: "$\\dfrac{1}{\\sqrt{5}-2}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$\\sqrt{5}-2$", "$\\sqrt{5}-3$", "$1$", "$\\sqrt{5}-4$" ],
+                    answer: "$\\sqrt{5}-2$",
+                    rationale: "$x = \\sqrt{5}+2$。 $a=4$。<br>小数部分 $b = (\\sqrt{5}+2) - 4 = \\sqrt{5}-2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 13
+                {
+                    question: "$\\dfrac{1}{\\sqrt{5}-2}$ の整数部分を $a$, 小数部分を $b$ とするとき，$\\dfrac{a}{b}$ の値を求めよ。",
+                    options: [ "$4\\sqrt{5}+8$", "$4\\sqrt{5}-8$", "$\\dfrac{4\\sqrt{5}-8}{9}$", "$1$" ],
+                    answer: "$4\\sqrt{5}+8$",
+                    rationale: "$a=4$, $b=\\sqrt{5}-2$。<br>$\\dfrac{a}{b} = \\dfrac{4}{\\sqrt{5}-2} = \\dfrac{4(\\sqrt{5}+2)}{5-4} = 4\\sqrt{5}+8$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 14
+                {
+                    question: "$\\dfrac{1}{\\sqrt{5}-2}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b^2+4b$ の値を求めよ。",
+                    options: [ "$1$", "$5$", "$-1$", "$4\\sqrt{5}$" ],
+                    answer: "$1$",
+                    rationale: "$a=4$, $b=\\sqrt{5}-2$。<br>$b+2 = \\sqrt{5}$。両辺を2乗して $(b+2)^2 = 5$。<br>$b^2+4b+4 = 5$。<br>よって $b^2+4b = 1$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 15
+                {
+                    question: "$\\dfrac{2}{\\sqrt{3}-1}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$2$", "$1$", "$3$", "$2.732$" ],
+                    answer: "$2$",
+                    rationale: "$x = \\dfrac{2}{\\sqrt{3}-1} = \\dfrac{2(\\sqrt{3}+1)}{3-1} = \\dfrac{2(\\sqrt{3}+1)}{2} = \\sqrt{3}+1$。<br>$1 < \\sqrt{3} < 2$ より、$2 < \\sqrt{3}+1 < 3$。<br>よって整数部分 $a=2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 16
+                {
+                    question: "$\\dfrac{2}{\\sqrt{3}-1}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$\\sqrt{3}-1$", "$\\sqrt{3}-2$", "$\\sqrt{3}$", "$1$" ],
+                    answer: "$\\sqrt{3}-1$",
+                    rationale: "$x = \\sqrt{3}+1$。 $a=2$。<br>小数部分 $b = (\\sqrt{3}+1) - 2 = \\sqrt{3}-1$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 17
+                {
+                    question: "$\\dfrac{2}{\\sqrt{3}-1}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a^2+b^2$ の値を求めよ。",
+                    options: [ "$8-2\\sqrt{3}$", "$6-2\\sqrt{3}$", "$4$", "$8$" ],
+                    answer: "$8-2\\sqrt{3}$",
+                    rationale: "$a=2$, $b=\\sqrt{3}-1$。<br>$a^2+b^2 = 2^2 + (\\sqrt{3}-1)^2 = 4 + (3-2\\sqrt{3}+1) = 4 + 4 - 2\\sqrt{3} = 8-2\\sqrt{3}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 18
+                {
+                    question: "$\\dfrac{2}{\\sqrt{3}-1}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a-b$ の値を求めよ。",
+                    options: [ "$3-\\sqrt{3}$", "$1-\\sqrt{3}$", "$1+\\sqrt{3}$", "$3+\\sqrt{3}$" ],
+                    answer: "$3-\\sqrt{3}$",
+                    rationale: "$a=2$, $b=\\sqrt{3}-1$。<br>$a-b = 2 - (\\sqrt{3}-1) = 2 - \\sqrt{3} + 1 = 3-\\sqrt{3}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 19
+                {
+                    question: "$\\sqrt{8-2\\sqrt{15}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$0$", "$1$", "$2$", "$-1$" ],
+                    answer: "$0$",
+                    rationale: "$x = \\sqrt{8-2\\sqrt{15}} = \\sqrt{(\\sqrt{5}-\\sqrt{3})^2} = \\sqrt{5}-\\sqrt{3}$。<br>$2.23... - 1.73... = 0.5...$ となる。<br>よって整数部分 $a=0$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 20
+                {
+                    question: "$\\sqrt{8-2\\sqrt{15}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$\\sqrt{5}-\\sqrt{3}$", "$\\sqrt{5}-\\sqrt{3}-1$", "$1-\\sqrt{5}+\\sqrt{3}$", "$0$" ],
+                    answer: "$\\sqrt{5}-\\sqrt{3}$",
+                    rationale: "$x = \\sqrt{5}-\\sqrt{3}$。 $a=0$。<br>小数部分 $b = (\\sqrt{5}-\\sqrt{3}) - 0 = \\sqrt{5}-\\sqrt{3}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 21
+                {
+                    question: "$\\sqrt{8-2\\sqrt{15}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$\\dfrac{1}{b}$ の値を求めよ。",
+                    options: [ "$\\dfrac{\\sqrt{5}+\\sqrt{3}}{2}$", "$\\dfrac{\\sqrt{5}-\\sqrt{3}}{2}$", "$2$", "$\\sqrt{5}+\\sqrt{3}$" ],
+                    answer: "$\\dfrac{\\sqrt{5}+\\sqrt{3}}{2}$",
+                    rationale: "$a=0$, $b=\\sqrt{5}-\\sqrt{3}$。<br>$\\dfrac{1}{b} = \\dfrac{1}{\\sqrt{5}-\\sqrt{3}} = \\dfrac{\\sqrt{5}+\\sqrt{3}}{5-3} = \\dfrac{\\sqrt{5}+\\sqrt{3}}{2}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 22
+                {
+                    question: "$\\sqrt{8-2\\sqrt{15}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b^2$ の値を求めよ。",
+                    options: [ "$8-2\\sqrt{15}$", "$8+2\\sqrt{15}$", "$2$", "$8$" ],
+                    answer: "$8-2\\sqrt{15}$",
+                    rationale: "$a=0$, $b=\\sqrt{5}-\\sqrt{3}$。<br>$b^2 = (\\sqrt{5}-\\sqrt{3})^2 = 5 - 2\\sqrt{15} + 3 = 8-2\\sqrt{15}$。<br>（注: $x = \\sqrt{8-2\\sqrt{15}}$ なので $b=x$ であり $b^2 = x^2 = 8-2\\sqrt{15}$）<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 23
+                {
+                    question: "$2\\sqrt{3}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$3$", "$2$", "$4$", "$3.46$" ],
+                    answer: "$3$",
+                    rationale: "$2\\sqrt{3} = \\sqrt{4 \\times 3} = \\sqrt{12}$。<br>$9 < 12 < 16$ より、$\\sqrt{9} < \\sqrt{12} < \\sqrt{16}$。つまり $3 < \\sqrt{12} < 4$。<br>よって整数部分 $a=3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 24
+                {
+                    question: "$2\\sqrt{3}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$2\\sqrt{3}-3$", "$2\\sqrt{3}-4$", "$\\sqrt{12}-3$", "$\\sqrt{3}-1$" ],
+                    answer: "$2\\sqrt{3}-3$",
+                    rationale: "$x = 2\\sqrt{3}$。 $a=3$。<br>小数部分 $b = (\\text{元の数}) - (\\text{整数部分}) = 2\\sqrt{3}-3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 25
+                {
+                    question: "$2\\sqrt{3}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a^2-b^2$ の値を求めよ。",
+                    options: [ "$12\\sqrt{3}-12$", "$12\\sqrt{3}-3$", "$18-12\\sqrt{3}$", "$3$" ],
+                    answer: "$12\\sqrt{3}-12$",
+                    rationale: "$a=3$, $b=2\\sqrt{3}-3$。<br>$a^2-b^2 = (a+b)(a-b) = (2\\sqrt{3})(3-(2\\sqrt{3}-3)) = (2\\sqrt{3})(6-2\\sqrt{3}) = 12\\sqrt{3}-12$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 26
+                {
+                    question: "$3\\sqrt{2}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$4$", "$3$", "$5$", "$4.24$" ],
+                    answer: "$4$",
+                    rationale: "$3\\sqrt{2} = \\sqrt{9 \\times 2} = \\sqrt{18}$。<br>$16 < 18 < 25$ より、$\\sqrt{16} < \\sqrt{18} < \\sqrt{25}$。つまり $4 < \\sqrt{18} < 5$。<br>よって整数部分 $a=4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 27
+                {
+                    question: "$3\\sqrt{2}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$3\\sqrt{2}-4$", "$3\\sqrt{2}-5$", "$\\sqrt{18}-4$", "$3\\sqrt{2}-3$" ],
+                    answer: "$3\\sqrt{2}-4$",
+                    rationale: "$x = 3\\sqrt{2}$。 $a=4$。<br>小数部分 $b = (\\text{元の数}) - (\\text{整数部分}) = 3\\sqrt{2}-4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 28
+                {
+                    question: "$3\\sqrt{2}$ の整数部分を $a$, 小数部分を $b$ とするとき，$ab$ の値を求めよ。",
+                    options: [ "$12\\sqrt{2}-16$", "$12\\sqrt{2}-12$", "$16$", "$2$" ],
+                    answer: "$12\\sqrt{2}-16$",
+                    rationale: "$a=4$, $b=3\\sqrt{2}-4$。<br>$ab = 4(3\\sqrt{2}-4) = 12\\sqrt{2}-16$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 29
+                {
+                    question: "$3\\sqrt{2}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b^2+8b$ の値を求めよ。",
+                    options: [ "$2$", "$18$", "$-2$", "$8\\sqrt{2}$" ],
+                    answer: "$2$",
+                    rationale: "$a=4$, $b=3\\sqrt{2}-4$。<br>$b+4 = 3\\sqrt{2}$。両辺を2乗して $(b+4)^2 = (3\\sqrt{2})^2$。<br>$b^2+8b+16 = 18$。<br>よって $b^2+8b = 2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 30
+                {
+                    question: "$\\sqrt{7-2\\sqrt{10}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$0$", "$1$", "$2$", "$-1$" ],
+                    answer: "$0$",
+                    rationale: "$x = \\sqrt{7-2\\sqrt{10}} = \\sqrt{(\\sqrt{5}-\\sqrt{2})^2} = \\sqrt{5}-\\sqrt{2}$。<br>$2.23... - 1.41... = 0.8...$ となる。<br>よって整数部分 $a=0$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 31
+                {
+                    question: "$\\sqrt{7-2\\sqrt{10}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$\\sqrt{5}-\\sqrt{2}$", "$\\sqrt{5}-\\sqrt{2}-1$", "$1-\\sqrt{5}+\\sqrt{2}$", "$0$" ],
+                    answer: "$\\sqrt{5}-\\sqrt{2}$",
+                    rationale: "$x = \\sqrt{5}-\\sqrt{2}$。 $a=0$。<br>小数部分 $b = (\\sqrt{5}-\\sqrt{2}) - 0 = \\sqrt{5}-\\sqrt{2}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 32
+                {
+                    question: "$\\sqrt{7-2\\sqrt{10}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$\\dfrac{1}{b}$ の値を求めよ。",
+                    options: [ "$\\dfrac{\\sqrt{5}+\\sqrt{2}}{3}$", "$\\dfrac{\\sqrt{5}-\\sqrt{2}}{3}$", "$3$", "$\\sqrt{5}+\\sqrt{2}$" ],
+                    answer: "$\\dfrac{\\sqrt{5}+\\sqrt{2}}{3}$",
+                    rationale: "$a=0$, $b=\\sqrt{5}-\\sqrt{2}$。<br>$\\dfrac{1}{b} = \\dfrac{1}{\\sqrt{5}-\\sqrt{2}} = \\dfrac{\\sqrt{5}+\\sqrt{2}}{5-2} = \\dfrac{\\sqrt{5}+\\sqrt{2}}{3}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 33
+                {
+                    question: "$\\dfrac{1}{3-\\sqrt{8}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$5$", "$4$", "$3$", "$6$" ],
+                    answer: "$5$",
+                    rationale: "$x = \\dfrac{1}{3-\\sqrt{8}} = \\dfrac{3+\\sqrt{8}}{9-8} = 3+\\sqrt{8} = 3+2\\sqrt{2}$。<br>$1 < \\sqrt{2} < 2$ より $2 < 2\\sqrt{2} < 4$。<br>$3+2 < 3+2\\sqrt{2} < 3+4$、つまり $5 < x < 7$。<br>$\\sqrt{8}$ は $2.8...$ なので、$x = 3+2.8... = 5.8...$。<br>よって整数部分 $a=5$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 34
+                {
+                    question: "$\\dfrac{1}{3-\\sqrt{8}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$2\\sqrt{2}-2$", "$3+2\\sqrt{2}$", "$2\\sqrt{2}-3$", "$\\sqrt{8}-2$" ],
+                    answer: "$2\\sqrt{2}-2$",
+                    rationale: "$x = 3+2\\sqrt{2}$。 $a=5$。<br>小数部分 $b = (3+2\\sqrt{2}) - 5 = 2\\sqrt{2}-2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 35
+                {
+                    question: "$\\dfrac{1}{3-\\sqrt{8}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$ab+b^2$ の値を求めよ。",
+                    options: [ "$1$", "$-1$", "$1+4\\sqrt{2}$", "$1-4\\sqrt{2}$" ],
+                    answer: "$1$",
+                    rationale: "$a=5$, $b=2\\sqrt{2}-2$。<br>$ab+b^2 = b(a+b) = (2\\sqrt{2}-2)(3+2\\sqrt{2}) = 6\\sqrt{2}+8-6-4\\sqrt{2} = 2+2\\sqrt{2}$。計算ミス。<br>$a+b = x = 3+2\\sqrt{2}$。<br>$ab+b^2 = b(a+b) = (2\\sqrt{2}-2)(3+2\\sqrt{2}) = 6\\sqrt{2}+8-6-4\\sqrt{2} = 2\\sqrt{2}+2$。選択肢がおかしい。<br>別解: $b+2 = 2\\sqrt{2}$。$(b+2)^2 = 8$。<br>$b^2+4b+4=8$ より $b^2+4b=4$。<br>$ab+b^2 = 5b+b^2 = b^2+5b = (b^2+4b)+b = 4+b = 4+(2\\sqrt{2}-2) = 2+2\\sqrt{2}$。まだおかしい。<br>$ab+b^2 = b(a+b) = (2\\sqrt{2}-2)(5 + (2\\sqrt{2}-2)) = (2\\sqrt{2}-2)(3+2\\sqrt{2}) = 6\\sqrt{2}+8-6-4\\sqrt{2} = 2+2\\sqrt{2}$。
+                    <br>例題(1)の $a+2b+b^2$ のように $b$ でくくる？ $b+2 = 2\\sqrt{2}$。$b^2+4b=4$。<br>$ab+b^2 = 5b+b^2$ ではなく、$a=5$ $b=2\\sqrt{2}-2$。 $ab+b^2 = 5(2\\sqrt{2}-2) + (2\\sqrt{2}-2)^2 = 10\\sqrt{2}-10 + (8-8\\sqrt{2}+4) = 10\\sqrt{2}-10 + 12-8\\sqrt{2} = 2+2\\sqrt{2}$。
+                    <br>もしかして $a+b^2$？ $5 + (2\\sqrt{2}-2)^2 = 5 + (8-8\\sqrt{2}+4) = 17-8\\sqrt{2}$。
+                    <br>もしかして $b^2+5b$？ $b^2+5b = (b^2+4b)+b = 4 + (2\\sqrt{2}-2) = 2+2\\sqrt{2}$。
+                    <br>もしかして $b^2+2b+a$？ $(b^2+2b+1)+a-1 = (b+1)^2+a-1 = (2\\sqrt{2}-1)^2+4 = (8-4\\sqrt{2}+1)+4 = 13-4\\sqrt{2}$。
+                    <br>例題(1)の形 $a+2b+b^2$ を試す。$a=5, b=2\\sqrt{2}-2$。$5 + 2(2\\sqrt{2}-2) + (2\\sqrt{2}-2)^2 = 5 + 4\\sqrt{2}-4 + (8-8\\sqrt{2}+4) = 1+4\\sqrt{2} + 12-8\\sqrt{2} = 13-4\\sqrt{2}$。
+                    <br>例題(1)の $b+1=\\sqrt{3}$ $(b+1)^2=3$ $b^2+2b=2$ $a+2b+b^2 = a+2+b^2 = 3+2+(\sqrt{3}-1)^2$ ではない。 $a+b^2+2b = (a-1)+(b^2+2b+1) = (3-1)+3=5$。
+                    <br>$b=2\\sqrt{2}-2$。$b+2=2\\sqrt{2}$。$(b+2)^2=8$。$b^2+4b+4=8$。$b^2+4b=4$。
+                    <br>もし問題が $b^2+4b$ なら答えは $4$。もし問題が $b^2+5b$ なら $b^2+4b+b = 4+(2\\sqrt{2}-2) = 2+2\\sqrt{2}$。
+                    <br>もし問題が $a+b^2+4b-1$ なら $a+(b^2+4b)-1 = 5+4-1=8$。
+                    <br>もし問題が $\dfrac{a+b}{b}$ なら $\dfrac{3+2\\sqrt{2}}{2\\sqrt{2}-2} = \dfrac{3+2\\sqrt{2}}{2(\sqrt{2}-1)} = \dfrac{(3+2\\sqrt{2})(\sqrt{2}+1)}{2(2-1)} = \dfrac{3\\sqrt{2}+3+4+2\\sqrt{2}}{2} = \dfrac{7+5\\sqrt{2}}{2}$。
+                    <br>シンプルな $b^2+4b=4$ を採用しよう。問題文を $b^2+4b$ に変更する。",
+                    question: "$\\dfrac{1}{3-\\sqrt{8}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b^2+4b$ の値を求めよ。",
+                    options: [ "$4$", "$8$", "$2\\sqrt{2}$", "$4\\sqrt{2}$" ],
+                    answer: "$4$",
+                    rationale: "$x = \\dfrac{1}{3-\\sqrt{8}} = 3+2\\sqrt{2}$。 $a=5$, $b=2\\sqrt{2}-2$。<br>$b+2 = 2\\sqrt{2}$。両辺を2乗して $(b+2)^2 = (2\\sqrt{2})^2$。<br>$b^2+4b+4 = 8$。<br>よって $b^2+4b = 4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 36
+                {
+                    question: "$\\sqrt{5}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$2$", "$1$", "$3$", "$2.23$" ],
+                    answer: "$2$",
+                    rationale: "$4 < 5 < 9$ より、$\\sqrt{4} < \\sqrt{5} < \\sqrt{9}$。つまり $2 < \\sqrt{5} < 3$。<br>よって整数部分 $a=2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 37
+                {
+                    question: "$\\sqrt{5}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$\\sqrt{5}-2$", "$\\sqrt{5}-3$", "$2-\\sqrt{5}$", "$3-\\sqrt{5}$" ],
+                    answer: "$\\sqrt{5}-2$",
+                    rationale: "$2 < \\sqrt{5} < 3$ より、整数部分 $a=2$。<br>小数部分 $b = (\\text{元の数}) - (\\text{整数部分}) = \\sqrt{5}-2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 38
+                {
+                    question: "$\\sqrt{5}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a-b$ の値を求めよ。",
+                    options: [ "$4-\\sqrt{5}$", "$5-\\sqrt{5}$", "$\\sqrt{5}$", "$2\\sqrt{5}-2$" ],
+                    answer: "$4-\\sqrt{5}$",
+                    rationale: "$a=2$, $b=\\sqrt{5}-2$。<br>$a-b = 2 - (\\sqrt{5}-2) = 2 - \\sqrt{5} + 2 = 4-\\sqrt{5}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 39
+                {
+                    question: "$\\sqrt{5}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b^2+4b$ の値を求めよ。",
+                    options: [ "$1$", "$5$", "$-1$", "$4\\sqrt{5}$" ],
+                    answer: "$1$",
+                    rationale: "$a=2$, $b=\\sqrt{5}-2$。<br>$b+2 = \\sqrt{5}$。両辺を2乗して $(b+2)^2 = 5$。<br>$b^2+4b+4 = 5$。<br>よって $b^2+4b = 1$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 40
+                {
+                    question: "$1+\\sqrt{7}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$3$", "$2$", "$4$", "$3.64$" ],
+                    answer: "$3$",
+                    rationale: "$4 < 7 < 9$ より、$2 < \\sqrt{7} < 3$。<br>$1+2 < 1+\\sqrt{7} < 1+3$、つまり $3 < 1+\\sqrt{7} < 4$。<br>よって整数部分 $a=3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 41
+                {
+                    question: "$1+\\sqrt{7}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$\\sqrt{7}-2$", "$\\sqrt{7}-3$", "$3-\\sqrt{7}$", "$1+\\sqrt{7}$" ],
+                    answer: "$\\sqrt{7}-2$",
+                    rationale: "$x = 1+\\sqrt{7}$。 $a=3$。<br>小数部分 $b = (1+\\sqrt{7}) - 3 = \\sqrt{7}-2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 42
+                {
+                    question: "$1+\\sqrt{7}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a^2+b^2$ の値を求めよ。",
+                    options: [ "$20-4\\sqrt{7}$", "$16-4\\sqrt{7}$", "$4$", "$9$" ],
+                    answer: "$20-4\\sqrt{7}$",
+                    rationale: "$a=3$, $b=\\sqrt{7}-2$。<br>$a^2+b^2 = 3^2 + (\\sqrt{7}-2)^2 = 9 + (7 - 4\\sqrt{7} + 4) = 9 + 11 - 4\\sqrt{7} = 20-4\\sqrt{7}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 43
+                {
+                    question: "$1+\\sqrt{7}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b^2+4b$ の値を求めよ。",
+                    options: [ "$3$", "$7$", "$-3$", "$4\\sqrt{7}$" ],
+                    answer: "$3$",
+                    rationale: "$a=3$, $b=\\sqrt{7}-2$。<br>$b+2 = \\sqrt{7}$。両辺を2乗して $(b+2)^2 = 7$。<br>$b^2+4b+4 = 7$。<br>よって $b^2+4b = 3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 44
+                {
+                    question: "$\\dfrac{1}{\\sqrt{2}+1}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$0$", "$1$", "$2$", "$-1$" ],
+                    answer: "$0$",
+                    rationale: "$x = \\dfrac{1}{\\sqrt{2}+1} = \\dfrac{\\sqrt{2}-1}{2-1} = \\sqrt{2}-1$。<br>$1 < \\sqrt{2} < 2$ より、$0 < \\sqrt{2}-1 < 1$。<br>よって整数部分 $a=0$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 45
+                {
+                    question: "$\\dfrac{1}{\\sqrt{2}+1}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$\\sqrt{2}-1$", "$\\sqrt{2}-2$", "$1$", "$0$" ],
+                    answer: "$\\sqrt{2}-1$",
+                    rationale: "$x = \\sqrt{2}-1$。 $a=0$。<br>小数部分 $b = (\\sqrt{2}-1) - 0 = \\sqrt{2}-1$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 46
+                {
+                    question: "$\\dfrac{1}{\\sqrt{2}+1}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b^2+2b$ の値を求めよ。",
+                    options: [ "$1$", "$-1$", "$3$", "$2\\sqrt{2}$" ],
+                    answer: "$1$",
+                    rationale: "$a=0$, $b=\\sqrt{2}-1$。<br>$b+1 = \\sqrt{2}$。両辺を2乗して $(b+1)^2 = 2$。<br>$b^2+2b+1 = 2$。<br>よって $b^2+2b = 1$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 47
+                {
+                    question: "$\\sqrt{9+2\\sqrt{14}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$4$", "$3$", "$5$", "$4.1$" ],
+                    answer: "$4$",
+                    rationale: "$x = \\sqrt{9+2\\sqrt{14}} = \\sqrt{(\\sqrt{7}+\\sqrt{2})^2} = \\sqrt{7}+\\sqrt{2}$。<br>$2 < \\sqrt{7} < 3$、$1 < \\sqrt{2} < 2$ より、<br>$3 < \\sqrt{7}+\\sqrt{2} < 5$。これでは定まらない。<br>$\\sqrt{7} \\approx 2.64$, $\\sqrt{2} \\approx 1.41$。 $x \\approx 2.64+1.41 = 4.05$。<br>よって $a=4$ と推測できる。<br>$(4.1)^2 = 16.81$。 $(\\sqrt{7}+\\sqrt{2})^2 = 7+2\\sqrt{14}+2 = 9+2\\sqrt{14} = 9+\\sqrt{56}$。<br>$49<56<64$ より $7 < \\sqrt{56} < 8$。<br>$9+7 < 9+\\sqrt{56} < 9+8$。$16 < x^2 < 17$。<br>$x = \\sqrt{16. ...}$ なので $a=4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 48
+                {
+                    question: "$\\sqrt{9+2\\sqrt{14}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$b$ の値を求めよ。",
+                    options: [ "$\\sqrt{7}+\\sqrt{2}-4$", "$\\sqrt{7}+\\sqrt{2}-5$", "$\\sqrt{7}+\\sqrt{2}-3$", "$4.05...$" ],
+                    answer: "$\\sqrt{7}+\\sqrt{2}-4$",
+                    rationale: "$x = \\sqrt{7}+\\sqrt{2}$。 $a=4$。<br>小数部分 $b = (\\sqrt{7}+\\sqrt{2}) - 4 = \\sqrt{7}+\\sqrt{2}-4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 49
+                {
+                    question: "$\\sqrt{9+2\\sqrt{14}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a^2+b^2$ の値を求めよ。",
+                    options: [ "$25-8\\sqrt{7}-8\\sqrt{2}+2\\sqrt{14}$", "$33-8\\sqrt{7}-8\\sqrt{2}+2\\sqrt{14}$", "$16$", "$25+2\\sqrt{14}$" ],
+                    answer: "$33-8\\sqrt{7}-8\\sqrt{2}+2\\sqrt{14}$",
+                    rationale: "$a=4$, $b=\\sqrt{7}+\\sqrt{2}-4$。<br>$a^2+b^2 = 4^2 + (\\sqrt{7}+\\sqrt{2}-4)^2$<br>$= 16 + (\\sqrt{7})^2+(\\sqrt{2})^2+(-4)^2 + 2\\sqrt{7}\\sqrt{2} + 2\\sqrt{2}(-4) + 2(-4)\\sqrt{7}$<br>$= 16 + 7+2+16 + 2\\sqrt{14} - 8\\sqrt{2} - 8\\sqrt{7}$<br>$= 41 + 2\\sqrt{14} - 8\\sqrt{2} - 8\\sqrt{7}$。選択肢が間違っている。修正します。",
+                    options: [ "$41+2\\sqrt{14}-8\\sqrt{2}-8\\sqrt{7}$", "$25-8\\sqrt{7}-8\\sqrt{2}+2\\sqrt{14}$", "$33-8\\sqrt{7}-8\\sqrt{2}+2\\sqrt{14}$", "$33+2\\sqrt{14}-8\\sqrt{2}-8\\sqrt{7}$" ],
+                    answer: "$41+2\\sqrt{14}-8\\sqrt{2}-8\\sqrt{7}$",
+                    rationale: "$a=4$, $b=\\sqrt{7}+\\sqrt{2}-4$。<br>$a^2+b^2 = 16 + (\\sqrt{7}+\\sqrt{2}-4)^2$<br>$= 16 + (7+2+16+2\\sqrt{14}-8\\sqrt{2}-8\\sqrt{7})$<br>$= 16 + (25+2\\sqrt{14}-8\\sqrt{2}-8\\sqrt{7}) = 41+2\\sqrt{14}-8\\sqrt{2}-8\\sqrt{7}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 50
+                {
+                    question: "$\\dfrac{1}{1+\\sqrt{2}+\\sqrt{3}}$ の整数部分を $a$, 小数部分を $b$ とするとき，$a$ の値を求めよ。",
+                    options: [ "$0$", "$1$", "$2$", "$0.4$" ],
+                    answer: "$0$",
+                    rationale: "$x = \\dfrac{1}{1+\\sqrt{2}+\\sqrt{3}} = \\dfrac{1+\\sqrt{2}-\\sqrt{3}}{(1+\\sqrt{2})^2-3} = \\dfrac{1+\\sqrt{2}-\\sqrt{3}}{1+2\\sqrt{2}+2-3} = \\dfrac{1+\\sqrt{2}-\\sqrt{3}}{2\\sqrt{2}}$<br>$= \\dfrac{\\sqrt{2}+2-\\sqrt{6}}{4}$。 $\\sqrt{2} \\approx 1.41$, $\\sqrt{6} \\approx 2.45$。<br>$x \\approx \\dfrac{1.41+2-2.45}{4} = \\dfrac{0.96}{4} = 0.24...$<br>よって整数部分 $a=0$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                }
+            ]
+            // --- ★★★ 50題データここまで ★★★
+      
+            // 1. allQuizData をシャッフルする関数
+            function shuffleArray(array) {
+                const shuffled = [...array]; // 配列をコピー
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            // 2. シャッフルして先頭10件を取得
+            const numberOfQuestions = 10;
+            const shuffledAllData = shuffleArray(allQuizData);
+            // ★ 実際に使うデータ (quizData) を定義 ★
+            const quizData = shuffledAllData.slice(0, Math.min(numberOfQuestions, allQuizData.length));
+            // ★★★ ここまで ★★★
+
+
+            // --- ここから下はクイズの仕組みです (変数 quizData を使う) ---
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const questionNumberEl = document.getElementById('question-number');
+            const questionTextEl = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const scoreTextEl = document.getElementById('score-text');
+            const finalMessageEl = document.getElementById('final-message');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            // (関数定義)
+            function loadQuestion() {
+                if (!quizData || currentQuestionIndex >= quizData.length) { console.error("Invalid question index or quizData is empty."); questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。"; questionNumberEl.textContent = "エラー"; optionsContainer.innerHTML = ''; return; }
+                feedbackEl.style.display = 'none'; nextBtn.style.display = 'none'; optionsContainer.innerHTML = '';
+                const currentQuestion = quizData[currentQuestionIndex];
+                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`; // 10題中の表示
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文なし)";
+                if (currentQuestion.layout === 'vertical') { optionsContainer.classList.add('options-vertical'); } else { optionsContainer.classList.remove('options-vertical'); }
+                if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
+                    const shuffledOptions = [...currentQuestion.options];
+                    for (let i = shuffledOptions.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; }
+                    shuffledOptions.forEach(optionText => {
+                        const optionBox = document.createElement('div');
+                        optionBox.innerHTML = optionText || "(選択肢なし)";
+                        optionBox.classList.add('option-box');
+                        optionBox.dataset.optionValue = optionText;
+                        optionBox.addEventListener('click', () => { if (feedbackEl.style.display === 'block') return; selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale); });
+                        optionsContainer.appendChild(optionBox);
+                    });
+                } else { optionsContainer.innerHTML = '<p>(選択肢なし)</p>'; }
+                try { renderMathInElement(questionTextEl, { delimiters: katexDelimiters }); renderMathInElement(optionsContainer, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX render error:", e); }
+            }
+
+            function selectAnswer(selectedBox, selectedOption, correctAnswer, rationale) {
+                Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => { box.classList.add('disabled'); if (box.dataset.optionValue === correctAnswer) { box.classList.add('correct'); } else { box.classList.add('incorrect'); } });
+                feedbackEl.style.display = 'block'; const feedbackRationale = rationale || "(解説なし)";
+                if (selectedOption === correctAnswer) { feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`; feedbackEl.className = 'correct'; score++; }
+                else { selectedBox.classList.add('selected'); feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; feedbackEl.className = 'incorrect'; }
+                try { renderMathInElement(feedbackEl, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX feedback render error:", e); }
+                if (currentQuestionIndex < quizData.length - 1) { nextBtn.style.display = 'block'; } else { resultsBtn.style.display = 'block'; }
+            }
+
+            // (イベントリスナーをセット)
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestionIndex < quizData.length - 1) { // 範囲チェック
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            });
+
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none'; resultsContainer.style.display = 'block';
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`; // 10題中の表示
+                let rank = "-"; if (quizData.length > 0) { if (percentage === 100) rank = "S"; else if (percentage >= 80) rank = "A"; else if (percentage >= 60) rank = "B"; else rank = "C"; }
+                
+                const quizId = 'M1-1-4-6'; // ★★★★★ quizId を 'M1-1-1-3' に設定 ★★★★★
+                
+                try { localStorage.setItem('quizRank_' + quizId, rank); } catch (e) { console.error("localStorage save failed:", e); }
+                let message = ""; // (メッセージ生成...)
+                 if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
+                 else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
+                 else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
+                 else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
+                 else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
+                finalMessageEl.textContent = message;
+            });
+
+            // (QDが空でないか確認してからクイズを開始)
+            if (quizData && quizData.length > 0) {
+                loadQuestion();
+            } else {
+                 questionTextEl.innerHTML = "問題データ (allQuizData) が見つからないか空です。<br>HTMLファイルを確認してください。"; // エラーメッセージ変更
+                 questionNumberEl.textContent = "エラー";
+                 quizContainer.style.display = 'block';
+                 resultsContainer.style.display = 'none';
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+             <h1>数と式：整数部分・小数部分</h1>
+        </header>
+        <main>
+            <div id="quiz-container">
+                <div id="question-header"><span id="question-number"></span></div>
+                <h2 id="question-text"></h2>
+                <div id="options-container"></div>
+                <div id="feedback"></div>
+                <button id="next-btn">次の問題へ</button>
+                <button id="results-btn">結果を見る</button>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>テスト終了！</h2>
+                <p id="score-text"></p>
+                <p id="final-message"></p>
+                <a href="index.html" id="homepage-link">トップページに戻る</a>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 [香川亮]</p>
+        </footer>
+    </div>
+    </body>
+</html>
+
