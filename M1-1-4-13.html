@@ -1,1 +1,666 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数と式：逆数と対称式(ランダム10題)</title>
+    <style>
+        /* index.htmlと共通のスタイル */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa; /* デフォルト背景色 */
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s; /* 背景色変更を滑らかに */
+        }
+
+        /* ★★★ 背景色用のクラスを追加 ★★★ */
+        body.bg-light-blue { background-color: #e7f5ff; } /* 水色 */
+        body.bg-light-green { background-color: #e6fcf5; } /* 薄い緑 */
+        body.bg-beige { background-color: #fcf8e3; } /* ベージュ */
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #343a40;
+            font-size: 1.8em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        /* --- クイズ用のスタイル --- */
+        #quiz-container { min-height: 300px; }
+        #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
+        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; }
+
+        /* 選択肢コンテナ (Gridレイアウト - デフォルトは2x2) */
+        #options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* デフォルト: 2列 */
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* 縦1列(4行)表示用のスタイル */
+        #options-container.options-vertical {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 10px; /* 縦の隙間を少し狭める (任意) */
+        }
+
+        /* 選択肢ボックス */
+        .option-box {
+            background-color: #f1f3f5;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .option-box:hover:not(.disabled) {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 正解のスタイル */
+        .option-box.correct {
+            background-color: #a8e6cf;
+            border-color: #17a2b8;
+            border-width: 3px;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        /* 不正解のスタイル (選択されなかったもの) */
+        .option-box.incorrect {
+            background-color: #ffcdd2;
+            border-color: #dc3545;
+            color: #721c24;
+            opacity: 0.7;
+        }
+
+        /* ユーザーが選択した不正解のスタイル */
+        .option-box.incorrect.selected {
+            opacity: 1;
+            border-width: 4px;
+            border-color: #dc3545;
+        }
+
+        /* 無効化時のスタイル */
+        .option-box.disabled {
+             cursor: not-allowed;
+             opacity: 0.7;
+             background-color: #e9ecef;
+             transform: none;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* 解説（フィードバック） */
+        #feedback { margin-top: 25px; padding: 15px; border-radius: 5px; display: none; }
+        #feedback.correct { background-color: #e6f7ff; border: 1px solid #b3e0ff; }
+        #feedback.incorrect { background-color: #fff0f1; border: 1px solid #ffccd0; }
+
+        /* 次へ/結果ボタン */
+        #next-btn, #results-btn { display: none; padding: 12px 25px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; float: right; margin-top: 20px; transition: background-color 0.3s; }
+        #next-btn:hover, #results-btn:hover { background-color: #0056b3; }
+
+        /* 結果表示 */
+        #results-container { text-align: center; font-size: 1.4em; }
+        #results-container h2 { color: #007bff; }
+        #homepage-link { display: inline-block; margin-top: 20px; padding: 12px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; }
+        #homepage-link:hover { background-color: #5a6268; }
+
+    </style>
+
+    <link rel="stylesheet" href="katex/katex.min.css">
+    <script defer src="katex/katex.min.js"></script>
+    <script defer src="katex/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // ★★★ 背景色を適用する処理 ★★★
+            const storageKey = 'backgroundColorPreference';
+            try {
+                const savedColor = localStorage.getItem(storageKey);
+                document.body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
+                if (savedColor && savedColor !== 'default') {
+                    document.body.classList.add('bg-' + savedColor);
+                }
+            } catch (e) { console.error("localStorageからの背景色読み込みに失敗:", e); }
+            // ★★★ (ここまで) ★★★
+
+            // KaTeXが認識する区切り文字の設定
+            const katexDelimiters = [
+                {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}
+            ];
+
+            // ページ読み込み時に静的コンテンツをレンダリング
+            try {
+                renderMathInElement(document.body, { delimiters: katexDelimiters });
+            } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
+
+// --- ★ allQuizData 配列 (M1-1-4-13.html 用) ★ ---
+            const allQuizData = [
+                // --- タイプ1: x+1/x=k のとき x^2+1/x^2 (10題) ---
+                // 問題 1
+                {
+                    question: "$x+\\dfrac{1}{x}=4$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$14$", "$16$", "$18$", "$12$" ],
+                    answer: "$14$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2x \\cdot \\dfrac{1}{x} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= 4^2 - 2 = 16 - 2 = 14$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 2
+                {
+                    question: "$x+\\dfrac{1}{x}=3$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$7$", "$9$", "$11$", "$5$" ],
+                    answer: "$7$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= 3^2 - 2 = 9 - 2 = 7$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 3
+                {
+                    question: "$x+\\dfrac{1}{x}=5$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$23$", "$25$", "$27$", "$21$" ],
+                    answer: "$23$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= 5^2 - 2 = 25 - 2 = 23$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 4
+                {
+                    question: "$x+\\dfrac{1}{x}=6$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$34$", "$36$", "$38$", "$32$" ],
+                    answer: "$34$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= 6^2 - 2 = 36 - 2 = 34$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 5
+                {
+                    question: "$x+\\dfrac{1}{x}=2\\sqrt{2}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$6$", "$8$", "$4$", "$10$" ],
+                    answer: "$6$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= \\left(2\\sqrt{2}\\right)^2 - 2 = 8 - 2 = 6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 6
+                {
+                    question: "$x+\\dfrac{1}{x}=\\sqrt{5}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$3$", "$5$", "$7$", "$1$" ],
+                    answer: "$3$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= \\left(\\sqrt{5}\\right)^2 - 2 = 5 - 2 = 3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 7
+                {
+                    question: "$x+\\dfrac{1}{x}=2\\sqrt{3}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$10$", "$12$", "$14$", "$8$" ],
+                    answer: "$10$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= \\left(2\\sqrt{3}\\right)^2 - 2 = 12 - 2 = 10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 8
+                {
+                    question: "$x+\\dfrac{1}{x}=\\sqrt{7}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$5$", "$7$", "$9$", "$3$" ],
+                    answer: "$5$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= \\left(\\sqrt{7}\\right)^2 - 2 = 7 - 2 = 5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 9
+                {
+                    question: "$x+\\dfrac{1}{x}=1$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$-1$", "$1$", "$3$", "$-3$" ],
+                    answer: "$-1$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= 1^2 - 2 = 1 - 2 = -1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 10
+                {
+                    question: "$x+\\dfrac{1}{x}=2\\sqrt{5}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$18$", "$20$", "$22$", "$16$" ],
+                    answer: "$18$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= \\left(2\\sqrt{5}\\right)^2 - 2 = 20 - 2 = 18$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ2: x-1/x=k のとき x^2+1/x^2 (10題) ---
+                // 問題 11
+                {
+                    question: "$x-\\dfrac{1}{x}=3$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$11$", "$9$", "$7$", "$13$" ],
+                    answer: "$11$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2x \\cdot \\dfrac{1}{x} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2$<br>$= 3^2 + 2 = 9 + 2 = 11$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 12
+                {
+                    question: "$x-\\dfrac{1}{x}=2$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$6$", "$4$", "$2$", "$8$" ],
+                    answer: "$6$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2$<br>$= 2^2 + 2 = 4 + 2 = 6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 13
+                {
+                    question: "$x-\\dfrac{1}{x}=4$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$18$", "$16$", "$14$", "$20$" ],
+                    answer: "$18$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2$<br>$= 4^2 + 2 = 16 + 2 = 18$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 14
+                {
+                    question: "$x-\\dfrac{1}{x}=\\sqrt{5}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$7$", "$5$", "$3$", "$9$" ],
+                    answer: "$7$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2$<br>$= \\left(\\sqrt{5}\\right)^2 + 2 = 5 + 2 = 7$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 15
+                {
+                    question: "$x-\\dfrac{1}{x}=\\sqrt{2}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$4$", "$2$", "$0$", "$6$" ],
+                    answer: "$4$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2$<br>$= \\left(\\sqrt{2}\\right)^2 + 2 = 2 + 2 = 4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 16
+                {
+                    question: "$x-\\dfrac{1}{x}=2\\sqrt{3}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$14$", "$12$", "$10$", "$16$" ],
+                    answer: "$14$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2$<br>$= \\left(2\\sqrt{3}\\right)^2 + 2 = 12 + 2 = 14$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 17
+                {
+                    question: "$x-\\dfrac{1}{x}=1$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$3$", "$1$", "$-1$", "$5$" ],
+                    answer: "$3$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2$<br>$= 1^2 + 2 = 3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 18
+                {
+                    question: "$x-\\dfrac{1}{x}=2\\sqrt{5}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$22$", "$20$", "$18$", "$24$" ],
+                    answer: "$22$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2$<br>$= \\left(2\\sqrt{5}\\right)^2 + 2 = 20 + 2 = 22$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 19
+                {
+                    question: "$x-\\dfrac{1}{x}=5$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$27$", "$25$", "$23$", "$29$" ],
+                    answer: "$27$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2$<br>$= 5^2 + 2 = 25 + 2 = 27$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 20
+                {
+                    question: "$x-\\dfrac{1}{x}=\\sqrt{11}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$13$", "$11$", "$9$", "$15$" ],
+                    answer: "$13$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2$<br>$= \\left(\\sqrt{11}\\right)^2 + 2 = 11 + 2 = 13$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ3: x+1/x=k のとき (x-1/x)^2 または x-1/x (10題) ---
+                // 問題 21
+                {
+                    question: "$x+\\dfrac{1}{x}=3$ のとき、$\\left(x-\\dfrac{1}{x}\\right)^2$ の値を求めよ。",
+                    options: [ "$5$", "$7$", "$9$", "$13$" ],
+                    answer: "$5$",
+                    rationale: "$\\left(x-\\dfrac{1}{x}\\right)^2 = x^2 - 2 + \\dfrac{1}{x^2} = \\left(x^2+\\dfrac{1}{x^2}\\right) - 2$<br>$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2 = 3^2 - 2 = 7$<br>よって $7 - 2 = 5$<br>（別解: $\\left(x-\\dfrac{1}{x}\\right)^2 = \\left(x+\\dfrac{1}{x}\\right)^2 - 4 = 3^2 - 4 = 5$）<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 22
+                {
+                    question: "$x+\\dfrac{1}{x}=5$ のとき、$\\left(x-\\dfrac{1}{x}\\right)^2$ の値を求めよ。",
+                    options: [ "$21$", "$25$", "$23$", "$29$" ],
+                    answer: "$21$",
+                    rationale: "$\\left(x-\\dfrac{1}{x}\\right)^2 = \\left(x+\\dfrac{1}{x}\\right)^2 - 4$<br>$= 5^2 - 4 = 25 - 4 = 21$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 23
+                {
+                    question: "$x+\\dfrac{1}{x}=2\\sqrt{2}$ のとき、$\\left(x-\\dfrac{1}{x}\\right)^2$ の値を求めよ。",
+                    options: [ "$4$", "$8$", "$6$", "$12$" ],
+                    answer: "$4$",
+                    rationale: "$\\left(x-\\dfrac{1}{x}\\right)^2 = \\left(x+\\dfrac{1}{x}\\right)^2 - 4$<br>$= \\left(2\\sqrt{2}\\right)^2 - 4 = 8 - 4 = 4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 24
+                {
+                    question: "$x+\\dfrac{1}{x}=3$ で $x>1$ のとき、$x-\\dfrac{1}{x}$ の値を求めよ。",
+                    options: [ "$\\sqrt{5}$", "$-\\sqrt{5}$", "$5$", "$\\pm \\sqrt{5}$" ],
+                    answer: "$\\sqrt{5}$",
+                    rationale: "$\\left(x-\\dfrac{1}{x}\\right)^2 = \\left(x+\\dfrac{1}{x}\\right)^2 - 4 = 3^2 - 4 = 5$<br>$x-\\dfrac{1}{x} = \\pm \\sqrt{5}$。<br>$x>1$ のとき $0 < \dfrac{1}{x} < 1$ なので $x > \dfrac{1}{x}$。よって $x-\\dfrac{1}{x} > 0$。<br>したがって $x-\\dfrac{1}{x} = \\sqrt{5}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 25
+                {
+                    question: "$x+\\dfrac{1}{x}=3$ で $0<x<1$ のとき、$x-\\dfrac{1}{x}$ の値を求めよ。",
+                    options: [ "$-\\sqrt{5}$", "$\\sqrt{5}$", "$5$", "$\\pm \\sqrt{5}$" ],
+                    answer: "$-\\sqrt{5}$",
+                    rationale: "$\\left(x-\\dfrac{1}{x}\\right)^2 = \\left(x+\\dfrac{1}{x}\\right)^2 - 4 = 3^2 - 4 = 5$<br>$x-\\dfrac{1}{x} = \\pm \\sqrt{5}$。<br>$0<x<1$ のとき $1 < \dfrac{1}{x}$ なので $x < \dfrac{1}{x}$。よって $x-\\dfrac{1}{x} < 0$。<br>したがって $x-\\dfrac{1}{x} = -\\sqrt{5}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 26
+                {
+                    question: "$x+\\dfrac{1}{x}=2\\sqrt{2}$ で $x>1$ のとき、$x-\\dfrac{1}{x}$ の値を求めよ。",
+                    options: [ "$2$", "$-2$", "$4$", "$\\pm 2$" ],
+                    answer: "$2$",
+                    rationale: "$\\left(x-\\dfrac{1}{x}\\right)^2 = \\left(x+\\dfrac{1}{x}\\right)^2 - 4 = \\left(2\\sqrt{2}\\right)^2 - 4 = 8 - 4 = 4$<br>$x-\\dfrac{1}{x} = \\pm \\sqrt{4} = \\pm 2$。<br>$x>1$ のとき $x-\\dfrac{1}{x} > 0$。<br>したがって $x-\\dfrac{1}{x} = 2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ4: x-1/x=k のとき (x+1/x)^2 または x+1/x (10題) ---
+                // 問題 27
+                {
+                    question: "$x-\\dfrac{1}{x}=2$ のとき、$\\left(x+\\dfrac{1}{x}\\right)^2$ の値を求めよ。",
+                    options: [ "$8$", "$4$", "$6$", "$0$" ],
+                    answer: "$8$",
+                    rationale: "$\\left(x+\\dfrac{1}{x}\\right)^2 = \\left(x-\\dfrac{1}{x}\\right)^2 + 4$<br>$= 2^2 + 4 = 4 + 4 = 8$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 28
+                {
+                    question: "$x-\\dfrac{1}{x}=4$ のとき、$\\left(x+\\dfrac{1}{x}\\right)^2$ の値を求めよ。",
+                    options: [ "$20$", "$16$", "$18$", "$12$" ],
+                    answer: "$20$",
+                    rationale: "$\\left(x+\\dfrac{1}{x}\\right)^2 = \\left(x-\\dfrac{1}{x}\\right)^2 + 4$<br>$= 4^2 + 4 = 16 + 4 = 20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 29
+                {
+                    question: "$x-\\dfrac{1}{x}=\\sqrt{5}$ のとき、$\\left(x+\\dfrac{1}{x}\\right)^2$ の値を求めよ。",
+                    options: [ "$9$", "$5$", "$7$", "$1$" ],
+                    answer: "$9$",
+                    rationale: "$\\left(x+\\dfrac{1}{x}\\right)^2 = \\left(x-\\dfrac{1}{x}\\right)^2 + 4$<br>$= \\left(\\sqrt{5}\\right)^2 + 4 = 5 + 4 = 9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 30
+                {
+                    question: "$x-\\dfrac{1}{x}=2$ で $x>0$ のとき、$x+\\dfrac{1}{x}$ の値を求めよ。",
+                    options: [ "$2\\sqrt{2}$", "$-2\\sqrt{2}$", "$8$", "$\\pm 2\\sqrt{2}$" ],
+                    answer: "$2\\sqrt{2}$",
+                    rationale: "$\\left(x+\\dfrac{1}{x}\\right)^2 = \\left(x-\\dfrac{1}{x}\\right)^2 + 4 = 2^2 + 4 = 8$<br>$x+\\dfrac{1}{x} = \\pm \\sqrt{8} = \\pm 2\\sqrt{2}$。<br>$x>0$ のとき $\\dfrac{1}{x} > 0$ なので $x+\\dfrac{1}{x} > 0$。<br>したがって $x+\\dfrac{1}{x} = 2\\sqrt{2}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 31
+                {
+                    question: "$x-\\dfrac{1}{x}=2$ で $x<0$ のとき、$x+\\dfrac{1}{x}$ の値を求めよ。",
+                    options: [ "$-2\\sqrt{2}$", "$2\\sqrt{2}$", "$8$", "$\\pm 2\\sqrt{2}$" ],
+                    answer: "$-2\\sqrt{2}$",
+                    rationale: "$\\left(x+\\dfrac{1}{x}\\right)^2 = \\left(x-\\dfrac{1}{x}\\right)^2 + 4 = 2^2 + 4 = 8$<br>$x+\\dfrac{1}{x} = \\pm \\sqrt{8} = \\pm 2\\sqrt{2}$。<br>$x<0$ のとき $\\dfrac{1}{x} < 0$ なので $x+\\dfrac{1}{x} < 0$。<br>したがって $x+\\dfrac{1}{x} = -2\\sqrt{2}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 32
+                {
+                    question: "$x-\\dfrac{1}{x}=3$ で $x>0$ のとき、$x+\\dfrac{1}{x}$ の値を求めよ。",
+                    options: [ "$\\sqrt{13}$", "$-\\sqrt{13}$", "$13$", "$\\pm \\sqrt{13}$" ],
+                    answer: "$\\sqrt{13}$",
+                    rationale: "$\\left(x+\\dfrac{1}{x}\\right)^2 = \\left(x-\\dfrac{1}{x}\\right)^2 + 4 = 3^2 + 4 = 13$<br>$x+\\dfrac{1}{x} = \\pm \\sqrt{13}$。<br>$x>0$ のとき $x+\\dfrac{1}{x} > 0$。<br>したがって $x+\\dfrac{1}{x} = \\sqrt{13}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ5: $a+k/a=m$ のとき $a^2+k^2/a^2$ (10題) ---
+                // 問題 33
+                {
+                    question: "$a+\\dfrac{3}{a}=5$ のとき、$a^2+\\dfrac{9}{a^2}$ の値を求めよ。",
+                    options: [ "$19$", "$25$", "$31$", "$13$" ],
+                    answer: "$19$",
+                    rationale: "$a^2+\\dfrac{9}{a^2} = \\left(a+\\dfrac{3}{a}\\right)^2 - 2 \\cdot a \\cdot \\dfrac{3}{a} = \\left(a+\\dfrac{3}{a}\\right)^2 - 6$<br>$= 5^2 - 6 = 25 - 6 = 19$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 34
+                {
+                    question: "$a+\\dfrac{2}{a}=3$ のとき、$a^2+\\dfrac{4}{a^2}$ の値を求めよ。",
+                    options: [ "$5$", "$9$", "$13$", "$1$" ],
+                    answer: "$5$",
+                    rationale: "$a^2+\\dfrac{4}{a^2} = \\left(a+\\dfrac{2}{a}\\right)^2 - 2 \\cdot a \\cdot \\dfrac{2}{a} = \\left(a+\\dfrac{2}{a}\\right)^2 - 4$<br>$= 3^2 - 4 = 9 - 4 = 5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 35
+                {
+                    question: "$a-\\dfrac{3}{a}=5$ のとき、$a^2+\\dfrac{9}{a^2}$ の値を求めよ。",
+                    options: [ "$31$", "$25$", "$19$", "$37$" ],
+                    answer: "$31$",
+                    rationale: "$a^2+\\dfrac{9}{a^2} = \\left(a-\\dfrac{3}{a}\\right)^2 + 2 \\cdot a \\cdot \\dfrac{3}{a} = \\left(a-\\dfrac{3}{a}\\right)^2 + 6$<br>$= 5^2 + 6 = 25 + 6 = 31$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 36
+                {
+                    question: "$a-\\dfrac{2}{a}=3$ のとき、$a^2+\\dfrac{4}{a^2}$ の値を求めよ。",
+                    options: [ "$13$", "$9$", "$5$", "$17$" ],
+                    answer: "$13$",
+                    rationale: "$a^2+\\dfrac{4}{a^2} = \\left(a-\\dfrac{2}{a}\\right)^2 + 2 \\cdot a \\cdot \\dfrac{2}{a} = \\left(a-\\dfrac{2}{a}\\right)^2 + 4$<br>$= 3^2 + 4 = 9 + 4 = 13$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 37
+                {
+                    question: "$x+\\dfrac{5}{x}=6$ のとき、$x^2+\\dfrac{25}{x^2}$ の値を求めよ。",
+                    options: [ "$26$", "$36$", "$46$", "$16$" ],
+                    answer: "$26$",
+                    rationale: "$x^2+\\dfrac{25}{x^2} = \\left(x+\\dfrac{5}{x}\\right)^2 - 2 \\cdot x \\cdot \\dfrac{5}{x} = \\left(x+\\dfrac{5}{x}\\right)^2 - 10$<br>$= 6^2 - 10 = 36 - 10 = 26$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 38
+                {
+                    question: "$x-\\dfrac{4}{x}=3$ のとき、$x^2+\\dfrac{16}{x^2}$ の値を求めよ。",
+                    options: [ "$17$", "$9$", "$1$", "$25$" ],
+                    answer: "$17$",
+                    rationale: "$x^2+\\dfrac{16}{x^2} = \\left(x-\\dfrac{4}{x}\\right)^2 + 2 \\cdot x \\cdot \\dfrac{4}{x} = \\left(x-\\dfrac{4}{x}\\right)^2 + 8$<br>$= 3^2 + 8 = 9 + 8 = 17$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 39
+                {
+                    question: "$a+\\dfrac{1}{a}=4$ で $0<a<1$ のとき、$a-\\dfrac{1}{a}$ の値を求めよ。",
+                    options: [ "$-2\\sqrt{3}$", "$2\\sqrt{3}$", "$12$", "$\\pm 2\\sqrt{3}$" ],
+                    answer: "$-2\\sqrt{3}$",
+                    rationale: "$\\left(a-\\dfrac{1}{a}\\right)^2 = \\left(a+\\dfrac{1}{a}\\right)^2 - 4 = 4^2 - 4 = 12$<br>$a-\\dfrac{1}{a} = \\pm \\sqrt{12} = \\pm 2\\sqrt{3}$。<br>$0<a<1$ のとき $a < \dfrac{1}{a}$。よって $a-\\dfrac{1}{a} < 0$。<br>したがって $a-\\dfrac{1}{a} = -2\\sqrt{3}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 40
+                {
+                    question: "$a-\\dfrac{1}{a}=2\\sqrt{6}$ で $a>0$ のとき、$a+\\dfrac{1}{a}$ の値を求めよ。",
+                    options: [ "$2\\sqrt{7}$", "$-2\\sqrt{7}$", "$28$", "$\\pm 2\\sqrt{7}$" ],
+                    answer: "$2\\sqrt{7}$",
+                    rationale: "$\\left(a+\\dfrac{1}{a}\\right)^2 = \\left(a-\\dfrac{1}{a}\\right)^2 + 4 = (2\\sqrt{6})^2 + 4 = 24 + 4 = 28$<br>$a+\\dfrac{1}{a} = \\pm \\sqrt{28} = \\pm 2\\sqrt{7}$。<br>$a>0$ のとき $a+\\dfrac{1}{a} > 0$。<br>したがって $a+\\dfrac{1}{a} = 2\\sqrt{7}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 41
+                {
+                    question: "$x+\\dfrac{1}{x}=\\sqrt{13}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$11$", "$13$", "$15$", "$9$" ],
+                    answer: "$11$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= \\left(\\sqrt{13}\\right)^2 - 2 = 13 - 2 = 11$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 42
+                {
+                    question: "$x-\\dfrac{1}{x}=\\sqrt{13}$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$15$", "$13$", "$11$", "$17$" ],
+                    answer: "$15$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x-\\dfrac{1}{x}\\right)^2 + 2$<br>$= \\left(\\sqrt{13}\\right)^2 + 2 = 13 + 2 = 15$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 43
+                {
+                    question: "$x+\\dfrac{1}{x}=\\sqrt{13}$ で $x>1$ のとき、$x-\\dfrac{1}{x}$ の値を求めよ。",
+                    options: [ "$3$", "$-3$", "$9$", "$\\pm 3$" ],
+                    answer: "$3$",
+                    rationale: "$\\left(x-\\dfrac{1}{x}\\right)^2 = \\left(x+\\dfrac{1}{x}\\right)^2 - 4 = (\\sqrt{13})^2 - 4 = 13 - 4 = 9$<br>$x-\\dfrac{1}{x} = \\pm \\sqrt{9} = \\pm 3$。<br>$x>1$ のとき $x-\\dfrac{1}{x} > 0$。<br>したがって $x-\\dfrac{1}{x} = 3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 44
+                {
+                    question: "$x-\\dfrac{1}{x}=\\sqrt{13}$ で $x>0$ のとき、$x+\\dfrac{1}{x}$ の値を求めよ。",
+                    options: [ "$\\sqrt{17}$", "$-\\sqrt{17}$", "$17$", "$\\pm \\sqrt{17}$" ],
+                    answer: "$\\sqrt{17}$",
+                    rationale: "$\\left(x+\\dfrac{1}{x}\\right)^2 = \\left(x-\\dfrac{1}{x}\\right)^2 + 4 = (\\sqrt{13})^2 + 4 = 13 + 4 = 17$<br>$x+\\dfrac{1}{x} = \\pm \\sqrt{17}$。<br>$x>0$ のとき $x+\\dfrac{1}{x} > 0$。<br>したがって $x+\\dfrac{1}{x} = \\sqrt{17}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 45
+                {
+                    question: "$a+\\dfrac{2}{a}=3$ のとき、$a^2+\\dfrac{4}{a^2}$ の値を求めよ。",
+                    options: [ "$5$", "$9$", "$7$", "$11$" ],
+                    answer: "$5$",
+                    rationale: "$a^2+\\dfrac{4}{a^2} = \\left(a+\\dfrac{2}{a}\\right)^2 - 2 \\cdot a \\cdot \\dfrac{2}{a} = \\left(a+\\dfrac{2}{a}\\right)^2 - 4$<br>$= 3^2 - 4 = 9 - 4 = 5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 46
+                {
+                    question: "$a-\\dfrac{3}{a}=4$ のとき、$a^2+\\dfrac{9}{a^2}$ の値を求めよ。",
+                    options: [ "$22$", "$16$", "$10$", "$28$" ],
+                    answer: "$22$",
+                    rationale: "$a^2+\\dfrac{9}{a^2} = \\left(a-\\dfrac{3}{a}\\right)^2 + 2 \\cdot a \\cdot \\dfrac{3}{a} = \\left(a-\\dfrac{3}{a}\\right)^2 + 6$<br>$= 4^2 + 6 = 16 + 6 = 22$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 47
+                {
+                    question: "$x+\\dfrac{1}{x}=2$ のとき、$x^2+\\dfrac{1}{x^2}$ の値を求めよ。",
+                    options: [ "$2$", "$4$", "$0$", "$6$" ],
+                    answer: "$2$",
+                    rationale: "$x^2+\\dfrac{1}{x^2} = \\left(x+\\dfrac{1}{x}\\right)^2 - 2$<br>$= 2^2 - 2 = 4 - 2 = 2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 48
+                {
+                    question: "$x+\\dfrac{1}{x}=2$ のとき、$x-\\dfrac{1}{x}$ の値を求めよ。",
+                    options: [ "$0$", "$2$", "$-2$", "$\\pm 2$" ],
+                    answer: "$0$",
+                    rationale: "$\\left(x-\\dfrac{1}{x}\\right)^2 = \\left(x+\\dfrac{1}{x}\\right)^2 - 4 = 2^2 - 4 = 0$<br>よって $x-\\dfrac{1}{x} = 0$<br>（$x+1/x=2$ の両辺に $x$ をかけると $x^2-2x+1=0 \implies (x-1)^2=0 \implies x=1$。よって $1-1/1=0$）<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 49
+                {
+                    question: "$a-\\dfrac{5}{a}=2\\sqrt{6}$ のとき、$a^2+\\dfrac{25}{a^2}$ の値を求めよ。",
+                    options: [ "$34$", "$24$", "$14$", "$44$" ],
+                    answer: "$34$",
+                    rationale: "$a^2+\\dfrac{25}{a^2} = \\left(a-\\dfrac{5}{a}\\right)^2 + 2 \\cdot a \\cdot \\dfrac{5}{a} = \\left(a-\\dfrac{5}{a}\\right)^2 + 10$<br>$= \\left(2\\sqrt{6}\\right)^2 + 10 = 24 + 10 = 34$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 50
+                {
+                    question: "$x+\\dfrac{4}{x}=5$ ($x>2$) のとき、$x-\\dfrac{4}{x}$ の値を求めよ。",
+                    options: [ "$3$", "$-3$", "$9$", "$\\pm 3$" ],
+                    answer: "$3$",
+                    rationale: "$\\left(x-\\dfrac{4}{x}\\right)^2 = \\left(x+\\dfrac{4}{x}\\right)^2 - 4 \\cdot x \\cdot \\dfrac{4}{x} = \\left(x+\\dfrac{4}{x}\\right)^2 - 16$<br>$= 5^2 - 16 = 25 - 16 = 9$<br>$x-\\dfrac{4}{x} = \\pm 3$。<br>$x>2$ のとき $x^2>4$。$x^2-4>0$。$x(x-4/x) > 0$。$x>0$ なので $x-4/x > 0$。<br>よって $x-\\dfrac{4}{x} = 3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63161' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                }
+            ]
+            // --- ★★★ 50題データここまで ★★★
+        
+            
+            // 1. allQuizData をシャッフルする関数
+            function shuffleArray(array) {
+                const shuffled = [...array]; // 配列をコピー
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            // 2. シャッフルして先頭10件を取得
+            const numberOfQuestions = 10;
+            const shuffledAllData = shuffleArray(allQuizData);
+            // ★ 実際に使うデータ (quizData) を定義 ★
+            const quizData = shuffledAllData.slice(0, Math.min(numberOfQuestions, allQuizData.length));
+            // ★★★ ここまで ★★★
+
+
+            // --- ここから下はクイズの仕組みです (変数 quizData を使う) ---
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const questionNumberEl = document.getElementById('question-number');
+            const questionTextEl = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const scoreTextEl = document.getElementById('score-text');
+            const finalMessageEl = document.getElementById('final-message');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            // (関数定義)
+            function loadQuestion() {
+                if (!quizData || currentQuestionIndex >= quizData.length) { console.error("Invalid question index or quizData is empty."); questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。"; questionNumberEl.textContent = "エラー"; optionsContainer.innerHTML = ''; return; }
+                feedbackEl.style.display = 'none'; nextBtn.style.display = 'none'; optionsContainer.innerHTML = '';
+                const currentQuestion = quizData[currentQuestionIndex];
+                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`; // 10題中の表示
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文なし)";
+                if (currentQuestion.layout === 'vertical') { optionsContainer.classList.add('options-vertical'); } else { optionsContainer.classList.remove('options-vertical'); }
+                if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
+                    const shuffledOptions = [...currentQuestion.options];
+                    for (let i = shuffledOptions.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; }
+                    shuffledOptions.forEach(optionText => {
+                        const optionBox = document.createElement('div');
+                        optionBox.innerHTML = optionText || "(選択肢なし)";
+                        optionBox.classList.add('option-box');
+                        optionBox.dataset.optionValue = optionText;
+                        optionBox.addEventListener('click', () => { if (feedbackEl.style.display === 'block') return; selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale); });
+                        optionsContainer.appendChild(optionBox);
+                    });
+                } else { optionsContainer.innerHTML = '<p>(選択肢なし)</p>'; }
+                try { renderMathInElement(questionTextEl, { delimiters: katexDelimiters }); renderMathInElement(optionsContainer, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX render error:", e); }
+            }
+
+            function selectAnswer(selectedBox, selectedOption, correctAnswer, rationale) {
+                Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => { box.classList.add('disabled'); if (box.dataset.optionValue === correctAnswer) { box.classList.add('correct'); } else { box.classList.add('incorrect'); } });
+                feedbackEl.style.display = 'block'; const feedbackRationale = rationale || "(解説なし)";
+                if (selectedOption === correctAnswer) { feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`; feedbackEl.className = 'correct'; score++; }
+                else { selectedBox.classList.add('selected'); feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; feedbackEl.className = 'incorrect'; }
+                try { renderMathInElement(feedbackEl, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX feedback render error:", e); }
+                if (currentQuestionIndex < quizData.length - 1) { nextBtn.style.display = 'block'; } else { resultsBtn.style.display = 'block'; }
+            }
+
+            // (イベントリスナーをセット)
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestionIndex < quizData.length - 1) { // 範囲チェック
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            });
+
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none'; resultsContainer.style.display = 'block';
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`; // 10題中の表示
+                let rank = "-"; if (quizData.length > 0) { if (percentage === 100) rank = "S"; else if (percentage >= 80) rank = "A"; else if (percentage >= 60) rank = "B"; else rank = "C"; }
+                
+                const quizId = 'M1-1-4-13'; // ★★★★★ quizId を 'M1-1-1-3' に設定 ★★★★★
+                
+                try { localStorage.setItem('quizRank_' + quizId, rank); } catch (e) { console.error("localStorage save failed:", e); }
+                let message = ""; // (メッセージ生成...)
+                 if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
+                 else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
+                 else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
+                 else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
+                 else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
+                finalMessageEl.textContent = message;
+            });
+
+            // (QDが空でないか確認してからクイズを開始)
+            if (quizData && quizData.length > 0) {
+                loadQuestion();
+            } else {
+                 questionTextEl.innerHTML = "問題データ (allQuizData) が見つからないか空です。<br>HTMLファイルを確認してください。"; // エラーメッセージ変更
+                 questionNumberEl.textContent = "エラー";
+                 quizContainer.style.display = 'block';
+                 resultsContainer.style.display = 'none';
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+             <h1>数と式：逆数と対称式</h1>
+        </header>
+        <main>
+            <div id="quiz-container">
+                <div id="question-header"><span id="question-number"></span></div>
+                <h2 id="question-text"></h2>
+                <div id="options-container"></div>
+                <div id="feedback"></div>
+                <button id="next-btn">次の問題へ</button>
+                <button id="results-btn">結果を見る</button>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>テスト終了！</h2>
+                <p id="score-text"></p>
+                <p id="final-message"></p>
+                <a href="index.html" id="homepage-link">トップページに戻る</a>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 [香川亮]</p>
+        </footer>
+    </div>
+    </body>
+</html>
 
