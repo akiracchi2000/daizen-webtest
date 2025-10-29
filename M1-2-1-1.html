@@ -1,1 +1,663 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>集合と命題：集合の表し方(ランダム10題)</title>
+    <style>
+        /* index.htmlと共通のスタイル */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa; /* デフォルト背景色 */
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s; /* 背景色変更を滑らかに */
+        }
 
+        /* ★★★ 背景色用のクラスを追加 ★★★ */
+        body.bg-light-blue { background-color: #e7f5ff; } /* 水色 */
+        body.bg-light-green { background-color: #e6fcf5; } /* 薄い緑 */
+        body.bg-beige { background-color: #fcf8e3; } /* ベージュ */
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #343a40;
+            font-size: 1.8em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        /* --- クイズ用のスタイル --- */
+        #quiz-container { min-height: 300px; }
+        #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
+        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; }
+
+        /* 選択肢コンテナ (Gridレイアウト - デフォルトは2x2) */
+        #options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* デフォルト: 2列 */
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* 縦1列(4行)表示用のスタイル */
+        #options-container.options-vertical {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 10px; /* 縦の隙間を少し狭める (任意) */
+        }
+
+        /* 選択肢ボックス */
+        .option-box {
+            background-color: #f1f3f5;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .option-box:hover:not(.disabled) {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 正解のスタイル */
+        .option-box.correct {
+            background-color: #a8e6cf;
+            border-color: #17a2b8;
+            border-width: 3px;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        /* 不正解のスタイル (選択されなかったもの) */
+        .option-box.incorrect {
+            background-color: #ffcdd2;
+            border-color: #dc3545;
+            color: #721c24;
+            opacity: 0.7;
+        }
+
+        /* ユーザーが選択した不正解のスタイル */
+        .option-box.incorrect.selected {
+            opacity: 1;
+            border-width: 4px;
+            border-color: #dc3545;
+        }
+
+        /* 無効化時のスタイル */
+        .option-box.disabled {
+             cursor: not-allowed;
+             opacity: 0.7;
+             background-color: #e9ecef;
+             transform: none;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* 解説（フィードバック） */
+        #feedback { margin-top: 25px; padding: 15px; border-radius: 5px; display: none; }
+        #feedback.correct { background-color: #e6f7ff; border: 1px solid #b3e0ff; }
+        #feedback.incorrect { background-color: #fff0f1; border: 1px solid #ffccd0; }
+
+        /* 次へ/結果ボタン */
+        #next-btn, #results-btn { display: none; padding: 12px 25px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; float: right; margin-top: 20px; transition: background-color 0.3s; }
+        #next-btn:hover, #results-btn:hover { background-color: #0056b3; }
+
+        /* 結果表示 */
+        #results-container { text-align: center; font-size: 1.4em; }
+        #results-container h2 { color: #007bff; }
+        #homepage-link { display: inline-block; margin-top: 20px; padding: 12px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; }
+        #homepage-link:hover { background-color: #5a6268; }
+
+    </style>
+
+    <link rel="stylesheet" href="katex/katex.min.css">
+    <script defer src="katex/katex.min.js"></script>
+    <script defer src="katex/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // ★★★ 背景色を適用する処理 ★★★
+            const storageKey = 'backgroundColorPreference';
+            try {
+                const savedColor = localStorage.getItem(storageKey);
+                document.body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
+                if (savedColor && savedColor !== 'default') {
+                    document.body.classList.add('bg-' + savedColor);
+                }
+            } catch (e) { console.error("localStorageからの背景色読み込みに失敗:", e); }
+            // ★★★ (ここまで) ★★★
+
+            // KaTeXが認識する区切り文字の設定
+            const katexDelimiters = [
+                {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}
+            ];
+
+            // ページ読み込み時に静的コンテンツをレンダリング
+            try {
+                renderMathInElement(document.body, { delimiters: katexDelimiters });
+            } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
+
+// --- ★ allQuizData 配列 (M1-2-1-1.html 用) ★ ---
+            const allQuizData = [
+                // --- タイプ1: 集合の要素 (10題) ---
+                // 問題 1
+                {
+                    question: "集合 $A=\\left\{2n-1 \mid n \\text{ は } 1 \leqq n \leqq 4 \\text{ の整数}\\right\}$ の要素をすべて書き並べたものを選べ。",
+                    options: [ "$\\left\{1, 3, 5, 7\\right\}$", "$\\left\{1, 3, 5\\right\}$", "$\\left\{2, 4, 6, 8\\right\}$", "$\\left\{1, 2, 3, 4\\right\}$" ],
+                    answer: "$\\left\{1, 3, 5, 7\\right\}$",
+                    rationale: "$n=1, 2, 3, 4$ を $2n-1$ に代入します。<br>$n=1 \implies 2(1)-1 = 1$<br>$n=2 \implies 2(2)-1 = 3$<br>$n=3 \implies 2(3)-1 = 5$<br>$n=4 \implies 2(4)-1 = 7$<br>よって $A=\\left\{1, 3, 5, 7\\right\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 2
+                {
+                    question: "集合 $B=\\left\{3n \mid n \\text{ は } 1 \leqq n \leqq 5 \\text{ の整数}\\right\}$ の要素として正しくないものを選べ。",
+                    options: [ "$16$", "$3$", "$9$", "$15$" ],
+                    answer: "$16$",
+                    rationale: "$n=1, 2, 3, 4, 5$ を $3n$ に代入します。<br>$B=\\left\{3, 6, 9, 12, 15\\right\}$。<br>よって $16$ は $B$ の要素ではありません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 3
+                {
+                    question: "集合 $C=\\left\{n^2 \mid n \\text{ は } 1 \leqq n \leqq 4 \\text{ の自然数}\\right\}$ の要素を選べ。",
+                    options: [ "$9$", "$2$", "$3$", "$8$" ],
+                    answer: "$9$",
+                    rationale: "$n=1, 2, 3, 4$ を $n^2$ に代入します。<br>$1^2=1, 2^2=4, 3^2=9, 4^2=16$<br>$C=\\left\{1, 4, 9, 16\\right\}$。<br>よって $9$ は $C$ の要素です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 4
+                {
+                    question: "集合 $D=\\left\{x(x-1) \mid x \\text{ は } 1 \leqq x \leqq 4 \\text{ の自然数}\\right\}$ の要素を選べ。",
+                    options: [ "$6$", "$4$", "$8$", "$1$" ],
+                    answer: "$6$",
+                    rationale: "$x=1, 2, 3, 4$ を $x(x-1)$ に代入します。<br>$x=1 \implies 1(0)=0$<br>$x=2 \implies 2(1)=2$<br>$x=3 \implies 3(2)=6$<br>$x=4 \implies 4(3)=12$<br>$D=\\left\{0, 2, 6, 12\\right\}$。<br>よって $6$ は $D$ の要素です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 5
+                {
+                    question: "集合 $A=\\left\{x \mid x \\text{ は12の正の約数}\\right\}$ の要素を選べ。",
+                    options: [ "$4$", "$5$", "$8$", "$0$" ],
+                    answer: "$4$",
+                    rationale: "12の正の約数は $1, 2, 3, 4, 6, 12$ です。<br>$A=\\left\{1, 2, 3, 4, 6, 12\\right\}$。<br>よって $4$ は $A$ の要素です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 6
+                {
+                    question: "集合 $A=\\left\{x \mid x \\text{ は18の正の約数}\\right\}$ の要素として正しくないものを選べ。",
+                    options: [ "$8$", "$1$", "$6$", "$18$" ],
+                    answer: "$8$",
+                    rationale: "18の正の約数は $1, 2, 3, 6, 9, 18$ です。<br>$A=\\left\{1, 2, 3, 6, 9, 18\\right\}$。<br>よって $8$ は $A$ の要素ではありません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 7
+                {
+                    question: "集合 $P=\\left\{x \mid x \\text{ は10以下の素数}\\right\}$ の要素を選べ。",
+                    options: [ "$7$", "$1$", "$9$", "$4$" ],
+                    answer: "$7$",
+                    rationale: "10以下の素数は $2, 3, 5, 7$ です（1は素数ではありません）。<br>$P=\\left\{2, 3, 5, 7\\right\}$。<br>よって $7$ は $P$ の要素です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 8
+                {
+                    question: "集合 $Q=\\left\{x \mid 2x+3 \lt 12, x \\text{ は自然数}\\right\}$ の要素を選べ。",
+                    options: [ "$4$", "$0$", "$5$", "$4.5$" ],
+                    answer: "$4$",
+                    rationale: "$2x+3 < 12 \implies 2x < 9 \implies x < 4.5$。<br>$x$ は自然数なので $x=1, 2, 3, 4$。<br>$Q=\\left\{1, 2, 3, 4\\right\}$。<br>よって $4$ は $Q$ の要素です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 9
+                {
+                    question: "集合 $A=\\left\{x \mid |x| \leqq 2, x \\text{ は整数}\\right\}$ の要素をすべて書き並べたものを選べ。",
+                    options: [ "$\\left\{-2, -1, 0, 1, 2\\right\}$", "$\\left\{0, 1, 2\\right\}$", "$\\left\{-2, -1, 1, 2\\right\}$", "$\\left\{1, 2\\right\}$" ],
+                    answer: "$\\left\{-2, -1, 0, 1, 2\\right\}$",
+                    rationale: "絶対値が $2$ 以下になる整数は $-2, -1, 0, 1, 2$ です。<br>$A=\\left\{-2, -1, 0, 1, 2\\right\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 10
+                {
+                    question: "集合 $B=\\left\{x \mid x^2 = 9, x \\text{ は実数}\\right\}$ の要素をすべて書き並べたものを選べ。",
+                    options: [ "$\\left\{3, -3\\right\}$", "$\\left\{3\\right\}$", "$\\left\{9\\right\}$", "$\\left\{9, -9\\right\}$" ],
+                    answer: "$\\left\{3, -3\\right\}$",
+                    rationale: "$x^2=9$ を満たす実数 $x$ は $x=\\pm 3$ です。<br>$B=\\left\{3, -3\\right\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ2: 部分集合 (10題) ---
+                // 問題 11
+                {
+                    question: "$A=\\left\{1, 2, 3, 4, 5\\right\}$ の部分集合であるものを選べ。",
+                    options: [ "$\\left\{1, 3, 5\\right\}$", "$\\left\{0, 1, 2\\right\}$", "$\\left\{1, 2, 3, 4, 5, 6\\right\}$", "$\\left\{4, 6\\right\}$" ],
+                    answer: "$\\left\{1, 3, 5\\right\}$",
+                    rationale: "部分集合とは、その集合の要素をすべて含んでいる集合のことです。<br>$\\left\{1, 3, 5\\right\}$ の要素 $1, 3, 5$ はすべて $A$ に含まれています。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 12
+                {
+                    question: "$A=\\left\{a, b, c, d\\right\}$ の部分集合でないものを選べ。",
+                    options: [ "$\\left\{a, e\\right\}$", "$\\left\{a, b, c\\right\}$", "$\\left\{d\\right\}$", "$\\emptyset$" ],
+                    answer: "$\\left\{a, e\\right\}$",
+                    rationale: "$\\left\{a, e\\right\}$ の要素 $e$ が $A$ に含まれていないため、部分集合ではありません。<br>空集合 $\\emptyset$ はすべての集合の部分集合です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 13
+                {
+                    question: "$A=\\left\{1, 2, 3\\right\}$ の部分集合は全部でいくつあるか。",
+                    options: [ "$8$個", "$7$個", "$6$個", "$3$個" ],
+                    answer: "$8$個",
+                    rationale: "要素が $n$ 個の集合の部分集合の個数は $2^n$ 個です。<br>$A$ の要素は3個なので、$2^3 = 8$ 個です。<br>（$\\emptyset, \\left\{1\\right\}, \\left\{2\\right\}, \\left\{3\\right\}, \\left\{1, 2\\right\}, \\left\{1, 3\\right\}, \\left\{2, 3\\right\}, \\left\{1, 2, 3\\right\}$）<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 14
+                {
+                    question: "$A=\\left\{1, 2, 3, 4, 5\\right\}$, $B=\\left\{1, 2, 3\\right\}$ のとき、正しい関係を選べ。",
+                    options: [ "$A \supset B$", "$A \subset B$", "$A = B$", "$A \cap B = \\emptyset$" ],
+                    answer: "$A \supset B$",
+                    rationale: "$B$ の要素 $\\left\{1, 2, 3\\right\}$ はすべて $A$ に含まれているため、$B$ は $A$ の部分集合です（$B \subset A$）。<br>これは $A$ が $B$ を含む（$A \supset B$）ことと同じです。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 15
+                {
+                    question: "$A=\\left\{x \mid x \\text{ は8の正の約数}\\right\}$ の部分集合であるものを選べ。",
+                    options: [ "$\\left\{1, 2, 4\\right\}$", "$\\left\{1, 2, 6\\right\}$", "$\\left\{0, 1, 2\\right\}$", "$\\left\{8, 16\\right\}$" ],
+                    answer: "$\\left\{1, 2, 4\\right\}$",
+                    rationale: "$A=\\left\{1, 2, 4, 8\\right\}$ です。<br>$\\left\{1, 2, 4\\right\}$ の要素はすべて $A$ に含まれています。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 16
+                {
+                    question: "$A=\\left\{x \mid 1 \\lt x \\lt 10, x \\text{ は整数}\\right\}$ の部分集合でないものを選べ。",
+                    options: [ "$\\left\{1, 3, 5\\right\}$", "$\\left\{2, 4, 6, 8\\right\}$", "$\\left\{5, 7, 9\\right\}$", "$\\emptyset$" ],
+                    answer: "$\\left\{1, 3, 5\\right\}$",
+                    rationale: "$A=\\left\{2, 3, 4, 5, 6, 7, 8, 9\\right\}$ です。<br>$\\left\{1, 3, 5\\right\}$ の要素 $1$ が $A$ に含まれていないため、部分集合ではありません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 17
+                {
+                    question: "$A=\\left\{x \mid x \\text{ は偶数}\\right\}, B=\\left\{x \mid x \\text{ は4の倍数}\\right\}$ のとき、正しい関係を選べ。",
+                    options: [ "$A \supset B$", "$A \subset B$", "$A = B$", "$A \cap B = \\emptyset$" ],
+                    answer: "$A \supset B$",
+                    rationale: "4の倍数（...-4, 0, 4, 8...）は、すべて偶数（...-4, -2, 0, 2, 4...）に含まれます。<br>よって $B \subset A$、つまり $A \supset B$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 18
+                {
+                    question: "$A=\\left\{x \mid x \\text{ は整数}\\right\}, B=\\left\{x \mid x \\text{ は自然数}\\right\}$ のとき、正しい関係を選べ。",
+                    options: [ "$A \supset B$", "$A \subset B$", "$A = B$", "$A \cap B = \\emptyset$" ],
+                    answer: "$A \supset B$",
+                    rationale: "自然数（1, 2, 3...）は、すべて整数（...-1, 0, 1...）に含まれます。<br>よって $B \subset A$、つまり $A \supset B$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 19
+                {
+                    question: "$A=\\left\{1, 2, 3, 4\\right\}$ の部分集合 $B$ が $A \neq B$ を満たすとき、$B$ としてあり得ないものを選べ。",
+                    options: [ "$\\left\{1, 2, 3, 4\\right\}$", "$\\left\{1, 2, 3\\right\}$", "$\\left\{4\\right\}$", "$\\emptyset$" ],
+                    answer: "$\\left\{1, 2, 3, 4\\right\}$",
+                    rationale: "$A \neq B$ は $A$ と $B$ が等しくないことを意味します。<br>$B=\\left\{1, 2, 3, 4\\right\}$ とすると $A=B$ となり、条件に違反します。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 20
+                {
+                    question: "$A=\left\{1, 2, \\left\{1, 2\\right\}\\right\}$ の部分集合として正しいものを選べ。",
+                    options: [ "$\\left\{1, 2\\right\}$", "$\\left\{1, \\left\{1, 2\\right\}\\right\}$", "$\\left\{\\left\{1, 2\\right\\}, 3\\right\}$", "$\\left\{3\\right\}$" ],
+                    answer: "$\\left\{1, 2\\right\}$",
+                    rationale: "$A$ の要素は $1$, $2$, $\left\{1, 2\right\}$ の3つです。<br>$\\left\{1, 2\\right\}$ は、$A$ の要素 $1$ と $2$ を使って作られた $A$ の部分集合です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ3: 共通部分と和集合 (15題) ---
+                // 問題 21
+                {
+                    question: "$A=\\left\{1, 2, 3, 4\\right\}, B=\\left\{2, 4, 6, 8\\right\}$ のとき、$A \cap B$ を求めよ。",
+                    options: [ "$\\left\{2, 4\\right\}$", "$\\left\{1, 2, 3, 4, 6, 8\\right\}$", "$\\left\{1, 3\\right\}$", "$\\left\{6, 8\\right\}$" ],
+                    answer: "$\\left\{2, 4\\right\}$",
+                    rationale: "$A \cap B$ は $A$ と $B$ の共通部分（両方に含まれる要素）です。<br>よって $\\left\{2, 4\\right\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 22
+                {
+                    question: "$A=\\left\{1, 2, 3, 4\\right\}, B=\\left\{2, 4, 6, 8\\right\}$ のとき、$A \cup B$ を求めよ。",
+                    options: [ "$\\left\{1, 2, 3, 4, 6, 8\\right\}$", "$\\left\{2, 4\\right\}$", "$\\left\{1, 2, 3, 4, 5, 6, 7, 8\\right\}$", "$\\left\{ \right\}$" ],
+                    answer: "$\\left\{1, 2, 3, 4, 6, 8\\right\}$",
+                    rationale: "$A \cup B$ は $A$ と $B$ の和集合（少なくとも一方 quantifiable含まれる要素）です。<br>よって $\\left\{1, 2, 3, 4, 6, 8\\right\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 23
+                {
+                    question: "$A=\\left\{a, b, c, d\\right\}, B=\\left\{c, d, e, f\\right\}$ のとき、$A \cap B$ を求めよ。",
+                    options: [ "$\\left\{c, d\\right\}$", "$\\left\{a, b, c, d, e, f\\right\}$", "$\\left\{a, b\\right\}$", "$\\left\{e, f\\right\}$" ],
+                    answer: "$\\left\{c, d\\right\}$",
+                    rationale: "$A \cap B$ は $A$ と $B$ の共通部分です。<br>よって $\\left\{c, d\\right\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 24
+                {
+                    question: "$A=\\left\{a, b, c, d\\right\}, B=\\left\{c, d, e, f\\right\}$ のとき、$A \cup B$ を求めよ。",
+                    options: [ "$\\left\{a, b, c, d, e, f\\right\}$", "$\\left\{c, d\\right\}$", "$\\left\{a, b, c, d, c, d, e, f\\right\}$", "$\\left\{a, b, e, f\\right\}$" ],
+                    answer: "$\\left\{a, b, c, d, e, f\\right\}$",
+                    rationale: "$A \cup B$ は $A$ と $B$ の和集合です。<br>よって $\\left\{a, b, c, d, e, f\\right\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 25
+                {
+                    question: "$A=\\left\{1, 2, 3\\right\}, B=\\left\{4, 5, 6\\right\}$ のとき、$A \cap B$ を求めよ。",
+                    options: [ "$\\emptyset$", "$\\left\{1, 2, 3, 4, 5, 6\\right\}$", "$\\left\{1, 2, 3\\right\}$", "$\\left\{ \right\}$" ],
+                    answer: "$\\emptyset$",
+                    rationale: "$A \cap B$ は $A$ と $B$ の共通部分です。共通の要素がないため、空集合 $\\emptyset$ ( $\\left\{ \right\}$ とも書く) になります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 26
+                {
+                    question: "$A=\\left\{1, 2, 3\\right\}, B=\\left\{4, 5, 6\\right\}$ のとき、$A \cup B$ を求めよ。",
+                    options: [ "$\\left\{1, 2, 3, 4, 5, 6\\right\}$", "$\\emptyset$", "$\\left\{1, 2, 3\\right\}$", "$\\left\{4, 5, 6\\right\}$" ],
+                    answer: "$\\left\{1, 2, 3, 4, 5, 6\\right\}$",
+                    rationale: "$A \cup B$ は $A$ と $B$ の和集合です。<br>よって $\\left\{1, 2, 3, 4, 5, 6\\right\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 27
+                {
+                    question: "$A=\\left\{1, 2, 3, 4\\right\}, B=\\left\{1, 3\\right\}$ のとき、$A \cap B$ を求めよ。",
+                    options: [ "$\\left\{1, 3\\right\}$", "$\\left\{1, 2, 3, 4\\right\}$", "$\\left\{2, 4\\right\}$", "$\\emptyset$" ],
+                    answer: "$\\left\{1, 3\\right\}$",
+                    rationale: "$A \cap B$ は $A$ と $B$ の共通部分です。$B$ の要素はすべて $A$ に含まれているため、$A \cap B = B = \\left\{1, 3\\right\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 28
+                {
+                    question: "$A=\\left\{1, 2, 3, 4\\right\}, B=\\left\{1, 3\\right\}$ のとき、$A \cup B$ を求めよ。",
+                    options: [ "$\\left\{1, 2, 3, 4\\right\}$", "$\\left\{1, 3\\right\}$", "$\\left\{1, 1, 2, 3, 3, 4\\right\}$", "$\\left\{2, 4\\right\}$" ],
+                    answer: "$\\left\{1, 2, 3, 4\\right\}$",
+                    rationale: "$A \cup B$ は $A$ と $B$ の和集合です。$B$ の要素はすべて $A$ に含まれているため、$A \cup B = A = \\left\{1, 2, 3, 4\\right\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 29
+                {
+                    question: "$A=\\left\{x \mid x \\text{ は6の正の約数}\\right\}, B=\\left\{x \mid x \\text{ は4の正の約数}\\right\}$ のとき、$A \cap B$ を求めよ。",
+                    options: [ "$\\left\{1, 2\\right\}$", "$\\left\{1, 2, 3, 4, 6\\right\}$", "$\\left\{1\\right\}$", "$\\left\{1, 2, 3, 6\\right\}$" ],
+                    answer: "$\\left\{1, 2\\right\}$",
+                    rationale: "$A=\\left\{1, 2, 3, 6\\right\}$, $B=\\left\{1, 2, 4\\right\}$ です。<br>$A \cap B$ は両方に含まれる要素なので $\\left\{1, 2\\right\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 30
+                {
+                    question: "$A=\\left\{x \mid x \\text{ は6の正の約数}\\right\}, B=\\left\{x \mid x \\text{ は4の正の約数}\\right\}$ のとき、$A \cup B$ を求めよ。",
+                    options: [ "$\\left\{1, 2, 3, 4, 6\\right\}$", "$\\left\{1, 2\\right\}$", "$\\left\{1, 2, 3, 4, 6, 12, 24\\right\}$", "$\\left\{1, 2, 4\\right\}$" ],
+                    answer: "$\\left\{1, 2, 3, 4, 6\\right\}$",
+                    rationale: "$A=\\left\{1, 2, 3, 6\\right\}$, $B=\\left\{1, 2, 4\\right\}$ です。<br>$A \cup B$ は少なくとも一方に含まれる要素なので $\\left\{1, 2, 3, 4, 6\\right\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 31
+                {
+                    question: "$A=\\left\{x \mid 1 \le x \le 5, x \\text{ は整数}\\right\}, B=\\left\{x \mid 3 \le x \le 7, x \\text{ は整数}\\right\}$ のとき、$A \cap B$ を求めよ。",
+                    options: [ "$\\left\{3, 4, 5\\right\}$", "$\\left\{1, 2, 3, 4, 5, 6, 7\\right\}$", "$\\left\{3, 4\\right\}$", "$\\left\{1, 2, 6, 7\\right\}$" ],
+                    answer: "$\\left\{3, 4, 5\\right\}$",
+                    rationale: "$A=\\left\{1, 2, 3, 4, 5\\right\}$, $B=\\left\{3, 4, 5, 6, 7\\right\}$ です。<br>$A \cap B$ は共通部分なので $\\left\{3, 4, 5\\right\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 32
+                {
+                    question: "$A=\\left\{x \mid 1 \le x \le 5, x \\text{ は整数}\\right\}, B=\\left\{x \mid 3 \le x \le 7, x \\text{ は整数}\\right\}$ のとき、$A \cup B$ を求めよ。",
+                    options: [ "$\\left\{1, 2, 3, 4, 5, 6, 7\\right\}$", "$\\left\{3, 4, 5\\right\}$", "$\\left\{1, ..., 7\\right\}$", "$\\left\{x \mid 1 \le x \le 7\\right\}$" ],
+                    answer: "$\\left\{1, 2, 3, 4, 5, 6, 7\\right\}$",
+                    rationale: "$A=\\left\{1, 2, 3, 4, 5\\right\}$, $B=\\left\{3, 4, 5, 6, 7\\right\}$ です。<br>$A \cup B$ は和集合なので $\\left\{1, 2, 3, 4, 5, 6, 7\\right\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 33
+                {
+                    question: "$A=\\left\{x \mid x \\text{ は奇数}\\right\}, B=\\left\{x \mid x \\text{ は素数}\\right\}$ のとき、$A \cap B$ として正しいものを選べ。",
+                    options: [ "$2$ を除く素数", "素数", "奇数", "$\\left\{3, 5, 7\\right\}$" ],
+                    answer: "$2$ を除く素数",
+                    rationale: "$A=\\left\{... -1, 1, 3, 5, 7, 9, ...\\right\}$, $B=\\left\{2, 3, 5, 7, 11, ...\\right\}$ です。<br>共通部分は $2$ を除くすべての素数（正の奇数の素数）です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 34
+                {
+                    question: "$A=\\left\{x \mid x \\text{ は4の倍数}\\right\}, B=\\left\{x \mid x \\text{ は6の倍数}\\right\}$ のとき、$A \cap B$ として正しいものを選べ。",
+                    options: [ "$12$の倍数の集合", "$2$の倍数の集合", "$24$の倍数の集合", "$\\emptyset$" ],
+                    answer: "$12$の倍数の集合",
+                    rationale: "$A \cap B$ は $4$ の倍数であり、かつ $6$ の倍数である数の集合、つまり $4$ と $6$ の公倍数の集合です。<br>$4$ と $6$ の最小公倍数は $12$ なので、 $12$ の倍数の集合です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 35
+                {
+                    question: "$A=\left\{x \mid x \\text{ は4の倍数}\\right\}, B=\\left\{x \mid x \\text{ は6の倍数}\\right\}$ のとき、$A \cup B$ として正しいものを選べ。",
+                    options: [ "$4$の倍数または$6$の倍数の集合", "$2$の倍数の集合", "$24$の倍数の集合", "$10$の倍数の集合" ],
+                    answer: "$4$の倍数または$6$の倍数の集合",
+                    rationale: "$A \cup B$ は $A$ または $B$ に含まれる要素の集合です。<br>（注：$2$の倍数の集合 $\\ne A \cup B$ です。例えば $2$ は $A$ にも $B$ にも含まれません。）<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ4: 補集合と要素の個数 (15題) ---
+                // 問題 36
+                {
+                    question: "全体集合 $U=\\left\{1, 2, 3, 4, 5\\right\}$, $A=\\left\{1, 3, 5\\right\}$ のとき、$\overline{A}$ を求めよ。",
+                    options: [ "$\\left\{2, 4\\right\}$", "$\\left\{1, 3, 5\\right\}$", "$\\emptyset$", "$\\left\{1, 2, 3, 4, 5\\right\}$" ],
+                    answer: "$\\left\{2, 4\\right\}$",
+                    rationale: "$\overline{A}$ は $U$ の要素のうち $A$ に含まれないものの集合です。<br>$U$ から $1, 3, 5$ を除いた残りなので $\\left\{2, 4\\right\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 37
+                {
+                    question: "全体集合 $U=\\left\{x \mid 1 \leqq x \leqq 6, x \\text{ は整数}\\right\}$, $A=\\left\{1, 3, 5\\right\}$ のとき、$\overline{A}$ を求めよ。",
+                    options: [ "$\\left\{2, 4, 6\\right\}$", "$\\left\{1, 3, 5\\right\}$", "$\\left\{6\\right\}$", "$\\emptyset$" ],
+                    answer: "$\\left\{2, 4, 6\\right\}$",
+                    rationale: "$U=\\left\{1, 2, 3, 4, 5, 6\\right\}$ です。<br>$\overline{A}$ は $U$ のうち $A$ に含まれない要素なので $\\left\{2, 4, 6\\right\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 38
+                {
+                    question: "$n(A)=5, n(B)=4, n(A \cap B)=2$ のとき、$n(A \cup B)$ を求めよ。",
+                    options: [ "$7$", "$9$", "$6$", "$11$" ],
+                    answer: "$7$",
+                    rationale: "$n(A \cup B) = n(A) + n(B) - n(A \cap B)$<br>$= 5 + 4 - 2 = 7$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 39
+                {
+                    question: "$n(A)=10, n(B)=8, n(A \cup B)=15$ のとき、$n(A \cap B)$ を求めよ。",
+                    options: [ "$3$", "$18$", "$2$", "$23$" ],
+                    answer: "$3$",
+                    rationale: "$n(A \cup B) = n(A) + n(B) - n(A \cap B)$ より<br>$15 = 10 + 8 - n(A \cap B)$<br>$15 = 18 - n(A \cap B) \implies n(A \cap B) = 3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 40
+                {
+                    question: "$n(U)=20, n(A)=10$ のとき、$n(\overline{A})$ を求めよ。",
+                    options: [ "$10$", "$20$", "$0$", "$30$" ],
+                    answer: "$10$",
+                    rationale: "$n(\overline{A}) = n(U) - n(A) = 20 - 10 = 10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 41
+                {
+                    question: "$n(U)=30, n(A)=12, n(B)=15, n(A \cap B)=5$ のとき、$n(A \cup B)$ を求めよ。",
+                    options: [ "$22$", "$27$", "$32$", "$7$" ],
+                    answer: "$22$",
+                    rationale: "$n(A \cup B) = n(A) + n(B) - n(A \cap B)$<br>$= 12 + 15 - 5 = 22$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 42
+                {
+                    question: "$n(U)=30, n(A \cup B)=22$ のとき、$n(\overline{A \cup B})$ を求めよ。",
+                    options: [ "$8$", "$52$", "$0$", "$-8$" ],
+                    answer: "$8$",
+                    rationale: "$n(\overline{A \cup B}) = n(U) - n(A \cup B) = 30 - 22 = 8$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 43
+                {
+                    question: "$n(U)=30, n(A \cup B)=22$ のとき、$n(\overline{A} \cap \overline{B})$ を求めよ。",
+                    options: [ "$8$", "$22$", "$52$", "$7$" ],
+                    answer: "$8$",
+                    rationale: "ド・モルガンの法則より $\overline{A} \cap \overline{B} = \overline{A \cup B}$ です。<br>$n(\overline{A} \cap \overline{B}) = n(\overline{A \cup B}) = n(U) - n(A \cup B) = 30 - 22 = 8$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 44
+                {
+                    question: "$n(U)=30, n(A \cap B)=5$ のとき、$n(\overline{A \cap B})$ を求めよ。",
+                    options: [ "$25$", "$35$", "$5$", "$-25$" ],
+                    answer: "$25$",
+                    rationale: "$n(\overline{A \cap B}) = n(U) - n(A \cap B) = 30 - 5 = 25$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 45
+                {
+                    question: "$n(U)=30, n(A \cap B)=5$ のとき、$n(\overline{A} \cup \overline{B})$ を求めよ。",
+                    options: [ "$25$", "$35$", "$5$", "$8$" ],
+                    answer: "$25$",
+                    rationale: "ド・モルガンの法則より $\overline{A} \cup \overline{B} = \overline{A \cap B}$ です。<br>$n(\overline{A} \cup \overline{B}) = n(\overline{A \cap B}) = n(U) - n(A \cap B) = 30 - 5 = 25$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 46
+                {
+                    question: "全体集合 $U=\\left\{1, 2, 3, 4, 5, 6\\right\}$, $A=\\left\{1, 2, 3\\right\}, B=\\left\{3, 4, 5\\right\}$ のとき、$A \cap \overline{B}$ を求めよ。",
+                    options: [ "$\\left\{1, 2\\right\}$", "$\\left\{3\\right\}$", "$\\left\{4, 5\\right\}$", "$\\left\{6\\right\}$" ],
+                    answer: "$\\left\{1, 2\\right\}$",
+                    rationale: "$A \cap \overline{B}$ は「$A$ に属し、かつ $B$ に属さない」要素の集合（$A-B$ とも書く）です。<br>$A$ の要素 $\\left\{1, 2, 3\\right\}$ のうち、$B$ にも属する $3$ を除いたものなので $\\left\{1, 2\\right\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 47
+                {
+                    question: "全体集合 $U=\\left\{1, 2, 3, 4, 5, 6\\right\}$, $A=\\left\{1, 2, 3\\right\}, B=\\left\{3, 4, 5\\right\}$ のとき、$\overline{A} \cap B$ を求めよ。",
+                    options: [ "$\\left\{4, 5\\right\}$", "$\\left\{1, 2\\right\}$", "$\\left\{3\\right\}$", "$\\left\{6\\right\}$" ],
+                    answer: "$\\left\{4, 5\\right\}$",
+                    rationale: "$\overline{A} \cap B$ は「$B$ に属し、かつ $A$ に属さない」要素の集合（$B-A$ とも書く）です。<br>$B$ の要素 $\\left\{3, 4, 5\\right\}$ のうち、$A$ にも属する $3$ を除いたものなので $\\left\{4, 5\\right\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 48
+                {
+                    question: "$U=\\left\{1, ..., 10\\right\}$, $A \cup B=\\left\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\\right\}$, $A \cap B=\\left\{1, 4, 7, 9\\right\}$, $\overline{A} \cap B=\\left\{3, 6\\right\}$ のとき、$\overline{A} \cup \overline{B}$ を求めよ。",
+                    options: [ "$\\left\{2, 3, 5, 6, 8, 10\\right\}$", "$\\emptyset$", "$\\left\{3, 6\\right\}$", "$\\left\{1, 4, 7, 9\\right\}$" ],
+                    answer: "$\\left\{2, 3, 5, 6, 8, 10\\right\}$",
+                    rationale: "ド・モルガンの法則より $\overline{A} \cup \overline{B} = \overline{A \cap B}$ です。<br>これは $A \cap B = \\left\{1, 4, 7, 9\\right\}$ 以外のすべての要素です。<br>$U$ から $\\left\{1, 4, 7, 9\\right\}$ を除いた $\\left\{2, 3, 5, 6, 8, 10\\right\}$ が答えです。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 49
+                {
+                    question: "$U=\\left\{1, ..., 10\\right\}$, $A \cup B=\\left\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\\right\}$, $A \cap B=\\left\{1, 4, 7, 9\\right\}$, $\overline{A} \cap B=\\left\{3, 6\\right\}$ のとき、$\overline{A \cup B}$ を求めよ。",
+                    options: [ "$\\emptyset$", "$\\left\{2, 5, 8, 10\\right\}$", "$\\left\{3, 6\\right\}$", "$U$" ],
+                    answer: "$\\emptyset$",
+                    rationale: "$\overline{A \cup B}$ は $U$ のうち $A \cup B$ に含まれない要素の集合です。<br>$A \cup B$ は $U$ と一致しているため、$\overline{A \cup B} = \\emptyset$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 50
+                {
+                    question: "$U=\\left\{1, ..., 10\\right\}$, $A \cup B=\\left\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\\right\}$, $A \cap B=\\left\{1, 4, 7, 9\\right\}$, $\overline{A} \cap B=\\left\{3, 6\\right\}$ のとき、$A \cap \overline{B}$ (Aのみ) を求めよ。",
+                    options: [ "$\\left\{2, 5, 8, 10\\right\}$", "$\\left\{1, 4, 7, 9\\right\}$", "$\\left\{3, 6\\right\}$", "$\\emptyset$" ],
+                    answer: "$\\left\{2, 5, 8, 10\\right\}$",
+                    rationale: "$A \cap \overline{B} = A \\setminus B$ (AからBとの共通部分を除いたもの) です。<br>$A \cup B = (A \cap \overline{B}) \cup (A \cap B) \cup (\overline{A} \cap B)$<br>$\\left\{1, ..., 10\\right\} = (A \cap \overline{B}) \cup \\left\{1, 4, 7, 9\\right\} \cup \\left\{3, 6\\right\}$<br>よって $A \cap \overline{B}$ は、$\\left\{1, ..., 10\\right\}$ から $\\left\{1, 3, 4, 6, 7, 9\\right\}$ を除いたもの、<br>すなわち $\\left\{2, 5, 8, 10\\right\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                }
+            ]
+            // --- ★★★ 50題データここまで ★★★
+          
+            // 1. allQuizData をシャッフルする関数
+            function shuffleArray(array) {
+                const shuffled = [...array]; // 配列をコピー
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            // 2. シャッフルして先頭10件を取得
+            const numberOfQuestions = 10;
+            const shuffledAllData = shuffleArray(allQuizData);
+            // ★ 実際に使うデータ (quizData) を定義 ★
+            const quizData = shuffledAllData.slice(0, Math.min(numberOfQuestions, allQuizData.length));
+            // ★★★ ここまで ★★★
+
+
+            // --- ここから下はクイズの仕組みです (変数 quizData を使う) ---
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const questionNumberEl = document.getElementById('question-number');
+            const questionTextEl = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const scoreTextEl = document.getElementById('score-text');
+            const finalMessageEl = document.getElementById('final-message');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            // (関数定義)
+            function loadQuestion() {
+                if (!quizData || currentQuestionIndex >= quizData.length) { console.error("Invalid question index or quizData is empty."); questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。"; questionNumberEl.textContent = "エラー"; optionsContainer.innerHTML = ''; return; }
+                feedbackEl.style.display = 'none'; nextBtn.style.display = 'none'; optionsContainer.innerHTML = '';
+                const currentQuestion = quizData[currentQuestionIndex];
+                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`; // 10題中の表示
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文なし)";
+                if (currentQuestion.layout === 'vertical') { optionsContainer.classList.add('options-vertical'); } else { optionsContainer.classList.remove('options-vertical'); }
+                if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
+                    const shuffledOptions = [...currentQuestion.options];
+                    for (let i = shuffledOptions.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; }
+                    shuffledOptions.forEach(optionText => {
+                        const optionBox = document.createElement('div');
+                        optionBox.innerHTML = optionText || "(選択肢なし)";
+                        optionBox.classList.add('option-box');
+                        optionBox.dataset.optionValue = optionText;
+                        optionBox.addEventListener('click', () => { if (feedbackEl.style.display === 'block') return; selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale); });
+                        optionsContainer.appendChild(optionBox);
+                    });
+                } else { optionsContainer.innerHTML = '<p>(選択肢なし)</p>'; }
+                try { renderMathInElement(questionTextEl, { delimiters: katexDelimiters }); renderMathInElement(optionsContainer, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX render error:", e); }
+            }
+
+            function selectAnswer(selectedBox, selectedOption, correctAnswer, rationale) {
+                Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => { box.classList.add('disabled'); if (box.dataset.optionValue === correctAnswer) { box.classList.add('correct'); } else { box.classList.add('incorrect'); } });
+                feedbackEl.style.display = 'block'; const feedbackRationale = rationale || "(解説なし)";
+                if (selectedOption === correctAnswer) { feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`; feedbackEl.className = 'correct'; score++; }
+                else { selectedBox.classList.add('selected'); feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; feedbackEl.className = 'incorrect'; }
+                try { renderMathInElement(feedbackEl, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX feedback render error:", e); }
+                if (currentQuestionIndex < quizData.length - 1) { nextBtn.style.display = 'block'; } else { resultsBtn.style.display = 'block'; }
+            }
+
+            // (イベントリスナーをセット)
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestionIndex < quizData.length - 1) { // 範囲チェック
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            });
+
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none'; resultsContainer.style.display = 'block';
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`; // 10題中の表示
+                let rank = "-"; if (quizData.length > 0) { if (percentage === 100) rank = "S"; else if (percentage >= 80) rank = "A"; else if (percentage >= 60) rank = "B"; else rank = "C"; }
+                
+                const quizId = 'M1-2-1-1'; // ★★★★★ quizId を 'M1-1-1-3' に設定 ★★★★★
+                
+                try { localStorage.setItem('quizRank_' + quizId, rank); } catch (e) { console.error("localStorage save failed:", e); }
+                let message = ""; // (メッセージ生成...)
+                 if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
+                 else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
+                 else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
+                 else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
+                 else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
+                finalMessageEl.textContent = message;
+            });
+
+            // (QDが空でないか確認してからクイズを開始)
+            if (quizData && quizData.length > 0) {
+                loadQuestion();
+            } else {
+                 questionTextEl.innerHTML = "問題データ (allQuizData) が見つからないか空です。<br>HTMLファイルを確認してください。"; // エラーメッセージ変更
+                 questionNumberEl.textContent = "エラー";
+                 quizContainer.style.display = 'block';
+                 resultsContainer.style.display = 'none';
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+             <h1>集合と命題：集合の表し方</h1>
+        </header>
+        <main>
+            <div id="quiz-container">
+                <div id="question-header"><span id="question-number"></span></div>
+                <h2 id="question-text"></h2>
+                <div id="options-container"></div>
+                <div id="feedback"></div>
+                <button id="next-btn">次の問題へ</button>
+                <button id="results-btn">結果を見る</button>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>テスト終了！</h2>
+                <p id="score-text"></p>
+                <p id="final-message"></p>
+                <a href="index.html" id="homepage-link">トップページに戻る</a>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 [香川亮]</p>
+        </footer>
+    </div>
+    </body>
+</html>
