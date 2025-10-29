@@ -171,6 +171,10 @@
                 renderMathInElement(document.body, { delimiters: katexDelimiters });
             } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
 
+            // $の直後が数字だと崩れる対策：$\; を自動挿入
+const fixLeadingDigitMath = (s) =>
+  (typeof s === 'string') ? s.replace(/\$(\d)/g, '$\\;$1') : s;
+
 // --- ★ allQuizData 配列 (M1-1-4-10.html 用) ★ ---
             const allQuizData = [
                 // --- タイプ1: $\sqrt{x \pm 4a}$ $x=a^2+4$ ---
@@ -571,14 +575,14 @@
                 feedbackEl.style.display = 'none'; nextBtn.style.display = 'none'; optionsContainer.innerHTML = '';
                 const currentQuestion = quizData[currentQuestionIndex];
                 questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`; // 10題中の表示
-                questionTextEl.innerHTML = currentQuestion.question || "(問題文なし)";
+                questionTextEl.innerHTML = fixLeadingDigitMath(currentQuestion.question || "(問題文なし)");
                 if (currentQuestion.layout === 'vertical') { optionsContainer.classList.add('options-vertical'); } else { optionsContainer.classList.remove('options-vertical'); }
                 if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
                     const shuffledOptions = [...currentQuestion.options];
                     for (let i = shuffledOptions.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; }
                     shuffledOptions.forEach(optionText => {
                         const optionBox = document.createElement('div');
-                        optionBox.innerHTML = optionText || "(選択肢なし)";
+                        optionBox.innerHTML = fixLeadingDigitMath(optionText || "(選択肢なし)");
                         optionBox.classList.add('option-box');
 
                         // ★★★ 修正点：このボックスが正解かどうかのフラグを保持 ★★★
@@ -603,7 +607,7 @@
                     if (box.dataset.isCorrect === 'true') { box.classList.add('correct'); }
                     else { box.classList.add('incorrect'); }
                 });
-                feedbackEl.style.display = 'block'; const feedbackRationale = rationale || "(解説なし)";
+                feedbackEl.style.display = 'block'; const feedbackRationale = fixLeadingDigitMath(rationale || "(解説なし)");
                 if (isCorrect) {
                     feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`;
                     feedbackEl.className = 'correct';
