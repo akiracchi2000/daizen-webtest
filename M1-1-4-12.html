@@ -171,425 +171,386 @@
                 renderMathInElement(document.body, { delimiters: katexDelimiters });
             } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
 
-// --- ★ allQuizData 配列 (M1-1-4-9.html 用) ★ ---
+// --- ★ allQuizData 配列 (M1-1-4-12.html 用) ★ ---
             const allQuizData = [
-                // --- タイプ1: |x-a|=b (b>0) ---
+                // --- Set 1: x=√3+√2, y=√3-√2 ---
+                // (x+y=2√3, xy=1)
                 // 問題 1
                 {
-                    question: "次の方程式を解け。<br>$$|x-3|=4$$",
-                    options: [ "$x=7, -1$", "$x=7$", "$x=-1$", "$x=1, -7$" ],
-                    answer: "$x=7, -1$",
-                    rationale: "絶対値とは原点からの距離です。<br>$x-3$ が $4$ または $-4$ になればよい。<br>$x-3=4$ より $x=7$<br>$x-3=-4$ より $x=-1$<br>よって $x=7, -1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{3}+\\sqrt{2}, y=\\sqrt{3}-\\sqrt{2}$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$10$", "$8$", "$12$", "$2$" ],
+                    answer: "$10$",
+                    rationale: "$x+y=2\\sqrt{3}$, $xy=1$<br>$x^2+y^2 = \\left(x+y\\right)^2 - 2xy = \\left(2\\sqrt{3}\\right)^2 - 2\\left(1\\right) = 12 - 2 = 10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 2
                 {
-                    question: "次の方程式を解け。<br>$$|x-5|=2$$",
-                    options: [ "$x=7, 3$", "$x=7$", "$x=3$", "$x=-7, -3$" ],
-                    answer: "$x=7, 3$",
-                    rationale: "$x-5 = \pm 2$<br>$x-5=2$ より $x=7$<br>$x-5=-2$ より $x=3$<br>よって $x=7, 3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{3}+\\sqrt{2}, y=\\sqrt{3}-\\sqrt{2}$ のとき、$\\dfrac{y}{x}+\\dfrac{x}{y}$ の値を求めよ。",
+                    options: [ "$10$", "$8$", "$12$", "$2\\sqrt{3}$" ],
+                    answer: "$10$",
+                    rationale: "$\\dfrac{y}{x}+\\dfrac{x}{y} = \\dfrac{x^2+y^2}{xy}$<br>$x+y=2\\sqrt{3}$, $xy=1$<br>$x^2+y^2 = \\left(x+y\\right)^2 - 2xy = 12-2 = 10$<br>よって $\\dfrac{10}{1} = 10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 3
                 {
-                    question: "次の方程式を解け。<br>$$|x-1|=5$$",
-                    options: [ "$x=6, -4$", "$x=6$", "$x=-4$", "$x=4, -6$" ],
-                    answer: "$x=6, -4$",
-                    rationale: "$x-1 = \pm 5$<br>$x-1=5$ より $x=6$<br>$x-1=-5$ より $x=-4$<br>よって $x=6, -4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{3}+\\sqrt{2}, y=\\sqrt{3}-\\sqrt{2}$ のとき、$(x-y)^2$ の値を求めよ。",
+                    options: [ "$8$", "$10$", "$12$", "$4\\sqrt{2}$" ],
+                    answer: "$8$",
+                    rationale: "$x-y = (\\sqrt{3}+\\sqrt{2}) - (\\sqrt{3}-\\sqrt{2}) = 2\\sqrt{2}$<br>よって $(x-y)^2 = (2\\sqrt{2})^2 = 8$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 4
                 {
-                    question: "次の方程式を解け。<br>$$|x-8|=1$$",
-                    options: [ "$x=9, 7$", "$x=9$", "$x=7$", "$x=-9, -7$" ],
-                    answer: "$x=9, 7$",
-                    rationale: "$x-8 = \pm 1$<br>$x-8=1$ より $x=9$<br>$x-8=-1$ より $x=7$<br>よって $x=9, 7$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{3}+\\sqrt{2}, y=\\sqrt{3}-\\sqrt{2}$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$18\\sqrt{3}$", "$24\\sqrt{3}$", "$10\\sqrt{3}$", "$6\\sqrt{3}$" ],
+                    answer: "$18\\sqrt{3}$",
+                    rationale: "$x+y=2\\sqrt{3}$, $xy=1$<br>$x^3+y^3 = \\left(x+y\\right)^3 - 3xy(x+y)$<br>$= \\left(2\\sqrt{3}\\right)^3 - 3(1)(2\\sqrt{3}) = 24\\sqrt{3} - 6\\sqrt{3} = 18\\sqrt{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 2: x=√5+2, y=√5-2 ---
+                // (x+y=2√5, xy=1)
                 // 問題 5
                 {
-                    question: "次の方程式を解け。<br>$$|x-2|=6$$",
-                    options: [ "$x=8, -4$", "$x=8$", "$x=-4$", "$x=4, -8$" ],
-                    answer: "$x=8, -4$",
-                    rationale: "$x-2 = \pm 6$<br>$x-2=6$ より $x=8$<br>$x-2=-6$ より $x=-4$<br>よって $x=8, -4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{5}+2, y=\\sqrt{5}-2$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$18$", "$22$", "$20$", "$8$" ],
+                    answer: "$18$",
+                    rationale: "$x+y=2\\sqrt{5}$, $xy=1$<br>$x^2+y^2 = \\left(x+y\\right)^2 - 2xy = \\left(2\\sqrt{5}\\right)^2 - 2\\left(1\\right) = 20 - 2 = 18$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ2: |x+a|=b (b>0) ---
                 // 問題 6
                 {
-                    question: "次の方程式を解け。<br>$$|x+2|=7$$",
-                    options: [ "$x=5, -9$", "$x=5$", "$x=-9$", "$x=9, -5$" ],
-                    answer: "$x=5, -9$",
-                    rationale: "$x+2 = \pm 7$<br>$x+2=7$ より $x=5$<br>$x+2=-7$ より $x=-9$<br>よって $x=5, -9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{5}+2, y=\\sqrt{5}-2$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$34\\sqrt{5}$", "$40\\sqrt{5}$", "$18\\sqrt{5}$", "$46\\sqrt{5}$" ],
+                    answer: "$34\\sqrt{5}$",
+                    rationale: "$x+y=2\\sqrt{5}$, $xy=1$<br>$x^3+y^3 = \\left(x+y\\right)^3 - 3xy(x+y)$<br>$= \\left(2\\sqrt{5}\\right)^3 - 3(1)(2\\sqrt{5}) = 40\\sqrt{5} - 6\\sqrt{5} = 34\\sqrt{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 7
                 {
-                    question: "次の方程式を解け。<br>$$|x+1|=3$$",
-                    options: [ "$x=2, -4$", "$x=2$", "$x=-4$", "$x=4, -2$" ],
-                    answer: "$x=2, -4$",
-                    rationale: "$x+1 = \pm 3$<br>$x+1=3$ より $x=2$<br>$x+1=-3$ より $x=-4$<br>よって $x=2, -4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{5}+2, y=\\sqrt{5}-2$ のとき、$\\dfrac{y}{x}+\\dfrac{x}{y}$ の値を求めよ。",
+                    options: [ "$18$", "$20$", "$1$", "$2\\sqrt{5}$" ],
+                    answer: "$18$",
+                    rationale: "$\\dfrac{y}{x}+\\dfrac{x}{y} = \\dfrac{x^2+y^2}{xy}$<br>$x+y=2\\sqrt{5}$, $xy=1$<br>$x^2+y^2 = (x+y)^2 - 2xy = 20 - 2 = 18$<br>よって $\\dfrac{18}{1} = 18$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 8
                 {
-                    question: "次の方程式を解け。<br>$$|x+5|=1$$",
-                    options: [ "$x=-4, -6$", "$x=4, 6$", "$x=-4$", "$x=-6$" ],
-                    answer: "$x=-4, -6$",
-                    rationale: "$x+5 = \pm 1$<br>$x+5=1$ より $x=-4$<br>$x+5=-1$ より $x=-6$<br>よって $x=-4, -6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{5}+2, y=\\sqrt{5}-2$ のとき、$(x-y)^2$ の値を求めよ。",
+                    options: [ "$16$", "$18$", "$20$", "$4$" ],
+                    answer: "$16$",
+                    rationale: "$x-y = (\\sqrt{5}+2) - (\\sqrt{5}-2) = 4$<br>よって $(x-y)^2 = 4^2 = 16$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 3: x=√7+√3, y=√7-√3 ---
+                // (x+y=2√7, xy=4)
                 // 問題 9
                 {
-                    question: "次の方程式を解け。<br>$$|x+3|=3$$",
-                    options: [ "$x=0, -6$", "$x=0$", "$x=-6$", "$x=6, 0$" ],
-                    answer: "$x=0, -6$",
-                    rationale: "$x+3 = \pm 3$<br>$x+3=3$ より $x=0$<br>$x+3=-3$ より $x=-6$<br>よって $x=0, -6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{7}+\\sqrt{3}, y=\\sqrt{7}-\\sqrt{3}$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$20$", "$28$", "$10$", "$4$" ],
+                    answer: "$20$",
+                    rationale: "$x+y=2\\sqrt{7}$, $xy=7-3=4$<br>$x^2+y^2 = (x+y)^2 - 2xy = (2\\sqrt{7})^2 - 2(4) = 28 - 8 = 20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 10
                 {
-                    question: "次の方程式を解け。<br>$$|x+4|=5$$",
-                    options: [ "$x=1, -9$", "$x=1$", "$x=-9$", "$x=9, -1$" ],
-                    answer: "$x=1, -9$",
-                    rationale: "$x+4 = \pm 5$<br>$x+4=5$ より $x=1$<br>$x+4=-5$ より $x=-9$<br>よって $x=1, -9$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{7}+\\sqrt{3}, y=\\sqrt{7}-\\sqrt{3}$ のとき、$\\dfrac{y}{x}+\\dfrac{x}{y}$ の値を求めよ。",
+                    options: [ "$5$", "$10$", "$20$", "$4$" ],
+                    answer: "$5$",
+                    rationale: "$\\dfrac{y}{x}+\\dfrac{x}{y} = \\dfrac{x^2+y^2}{xy}$<br>$x+y=2\\sqrt{7}$, $xy=4$<br>$x^2+y^2 = (x+y)^2 - 2xy = 28 - 8 = 20$<br>よって $\\dfrac{20}{4} = 5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ3: |ax+b|=c (a>1, c>0) ---
                 // 問題 11
                 {
-                    question: "次の方程式を解け。<br>$$|2x+1|=3$$",
-                    options: [ "$x=1, -2$", "$x=1$", "$x=-2$", "$x=2, -1$" ],
-                    answer: "$x=1, -2$",
-                    rationale: "$2x+1 = \pm 3$<br>$2x+1=3$ より $2x=2 \implies x=1$<br>$2x+1=-3$ より $2x=-4 \implies x=-2$<br>よって $x=1, -2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{7}+\\sqrt{3}, y=\\sqrt{7}-\\sqrt{3}$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$32\\sqrt{7}$", "$56\\sqrt{7}$", "$80\\sqrt{7}$", "$24\\sqrt{7}$" ],
+                    answer: "$32\\sqrt{7}$",
+                    rationale: "$x+y=2\\sqrt{7}$, $xy=4$<br>$x^3+y^3 = (x+y)^3 - 3xy(x+y)$<br>$= (2\\sqrt{7})^3 - 3(4)(2\\sqrt{7}) = 56\\sqrt{7} - 24\\sqrt{7} = 32\\sqrt{7}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 12
                 {
-                    question: "次の方程式を解け。<br>$$|3x+2|=5$$",
-                    options: [ "$x=1, -\\dfrac{7}{3}$", "$x=1$", "$x=-\\dfrac{7}{3}$", "$x=-1, \\dfrac{7}{3}$" ],
-                    answer: "$x=1, -\\dfrac{7}{3}$",
-                    rationale: "$3x+2 = \pm 5$<br>$3x+2=5$ より $3x=3 \implies x=1$<br>$3x+2=-5$ より $3x=-7 \implies x=-\\dfrac{7}{3}$<br>よって $x=1, -\\dfrac{7}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{7}+\\sqrt{3}, y=\\sqrt{7}-\\sqrt{3}$ のとき、$x^2y+xy^2$ の値を求めよ。",
+                    options: [ "$8\\sqrt{7}$", "$4\\sqrt{7}$", "$8\\sqrt{3}$", "$4\\sqrt{3}$" ],
+                    answer: "$8\\sqrt{7}$",
+                    rationale: "$x^2y+xy^2 = xy(x+y)$<br>$x+y=2\\sqrt{7}$, $xy=4$<br>よって $(4)(2\\sqrt{7}) = 8\\sqrt{7}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 4: x=3+√5, y=3-√5 ---
+                // (x+y=6, xy=4)
                 // 問題 13
                 {
-                    question: "次の方程式を解け。<br>$$|2x+3|=7$$",
-                    options: [ "$x=2, -5$", "$x=2$", "$x=-5$", "$x=5, -2$" ],
-                    answer: "$x=2, -5$",
-                    rationale: "$2x+3 = \pm 7$<br>$2x+3=7$ より $2x=4 \implies x=2$<br>$2x+3=-7$ より $2x=-10 \implies x=-5$<br>よって $x=2, -5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=3+\\sqrt{5}, y=3-\\sqrt{5}$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$28$", "$36$", "$32$", "$8$" ],
+                    answer: "$28$",
+                    rationale: "$x+y=6$, $xy=9-5=4$<br>$x^2+y^2 = (x+y)^2 - 2xy = (6)^2 - 2(4) = 36 - 8 = 28$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 14
                 {
-                    question: "次の方程式を解け。<br>$$|5x+1|=6$$",
-                    options: [ "$x=1, -\\dfrac{7}{5}$", "$x=1$", "$x=-\\dfrac{7}{5}$", "$x=-1, \\dfrac{7}{5}$" ],
-                    answer: "$x=1, -\\dfrac{7}{5}$",
-                    rationale: "$5x+1 = \pm 6$<br>$5x+1=6$ より $5x=5 \implies x=1$<br>$5x+1=-6$ より $5x=-7 \implies x=-\\dfrac{7}{5}$<br>よって $x=1, -\\dfrac{7}{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=3+\\sqrt{5}, y=3-\\sqrt{5}$ のとき、$\\dfrac{y}{x}+\\dfrac{x}{y}$ の値を求めよ。",
+                    options: [ "$7$", "$14$", "$28$", "$4$" ],
+                    answer: "$7$",
+                    rationale: "$\\dfrac{y}{x}+\\dfrac{x}{y} = \\dfrac{x^2+y^2}{xy}$<br>$x+y=6$, $xy=4$<br>$x^2+y^2 = (x+y)^2 - 2xy = 36 - 8 = 28$<br>よって $\\dfrac{28}{4} = 7$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 15
                 {
-                    question: "次の方程式を解け。<br>$$|3x+1|=1$$",
-                    options: [ "$x=0, -\\dfrac{2}{3}$", "$x=0$", "$x=-\\dfrac{2}{3}$", "$x=\\dfrac{2}{3}, 0$" ],
-                    answer: "$x=0, -\\dfrac{2}{3}$",
-                    rationale: "$3x+1 = \pm 1$<br>$3x+1=1$ より $3x=0 \implies x=0$<br>$3x+1=-1$ より $3x=-2 \implies x=-\\dfrac{2}{3}$<br>よって $x=0, -\\dfrac{2}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=3+\\sqrt{5}, y=3-\\sqrt{5}$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$144$", "$216$", "$72$", "$288$" ],
+                    answer: "$144$",
+                    rationale: "$x+y=6$, $xy=4$<br>$x^3+y^3 = (x+y)^3 - 3xy(x+y)$<br>$= (6)^3 - 3(4)(6) = 216 - 72 = 144$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63159' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ4: |ax-b|=c (a>1, c>0) ---
                 // 問題 16
                 {
-                    question: "次の方程式を解け。<br>$$|2x-1|=5$$",
-                    options: [ "$x=3, -2$", "$x=3$", "$x=-2$", "$x=2, -3$" ],
-                    answer: "$x=3, -2$",
-                    rationale: "$2x-1 = \pm 5$<br>$2x-1=5$ より $2x=6 \implies x=3$<br>$2x-1=-5$ より $2x=-4 \implies x=-2$<br>よって $x=3, -2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=3+\\sqrt{5}, y=3-\\sqrt{5}$ のとき、$x^2y+xy^2$ の値を求めよ。",
+                    options: [ "$24$", "$12$", "$18$", "$20$" ],
+                    answer: "$24$",
+                    rationale: "$x^2y+xy^2 = xy(x+y)$<br>$x+y=6$, $xy=4$<br>よって $(4)(6) = 24$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 5: x = 1/(√3-1), y = 1/(√3+1) ---
+                // (x+y=√3, xy=1/2)
                 // 問題 17
                 {
-                    question: "次の方程式を解け。<br>$$|3x-2|=4$$",
-                    options: [ "$x=2, -\\dfrac{2}{3}$", "$x=2$", "$x=-\\dfrac{2}{3}$", "$x=-2, \\dfrac{2}{3}$" ],
-                    answer: "$x=2, -\\dfrac{2}{3}$",
-                    rationale: "$3x-2 = \pm 4$<br>$3x-2=4$ より $3x=6 \implies x=2$<br>$3x-2=-4$ より $3x=-2 \implies x=-\\dfrac{2}{3}$<br>よって $x=2, -\\dfrac{2}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\dfrac{1}{\\sqrt{3}-1}, y=\\dfrac{1}{\\sqrt{3}+1}$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$2$", "$3$", "$1$", "$4$" ],
+                    answer: "$2$",
+                    rationale: "$x = \\dfrac{\\sqrt{3}+1}{2}$, $y = \\dfrac{\\sqrt{3}-1}{2}$<br>$x+y = \\dfrac{2\\sqrt{3}}{2} = \\sqrt{3}$<br>$xy = \\dfrac{3-1}{4} = \\dfrac{2}{4} = \\dfrac{1}{2}$<br>$x^2+y^2 = (x+y)^2 - 2xy = (\\sqrt{3})^2 - 2(\\dfrac{1}{2}) = 3 - 1 = 2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 18
                 {
-                    question: "次の方程式を解け。<br>$$|2x-5|=3$$",
-                    options: [ "$x=4, 1$", "$x=4$", "$x=1$", "$x=-4, -1$" ],
-                    answer: "$x=4, 1$",
-                    rationale: "$2x-5 = \pm 3$<br>$2x-5=3$ より $2x=8 \implies x=4$<br>$2x-5=-3$ より $2x=2 \implies x=1$<br>よって $x=4, 1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\dfrac{1}{\\sqrt{3}-1}, y=\\dfrac{1}{\\sqrt{3}+1}$ のとき、$\\dfrac{y}{x}+\\dfrac{x}{y}$ の値を求めよ。",
+                    options: [ "$4$", "$2$", "$1$", "$2\\sqrt{3}$" ],
+                    answer: "$4$",
+                    rationale: "$\\dfrac{y}{x}+\\dfrac{x}{y} = \\dfrac{x^2+y^2}{xy}$<br>$x+y=\\sqrt{3}$, $xy=\\dfrac{1}{2}$<br>$x^2+y^2 = (x+y)^2 - 2xy = 3 - 1 = 2$<br>よって $\\dfrac{2}{1/2} = 4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 19
                 {
-                    question: "次の方程式を解け。<br>$$|4x-1|=7$$",
-                    options: [ "$x=2, -\\dfrac{3}{2}$", "$x=2$", "$x=-\\dfrac{3}{2}$", "$x=-2, \\dfrac{3}{2}$" ],
-                    answer: "$x=2, -\\dfrac{3}{2}$",
-                    rationale: "$4x-1 = \pm 7$<br>$4x-1=7$ より $4x=8 \implies x=2$<br>$4x-1=-7$ より $4x=-6 \implies x=-\\dfrac{6}{4} = -\\dfrac{3}{2}$<br>よって $x=2, -\\dfrac{3}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\dfrac{1}{\\sqrt{3}-1}, y=\\dfrac{1}{\\sqrt{3}+1}$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$\\dfrac{3\\sqrt{3}}{2}$", "$3\\sqrt{3}$", "$0$", "$\\dfrac{5\\sqrt{3}}{2}$" ],
+                    answer: "$\\dfrac{3\\sqrt{3}}{2}$",
+                    rationale: "$x+y=\\sqrt{3}$, $xy=\\dfrac{1}{2}$<br>$x^3+y^3 = (x+y)^3 - 3xy(x+y)$<br>$= (\\sqrt{3})^3 - 3(\\dfrac{1}{2})(\\sqrt{3}) = 3\\sqrt{3} - \\dfrac{3}{2}\\sqrt{3} = \\dfrac{6\\sqrt{3}-3\\sqrt{3}}{2} = \\dfrac{3\\sqrt{3}}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 20
                 {
-                    question: "次の方程式を解け。<br>$$|3x-1|=8$$",
-                    options: [ "$x=3, -\\dfrac{7}{3}$", "$x=3$", "$x=-\\dfrac{7}{3}$", "$x=-3, \\dfrac{7}{3}$" ],
-                    answer: "$x=3, -\\dfrac{7}{3}$",
-                    rationale: "$3x-1 = \pm 8$<br>$3x-1=8$ より $3x=9 \implies x=3$<br>$3x-1=-8$ より $3x=-7 \implies x=-\\dfrac{7}{3}$<br>よって $x=3, -\\dfrac{7}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\dfrac{1}{\\sqrt{3}-1}, y=\\dfrac{1}{\\sqrt{3}+1}$ のとき、$(x-y)^2$ の値を求めよ。",
+                    options: [ "$1$", "$2$", "$3$", "$4$" ],
+                    answer: "$1$",
+                    rationale: "$x-y = \\dfrac{\\sqrt{3}+1}{2} - \\dfrac{\\sqrt{3}-1}{2} = \\dfrac{2}{2} = 1$<br>よって $(x-y)^2 = 1^2 = 1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ5: 特殊（b=0, b<0） ---
+                // --- Set 6: x=2+√3, y=2-√3 (from M1-1-3-2) ---
+                // (x+y=4, xy=1)
                 // 問題 21
                 {
-                    question: "次の方程式を解け。<br>$$|x-5|=0$$",
-                    options: [ "$x=5$", "$x=-5$", "$x=\\pm 5$", "解なし" ],
-                    answer: "$x=5$",
-                    rationale: "絶対値が $0$ になるのは、中身が $0$ のときだけです。<br>$x-5=0$ より $x=5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=2+\\sqrt{3}, y=2-\\sqrt{3}$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$14$", "$16$", "$12$", "$2$" ],
+                    answer: "$14$",
+                    rationale: "$x+y=4$, $xy=4-3=1$<br>$x^2+y^2 = (x+y)^2 - 2xy = 4^2 - 2(1) = 16 - 2 = 14$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 22
                 {
-                    question: "次の方程式を解け。<br>$$|2x+6|=0$$",
-                    options: [ "$x=-3$", "$x=3$", "$x=\\pm 3$", "解なし" ],
-                    answer: "$x=-3$",
-                    rationale: "絶対値が $0$ になるのは、中身が $0$ のときだけです。<br>$2x+6=0$ より $2x=-6 \implies x=-3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=2+\\sqrt{3}, y=2-\\sqrt{3}$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$52$", "$64$", "$60$", "$56$" ],
+                    answer: "$52$",
+                    rationale: "$x+y=4$, $xy=1$<br>$x^3+y^3 = (x+y)^3 - 3xy(x+y)$<br>$= (4)^3 - 3(1)(4) = 64 - 12 = 52$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 23
                 {
-                    question: "次の方程式を解け。<br>$$|x-1|=-2$$",
-                    options: [ "解なし", "$x=3, -1$", "$x=-1$", "$x=3$" ],
-                    answer: "解なし",
-                    rationale: "絶対値（原点からの距離）は必ず $0$ 以上になります。<br>よって、絶対値が $-2$ になるような $x$ は存在しません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=2+\\sqrt{3}, y=2-\\sqrt{3}$ のとき、$\\dfrac{y}{x}+\\dfrac{x}{y}$ の値を求めよ。",
+                    options: [ "$14$", "$16$", "$1$", "$4$" ],
+                    answer: "$14$",
+                    rationale: "$\\dfrac{y}{x}+\\dfrac{x}{y} = \\dfrac{x^2+y^2}{xy}$<br>$x+y=4$, $xy=1$<br>$x^2+y^2 = (x+y)^2 - 2xy = 16 - 2 = 14$<br>よって $\\dfrac{14}{1} = 14$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 24
                 {
-                    question: "次の方程式を解け。<br>$$|3x-5|=-1$$",
-                    options: [ "解なし", "$x=2, \\dfrac{4}{3}$", "$x=2$", "$x=\\dfrac{4}{3}$" ],
-                    answer: "解なし",
-                    rationale: "絶対値（原点からの距離）は必ず $0$ 以上になります。<br>よって、絶対値が $-1$ になるような $x$ は存在しません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=2+\\sqrt{3}, y=2-\\sqrt{3}$ のとき、$(x-y)^2$ の値を求めよ。",
+                    options: [ "$12$", "$14$", "$16$", "$4$" ],
+                    answer: "$12$",
+                    rationale: "$x-y = (2+\\sqrt{3}) - (2-\\sqrt{3}) = 2\\sqrt{3}$<br>よって $(x-y)^2 = (2\\sqrt{3})^2 = 12$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 7: x=4+√15, y=4-√15 (from M1-1-3-2) ---
+                // (x+y=8, xy=1)
                 // 問題 25
                 {
-                    question: "次の方程式を解け。<br>$$|x+10|=0$$",
-                    options: [ "$x=-10$", "$x=10$", "$x=\\pm 10$", "解なし" ],
-                    answer: "$x=-10$",
-                    rationale: "絶対値が $0$ になるのは、中身が $0$ のときだけです。<br>$x+10=0$ より $x=-10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=4+\\sqrt{15}, y=4-\\sqrt{15}$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$62$", "$64$", "$60$", "$2$" ],
+                    answer: "$62$",
+                    rationale: "$x+y=8$, $xy=16-15=1$<br>$x^2+y^2 = (x+y)^2 - 2xy = 8^2 - 2(1) = 64 - 2 = 62$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ6: |A|=|B| ---
                 // 問題 26
                 {
-                    question: "次の方程式を解け。<br>$$|x-2|=|x+4|$$",
-                    options: [ "$x=-1$", "$x=1$", "$x=-3$", "$x=3$" ],
-                    answer: "$x=-1$",
-                    rationale: "$|A|=|B| \implies A = \pm B$<br> (i) $x-2 = x+4$ のとき: $-2 = 4$ となり不適。<br> (ii) $x-2 = -(x+4)$ のとき: $x-2 = -x-4 \implies 2x = -2 \implies x=-1$<br>よって $x=-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=4+\\sqrt{15}, y=4-\\sqrt{15}$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$488$", "$512$", "$484$", "$500$" ],
+                    answer: "$488$",
+                    rationale: "$x+y=8$, $xy=1$<br>$x^3+y^3 = (x+y)^3 - 3xy(x+y)$<br>$= (8)^3 - 3(1)(8) = 512 - 24 = 488$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 27
                 {
-                    question: "次の方程式を解け。<br>$$|x-5|=|x-1|$$",
-                    options: [ "$x=3$", "$x=-3$", "$x=2$", "$x=-2$" ],
-                    answer: "$x=3$",
-                    rationale: "$|A|=|B| \implies A = \pm B$<br> (i) $x-5 = x-1$ のとき: $-5 = -1$ となり不適。<br> (ii) $x-5 = -(x-1)$ のとき: $x-5 = -x+1 \implies 2x = 6 \implies x=3$<br>よって $x=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=4+\\sqrt{15}, y=4-\\sqrt{15}$ のとき、$\\dfrac{y}{x}+\\dfrac{x}{y}$ の値を求めよ。",
+                    options: [ "$62$", "$1$", "$8$", "$64$" ],
+                    answer: "$62$",
+                    rationale: "$\\dfrac{y}{x}+\\dfrac{x}{y} = \\dfrac{x^2+y^2}{xy}$<br>$x+y=8$, $xy=1$<br>$x^2+y^2 = (x+y)^2 - 2xy = 64 - 2 = 62$<br>よって $\\dfrac{62}{1} = 62$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 28
                 {
-                    question: "次の方程式を解け。<br>$$|2x-1|=|x+3|$$",
-                    options: [ "$x=4, -\\dfrac{2}{3}$", "$x=4$", "$x=-\\dfrac{2}{3}$", "$x=-4, \\dfrac{2}{3}$" ],
-                    answer: "$x=4, -\\dfrac{2}{3}$",
-                    rationale: "$|A|=|B| \implies A = \pm B$<br> (i) $2x-1 = x+3$ のとき: $x=4$<br> (ii) $2x-1 = -(x+3)$ のとき: $2x-1 = -x-3 \implies 3x = -2 \implies x=-\\dfrac{2}{3}$<br>よって $x=4, -\\dfrac{2}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=4+\\sqrt{15}, y=4-\\sqrt{15}$ のとき、$(x-y)^2$ の値を求めよ。",
+                    options: [ "$60$", "$62$", "$64$", "$15$" ],
+                    answer: "$60$",
+                    rationale: "$x-y = (4+\\sqrt{15}) - (4-\\sqrt{15}) = 2\\sqrt{15}$<br>よって $(x-y)^2 = (2\\sqrt{15})^2 = 4 \\times 15 = 60$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 8: x+y=5, xy=3 ---
                 // 問題 29
                 {
-                    question: "次の方程式を解け。<br>$$|3x-1|=|x-5|$$",
-                    options: [ "$x=-1, \\dfrac{3}{2}$", "$x=1, -\\dfrac{3}{2}$", "$x=-1$", "$x=\\dfrac{3}{2}$" ],
-                    answer: "$x=-1, \\dfrac{3}{2}$",
-                    rationale: "$|A|=|B| \implies A = \pm B$<br> (i) $3x-1 = x-5$ のとき: $2x=-4 \implies x=-2$。計算ミス。<br> (i) $3x-1 = x-5 \implies 2x=-4 \implies x=-2$。<br> (ii) $3x-1 = -(x-5) \implies 3x-1 = -x+5 \implies 4x=6 \implies x=\\dfrac{3}{2}$。<br>選択肢 $x=-1$ を試す。(i) $3(-1)-1 = -4$, $(-1)-5 = -6$。$|-4| \neq |-6|$。<br>選択肢 $x=-2, x=3/2$ に修正します。",
-                    options: [ "$x=-2, \\dfrac{3}{2}$", "$x=2, -\\dfrac{3}{2}$", "$x=-2$", "$x=\\dfrac{3}{2}$" ],
-                    answer: "$x=-2, \\dfrac{3}{2}$",
-                    rationale: "$|A|=|B| \implies A = \pm B$<br> (i) $3x-1 = x-5$ のとき: $2x=-4 \implies x=-2$<br> (ii) $3x-1 = -(x-5)$ のとき: $3x-1 = -x+5 \implies 4x=6 \implies x=\\dfrac{3}{2}$<br>よって $x=-2, \\dfrac{3}{2}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x+y=5, xy=3$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$19$", "$25$", "$22$", "$10$" ],
+                    answer: "$19$",
+                    rationale: "$x^2+y^2 = (x+y)^2 - 2xy = (5)^2 - 2(3) = 25 - 6 = 19$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 30
                 {
-                    question: "次の方程式を解け。<br>$$|x|=|x-2|$$",
-                    options: [ "$x=1$", "$x=0$", "$x=2$", "解なし" ],
-                    answer: "$x=1$",
-                    rationale: "$|A|=|B| \implies A = \pm B$<br> (i) $x = x-2$ のとき: $0 = -2$ となり不適。<br> (ii) $x = -(x-2)$ のとき: $x = -x+2 \implies 2x = 2 \implies x=1$<br>よって $x=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$x+y=5, xy=3$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$80$", "$125$", "$110$", "$95$" ],
+                    answer: "$80$",
+                    rationale: "$x^3+y^3 = (x+y)^3 - 3xy(x+y)$<br>$= (5)^3 - 3(3)(5) = 125 - 45 = 80$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ7: |A|+|B|=C (場合分け) ---
                 // 問題 31
                 {
-                    question: "次の方程式を解け。<br>$$|x-1|+|x-3|=2$$",
-                    options: [ "$1 \\le x \\le 3$", "$x=1, 3$", "$x=1$", "$x=3$" ],
-                    answer: "$1 \\le x \\le 3$",
-                    rationale: "(i) $x<1$ のとき $-(x-1)-(x-3)=2 \implies -2x+4=2 \implies -2x=-2 \implies x=1$。$x<1$ に不適。<br>(ii) $1 \\le x < 3$ のとき $(x-1)-(x-3)=2 \implies 2=2$。常に成り立つ。よって $1 \\le x < 3$。<br>(iii) $x \ge 3$ のとき $(x-1)+(x-3)=2 \implies 2x-4=2 \implies 2x=6 \implies x=3$。$x \ge 3$ に適する。<br>合わせて $1 \\le x \\le 3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x+y=5, xy=3$ のとき、$\\dfrac{y}{x}+\\dfrac{x}{y}$ の値を求めよ。",
+                    options: [ "$\\dfrac{19}{3}$", "$\\dfrac{19}{5}$", "$19$", "$3$" ],
+                    answer: "$\\dfrac{19}{3}$",
+                    rationale: "$\\dfrac{y}{x}+\\dfrac{x}{y} = \\dfrac{x^2+y^2}{xy}$<br>$x^2+y^2 = (x+y)^2 - 2xy = 25 - 6 = 19$<br>よって $\\dfrac{19}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 9: x-y=6, xy=2 ---
                 // 問題 32
                 {
-                    question: "次の方程式を解け。<br>$$|x-1|+|x-3|=4$$",
-                    options: [ "$x=0, 4$", "$x=1, 3$", "$x=0$", "$x=4$" ],
-                    answer: "$x=0, 4$",
-                    rationale: "(i) $x<1$ のとき $-(x-1)-(x-3)=4 \implies -2x+4=4 \implies -2x=0 \implies x=0$。$x<1$ に適する。<br>(ii) $1 \\le x < 3$ のとき $(x-1)-(x-3)=4 \implies 2=4$。不適。<br>(iii) $x \ge 3$ のとき $(x-1)+(x-3)=4 \implies 2x-4=4 \implies 2x=8 \implies x=4$。$x \ge 3$ に適する。<br>合わせて $x=0, 4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x-y=6, xy=2$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$40$", "$36$", "$32$", "$44$" ],
+                    answer: "$40$",
+                    rationale: "$x^2+y^2 = (x-y)^2 + 2xy = (6)^2 + 2(2) = 36 + 4 = 40$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 33
                 {
-                    question: "次の方程式を解け。<br>$$|x+1|+|x-2|=3$$",
-                    options: [ "$-1 \\le x \\le 2$", "$x=-1, 2$", "$x=-1$", "$x=2$" ],
-                    answer: "$-1 \\le x \\le 2$",
-                    rationale: "(i) $x<-1$ のとき $-(x+1)-(x-2)=3 \implies -2x+1=3 \implies -2x=2 \implies x=-1$。$x<-1$ に不適。<br>(ii) $-1 \\le x < 2$ のとき $(x+1)-(x-2)=3 \implies 3=3$。常に成り立つ。よって $-1 \\le x < 2$。<br>(iii) $x \ge 2$ のとき $(x+1)+(x-2)=3 \implies 2x-1=3 \implies 2x=4 \implies x=2$。$x \ge 2$ に適する。<br>合わせて $-1 \\le x \\le 2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x-y=6, xy=2$ のとき、$(x+y)^2$ の値を求めよ。",
+                    options: [ "$44$", "$40$", "$36$", "$32$" ],
+                    answer: "$44$",
+                    rationale: "$(x+y)^2 = (x-y)^2 + 4xy = (6)^2 + 4(2) = 36 + 8 = 44$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 34
                 {
-                    question: "次の方程式を解け。<br>$$|x+1|+|x-2|=5$$",
-                    options: [ "$x=3, -2$", "$x=-1, 2$", "$x=3$", "$x=-2$" ],
-                    answer: "$x=3, -2$",
-                    rationale: "(i) $x<-1$ のとき $-(x+1)-(x-2)=5 \implies -2x+1=5 \implies -2x=4 \implies x=-2$。$x<-1$ に適する。<br>(ii) $-1 \\le x < 2$ のとき $(x+1)-(x-2)=5 \implies 3=5$。不適。<br>(iii) $x \ge 2$ のとき $(x+1)+(x-2)=5 \implies 2x-1=5 \implies 2x=6 \implies x=3$。$x \ge 2$ に適する。<br>合わせて $x=3, -2$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x-y=6, xy=2$ のとき、$x^2y-xy^2$ の値を求めよ。",
+                    options: [ "$12$", "$8$", "$18$", "$24$" ],
+                    answer: "$12$",
+                    rationale: "$x^2y-xy^2 = xy(x-y) = (2)(6) = 12$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 10: x=√6+1, y=√6-1 ---
+                // (x+y=2√6, xy=5)
                 // 問題 35
                 {
-                    question: "次の方程式を解け。<br>$$|x-4|+|x+2|=6$$",
-                    options: [ "$-2 \\le x \\le 4$", "$x=-2, 4$", "$x=-2$", "$x=4$" ],
-                    answer: "$-2 \\le x \\le 4$",
-                    rationale: "場合分けの境界は $x=-2, 4$ です。<br>(i) $x<-2$ のとき $-(x-4)-(x+2)=6 \implies -2x+2=6 \implies -2x=4 \implies x=-2$。$x<-2$ に不適。<br>(ii) $-2 \\le x < 4$ のとき $-(x-4)+(x+2)=6 \implies 6=6$。常に成り立つ。よって $-2 \\le x < 4$。<br>(iii) $x \ge 4$ のとき $(x-4)+(x+2)=6 \implies 2x-2=6 \implies 2x=8 \implies x=4$。$x \ge 4$ に適する。<br>合わせて $-2 \\le x \\le 4$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{6}+1, y=\\sqrt{6}-1$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$14$", "$24$", "$10$", "$22$" ],
+                    answer: "$14$",
+                    rationale: "$x+y=2\\sqrt{6}$, $xy=6-1=5$<br>$x^2+y^2 = (x+y)^2 - 2xy = (2\\sqrt{6})^2 - 2(5) = 24 - 10 = 14$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- 混合 (50まで) ---
                 // 問題 36
                 {
-                    question: "次の方程式を解け。<br>$$|x|=3$$",
-                    options: [ "$x=\\pm 3$", "$x=3$", "$x=-3$", "解なし" ],
-                    answer: "$x=\\pm 3$",
-                    rationale: "$x = \pm 3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{6}+1, y=\\sqrt{6}-1$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$18\\sqrt{6}$", "$24\\sqrt{6}$", "$30\\sqrt{6}$", "$14\\sqrt{6}$" ],
+                    answer: "$18\\sqrt{6}$",
+                    rationale: "$x+y=2\\sqrt{6}$, $xy=5$<br>$x^3+y^3 = (x+y)^3 - 3xy(x+y)$<br>$= (2\\sqrt{6})^3 - 3(5)(2\\sqrt{6}) = 48\\sqrt{6} - 30\\sqrt{6} = 18\\sqrt{6}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 37
                 {
-                    question: "次の方程式を解け。<br>$$|x|=-5$$",
-                    options: [ "解なし", "$x=5$", "$x=-5$", "$x=\\pm 5$" ],
-                    answer: "解なし",
-                    rationale: "絶対値は $0$ 以上なので、$-5$ になることはありません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{6}+1, y=\\sqrt{6}-1$ のとき、$\\dfrac{y}{x}+\\dfrac{x}{y}$ の値を求めよ。",
+                    options: [ "$\\dfrac{14}{5}$", "$14$", "$5$", "$\\dfrac{5}{14}$" ],
+                    answer: "$\\dfrac{14}{5}$",
+                    rationale: "$\\dfrac{y}{x}+\\dfrac{x}{y} = \\dfrac{x^2+y^2}{xy}$<br>$x+y=2\\sqrt{6}$, $xy=5$<br>$x^2+y^2 = (x+y)^2 - 2xy = 24 - 10 = 14$<br>よって $\\dfrac{14}{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 38
                 {
-                    question: "次の方程式を解け。<br>$$|x-7|=1$$",
-                    options: [ "$x=8, 6$", "$x=8$", "$x=6$", "$x=\\pm 8$" ],
-                    answer: "$x=8, 6$",
-                    rationale: "$x-7 = \pm 1$<br>$x-7=1$ より $x=8$<br>$x-7=-1$ より $x=6$<br>よって $x=8, 6$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{6}+1, y=\\sqrt{6}-1$ のとき、$(x-y)^2$ の値を求めよ。",
+                    options: [ "$4$", "$14$", "$24$", "$8$" ],
+                    answer: "$4$",
+                    rationale: "$x-y = (\\sqrt{6}+1) - (\\sqrt{6}-1) = 2$<br>よって $(x-y)^2 = 2^2 = 4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 11: x=√7+2, y=√7-2 ---
+                // (x+y=2√7, xy=3)
                 // 問題 39
                 {
-                    question: "次の方程式を解け。<br>$$|x+5|=5$$",
-                    options: [ "$x=0, -10$", "$x=0$", "$x=-10$", "$x=0, 10$" ],
-                    answer: "$x=0, -10$",
-                    rationale: "$x+5 = \pm 5$<br>$x+5=5$ より $x=0$<br>$x+5=-5$ より $x=-10$<br>よって $x=0, -10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{7}+2, y=\\sqrt{7}-2$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$22$", "$28$", "$14$", "$6$" ],
+                    answer: "$22$",
+                    rationale: "$x+y=2\\sqrt{7}$, $xy=7-4=3$<br>$x^2+y^2 = (x+y)^2 - 2xy = (2\\sqrt{7})^2 - 2(3) = 28 - 6 = 22$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 40
                 {
-                    question: "次の方程式を解け。<br>$$|3x-1|=0$$",
-                    options: [ "$x=\\dfrac{1}{3}$", "$x=\\pm \\dfrac{1}{3}$", "$x=0$", "解なし" ],
-                    answer: "$x=\\dfrac{1}{3}$",
-                    rationale: "絶対値が $0$ になるのは、中身が $0$ のときだけです。<br>$3x-1=0$ より $3x=1 \implies x=\\dfrac{1}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{7}+2, y=\\sqrt{7}-2$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$38\\sqrt{7}$", "$56\\sqrt{7}$", "$28\\sqrt{7}$", "$18\\sqrt{7}$" ],
+                    answer: "$38\\sqrt{7}$",
+                    rationale: "$x+y=2\\sqrt{7}$, $xy=3$<br>$x^3+y^3 = (x+y)^3 - 3xy(x+y)$<br>$= (2\\sqrt{7})^3 - 3(3)(2\\sqrt{7}) = 56\\sqrt{7} - 18\\sqrt{7} = 38\\sqrt{7}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 41
                 {
-                    question: "次の方程式を解け。<br>$$|2x-5|=1$$",
-                    options: [ "$x=3, 2$", "$x=3$", "$x=2$", "$x=-3, -2$" ],
-                    answer: "$x=3, 2$",
-                    rationale: "$2x-5 = \pm 1$<br>$2x-5=1$ より $2x=6 \implies x=3$<br>$2x-5=-1$ より $2x=4 \implies x=2$<br>よって $x=3, 2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{7}+2, y=\\sqrt{7}-2$ のとき、$(x-y)^2$ の値を求めよ。",
+                    options: [ "$16$", "$22$", "$28$", "$4$" ],
+                    answer: "$16$",
+                    rationale: "$x-y = (\\sqrt{7}+2) - (\\sqrt{7}-2) = 4$<br>よって $(x-y)^2 = 4^2 = 16$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 12: x+y=6, xy=3 ---
                 // 問題 42
                 {
-                    question: "次の方程式を解け。<br>$$|3x+4|=2$$",
-                    options: [ "$x=- \\dfrac{2}{3}, -2$", "$x=-\\dfrac{2}{3}$", "$x=-2$", "$x=\\dfrac{2}{3}, 2$" ],
-                    answer: "$x=- \\dfrac{2}{3}, -2$",
-                    rationale: "$3x+4 = \pm 2$<br>$3x+4=2$ より $3x=-2 \implies x=-\\dfrac{2}{3}$<br>$3x+4=-2$ より $3x=-6 \implies x=-2$<br>よって $x=-\\dfrac{2}{3}, -2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x+y=6, xy=3$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$30$", "$36$", "$6$", "$33$" ],
+                    answer: "$30$",
+                    rationale: "$x^2+y^2 = (x+y)^2 - 2xy = (6)^2 - 2(3) = 36 - 6 = 30$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 43
                 {
-                    question: "次の方程式を解け。<br>$$|x-1|=|2x-3|$$",
-                    options: [ "$x=2, \\dfrac{4}{3}$", "$x=2$", "$x=\\dfrac{4}{3}$", "$x=-2, -\\dfrac{4}{3}$" ],
-                    answer: "$x=2, \\dfrac{4}{3}$",
-                    rationale: "$|A|=|B| \implies A = \pm B$<br> (i) $x-1 = 2x-3$ のとき: $-x=-2 \implies x=2$<br> (ii) $x-1 = -(2x-3)$ のとき: $x-1 = -2x+3 \implies 3x=4 \implies x=\\dfrac{4}{3}$<br>よって $x=2, \\dfrac{4}{3}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x+y=6, xy=3$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$162$", "$216$", "$54$", "$198$" ],
+                    answer: "$162$",
+                    rationale: "$x^3+y^3 = (x+y)^3 - 3xy(x+y)$<br>$= (6)^3 - 3(3)(6) = 216 - 54 = 162$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 44
                 {
-                    question: "次の方程式を解け。<br>$$|x+2|=|x-6|$$",
-                    options: [ "$x=2$", "$x=-2$", "$x=6$", "解なし" ],
-                    answer: "$x=2$",
-                    rationale: "$|A|=|B| \implies A = \pm B$<br> (i) $x+2 = x-6$ のとき: $2 = -6$ となり不適。<br> (ii) $x+2 = -(x-6)$ のとき: $x+2 = -x+6 \implies 2x = 4 \implies x=2$<br>よって $x=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x+y=6, xy=3$ のとき、$(x-y)^2$ の値を求めよ。",
+                    options: [ "$24$", "$30$", "$36$", "$12$" ],
+                    answer: "$24$",
+                    rationale: "$(x-y)^2 = (x+y)^2 - 4xy = (6)^2 - 4(3) = 36 - 12 = 24$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 13: x-y=4, xy=1 ---
                 // 問題 45
                 {
-                    question: "次の方程式を解け。<br>$$|x|+|x-2|=4$$",
-                    options: [ "$x=3, -1$", "$x=1, 3$", "$x=3$", "$x=-1$" ],
-                    answer: "$x=3, -1$",
-                    rationale: "場合分けの境界は $x=0, 2$ です。<br>(i) $x<0$ のとき $-x-(x-2)=4 \implies -2x+2=4 \implies -2x=2 \implies x=-1$。$x<0$ に適する。<br>(ii) $0 \\le x < 2$ のとき $x-(x-2)=4 \implies 2=4$。不適。<br>(iii) $x \ge 2$ のとき $x+(x-2)=4 \implies 2x-2=4 \implies 2x=6 \implies x=3$。$x \ge 2$ に適する。<br>合わせて $x=3, -1$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x-y=4, xy=1$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$18$", "$16$", "$14$", "$20$" ],
+                    answer: "$18$",
+                    rationale: "$x^2+y^2 = (x-y)^2 + 2xy = (4)^2 + 2(1) = 16 + 2 = 18$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 46
                 {
-                    question: "次の方程式を解け。<br>$$|x-1|=2x$$",
-                    options: [ "$x=\\dfrac{1}{3}$", "$x=-1, \\dfrac{1}{3}$", "$x=-1$", "解なし" ],
-                    answer: "$x=\\dfrac{1}{3}$",
-                    rationale: "(i) $x \ge 1$ のとき $x-1 = 2x \implies -x = 1 \implies x=-1$。$x \ge 1$ に不適。<br>(ii) $x < 1$ のとき $-(x-1) = 2x \implies -x+1 = 2x \implies 3x = 1 \implies x=\\dfrac{1}{3}$。$x < 1$ に適する。<br>よって $x=\\dfrac{1}{3}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x-y=4, xy=1$ のとき、$(x+y)^2$ の値を求めよ。",
+                    options: [ "$20$", "$18$", "$16$", "$12$" ],
+                    answer: "$20$",
+                    rationale: "$(x+y)^2 = (x-y)^2 + 4xy = (4)^2 + 4(1) = 16 + 4 = 20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 47
                 {
-                    question: "次の方程式を解け。<br>$$|x+2|=-3x$$",
-                    options: [ "$x=-1$", "$x=1, -1$", "$x=1$", "解なし" ],
-                    answer: "$x=-1$",
-                    rationale: "まず、(右辺) $\ge 0$ より $-3x \ge 0$、よって $x \le 0$ が必要条件。<br>(i) $x \ge -2$ のとき $x+2 = -3x \implies 4x = -2 \implies x=-\\dfrac{1}{2}$。これは $x \le 0$ と $x \ge -2$ を満たす。<br>(ii) $x < -2$ のとき $-(x+2) = -3x \implies -x-2 = -3x \implies 2x = 2 \implies x=1$。$x < -2$ に不適。<br>よって $x=-\\dfrac{1}{2}$。選択肢が間違っている。$x=-1$ を試す。$|-1+2|=1$, $-3(-1)=3$。$1 \neq 3$。<br>問題を $|x+2|=-x$ にする。 $x \le 0$ が必要。<br>(i) $x \ge -2$ のとき $x+2=-x \implies 2x=-2 \implies x=-1$。$-2 \le x \le 0$ を満たす。<br>(ii) $x < -2$ のとき $-(x+2)=-x \implies -x-2=-x \implies -2=0$。不適。<br>よって $x=-1$。",
-                    question: "次の方程式を解け。<br>$$|x+2|=-x$$",
-                    options: [ "$x=-1$", "$x=1, -1$", "$x=1$", "解なし" ],
-                    answer: "$x=-1$",
-                    rationale: "まず、(右辺) $\ge 0$ より $-x \ge 0$、よって $x \le 0$ が必要条件。<br>(i) $x \ge -2$ のとき ($-2 \le x \le 0$):<br>$x+2 = -x \implies 2x = -2 \implies x=-1$。これは条件を満たす。<br>(ii) $x < -2$ のとき:<br>$-(x+2) = -x \implies -x-2 = -x \implies -2=0$。解なし。<br>よって $x=-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63153' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x-y=4, xy=1$ のとき、$\\dfrac{y}{x}+\\dfrac{x}{y}$ の値を求めよ。",
+                    options: [ "$18$", "$20$", "$4$", "$1$" ],
+                    answer: "$18$",
+                    rationale: "$\\dfrac{y}{x}+\\dfrac{x}{y} = \\dfrac{x^2+y^2}{xy}$<br>$x^2+y^2 = (x-y)^2 + 2xy = 16 + 2 = 18$<br>よって $\\dfrac{18}{1} = 18$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- Set 14: x=√5+√2, y=√5-√2 ---
+                // (x+y=2√5, xy=3)
                 // 問題 48
                 {
-                    question: "次の方程式を解け。<br>$$|2x-4|=x+1$$",
-                    options: [ "$x=5, 1$", "$x=5$", "$x=1$", "$x=-5, -1$" ],
-                    answer: "$x=5, 1$",
-                    rationale: "まず、(右辺) $\ge 0$ より $x+1 \ge 0$、よって $x \ge -1$ が必要条件。<br>(i) $x \ge 2$ のとき:<br>$2x-4 = x+1 \implies x=5$。これは条件を満たす。<br>(ii) $x < 2$ のとき ($-1 \le x < 2$):<br>$-(2x-4) = x+1 \implies -2x+4 = x+1 \implies -3x = -3 \implies x=1$。これは条件を満たす。<br>よって $x=5, 1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63148' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{5}+\\sqrt{2}, y=\\sqrt{5}-\\sqrt{2}$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$14$", "$20$", "$6$", "$10$" ],
+                    answer: "$14$",
+                    rationale: "$x+y=2\\sqrt{5}$, $xy=5-2=3$<br>$x^2+y^2 = (x+y)^2 - 2xy = (2\\sqrt{5})^2 - 2(3) = 20 - 6 = 14$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 49
                 {
-                    question: "次の方程式を解け。<br>$$|x-3|=2x-9$$",
-                    options: [ "$x=6$", "$x=4, 6$", "$x=4$", "解なし" ],
-                    answer: "$x=6$",
-                    rationale: "まず、(右辺) $\ge 0$ より $2x-9 \ge 0$、よって $x \ge \\dfrac{9}{2} (=4.5)$ が必要条件。<br>この条件のもとでは $x-3$ は常に正なので、絶対値はそのまま外せる。<br>$x-3 = 2x-9 \implies -x = -6 \implies x=6$。<br>これは $x \ge 4.5$ を満たすので解である。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63148' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\sqrt{5}+\\sqrt{2}, y=\\sqrt{5}-\\sqrt{2}$ のとき、$x^3+y^3$ の値を求めよ。",
+                    options: [ "$22\\sqrt{5}$", "$40\\sqrt{5}$", "$18\\sqrt{5}$", "$14\\sqrt{5}$" ],
+                    answer: "$22\\sqrt{5}$",
+                    rationale: "$x+y=2\\sqrt{5}$, $xy=3$<br>$x^3+y^3 = (x+y)^3 - 3xy(x+y)$<br>$= (2\\sqrt{5})^3 - 3(3)(2\\sqrt{5}) = 40\\sqrt{5} - 18\\sqrt{5} = 22\\sqrt{5}$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 50
                 {
-                    question: "次の方程式を解け。<br>$$|x-3|=x-3$$",
-                    options: [ "$x \\ge 3$", "$x=3$", "$x > 3$", "すべての実数" ],
-                    answer: "$x \\ge 3$",
-                    rationale: "絶対値記号をそのまま外せるのは、中身が $0$ 以上の場合です。<br>よって $x-3 \ge 0$ であればよい。<br>したがって $x \\ge 3$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63148' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>",
-                    layout: 'vertical'
+                    question: "$x=\\dfrac{\\sqrt{2}+1}{\\sqrt{2}-1}, y=\\dfrac{\\sqrt{2}-1}{\\sqrt{2}+1}$ のとき、$x^2+y^2$ の値を求めよ。",
+                    options: [ "$34$", "$36$", "$32$", "$1$" ],
+                    answer: "$34$",
+                    rationale: "$x = \\dfrac{(\\sqrt{2}+1)^2}{2-1} = 2+2\\sqrt{2}+1 = 3+2\\sqrt{2}$<br>$y = \\dfrac{(\\sqrt{2}-1)^2}{2-1} = 2-2\\sqrt{2}+1 = 3-2\\sqrt{2}$<br>$x+y = 6$, $xy=1$<br>$x^2+y^2 = (x+y)^2 - 2xy = (6)^2 - 2(1) = 36 - 2 = 34$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7710/63145' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 }
             ]
             // --- ★★★ 50題データここまで ★★★
-          
+
+            
             // 1. allQuizData をシャッフルする関数
             function shuffleArray(array) {
                 const shuffled = [...array]; // 配列をコピー
