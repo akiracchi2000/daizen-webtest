@@ -1213,20 +1213,31 @@
             　　expandSvgViewBox(optionsContainer, 1.5);
             }
 
-              // --- 追加: viewBoxを広げて「引き」で表示するユーティリティ ---
-  function expandSvgViewBox(root, factor=1.3){
-    const svgs = root.querySelectorAll('svg');
-    svgs.forEach(svg=>{
-      const vb = svg.getAttribute('viewBox');
-      if(!vb) return;
-      const [minX,minY,w,h] = vb.trim().split(/\s+/).map(parseFloat);
-      const newW = w*factor, newH = h*factor;
-      const newMinX = minX - (newW - w)/2;
-      const newMinY = minY - (newH - h)/2;
-      svg.setAttribute('viewBox', `${newMinX} ${newMinY} ${newW} ${newH}`);
+// --- 追加: viewBoxを広げて「引き」で表示するユーティリティ ---
+function expandSvgViewBox(root, factor = 1.35){
+  if(!root) return;
+  const svgs = root.querySelectorAll('svg');
+  svgs.forEach(svg => {
+    const vb = svg.getAttribute('viewBox');
+    if(!vb) return; // viewBoxなしはスキップ
+    const nums = vb.trim().split(/\s+/).map(v => parseFloat(v));
+    if(nums.length !== 4) return; // フォーマット不正をスキップ
+
+    let [minX, minY, w, h] = nums;
+    if(!Number.isFinite(minX) || !Number.isFinite(minY) || !Number.isFinite(w) || !Number.isFinite(h) || w <= 0 || h <= 0) return;
+
+    const newW = w * factor;
+    const newH = h * factor;
+    const newMinX = minX - (newW - w) / 2;
+    const newMinY = minY - (newH - h) / 2;
+
+    svg.setAttribute('viewBox', `${newMinX} ${newMinY} ${newW} ${newH}`);
+    // 念のため中央寄せ維持
+    if(!svg.hasAttribute('preserveAspectRatio')){
       svg.setAttribute('preserveAspectRatio','xMidYMid meet');
-    });
-  }
+    }
+  });
+}
 
   // loadQuestionの末尾でSVGを調整できるよう、呼び出しを1行追加
   // （★既存のloadQuestion内、KaTeXレンダリング直後に追加）
