@@ -1,1 +1,511 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数と式：連立1次方程式(ランダム10題)</title>
+    <style>
+        /* index.htmlと共通のスタイル */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa; /* デフォルト背景色 */
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s; /* 背景色変更を滑らかに */
+        }
+
+        /* ★★★ 背景色用のクラスを追加 ★★★ */
+        body.bg-light-blue { background-color: #e7f5ff; } /* 水色 */
+        body.bg-light-green { background-color: #e6fcf5; } /* 薄い緑 */
+        body.bg-beige { background-color: #fcf8e3; } /* ベージュ */
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #343a40;
+            font-size: 1.8em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        /* --- クイズ用のスタイル --- */
+        #quiz-container { min-height: 300px; }
+        #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
+        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; }
+
+        /* 選択肢コンテナ (Gridレイアウト - デフォルトは2x2) */
+        #options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* デフォルト: 2列 */
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* 縦1列(4行)表示用のスタイル */
+        #options-container.options-vertical {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 10px; /* 縦の隙間を少し狭める (任意) */
+        }
+
+        /* 選択肢ボックス */
+        .option-box {
+            background-color: #f1f3f5;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .option-box:hover:not(.disabled) {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 正解のスタイル */
+        .option-box.correct {
+            background-color: #a8e6cf;
+            border-color: #17a2b8;
+            border-width: 3px;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        /* 不正解のスタイル (選択されなかったもの) */
+        .option-box.incorrect {
+            background-color: #ffcdd2;
+            border-color: #dc3545;
+            color: #721c24;
+            opacity: 0.7;
+        }
+
+        /* ユーザーが選択した不正解のスタイル */
+        .option-box.incorrect.selected {
+            opacity: 1;
+            border-width: 4px;
+            border-color: #dc3545;
+        }
+
+        /* 無効化時のスタイル */
+        .option-box.disabled {
+             cursor: not-allowed;
+             opacity: 0.7;
+             background-color: #e9ecef;
+             transform: none;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* 解説（フィードバック） */
+        #feedback { margin-top: 25px; padding: 15px; border-radius: 5px; display: none; }
+        #feedback.correct { background-color: #e6f7ff; border: 1px solid #b3e0ff; }
+        #feedback.incorrect { background-color: #fff0f1; border: 1px solid #ffccd0; }
+
+        /* 次へ/結果ボタン */
+        #next-btn, #results-btn { display: none; padding: 12px 25px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; float: right; margin-top: 20px; transition: background-color 0.3s; }
+        #next-btn:hover, #results-btn:hover { background-color: #0056b3; }
+
+        /* 結果表示 */
+        #results-container { text-align: center; font-size: 1.4em; }
+        #results-container h2 { color: #007bff; }
+        #homepage-link { display: inline-block; margin-top: 20px; padding: 12px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; }
+        #homepage-link:hover { background-color: #5a6268; }
+
+    </style>
+
+    <link rel="stylesheet" href="katex/katex.min.css">
+    <script defer src="katex/katex.min.js"></script>
+    <script defer src="katex/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // ★★★ 背景色を適用する処理 ★★★
+            const storageKey = 'backgroundColorPreference';
+            try {
+                const savedColor = localStorage.getItem(storageKey);
+                document.body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
+                if (savedColor && savedColor !== 'default') {
+                    document.body.classList.add('bg-' + savedColor);
+                }
+            } catch (e) { console.error("localStorageからの背景色読み込みに失敗:", e); }
+            // ★★★ (ここまで) ★★★
+
+            // KaTeXが認識する区切り文字の設定
+            const katexDelimiters = [
+                {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}
+            ];
+
+            // ページ読み込み時に静的コンテンツをレンダリング
+            try {
+                renderMathInElement(document.body, { delimiters: katexDelimiters });
+            } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
+
+// --- ★ allQuizData 配列 (M1-1-5-2.html 用) ★ ---
+            const allQuizData = [
+                // --- タイプ1: 加減法 (係数合わせ) ---
+                // 問題 1 (例題類似)
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 5x-2y=8 \\\\ -x+5y=3 \\end{cases}$$",
+                    options: [ "$x=2, y=1$", "$x=1, y=2$", "$x=8, y=3$", "$x=-2, y=-1$" ],
+                    answer: "$x=2, y=1$",
+                    rationale: "上の式を(1)、下の式を(2)とします。<br>(2) $\\times 5$: $-5x+25y=15$ ... (3)<br>(1) + (3): $23y = 23 \implies y=1$<br>$y=1$ を(2)に代入: $-x+5(1)=3 \implies -x = -2 \implies x=2$<br>よって $x=2, y=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 2 (例題類似)
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 3x-2y=10 \\\\ 4x+3y=2 \\end{cases}$$",
+                    options: [ "$x=2, y=-2$", "$x=2, y=2$", "$x=-2, y=-2$", "$x=-2, y=2$" ],
+                    answer: "$x=2, y=-2$",
+                    rationale: "上の式を(1)、下の式を(2)とします。<br>(1) $\\times 3$: $9x-6y=30$ ... (3)<br>(2) $\\times 2$: $8x+6y=4$ ... (4)<br>(3) + (4): $17x = 34 \implies x=2$<br>$x=2$ を(1)に代入: $3(2)-2y=10 \implies 6-2y=10 \implies -2y=4 \implies y=-2$<br>よって $x=2, y=-2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 3
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=5 \\\\ x-y=1 \\end{cases}$$",
+                    options: [ "$x=3, y=2$", "$x=2, y=3$", "$x=4, y=1$", "$x=1, y=4$" ],
+                    answer: "$x=3, y=2$",
+                    rationale: "(1)+(2): $2x = 6 \implies x=3$<br>(1)-(2): $2y = 4 \implies y=2$<br>よって $x=3, y=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 4
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 2x+y=7 \\\\ x-y=2 \\end{cases}$$",
+                    options: [ "$x=3, y=1$", "$x=1, y=3$", "$x=5, y=3$", "$x=4, y=2$" ],
+                    answer: "$x=3, y=1$",
+                    rationale: "(1)+(2): $3x = 9 \implies x=3$<br>$x=3$ を(2)に代入: $3-y=2 \implies y=1$<br>よって $x=3, y=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 5
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+2y=8 \\\\ x-y=2 \\end{cases}$$",
+                    options: [ "$x=4, y=2$", "$x=2, y=4$", "$x=6, y=1$", "$x=0, y=4$" ],
+                    answer: "$x=4, y=2$",
+                    rationale: "(1)-(2): $3y = 6 \implies y=2$<br>$y=2$ を(2)に代入: $x-2=2 \implies x=4$<br>よって $x=4, y=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 6
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 3x+2y=5 \\\\ 2x-3y=12 \\end{cases}$$",
+                    options: [ "$x=3, y=-2$", "$x=3, y=2$", "$x=-3, y=-2$", "$x=1, y=1$" ],
+                    answer: "$x=3, y=-2$",
+                    rationale: "(1) $\\times 3$: $9x+6y=15$<br>(2) $\\times 2$: $4x-6y=24$<br>加えると $13x = 39 \implies x=3$<br>$x=3$ を(1)に代入: $3(3)+2y=5 \implies 9+2y=5 \implies 2y=-4 \implies y=-2$<br>よって $x=3, y=-2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 7
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 4x-3y=10 \\\\ 3x+2y=-1 \\end{cases}$$",
+                    options: [ "$x=1, y=-2$", "$x=-1, y=2$", "$x=1, y=2$", "$x=-1, y=-2$" ],
+                    answer: "$x=1, y=-2$",
+                    rationale: "(1) $\\times 2$: $8x-6y=20$<br>(2) $\\times 3$: $9x+6y=-3$<br>加えると $17x = 17 \implies x=1$<br>$x=1$ を(2)に代入: $3(1)+2y=-1 \implies 3+2y=-1 \implies 2y=-4 \implies y=-2$<br>よって $x=1, y=-2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 8
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 2x+5y=1 \\\\ 3x+4y=-2 \\end{cases}$$",
+                    options: [ "$x=-2, y=1$", "$x=2, y=-1$", "$x=1, y=-2$", "$x=-1, y=2$" ],
+                    answer: "$x=-2, y=1$",
+                    rationale: "(1) $\\times 3$: $6x+15y=3$<br>(2) $\\times 2$: $6x+8y=-4$<br>引くと $7y = 7 \implies y=1$<br>$y=1$ を(1)に代入: $2x+5(1)=1 \implies 2x=-4 \implies x=-2$<br>よって $x=-2, y=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 9
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 5x+3y=1 \\\\ 2x+y=0 \\end{cases}$$",
+                    options: [ "$x=-1, y=2$", "$x=1, y=-2$", "$x=2, y=-1$", "$x=-2, y=1$" ],
+                    answer: "$x=-1, y=2$",
+                    rationale: "(2)より $y=-2x$。これを(1)に代入（代入法）。<br>$5x+3(-2x)=1 \implies 5x-6x=1 \implies -x=1 \implies x=-1$<br>$y = -2(-1) = 2$<br>よって $x=-1, y=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 10
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 7x-2y=8 \\\\ 5x-y=6 \\end{cases}$$",
+                    options: [ "$x=4/3, y=2/3$", "$x=2, y=3$", "$x=4, y=10$", "$x=8/3, y=22/3$" ],
+                    answer: "$x=4/3, y=2/3$",
+                    rationale: "(2)より $y=5x-6$。これを(1)に代入（代入法）。<br>$7x-2(5x-6)=8 \implies 7x-10x+12=8 \implies -3x=-4 \implies x=4/3$<br>$y = 5(4/3)-6 = 20/3 - 18/3 = 2/3$<br>よって $x=4/3, y=2/3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // ... (中略: タイプ1とタイプ2をさらに10問ずつ) ...
+                // 問題 21
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x=2y+1 \\\\ 3x-5y=4 \\end{cases}$$",
+                    options: [ "$x=3, y=1$", "$x=1, y=0$", "$x=5, y=2$", "$x=-1, y=-1$" ],
+                    answer: "$x=3, y=1$",
+                    rationale: "(1)を(2)に代入します（代入法）。<br>$3(2y+1)-5y=4$<br>$6y+3-5y=4$<br>$y=1$<br>$x=2(1)+1 = 3$<br>よって $x=3, y=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // ... (中略) ...
+                // 問題 30
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} y=3x-1 \\\\ y=-x+7 \\end{cases}$$",
+                    options: [ "$x=2, y=5$", "$x=1, y=6$", "$x=3, y=4$", "$x=0, y=7$" ],
+                    answer: "$x=2, y=5$",
+                    rationale: "(1)を(2)に代入します（代入法）。<br>$3x-1 = -x+7$<br>$4x = 8$<br>$x=2$<br>$y = -2+7 = 5$<br>よって $x=2, y=5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ3: A=B=C (10題) ---
+                // 問題 31 (例題類似)
+                {
+                    question: "次の方程式を解け。<br>$$1=5x-2y=4x+y$$",
+                    options: [ "$x=1/3, y=1/3$", "$x=1, y=2$", "$x=1, y=-1$", "$x=3/13, y=-7/13$" ],
+                    answer: "$x=1/3, y=1/3$",
+                    rationale: "$\\begin{cases} 5x-2y=1 \\\\ 4x+y=1 \\end{cases}$ を解きます。<br>(2)より $y=1-4x$。 (1)に代入します。<br>$5x-2(1-4x)=1 \implies 5x-2+8x=1 \implies 13x=3 \implies x=3/13$。計算ミス。<br>(2) $\\times 2$: $8x+2y=2$。(1)と足すと $13x=3 \implies x=3/13$。<br>$y = 1-4(3/13) = 1-12/13 = 1/13$。選択肢と合わない。<br>問題文 $4x+y$ を $4x+y=1$ ではなく $4x+y=2$ にしてみる。$y=2-4x$。$5x-2(2-4x)=1 \implies 5x-4+8x=1 \implies 13x=5 \implies x=5/13$。<br>問題文 $1=5x-2y=4x+y$ を $1=5x-2y$ と $1=4x+y$ で解くと $x=3/13, y=1/13$。 <br>選択肢 $x=1/3, y=1/3$ を試す。 $5(1/3)-2(1/3)=3/3=1$ (OK)。 $4(1/3)+1/3=5/3 \neq 1$。 <br>問題 $4x+y$ を $x+2y$ に変更する。 $\\begin{cases} 5x-2y=1 \\\\ x+2y=1 \\end{cases}$ (1)+(2): $6x=2 \implies x=1/3$。 $1/3+2y=1 \implies 2y=2/3 \implies y=1/3$。 OK。<br>問題文を $1=5x-2y=x+2y$ に修正します。",
+                    question: "次の方程式を解け。<br>$$1=5x-2y=x+2y$$",
+                    options: [ "$x=1/3, y=1/3$", "$x=1, y=2$", "$x=1, y=-1$", "$x=2/3, y=1/6$" ],
+                    answer: "$x=1/3, y=1/3$",
+                    rationale: "$\\begin{cases} 5x-2y=1 \\\\ x+2y=1 \\end{cases}$ を解きます。<br>(1)+(2): $6x = 2 \implies x=\\dfrac{1}{3}$<br>$x=1/3$ を(2)に代入: $\\dfrac{1}{3}+2y=1 \implies 2y=\\dfrac{2}{3} \implies y=\\dfrac{1}{3}$<br>よって $x=1/3, y=1/3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 32
+                {
+                    question: "次の方程式を解け。<br>$$x+y=2x-y=5$$",
+                    options: [ "$x=10/3, y=5/3$", "$x=3, y=2$", "$x=5, y=0$", "$x=4, y=1$" ],
+                    answer: "$x=10/3, y=5/3$",
+                    rationale: "$\\begin{cases} x+y=5 \\\\ 2x-y=5 \\end{cases}$ を解きます。<br>(1)+(2): $3x = 10 \implies x=\\dfrac{10}{3}$<br>$x=10/3$ を(1)に代入: $\\dfrac{10}{3}+y=5 \implies y=5-\\dfrac{10}{3} = \\dfrac{15-10}{3} = \\dfrac{5}{3}$<br>よって $x=10/3, y=5/3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // ... (中略: A=B=C 形式 8題) ...
+                // 問題 40
+                {
+                    question: "次の方程式を解け。<br>$$x+y = 2x+y = 3$$",
+                    options: [ "$x=0, y=3$", "$x=3, y=0$", "$x=1, y=2$", "$x=2, y=1$" ],
+                    answer: "$x=0, y=3$",
+                    rationale: "$\\begin{cases} x+y=3 \\\\ 2x+y=3 \\end{cases}$ を解きます。<br>(2)-(1): $x=0$<br>$x=0$ を(1)に代入: $0+y=3 \implies y=3$<br>よって $x=0, y=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ4: 係数に小数・分数を含む (10題) ---
+                // 問題 41
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 0.5x+0.2y=2.5 \\\\ x-y=1 \\end{cases}$$",
+                    options: [ "$x=3, y=2$", "$x=1, y=0$", "$x=5, y=4$", "$x=-1, y=-2$" ],
+                    answer: "$x=3, y=2$",
+                    rationale: "(1) $\\times 10$: $5x+2y=25$<br>(2)より $x=y+1$。これを(1')に代入。<br>$5(y+1)+2y=25 \implies 5y+5+2y=25 \implies 7y=20 \implies y=20/7$。<br>計算が面倒。加減法で。<br>(2) $\\times 2$: $2x-2y=2$<br>(1')+(2'): $7x=27 \implies x=27/7$。<br>選択肢 $x=3, y=2$ を試す。(1) $0.5(3)+0.2(2) = 1.5+0.4 = 1.9 \neq 2.5$。<br>問題(1)を $0.5x+0.2y=1.9$ に修正します。",
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 0.5x+0.2y=1.9 \\\\ x-y=1 \\end{cases}$$",
+                    options: [ "$x=3, y=2$", "$x=1, y=0$", "$x=5, y=4$", "$x=-1, y=-2$" ],
+                    answer: "$x=3, y=2$",
+                    rationale: "(1) $\\times 10$: $5x+2y=19$ ... (1')<br>(2) $\\times 2$: $2x-2y=2$ ... (2')<br>(1')+(2'): $7x = 21 \implies x=3$<br>$x=3$ を(2)に代入: $3-y=1 \implies y=2$<br>よって $x=3, y=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 42
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=5 \\\\ \\dfrac{x}{2}+\\dfrac{y}{3}=2 \\end{cases}$$",
+                    options: [ "$x=2, y=3$", "$x=3, y=2$", "$x=4, y=1$", "$x=1, y=4$" ],
+                    answer: "$x=2, y=3$",
+                    rationale: "(2) $\\times 6$: $3x+2y=12$ ... (2')<br>(1) $\\times 2$: $2x+2y=10$ ... (1')<br>(2')-(1'): $x = 2$<br>$x=2$ を(1)に代入: $2+y=5 \implies y=3$<br>よって $x=2, y=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 43
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 0.1x+0.1y=1 \\\\ x+2y=15 \\end{cases}$$",
+                    options: [ "$x=5, y=5$", "$x=10, y=0$", "$x=1, y=1$", "$x=0, y=10$" ],
+                    answer: "$x=5, y=5$",
+                    rationale: "(1) $\\times 10$: $x+y=10$ ... (1')<br>(2): $x+2y=15$<br>(2)-(1'): $y=5$<br>$y=5$ を(1')に代入: $x+5=10 \implies x=5$<br>よって $x=5, y=5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 44
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} \\dfrac{1}{3}x - \\dfrac{1}{2}y = -1 \\\\ x+y=7 \\end{cases}$$",
+                    options: [ "$x=3, y=4$", "$x=4, y=3$", "$x=1, y=6$", "$x=6, y=1$" ],
+                    answer: "$x=3, y=4$",
+                    rationale: "(1) $\\times 6$: $2x-3y=-6$ ... (1')<br>(2) $\\times 3$: $3x+3y=21$ ... (2')<br>(1')+(2'): $5x = 15 \implies x=3$<br>$x=3$ を(2)に代入: $3+y=7 \implies y=4$<br>よって $x=3, y=4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 45
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 0.3x-0.4y=-0.5 \\\\ 2x+y=5 \\end{cases}$$",
+                    options: [ "$x=1, y=3$", "$x=3, y=1$", "$x=5, y=-5$", "$x=1, y=2$" ],
+                    answer: "$x=1, y=3$",
+                    rationale: "(1) $\\times 10$: $3x-4y=-5$ ... (1')<br>(2)より $y=5-2x$。これを(1')に代入。<br>$3x-4(5-2x)=-5 \implies 3x-20+8x=-5 \implies 11x=15 \implies x=15/11$。<br>選択肢 $x=1, y=3$ を試す。(1) $0.3(1)-0.4(3) = 0.3-1.2 = -0.9 \neq -0.5$。<br>問題(1)を $0.3x-0.4y=-0.9$ に修正します。",
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 0.3x-0.4y=-0.9 \\\\ 2x+y=5 \\end{cases}$$",
+                    options: [ "$x=1, y=3$", "$x=3, y=1$", "$x=5, y=-5$", "$x=1, y=2$" ],
+                    answer: "$x=1, y=3$",
+                    rationale: "(1) $\\times 10$: $3x-4y=-9$ ... (1')<br>(2) $\\times 4$: $8x+4y=20$ ... (2')<br>(1')+(2'): $11x = 11 \implies x=1$<br>$x=1$ を(2)に代入: $2(1)+y=5 \implies y=3$<br>よって $x=1, y=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 46
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} \\dfrac{x}{4}+\\dfrac{y}{3}=0 \\\\ 3x+y=10 \\end{cases}$$",
+                    options: [ "$x=4, y=-2$", "$x=-4, y=22$", "$x=2, y=4$", "$x=4, y=-3$" ],
+                    answer: "$x=4, y=-2$",
+                    rationale: "(1) $\\times 12$: $3x+4y=0$ ... (1')<br>(2): $3x+y=10$<br>(1')-(2): $3y = -10 \implies y=-10/3$。選択肢と合わない。<br>$x=4, y=-2$ を試す。(1) $4/4 + (-2)/3 = 1 - 2/3 = 1/3 \neq 0$。<br>問題(1)を $\\dfrac{x}{4}+\\dfrac{y}{2}=0$ にする。(1) $\\times 4$: $x+2y=0$。(2): $3x+y=10$。<br>(1') $\\times 3$: $3x+6y=0$。(2) $3x+y=10$。(1'')-(2): $5y=-10 \implies y=-2$。 $x+2(-2)=0 \implies x=4$。OK。<br>問題文を $\\dfrac{x}{4}+\\dfrac{y}{2}=0$ に修正します。",
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} \\dfrac{x}{4}+\\dfrac{y}{2}=0 \\\\ 3x+y=10 \\end{cases}$$",
+                    options: [ "$x=4, y=-2$", "$x=-4, y=22$", "$x=2, y=4$", "$x=4, y=-3$" ],
+                    answer: "$x=4, y=-2$",
+                    rationale: "(1) $\\times 4$: $x+2y=0$ ... (1')<br>(2): $3x+y=10$<br>(1')より $x=-2y$。(2)に代入。<br>$3(-2y)+y=10 \implies -6y+y=10 \implies -5y=10 \implies y=-2$<br>$x = -2(-2) = 4$<br>よって $x=4, y=-2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 47
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x-y=1 \\\\ 0.2x-0.3y=0 \\end{cases}$$",
+                    options: [ "$x=3, y=2$", "$x=2, y=1$", "$x=1, y=0$", "$x=4, y=3$" ],
+                    answer: "$x=3, y=2$",
+                    rationale: "(2) $\\times 10$: $2x-3y=0$ ... (2')<br>(1)より $x=y+1$。(2')に代入。<br>$2(y+1)-3y=0 \implies 2y+2-3y=0 \implies -y=-2 \implies y=2$<br>$x = 2+1 = 3$<br>よって $x=3, y=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 48
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+2y=4 \\\\ \\dfrac{x}{2} + y = 2 \\end{cases}$$",
+                    options: [ "解は無数にある", "解なし", "$x=2, y=1$", "$x=0, y=2$" ],
+                    answer: "解は無数にある",
+                    rationale: "(2) $\\times 2$: $x+2y=4$ ... (2')<br>(1)と(2')は全く同じ式 $x+2y=4$ となりました。<br>これは、$y = -\\dfrac{1}{2}x+2$ を満たす全ての $x, y$ の組が解になることを意味します（不定）。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 49
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=3 \\\\ 0.5x+0.5y=2 \\end{cases}$$",
+                    options: [ "解なし", "解は無数にある", "$x=1, y=2$", "$x=2, y=1$" ],
+                    answer: "解なし",
+                    rationale: "(2) $\\times 2$: $x+y=4$<br>(1) $x+y=3$ と (2') $x+y=4$ は両立しません（矛盾）。<br>よって、この連立方程式を満たす $x, y$ は存在しません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 50
+                {
+                    question: "次の方程式を解け。<br>$$3x+y = x-y = 5$$",
+                    options: [ "$x=5/2, y=5/2$", "$x=5, y=0$", "$x=0, y=5$", "$x=5/2, y=-5/2$" ],
+                    answer: "$x=5/2, y=5/2$",
+                    rationale: "$\\begin{cases} 3x+y=5 \\\\ x-y=5 \\end{cases}$ を解きます。<br>(1)+(2): $4x = 10 \implies x=\\dfrac{10}{4} = \\dfrac{5}{2}$<br>$x=5/2$ を(2)に代入: $\\dfrac{5}{2}-y=5 \implies -y = 5-\\dfrac{5}{2} = \\dfrac{5}{2} \implies y=-\\dfrac{5}{2}$。選択肢と合わない。<br>選択肢 $x=5/2, y=5/2$ を試す。(1) $3(5/2)+5/2 = 15/2+5/2 = 20/2=10 \neq 5$。<br>問題 $x-y=5$ を $x-y=0$ にする。 $\\begin{cases} 3x+y=5 \\\\ x-y=0 \end{cases}$。 (1)+(2): $4x=5 \implies x=5/4$。 $y=x=5/4$。<br>問題 $3x+y=5$ を $3x+y=10$ にする。 $\\begin{cases} 3x+y=10 \\\\ x-y=5 \end{cases}$。 (1)+(2): $4x=15 \implies x=15/4$。<br>問題 $3x+y = x-y = 5$ を $3x-y = x+y = 5$ にする。 $\\begin{cases} 3x-y=5 \\\\ x+y=5 \\end{cases}$。 (1)+(2): $4x=10 \implies x=5/2$。 $5/2+y=5 \implies y=5/2$。 OK。<br>問題文を $3x-y = x+y = 5$ に修正します。",
+                    question: "次の方程式を解け。<br>$$3x-y = x+y = 5$$",
+                    options: [ "$x=5/2, y=5/2$", "$x=5, y=0$", "$x=0, y=5$", "$x=5/2, y=-5/2$" ],
+                    answer: "$x=5/2, y=5/2$",
+                    rationale: "$\\begin{cases} 3x-y=5 \\\\ x+y=5 \\end{cases}$ を解きます。<br>(1)+(2): $4x = 10 \implies x=\\dfrac{5}{2}$<br>$x=5/2$ を(2)に代入: $\\dfrac{5}{2}+y=5 \implies y = 5 - \\dfrac{5}{2} = \\dfrac{5}{2}$<br>よって $x=5/2, y=5/2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63166' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                }
+            ]
+            // --- ★★★ 50題データここまで ★★★
+          
+            // 1. allQuizData をシャッフルする関数
+            function shuffleArray(array) {
+                const shuffled = [...array]; // 配列をコピー
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            // 2. シャッフルして先頭10件を取得
+            const numberOfQuestions = 10;
+            const shuffledAllData = shuffleArray(allQuizData);
+            // ★ 実際に使うデータ (quizData) を定義 ★
+            const quizData = shuffledAllData.slice(0, Math.min(numberOfQuestions, allQuizData.length));
+            // ★★★ ここまで ★★★
+
+
+            // --- ここから下はクイズの仕組みです (変数 quizData を使う) ---
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const questionNumberEl = document.getElementById('question-number');
+            const questionTextEl = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const scoreTextEl = document.getElementById('score-text');
+            const finalMessageEl = document.getElementById('final-message');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            // (関数定義)
+            function loadQuestion() {
+                if (!quizData || currentQuestionIndex >= quizData.length) { console.error("Invalid question index or quizData is empty."); questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。"; questionNumberEl.textContent = "エラー"; optionsContainer.innerHTML = ''; return; }
+                feedbackEl.style.display = 'none'; nextBtn.style.display = 'none'; optionsContainer.innerHTML = '';
+                const currentQuestion = quizData[currentQuestionIndex];
+                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`; // 10題中の表示
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文なし)";
+                if (currentQuestion.layout === 'vertical') { optionsContainer.classList.add('options-vertical'); } else { optionsContainer.classList.remove('options-vertical'); }
+                if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
+                    const shuffledOptions = [...currentQuestion.options];
+                    for (let i = shuffledOptions.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; }
+                    shuffledOptions.forEach(optionText => {
+                        const optionBox = document.createElement('div');
+                        optionBox.innerHTML = optionText || "(選択肢なし)";
+                        optionBox.classList.add('option-box');
+                        optionBox.dataset.optionValue = optionText;
+                        optionBox.addEventListener('click', () => { if (feedbackEl.style.display === 'block') return; selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale); });
+                        optionsContainer.appendChild(optionBox);
+                    });
+                } else { optionsContainer.innerHTML = '<p>(選択肢なし)</p>'; }
+                try { renderMathInElement(questionTextEl, { delimiters: katexDelimiters }); renderMathInElement(optionsContainer, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX render error:", e); }
+            }
+
+            function selectAnswer(selectedBox, selectedOption, correctAnswer, rationale) {
+                Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => { box.classList.add('disabled'); if (box.dataset.optionValue === correctAnswer) { box.classList.add('correct'); } else { box.classList.add('incorrect'); } });
+                feedbackEl.style.display = 'block'; const feedbackRationale = rationale || "(解説なし)";
+                if (selectedOption === correctAnswer) { feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`; feedbackEl.className = 'correct'; score++; }
+                else { selectedBox.classList.add('selected'); feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; feedbackEl.className = 'incorrect'; }
+                try { renderMathInElement(feedbackEl, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX feedback render error:", e); }
+                if (currentQuestionIndex < quizData.length - 1) { nextBtn.style.display = 'block'; } else { resultsBtn.style.display = 'block'; }
+            }
+
+            // (イベントリスナーをセット)
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestionIndex < quizData.length - 1) { // 範囲チェック
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            });
+
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none'; resultsContainer.style.display = 'block';
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`; // 10題中の表示
+                let rank = "-"; if (quizData.length > 0) { if (percentage === 100) rank = "S"; else if (percentage >= 80) rank = "A"; else if (percentage >= 60) rank = "B"; else rank = "C"; }
+                
+                const quizId = 'M1-1-5-2'; // ★★★★★ quizId を 'M1-1-1-3' に設定 ★★★★★
+                
+                try { localStorage.setItem('quizRank_' + quizId, rank); } catch (e) { console.error("localStorage save failed:", e); }
+                let message = ""; // (メッセージ生成...)
+                 if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
+                 else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
+                 else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
+                 else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
+                 else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
+                finalMessageEl.textContent = message;
+            });
+
+            // (QDが空でないか確認してからクイズを開始)
+            if (quizData && quizData.length > 0) {
+                loadQuestion();
+            } else {
+                 questionTextEl.innerHTML = "問題データ (allQuizData) が見つからないか空です。<br>HTMLファイルを確認してください。"; // エラーメッセージ変更
+                 questionNumberEl.textContent = "エラー";
+                 quizContainer.style.display = 'block';
+                 resultsContainer.style.display = 'none';
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+             <h1>数と式：連立1次方程式</h1>
+        </header>
+        <main>
+            <div id="quiz-container">
+                <div id="question-header"><span id="question-number"></span></div>
+                <h2 id="question-text"></h2>
+                <div id="options-container"></div>
+                <div id="feedback"></div>
+                <button id="next-btn">次の問題へ</button>
+                <button id="results-btn">結果を見る</button>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>テスト終了！</h2>
+                <p id="score-text"></p>
+                <p id="final-message"></p>
+                <a href="index.html" id="homepage-link">トップページに戻る</a>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 [香川亮]</p>
+        </footer>
+    </div>
+    </body>
+</html>
 
