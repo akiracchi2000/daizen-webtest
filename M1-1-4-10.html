@@ -171,9 +171,9 @@
                 renderMathInElement(document.body, { delimiters: katexDelimiters });
             } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
 
-            // $の直後が数字だと崩れる対策：$\; を自動挿入
+            // $の直後が数字だと崩れる対策：${} を自動挿入（負号のときはそのまま）
 const fixLeadingDigitMath = (s) =>
-  (typeof s === 'string') ? s.replace(/\$(\d)/g, '$\\;$1') : s;
+  (typeof s === 'string') ? s.replace(/\$(?=\d)/g, '${}$') : s;
 
 // --- ★ allQuizData 配列 (M1-1-4-10.html 用) ★ ---
             const allQuizData = [
