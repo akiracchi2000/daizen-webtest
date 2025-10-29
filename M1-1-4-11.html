@@ -160,6 +160,54 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
+            // --- 追加: 原点を中央にそろえる（正方形＋パディング） ---
+function centerSvgOnOrigin(root, padRatio = 0.08, makeSquare = true){
+  if(!root) return;
+  const svgs = root.querySelectorAll('svg');
+  svgs.forEach(svg=>{
+    const vb = svg.getAttribute('viewBox');
+    if(!vb) return;
+    const nums = vb.trim().split(/\s+/).map(v=>parseFloat(v));
+    if(nums.length !== 4) return;
+    let [minX, minY, w, h] = nums;
+    if(!(isFinite(minX)&&isFinite(minY)&&isFinite(w)&&isFinite(h))||w<=0||h<=0) return;
+
+    const maxX = minX + w;
+    const maxY = minY + h;
+
+    // 原点からの最大距離を使って「原点中心」にする
+    let rX = Math.max(Math.abs(minX), Math.abs(maxX));
+    let rY = Math.max(Math.abs(minY), Math.abs(maxY));
+
+    // 正方形にしたい場合は大きい方で揃える
+    if(makeSquare){
+      const r = Math.max(rX, rY);
+      rX = rY = r;
+    }
+
+    // パディング（見やすく少しだけ引く）
+    const padX = rX * padRatio;
+    const padY = rY * padRatio;
+
+    const newMinX = -(rX + padX);
+    const newMinY = -(rY + padY);
+    const newW   =  2*(rX + padX);
+    const newH   =  2*(rY + padY);
+
+    svg.setAttribute('viewBox', `${newMinX} ${newMinY} ${newW} ${newH}`);
+    svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+  });
+}
+
+            // --- 原点センタリング ---
+function centerSvgOnOrigin(root, padRatio = 0.08, makeSquare = true){ /* 先ほどの定義 */ }
+
+// --- 引き（viewBox拡張） ---
+function expandSvgViewBox(root, factor = 1.15){ /* 先ほどの定義 */ }
+
+// --- 軸を濃く ---
+function strengthenAxes(root, color = '#333', width = 0.6){ /* 先ほどの定義 */ }
+
             // ★★★ 背景色を適用する処理 ★★★
             const storageKey = 'backgroundColorPreference';
             try {
