@@ -149,7 +149,6 @@
 
         /* --- 追加: SVGの線を一括で細くする --- */
 .option-box svg path{ stroke-width:0.5 !important; vector-effect:non-scaling-stroke; }
-.option-box svg line{ stroke-width:0.25 !important; vector-effect:non-scaling-stroke; }
 
     </style>
 
@@ -160,53 +159,74 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
-            // --- 追加: 原点を中央にそろえる（正方形＋パディング） ---
+            // --- 原点センタリング（正方形＋少し引き）---
 function centerSvgOnOrigin(root, padRatio = 0.08, makeSquare = true){
   if(!root) return;
   const svgs = root.querySelectorAll('svg');
   svgs.forEach(svg=>{
     const vb = svg.getAttribute('viewBox');
     if(!vb) return;
-    const nums = vb.trim().split(/\s+/).map(v=>parseFloat(v));
-    if(nums.length !== 4) return;
-    let [minX, minY, w, h] = nums;
-    if(!(isFinite(minX)&&isFinite(minY)&&isFinite(w)&&isFinite(h))||w<=0||h<=0) return;
+    const a = vb.trim().split(/\s+/).map(Number);
+    if(a.length!==4) return;
+    let [minX, minY, w, h] = a;
+    if(!isFinite(minX)||!isFinite(minY)||!isFinite(w)||!isFinite(h)||w<=0||h<=0) return;
 
-    const maxX = minX + w;
-    const maxY = minY + h;
-
-    // 原点からの最大距離を使って「原点中心」にする
+    const maxX = minX + w, maxY = minY + h;
     let rX = Math.max(Math.abs(minX), Math.abs(maxX));
     let rY = Math.max(Math.abs(minY), Math.abs(maxY));
+    if(makeSquare){ const r = Math.max(rX, rY); rX = rY = r; }
 
-    // 正方形にしたい場合は大きい方で揃える
-    if(makeSquare){
-      const r = Math.max(rX, rY);
-      rX = rY = r;
-    }
-
-    // パディング（見やすく少しだけ引く）
-    const padX = rX * padRatio;
-    const padY = rY * padRatio;
-
-    const newMinX = -(rX + padX);
-    const newMinY = -(rY + padY);
-    const newW   =  2*(rX + padX);
-    const newH   =  2*(rY + padY);
+    const padX = rX*padRatio, padY = rY*padRatio;
+    const newMinX = -(rX+padX), newMinY = -(rY+padY);
+    const newW = 2*(rX+padX), newH = 2*(rY+padY);
 
     svg.setAttribute('viewBox', `${newMinX} ${newMinY} ${newW} ${newH}`);
     svg.setAttribute('preserveAspectRatio','xMidYMid meet');
   });
 }
 
-            // --- 原点センタリング ---
-function centerSvgOnOrigin(root, padRatio = 0.08, makeSquare = true){ /* 先ほどの定義 */ }
+// --- “引き”ユーティリティ ---
+function expandSvgViewBox(root, factor = 1.15){
+  if(!root) return;
+  const svgs = root.querySelectorAll('svg');
+  svgs.forEach(svg=>{
+    const vb = svg.getAttribute('viewBox');
+    if(!vb) return;
+    const a = vb.trim().split(/\s+/).map(Number);
+    if(a.length!==4) return;
+    let [minX, minY, w, h] = a;
+    if(!isFinite(minX)||!isFinite(minY)||!isFinite(w)||!isFinite(h)||w<=0||h<=0) return;
 
-// --- 引き（viewBox拡張） ---
-function expandSvgViewBox(root, factor = 1.15){ /* 先ほどの定義 */ }
+    const newW = w*factor, newH = h*factor;
+    const newMinX = minX - (newW-w)/2;
+    const newMinY = minY - (newH-h)/2;
 
-// --- 軸を濃く ---
-function strengthenAxes(root, color = '#333', width = 0.6){ /* 先ほどの定義 */ }
+    svg.setAttribute('viewBox', `${newMinX} ${newMinY} ${newW} ${newH}`);
+    if(!svg.hasAttribute('preserveAspectRatio')){
+      svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+    }
+  });
+}
+
+// --- 軸だけ濃く＆太く（x=0 or y=0 の line を検出）---
+function strengthenAxes(root, color = '#000', width = 0.6){
+  if(!root) return;
+  const lines = root.querySelectorAll('svg line');
+  lines.forEach(ln=>{
+    const x1 = parseFloat(ln.getAttribute('x1'));
+    const y1 = parseFloat(ln.getAttribute('y1'));
+    const x2 = parseFloat(ln.getAttribute('x2'));
+    const y2 = parseFloat(ln.getAttribute('y2'));
+    const isXAxis = isFinite(y1)&&isFinite(y2) && Math.abs(y1)===0 && Math.abs(y2)===0;
+    const isYAxis = isFinite(x1)&&isFinite(x2) && Math.abs(x1)===0 && Math.abs(x2)===0;
+    if(isXAxis || isYAxis){
+      ln.setAttribute('stroke', color);
+      ln.setAttribute('stroke-width', String(width));
+      ln.setAttribute('vector-effect','non-scaling-stroke');
+    }
+  });
+}
+
 
             // ★★★ 背景色を適用する処理 ★★★
             const storageKey = 'backgroundColorPreference';
@@ -1264,9 +1284,21 @@ function strengthenAxes(root, color = '#333', width = 0.6){ /* 先ほどの定�
                         optionsContainer.appendChild(optionBox);
                     });
                 } else { optionsContainer.innerHTML = '<p>(選択肢なし)</p>'; }
-                try { renderMathInElement(questionTextEl, { delimiters: katexDelimiters }); renderMathInElement(optionsContainer, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX render error:", e); }
-            　　expandSvgViewBox(optionsContainer, 1.35);
-            }
+try {
+  renderMathInElement(questionTextEl, { delimiters: katexDelimiters });
+  renderMathInElement(optionsContainer, { delimiters: katexDelimiters });
+} catch (e) {
+  console.error("KaTeX render error:", e);
+}
+
+/* 1) 原点を中心に揃えて正方形＋パディング */
+centerSvgOnOrigin(optionsContainer, 0.08, true);
+
+/* 2) 必要ならさらに少しだけ“引き” */
+expandSvgViewBox(optionsContainer, 1.15);
+
+/* 3) 軸（x=0, y=0）だけ濃く太く */
+strengthenAxes(optionsContainer, '#000', 0.6);            }
 
 // --- 追加: viewBoxを広げて「引き」で表示するユーティリティ ---
 function expandSvgViewBox(root, factor = 1.35){
