@@ -186,7 +186,7 @@ function centerSvgOnOrigin(root, padRatio = 0.08, makeSquare = true){
 }
 
 // --- “引き”ユーティリティ ---
-function expandSvgViewBox(root, factor = 1.0){
+function expandSvgViewBox(root, factor = 1.5){
   if(!root) return;
   const svgs = root.querySelectorAll('svg');
   svgs.forEach(svg=>{
