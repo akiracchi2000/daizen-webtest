@@ -125,6 +125,13 @@
              box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
+        /* 軸（line）を濃いめ＆やや太く */
+        .option-box svg line{
+        stroke:#444 !important;   /* 黒に近いグレー（#000にしたければ置換） */
+        stroke-width:0.5 !important;
+        vector-effect:non-scaling-stroke;
+        }
+ 
         /* 解説（フィードバック） */
         #feedback { margin-top: 25px; padding: 15px; border-radius: 5px; display: none; }
         #feedback.correct { background-color: #e6f7ff; border: 1px solid #b3e0ff; }
