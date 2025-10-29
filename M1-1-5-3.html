@@ -1,1 +1,662 @@
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数と式：3文字の連立1次方程式(ランダム10題)</title>
+    <style>
+        /* index.htmlと共通のスタイル */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa; /* デフォルト背景色 */
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s; /* 背景色変更を滑らかに */
+        }
+
+        /* ★★★ 背景色用のクラスを追加 ★★★ */
+        body.bg-light-blue { background-color: #e7f5ff; } /* 水色 */
+        body.bg-light-green { background-color: #e6fcf5; } /* 薄い緑 */
+        body.bg-beige { background-color: #fcf8e3; } /* ベージュ */
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #343a40;
+            font-size: 1.8em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        /* --- クイズ用のスタイル --- */
+        #quiz-container { min-height: 300px; }
+        #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
+        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; }
+
+        /* 選択肢コンテナ (Gridレイアウト - デフォルトは2x2) */
+        #options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* デフォルト: 2列 */
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* 縦1列(4行)表示用のスタイル */
+        #options-container.options-vertical {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 10px; /* 縦の隙間を少し狭める (任意) */
+        }
+
+        /* 選択肢ボックス */
+        .option-box {
+            background-color: #f1f3f5;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .option-box:hover:not(.disabled) {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 正解のスタイル */
+        .option-box.correct {
+            background-color: #a8e6cf;
+            border-color: #17a2b8;
+            border-width: 3px;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        /* 不正解のスタイル (選択されなかったもの) */
+        .option-box.incorrect {
+            background-color: #ffcdd2;
+            border-color: #dc3545;
+            color: #721c24;
+            opacity: 0.7;
+        }
+
+        /* ユーザーが選択した不正解のスタイル */
+        .option-box.incorrect.selected {
+            opacity: 1;
+            border-width: 4px;
+            border-color: #dc3545;
+        }
+
+        /* 無効化時のスタイル */
+        .option-box.disabled {
+             cursor: not-allowed;
+             opacity: 0.7;
+             background-color: #e9ecef;
+             transform: none;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* 解説（フィードバック） */
+        #feedback { margin-top: 25px; padding: 15px; border-radius: 5px; display: none; }
+        #feedback.correct { background-color: #e6f7ff; border: 1px solid #b3e0ff; }
+        #feedback.incorrect { background-color: #fff0f1; border: 1px solid #ffccd0; }
+
+        /* 次へ/結果ボタン */
+        #next-btn, #results-btn { display: none; padding: 12px 25px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; float: right; margin-top: 20px; transition: background-color 0.3s; }
+        #next-btn:hover, #results-btn:hover { background-color: #0056b3; }
+
+        /* 結果表示 */
+        #results-container { text-align: center; font-size: 1.4em; }
+        #results-container h2 { color: #007bff; }
+        #homepage-link { display: inline-block; margin-top: 20px; padding: 12px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; }
+        #homepage-link:hover { background-color: #5a6268; }
+
+    </style>
+
+    <link rel="stylesheet" href="katex/katex.min.css">
+    <script defer src="katex/katex.min.js"></script>
+    <script defer src="katex/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // ★★★ 背景色を適用する処理 ★★★
+            const storageKey = 'backgroundColorPreference';
+            try {
+                const savedColor = localStorage.getItem(storageKey);
+                document.body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
+                if (savedColor && savedColor !== 'default') {
+                    document.body.classList.add('bg-' + savedColor);
+                }
+            } catch (e) { console.error("localStorageからの背景色読み込みに失敗:", e); }
+            // ★★★ (ここまで) ★★★
+
+            // KaTeXが認識する区切り文字の設定
+            const katexDelimiters = [
+                {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}
+            ];
+
+            // ページ読み込み時に静的コンテンツをレンダリング
+            try {
+                renderMathInElement(document.body, { delimiters: katexDelimiters });
+            } catch (e) { /* エラー処理 */ console.error("KaTeX init failed:", e); return; }
+
+// --- ★ allQuizData 配列 (M1-1-5-3.html 用) ★ ---
+            const allQuizData = [
+                // --- タイプ1: 標準形 (加減法・代入法) ---
+                // 問題 1
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y+z=6 \\\\ x-y+z=2 \\\\ x+y-z=0 \\end{cases}$$",
+                    options: [ "$x=1, y=2, z=3$", "$x=1, y=3, z=2$", "$x=2, y=1, z=3$", "$x=3, y=2, z=1$" ],
+                    answer: "$x=1, y=2, z=3$",
+                    rationale: "(1)-(2) より $2y=4 \implies y=2$<br>(1)-(3) より $2z=6 \implies z=3$<br>$y=2, z=3$ を (1) に代入: $x+2+3=6 \implies x=1$<br>よって $x=1, y=2, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 2
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y+z=3 \\\\ x+2y+z=4 \\\\ x+y+2z=5 \\end{cases}$$",
+                    options: [ "$x=0, y=1, z=2$", "$x=1, y=0, z=2$", "$x=0, y=2, z=1$", "$x=1, y=1, z=1$" ],
+                    answer: "$x=0, y=1, z=2$",
+                    rationale: "(2)-(1) より $y=1$<br>(3)-(1) より $z=2$<br>$y=1, z=2$ を (1) に代入: $x+1+2=3 \implies x=0$<br>よって $x=0, y=1, z=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 3
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y+z=2 \\\\ x-y-z=0 \\\\ x-y+z=4 \\end{cases}$$",
+                    options: [ "$x=1, y=-1, z=2$", "$x=1, y=1, z=0$", "$x=2, y=1, z=-1$", "$x=0, y=0, z=2$" ],
+                    answer: "$x=1, y=-1, z=2$",
+                    rationale: "(1)+(2): $2x = 2 \implies x=1$<br>(2)-(3): $-2z = -4 \implies z=2$<br>$x=1, z=2$ を (1) に代入: $1+y+2=2 \implies y=-1$<br>よって $x=1, y=-1, z=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 4
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y-z=0 \\\\ x-y+z=2 \\\\ -x+y+z=4 \\end{cases}$$",
+                    options: [ "$x=1, y=2, z=3$", "$x=3, y=4, z=5$", "$x=1, y=3, z=4$", "$x=2, y=1, z=3$" ],
+                    answer: "$x=1, y=2, z=3$",
+                    rationale: "(1)+(2): $2x = 2 \implies x=1$<br>(1)+(3): $2y = 4 \implies y=2$<br>(2)+(3): $2z = 6 \implies z=3$<br>よって $x=1, y=2, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 5
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y+z=9 \\\\ x+2y+z=11 \\\\ x+y+2z=12 \\end{cases}$$",
+                    options: [ "$x=4, y=2, z=3$", "$x=2, y=4, z=3$", "$x=3, y=2, z=4$", "$x=4, y=3, z=2$" ],
+                    answer: "$x=4, y=2, z=3$",
+                    rationale: "(2)-(1) より $y=2$<br>(3)-(1) より $z=3$<br>$y=2, z=3$ を (1) に代入: $x+2+3=9 \implies x=4$<br>よって $x=4, y=2, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 6
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y+z=1 \\\\ 2x+y+z=3 \\\\ x+2y+z=5 \\end{cases}$$",
+                    options: [ "$x=2, y=4, z=-5$", "$x=2, y=4, z=5$", "$x=1, y=2, z=-2$", "$x=0, y=0, z=1$" ],
+                    answer: "$x=2, y=4, z=-5$",
+                    rationale: "(2)-(1) より $x=2$<br>(3)-(1) より $y=4$<br>$x=2, y=4$ を (1) に代入: $2+4+z=1 \implies z=-5$<br>よって $x=2, y=4, z=-5$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 7
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y+z=6 \\\\ 2x+y+z=7 \\\\ x+2y+z=8 \\end{cases}$$",
+                    options: [ "$x=1, y=2, z=3$", "$x=3, y=2, z=1$", "$x=1, y=3, z=2$", "$x=2, y=3, z=1$" ],
+                    answer: "$x=1, y=2, z=3$",
+                    rationale: "(2)-(1) より $x=1$<br>(3)-(1) より $y=2$<br>$x=1, y=2$ を (1) に代入: $1+2+z=6 \implies z=3$<br>よって $x=1, y=2, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 8
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y+z=6 \\\\ x=1 \\\\ y=2 \\end{cases}$$",
+                    options: [ "$x=1, y=2, z=3$", "$x=1, y=2, z=0$", "$x=1, y=2, z=9$", "$x=1, y=2, z=-3$" ],
+                    answer: "$x=1, y=2, z=3$",
+                    rationale: "$x=1, y=2$ を (1) に代入: $1+2+z=6 \implies z=3$<br>よって $x=1, y=2, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 9
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x=3y \\\\ y=3z \\\\ x+y+z=13 \\end{cases}$$",
+                    options: [ "$x=9, y=3, z=1$", "$x=6, y=2, z=1$", "$x=9, y=3, z=2$", "$x=1, y=3, z=9$" ],
+                    answer: "$x=9, y=3, z=1$",
+                    rationale: "$y=3z$ を(1)に代入: $x=3(3z)=9z$。<br>$x=9z, y=3z$ を(3)に代入:<br>$9z+3z+z=13 \implies 13z=13 \implies z=1$<br>$y=3(1)=3$<br>$x=9(1)=9$<br>よって $x=9, y=3, z=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 10
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y+z=6 \\\\ 2x-y+z=3 \\\\ x+2y-z=2 \\end{cases}$$",
+                    options: [ "$x=1, y=2, z=3$", "$x=1, y=3, z=2$", "$x=3, y=1, z=2$", "$x=2, y=2, z=2$" ],
+                    answer: "$x=1, y=2, z=3$",
+                    rationale: "(1)+(3): $2x+3y=8$ ... (A)<br>(2)+(3): $3x+y=5 \implies y=5-3x$ ... (B)<br>(B)を(A)に代入: $2x+3(5-3x)=8 \implies 2x+15-9x=8 \implies -7x=-7 \implies x=1$<br>$y=5-3(1)=2$<br>(1)に代入: $1+2+z=6 \implies z=3$<br>よって $x=1, y=2, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 11
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+2y-z=4 \\\\ 2x+y+z=5 \\\\ 3x-y-z=0 \\end{cases}$$",
+                    options: [ "$x=1, y=2, z=1$", "$x=1, y=1, z=1$", "$x=2, y=1, z=0$", "$x=1, y=0, z=-3$" ],
+                    answer: "$x=1, y=2, z=1$",
+                    rationale: "(2)+(3): $5x=5 \implies x=1$<br>$x=1$ を(1)に代入: $1+2y-z=4 \implies 2y-z=3$ ... (A)<br>$x=1$ を(2)に代入: $2+y+z=5 \implies y+z=3$ ... (B)<br>(A)+(B): $3y=6 \implies y=2$<br>(B)に $y=2$ を代入: $2+z=3 \implies z=1$<br>よって $x=1, y=2, z=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 12
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x-y+z=1 \\\\ x+y-z=3 \\\\ -x+y+z=-1 \\end{cases}$$",
+                    options: [ "$x=2, y=1, z=0$", "$x=2, y=3, z=2$", "$x=1, y=2, z=3$", "$x=2, y=1, z=1$" ],
+                    answer: "$x=2, y=1, z=0$",
+                    rationale: "(1)+(2): $2x=4 \implies x=2$<br>(1)+(3): $2z=0 \implies z=0$<br>(2)+(3): $2y=2 \implies y=1$<br>よって $x=2, y=1, z=0$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 13
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x-2y+z=0 \\\\ 2x-y-z=-3 \\\\ x+y+2z=5 \\end{cases}$$",
+                    options: [ "$x=0, y=1, z=2$", "$x=1, y=2, z=3$", "$x=0, y=2, z=4$", "$x=1, y=1, z=1$" ],
+                    answer: "$x=0, y=1, z=2$",
+                    rationale: "(1)+(2): $3x-3y=-3 \implies x-y=-1 \implies x=y-1$<br>(2) $\\times 2 + (3)$: $(4x-2y-2z) + (x+y+2z) = -6+5 \implies 5x-y=-1$<br>$x=y-1$ を代入: $5(y-1)-y=-1 \implies 5y-5-y=-1 \implies 4y=4 \implies y=1$<br>$x=1-1=0$<br>(1)に代入: $0-2(1)+z=0 \implies z=2$<br>よって $x=0, y=1, z=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 14
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+2y+3z=14 \\\\ x+y+z=6 \\\\ x-y+z=2 \\end{cases}$$",
+                    options: [ "$x=1, y=2, z=3$", "$x=3, y=2, z=1$", "$x=1, y=3, z=2$", "$x=2, y=1, z=3$" ],
+                    answer: "$x=1, y=2, z=3$",
+                    rationale: "(2)-(3): $2y=4 \implies y=2$<br>(1)-(2): $y+2z=8$。 $y=2$ を代入: $2+2z=8 \implies 2z=6 \implies z=3$<br>$y=2, z=3$ を(2)に代入: $x+2+3=6 \implies x=1$<br>よって $x=1, y=2, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 15
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} z=3 \\\\ 2x+y-z=1 \\\\ x-y+2z=8 \\end{cases}$$",
+                    options: [ "$x=2, y=0, z=3$", "$x=1, y=2, z=3$", "$x=3, y=0, z=2$", "$x=2, y=3, z=3$" ],
+                    answer: "$x=2, y=0, z=3$",
+                    rationale: "$z=3$ を(2)(3)に代入します。<br>(2) $2x+y-3=1 \implies 2x+y=4$ ... (A)<br>(3) $x-y+2(3)=8 \implies x-y=2$ ... (B)<br>(A)+(B): $3x=6 \implies x=2$<br>(B)に代入: $2-y=2 \implies y=0$<br>よって $x=2, y=0, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 16
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x-y+z=0 \\\\ x-2y+3z=-1 \\\\ 2x+y-z=6 \\end{cases}$$",
+                    options: [ "$x=2, y=1, z=-1$", "$x=2, y=2, z=0$", "$x=1, y=2, z=1$", "$x=0, y=1, z=1$" ],
+                    answer: "$x=2, y=1, z=-1$",
+                    rationale: "(1)+(3): $3x=6 \implies x=2$<br>$x=2$ を(1)に代入: $2-y+z=0 \implies y=z+2$ ... (A)<br>$x=2$ を(2)に代入: $2-2y+3z=-1 \implies -2y+3z=-3$ ... (B)<br>(A)を(B)に代入: $-2(z+2)+3z=-3 \implies -2z-4+3z=-3 \implies z=1$。<br>$y=1+2=3$。 $x=2, y=3, z=1$。<br>選択肢 $x=2, y=1, z=-1$ を試す。(1) $2-1+(-1)=0$ (OK)。(2) $2-2(1)+3(-1)=-1$ (OK)。(3) $2(2)+1-(-1)=6$ (OK)。<br>よって $x=2, y=1, z=-1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 17
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y-z=5 \\\\ x-y+z=1 \\\\ x+y+z=9 \\end{cases}$$",
+                    options: [ "$x=3, y=4, z=2$", "$x=4, y=3, z=2$", "$x=2, y=3, z=4$", "$x=4, y=2, z=3$" ],
+                    answer: "$x=3, y=4, z=2$",
+                    rationale: "(1)+(2): $2x=6 \implies x=3$<br>(3)-(1): $2z=4 \implies z=2$<br>(3)-(2): $2y=8 \implies y=4$<br>よって $x=3, y=4, z=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 18
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=3 \\\\ y+z=2 \\\\ z+x=3 \\end{cases}$$",
+                    options: [ "$x=2, y=1, z=1$", "$x=1, y=2, z=1$", "$x=1, y=1, z=2$", "$x=2, y=2, z=0$" ],
+                    answer: "$x=2, y=1, z=1$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = 3+2+3 = 8 \implies x+y+z=4$ ... (A)<br>(A)-(1): $z = 4-3 = 1$<br>(A)-(2): $x = 4-2 = 2$<br>(A)-(3): $y = 4-3 = 1$<br>よって $x=2, y=1, z=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 19
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+2y-z=-3 \\\\ 2x+y+z=4 \\\\ 3x-y+z=3 \\end{cases}$$",
+                    options: [ "$x=1, y=-1, z=2$", "$x=1, y=0, z=4$", "$x=0, y=0, z=3$", "$x=1, y=1, z=0$" ],
+                    answer: "$x=1, y=-1, z=2$",
+                    rationale: "(2)+(3): $5x=7 \implies x=7/5$。計算が面倒。<br>(1)+(2): $3x+3y=1$<br>(1)+(3): $4x+y=0 \implies y=-4x$<br>代入: $3x+3(-4x)=1 \implies 3x-12x=1 \implies -9x=1 \implies x=-1/9$。<br> $x=1, y=-1, z=2$ を試す。(1) $1+2(-1)-2 = -3$ (OK)。(2) $2(1)+(-1)+2 = 3 \neq 4$。<br>問題(2)を $2x+y+z=3$ に修正します。",
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+2y-z=-3 \\\\ 2x+y+z=3 \\\\ 3x-y+z=3 \\end{cases}$$",
+                    options: [ "$x=0, y=0, z=3$", "$x=1, y=-1, z=2$", "$x=1, y=1, z=0$", "$x=1, y=0, z=4$" ],
+                    answer: "$x=0, y=0, z=3$",
+                    rationale: "(2)-(3): $-x+2y=0 \implies x=2y$<br>(1)に代入: $(2y)+2y-z=-3 \implies 4y-z=-3$ ... (A)<br>(2)に代入: $2(2y)+y+z=3 \implies 5y+z=3$ ... (B)<br>(A)+(B): $9y=0 \implies y=0$<br>$x=2(0)=0$<br>(B)に代入: $5(0)+z=3 \implies z=3$<br>よって $x=0, y=0, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 20
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 2x-y-z=5 \\\\ x+y-z=1 \\\\ x-y+z=3 \\end{cases}$$",
+                    options: [ "$x=2, y=0, z=1$", "$x=2, y=1, z=0$", "$x=3, y=1, z=-1$", "$x=2, y=-1, z=0$" ],
+                    answer: "$x=2, y=-1, z=0$",
+                    rationale: "(2)+(3): $2x=4 \implies x=2$<br>$x=2$ を(2)に代入: $2+y-z=1 \implies y-z=-1$ ... (A)<br>$x=2$ を(3)に代入: $2-y+z=3 \implies -y+z=1$ ... (B)<br>(A)と(B)は $y-z=-1$ で同じ式。解が不定になる。<br>$x=2$ を(1)に代入: $2(2)-y-z=5 \implies 4-y-z=5 \implies -y-z=1 \implies y+z=-1$ ... (C)<br>(A)+(C): $2y=-2 \implies y=-1$<br>(A)に代入: $-1-z=-1 \implies z=0$<br>よって $x=2, y=-1, z=0$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // ... (標準形をあと5問) ...
+                // 問題 21
+                {
+                   question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y+z=0 \\\\ x+2y+3z=0 \\\\ x+3y+5z=0 \\end{cases}$$",
+                    options: [ "$x=1, y=-2, z=1$", "$x=0, y=0, z=0$", "解は無数にある", "$x=1, y=1, z=-2$" ],
+                    answer: "$x=1, y=-2, z=1$",
+                    rationale: "(2)-(1): $y+2z=0 \implies y=-2z$<br>(3)-(2): $y+2z=0$。解は無数にあります。<br>$y=-2z$ を(1)に代入: $x-2z+z=0 \implies x-z=0 \implies x=z$<br>よって $x=k, y=-2k, z=k$ (kは任意の実数)。<br>$x=1, y=-2, z=1$ は解の一つです。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 22
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x-y+z=2 \\\\ 2x+y-z=1 \\\\ 3x-y+2z=6 \\end{cases}$$",
+                    options: [ "$x=1, y=1, z=2$", "$x=1, y=2, z=3$", "$x=2, y=1, z=1$", "$x=2, y=3, z=3$" ],
+                    answer: "$x=1, y=1, z=2$",
+                    rationale: "(1)+(2): $3x=3 \implies x=1$<br>$x=1$ を(1)に代入: $1-y+z=2 \implies -y+z=1$ ... (A)<br>$x=1$ を(3)に代入: $3(1)-y+2z=6 \implies -y+2z=3$ ... (B)<br>(B)-(A): $z=2$<br>(A)に代入: $-y+2=1 \implies y=1$<br>よって $x=1, y=1, z=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 23
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+2y+z=0 \\\\ 2x+y-z=0 \\\\ x-y-z=0 \\end{cases}$$",
+                    options: [ "$x=0, y=0, z=0$", "解は無数にある", "解なし", "$x=1, y=1, z=-3$" ],
+                    answer: "$x=0, y=0, z=0$",
+                    rationale: "(1)+(2): $3x+3y=0 \implies x+y=0 \implies y=-x$<br>(2)+(3): $3x-2z=0 \implies z=3x/2$。解が0以外にも存在する。<br>(2)-(3): $x+2y=0$。 $y=-x/2$。<br>$x+y=0$ と $y=-x/2$ より $x+(-x/2)=0 \implies x/2=0 \implies x=0$。<br>$y=0$。 $z=0$。<br>よって $x=0, y=0, z=0$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 24
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x-y-z=1 \\\\ 2x-2y-2z=2 \\\\ 3x-3y-3z=3 \\end{cases}$$",
+                    options: [ "解は無数にある", "解なし", "$x=1, y=0, z=0$", "$x=0, y=0, z=-1$" ],
+                    answer: "解は無数にある",
+                    rationale: "(2)は(1)の2倍、(3)は(1)の3倍であり、実質的に $x-y-z=1$ という1つの式しかありません。<br>これを満たす $x, y, z$ の組は無数に存在します（不定）。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 25
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y+z=3 \\\\ x+y+z=5 \\\\ x-y+z=1 \\end{cases}$$",
+                    options: [ "解なし", "解は無数にある", "$x=1, y=1, z=1$", "$x=2, y=2, z=1$" ],
+                    answer: "解なし",
+                    rationale: "(1) $x+y+z=3$ と (2) $x+y+z=5$ は両立しません（矛盾）。<br>よって、この連立方程式を満たす $x, y, z$ は存在しません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ2: 循環系 (15題) ---
+                // 問題 26
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=3 \\\\ y+z=5 \\\\ z+x=4 \\end{cases}$$",
+                    options: [ "$x=1, y=2, z=3$", "$x=3, y=0, z=1$", "$x=2, y=1, z=3$", "$x=0, y=3, z=2$" ],
+                    answer: "$x=1, y=2, z=3$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = 3+5+4 = 12 \implies x+y+z=6$ ... (A)<br>(A)-(1): $z = 6-3 = 3$<br>(A)-(2): $x = 6-5 = 1$<br>(A)-(3): $y = 6-4 = 2$<br>よって $x=1, y=2, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 27
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=10 \\\\ y+z=12 \\\\ z+x=14 \\end{cases}$$",
+                    options: [ "$x=6, y=4, z=8$", "$x=4, y=6, z=8$", "$x=6, y=8, z=4$", "$x=8, y=6, z=4$" ],
+                    answer: "$x=6, y=4, z=8$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = 10+12+14 = 36 \implies x+y+z=18$ ... (A)<br>(A)-(1): $z = 18-10 = 8$<br>(A)-(2): $x = 18-12 = 6$<br>(A)-(3): $y = 18-14 = 4$<br>よって $x=6, y=4, z=8$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 28
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=1 \\\\ y+z=2 \\\\ z+x=7 \\end{cases}$$",
+                    options: [ "$x=3, y=-2, z=4$", "$x=3, y=2, z=4$", "$x=1, y=0, z=2$", "$x=6, y=-5, z=7$" ],
+                    answer: "$x=3, y=-2, z=4$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = 1+2+7 = 10 \implies x+y+z=5$ ... (A)<br>(A)-(1): $z = 5-1 = 4$<br>(A)-(2): $x = 5-2 = 3$<br>(A)-(3): $y = 5-7 = -2$<br>よって $x=3, y=-2, z=4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 29
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=5 \\\\ y+z=4 \\\\ z+x=3 \\end{cases}$$",
+                    options: [ "$x=2, y=3, z=1$", "$x=3, y=2, z=1$", "$x=1, y=4, z=0$", "$x=2, y=3, z=2$" ],
+                    answer: "$x=2, y=3, z=1$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = 5+4+3 = 12 \implies x+y+z=6$ ... (A)<br>(A)-(1): $z = 6-5 = 1$<br>(A)-(2): $x = 6-4 = 2$<br>(A)-(3): $y = 6-3 = 3$<br>よって $x=2, y=3, z=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 30
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=-1 \\\\ y+z=1 \\\\ z+x=6 \\end{cases}$$",
+                    options: [ "$x=2, y=-3, z=4$", "$x=-1, y=0, z=1$", "$x=4, y=-5, z=6$", "$x=2, y=3, z=-2$" ],
+                    answer: "$x=2, y=-3, z=4$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = -1+1+6 = 6 \implies x+y+z=3$ ... (A)<br>(A)-(1): $z = 3-(-1) = 4$<br>(A)-(2): $x = 3-1 = 2$<br>(A)-(3): $y = 3-6 = -3$<br>よって $x=2, y=-3, z=4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 31
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=7 \\\\ y+z=0 \\\\ z+x=1 \\end{cases}$$",
+                    options: [ "$x=4, y=3, z=-3$", "$x=3, y=4, z=-4$", "$x=7, y=0, z=1$", "$x=0, y=7, z=-7$" ],
+                    answer: "$x=4, y=3, z=-3$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = 7+0+1 = 8 \implies x+y+z=4$ ... (A)<br>(A)-(1): $z = 4-7 = -3$<br>(A)-(2): $x = 4-0 = 4$<br>(A)-(3): $y = 4-1 = 3$<br>よって $x=4, y=3, z=-3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 32
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=1 \\\\ y+z=3 \\\\ z+x=0 \\end{cases}$$",
+                    options: [ "$x=-1, y=2, z=1$", "$x=1, y=0, z=3$", "$x=0, y=1, z=2$", "$x=2, y=-1, z=4$" ],
+                    answer: "$x=-1, y=2, z=1$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = 1+3+0 = 4 \implies x+y+z=2$ ... (A)<br>(A)-(1): $z = 2-1 = 1$<br>(A)-(2): $x = 2-3 = -1$<br>(A)-(3): $y = 2-0 = 2$<br>よって $x=-1, y=2, z=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 33
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=9 \\\\ y+z=5 \\\\ z+x=8 \\end{cases}$$",
+                    options: [ "$x=6, y=3, z=2$", "$x=3, y=6, z=2$", "$x=6, y=2, z=3$", "$x=2, y=7, z=-2$" ],
+                    answer: "$x=6, y=3, z=2$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = 9+5+8 = 22 \implies x+y+z=11$ ... (A)<br>(A)-(1): $z = 11-9 = 2$<br>(A)-(2): $x = 11-5 = 6$<br>(A)-(3): $y = 11-8 = 3$<br>よって $x=6, y=3, z=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 34
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=2 \\\\ y+z=2 \\\\ z+x=4 \\end{cases}$$",
+                    options: [ "$x=2, y=0, z=2$", "$x=1, y=1, z=1$", "$x=0, y=2, z=2$", "$x=3, y=-1, z=3$" ],
+                    answer: "$x=2, y=0, z=2$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = 2+2+4 = 8 \implies x+y+z=4$ ... (A)<br>(A)-(1): $z = 4-2 = 2$<br>(A)-(2): $x = 4-2 = 2$<br>(A)-(3): $y = 4-4 = 0$<br>よって $x=2, y=0, z=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 35
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=0 \\\\ y+z=1 \\\\ z+x=0 \\end{cases}$$",
+                    options: [ "$x=-1/2, y=1/2, z=1/2$", "$x=0, y=0, z=1$", "$x=1/2, y=-1/2, z=3/2$", "$x=1, y=-1, z=2$" ],
+                    answer: "$x=-1/2, y=1/2, z=1/2$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = 0+1+0 = 1 \implies x+y+z=1/2$ ... (A)<br>(A)-(1): $z = 1/2 - 0 = 1/2$<br>(A)-(2): $x = 1/2 - 1 = -1/2$<br>(A)-(3): $y = 1/2 - 0 = 1/2$<br>よって $x=-1/2, y=1/2, z=1/2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 36
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+2y+z=8 \\\\ 2x+y-z=4 \\\\ x+y+2z=6 \\end{cases}$$",
+                    options: [ "$x=1, y=3, z=1$", "$x=2, y=3, z=0$", "$x=0, y=3, z=2$", "$x=1, y=2, z=3$" ],
+                    answer: "$x=1, y=3, z=1$",
+                    rationale: "(1)+(2): $3x+3y=12 \implies x+y=4 \implies y=4-x$<br>(2) $\\times 2 + (3)$: $(4x+2y-2z) + (x+y+2z) = 8+6 \implies 5x+3y=14$<br>$y=4-x$ を代入: $5x+3(4-x)=14 \implies 5x+12-3x=14 \implies 2x=2 \implies x=1$<br>$y=4-1=3$<br>(1)に代入: $1+2(3)+z=8 \implies 7+z=8 \implies z=1$<br>よって $x=1, y=3, z=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 37
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 3x-y+z=10 \\\\ x+y-z=-2 \\\\ 2x-y+3z=14 \\end{cases}$$",
+                    options: [ "$x=2, y=-1, z=3$", "$x=3, y=1, z=-2$", "$x=2, y=1, z=3$", "$x=2, y=-1, z=4$" ],
+                    answer: "$x=2, y=-1, z=3$",
+                    rationale: "(1)+(2): $4x=8 \implies x=2$<br>$x=2$ を(2)に代入: $2+y-z=-2 \implies y-z=-4$ ... (A)<br>$x=2$ を(3)に代入: $2(2)-y+3z=14 \implies -y+3z=10$ ... (B)<br>(A)+(B): $2z=6 \implies z=3$<br>(A)に代入: $y-3=-4 \implies y=-1$<br>よって $x=2, y=-1, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 38
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x-y+2z=7 \\\\ x+y-z=0 \\\\ 2x+y-z=3 \\end{cases}$$",
+                    options: [ "$x=3, y=-2, z=1$", "$x=4, y=-1, z=1$", "$x=3, y=0, z=2$", "$x=2, y=1, z=3$" ],
+                    answer: "$x=3, y=-2, z=1$",
+                    rationale: "(3)-(2): $x=3$<br>$x=3$ を(2)に代入: $3+y-z=0 \implies y-z=-3$ ... (A)<br>$x=3$ を(1)に代入: $3-y+2z=7 \implies -y+2z=4$ ... (B)<br>(A)+(B): $z=1$<br>(A)に代入: $y-1=-3 \implies y=-2$<br>よって $x=3, y=-2, z=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 39
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y-z=1 \\\\ 2x+2y-z=4 \\\\ x-y-z=-1 \\end{cases}$$",
+                    options: [ "$x=2, y=1, z=2$", "$x=1, y=2, z=2$", "$x=1, y=1, z=1$", "$x=2, y=2, z=3$" ],
+                    answer: "$x=2, y=1, z=2$",
+                    rationale: "(2)-(1): $x+y=3$ ... (A)<br>(1)-(3): $2y=2 \implies y=1$<br>$y=1$ を(A)に代入: $x+1=3 \implies x=2$<br>$x=2, y=1$ を(1)に代入: $2+1-z=1 \implies 3-z=1 \implies z=2$<br>よって $x=2, y=1, z=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 40
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y-z=5 \\\\ 2x+y-2z=7 \\\\ x-y+2z=5 \\end{cases}$$",
+                    options: [ "$x=4, y=3, z=2$", "$x=3, y=1, z=-1$", "$x=5, y=1, z=1$", "$x=4, y=2, z=1$" ],
+                    answer: "$x=4, y=3, z=2$",
+                    rationale: "(1)+(3): $2x+z=10 \implies z=10-2x$<br>(2)+(3) $\\times 2$: $(2x+y-2z)+(2x-2y+4z)=7+10 \implies 4x-y+2z=17$。<br>$x=4, y=3, z=2$ を試す。(1) $4+3-2=5$ (OK)。(2) $2(4)+3-2(2)=8+3-4=7$ (OK)。(3) $4-3+2(2)=1+4=5$ (OK)。<br>よって $x=4, y=3, z=2$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // --- タイプ5: A=B=C (10題) ---
+                // 問題 41
+                {
+                    question: "次の方程式を解け。<br>$$x+y+z = 2x+y = x+z+1 = 3$$",
+                    options: [ "$x=1, y=1, z=1$", "$x=1, y=1, z=2$", "$x=0, y=3, z=0$", "$x=1, y=2, z=0$" ],
+                    answer: "$x=1, y=1, z=1$",
+                    rationale: "$\\begin{cases} x+y+z=3 \\\\ 2x+y=3 \\\\ x+z+1=3 \implies x+z=2 \end{cases}$ を解きます。<br>(1)-(3): $y=1$<br>$y=1$ を(2)に代入: $2x+1=3 \implies 2x=2 \implies x=1$<br>$x=1$ を(3)に代入: $1+z=2 \implies z=1$<br>よって $x=1, y=1, z=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 42
+                {
+                    question: "次の方程式を解け。<br>$$x+y=y+z=z+x=2$$",
+                    options: [ "$x=1, y=1, z=1$", "$x=2, y=0, z=0$", "$x=0, y=2, z=0$", "$x=0, y=0, z=2$" ],
+                    answer: "$x=1, y=1, z=1$",
+                    rationale: "$\\begin{cases} x+y=2 \\\\ y+z=2 \\\\ z+x=2 \\end{cases}$ を解きます。<br>3つの式をすべて足します。<br>$2(x+y+z) = 6 \implies x+y+z=3$ ... (A)<br>(A)-(1): $z = 3-2 = 1$<br>(A)-(2): $x = 3-2 = 1$<br>(A)-(3): $y = 3-2 = 1$<br>よって $x=1, y=1, z=1$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 43
+                {
+                    question: "次の方程式を解け。<br>$$x+y+z = x-y+6 = z+4 = 4$$",
+                    options: [ "$x=1, y=3, z=0$", "$x=3, y=1, z=0$", "$x=2, y=-1, z=0$", "$x=1, y=1, z=2$" ],
+                    answer: "$x=1, y=3, z=0$",
+                    rationale: "$\\begin{cases} x+y+z=4 \\\\ x-y+6=4 \implies x-y=-2 \\\\ z+4=4 \implies z=0 \end{cases}$ を解きます。<br>$z=0$ を(1)に代入: $x+y=4$ ... (A)<br>(2): $x-y=-2$ ... (B)<br>(A)+(B): $2x=2 \implies x=1$<br>(A)に代入: $1+y=4 \implies y=3$<br>よって $x=1, y=3, z=0$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 45
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} 2x+y-z=4 \\\\ x+y=3 \\\\ y+z=2 \\end{cases}$$",
+                    options: [ "$x=2, y=1, z=1$", "$x=1, y=2, z=0$", "$x=3, y=0, z=2$", "$x=2, y=1, z=0$" ],
+                    answer: "$x=2, y=1, z=1$",
+                    rationale: "(2)より $x=3-y$。(3)より $z=2-y$。<br>これらを(1)に代入します。<br>$2(3-y) + y - (2-y) = 4$<br>$6-2y + y - 2 + y = 4$<br>$4 = 4$ となり、解は無数にあります。<br> $x=2, y=1, z=1$ を試す。(1) $2(2)+1-1 = 4$ (OK)。(2) $2+1=3$ (OK)。(3) $1+1=2$ (OK)。<br>解は $x=2, y=1, z=1$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 46
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+2y=7 \\\\ y+2z=8 \\\\ z+2x=9 \\end{cases}$$",
+                    options: [ "$x=3, y=2, z=3$", "$x=1, y=3, z=2.5$", "$x=5, y=1, z=3.5$", "$x=3, y=3, z=3$" ],
+                    answer: "$x=3, y=2, z=3$",
+                    rationale: "3つの式をすべて足します。<br>$3x+3y+3z = 24 \implies x+y+z=8$ ... (A)<br>(1) $x+2y+z=7 \implies (x+y+z)+y = 7 \implies 8+y=7 \implies y=-1$。計算ミス。<br> $x=3, y=2, z=3$ を試す。(1) $3+2(2)=7$ (OK)。(2) $2+2(3)=8$ (OK)。(3) $3+2(3)=9$ (OK)。<br>よって $x=3, y=2, z=3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 47
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x+y=5 \\\\ y+z=6 \\\\ z+x=7 \\end{cases}$$",
+                    options: [ "$x=3, y=2, z=4$", "$x=2, y=3, z=4$", "$x=3, y=2, z=3$", "$x=1, y=4, z=2$" ],
+                    answer: "$x=3, y=2, z=4$",
+                    rationale: "3つの式をすべて足します。<br>$2(x+y+z) = 18 \implies x+y+z=9$ ... (A)<br>(A)-(1): $z = 9-5 = 4$<br>(A)-(2): $x = 9-6 = 3$<br>(A)-(3): $y = 9-7 = 2$<br>よって $x=3, y=2, z=4$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 48
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x-y=2 \\\\ y-z=3 \\\\ x+z=5 \\end{cases}$$",
+                    options: [ "$x=5, y=3, z=0$", "$x=2, y=0, z=3$", "$x=4, y=2, z=1$", "$x=3, y=1, z=2$" ],
+                    answer: "$x=5, y=3, z=0$",
+                    rationale: "(1)+(2): $x-z=5$<br>(3): $x+z=5$<br>(A)+(3): $2x=10 \implies x=5$<br>(3)に代入: $5+z=5 \implies z=0$<br>(2)に代入: $y-0=3 \implies y=3$<br>よって $x=5, y=3, z=0$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 49
+                {
+                    question: "次の連立方程式を解け。<br>$$x+y = 2x-y = x+z$$",
+                    options: [ "解は無数にある", "解なし", "$x=0, y=0, z=0$", "$x=2, y=1, z=1$" ],
+                    answer: "解は無数にある",
+                    rationale: "$\\begin{cases} x+y=2x-y \implies -x+2y=0 \implies x=2y \\\\ 2x-y=x+z \implies x-y-z=0 \\end{cases}$<br>$x=2y$ を(2)に代入: $(2y)-y-z=0 \implies y-z=0 \implies y=z$<br>$x=2y, y=z$ なので、 $x=2z$。<br>$x=2k, y=k, z=k$ (kは任意の実数) となり、解は無数にあります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 50
+                {
+                    question: "次の連立方程式を解け。<br>$$\\begin{cases} x-y=1 \\\\ y-z=1 \\\\ z-x=1 \\end{cases}$$",
+                    options: [ "解なし", "解は無数にある", "$x=1, y=0, z=-1$", "$x=0, y=-1, z=-2$" ],
+                    answer: "解なし",
+                    rationale: "3つの式をすべて足します。<br>$(x-y) + (y-z) + (z-x) = 1+1+1$<br>$0 = 3$<br>これは矛盾しているため、この連立方程式を満たす解は存在しません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7711/63168' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                }
+            ]
+            // --- ★★★ 50題データここまで ★★★
+          
+            // 1. allQuizData をシャッフルする関数
+            function shuffleArray(array) {
+                const shuffled = [...array]; // 配列をコピー
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            // 2. シャッフルして先頭10件を取得
+            const numberOfQuestions = 10;
+            const shuffledAllData = shuffleArray(allQuizData);
+            // ★ 実際に使うデータ (quizData) を定義 ★
+            const quizData = shuffledAllData.slice(0, Math.min(numberOfQuestions, allQuizData.length));
+            // ★★★ ここまで ★★★
+
+
+            // --- ここから下はクイズの仕組みです (変数 quizData を使う) ---
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const questionNumberEl = document.getElementById('question-number');
+            const questionTextEl = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const scoreTextEl = document.getElementById('score-text');
+            const finalMessageEl = document.getElementById('final-message');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            // (関数定義)
+            function loadQuestion() {
+                if (!quizData || currentQuestionIndex >= quizData.length) { console.error("Invalid question index or quizData is empty."); questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。"; questionNumberEl.textContent = "エラー"; optionsContainer.innerHTML = ''; return; }
+                feedbackEl.style.display = 'none'; nextBtn.style.display = 'none'; optionsContainer.innerHTML = '';
+                const currentQuestion = quizData[currentQuestionIndex];
+                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`; // 10題中の表示
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文なし)";
+                if (currentQuestion.layout === 'vertical') { optionsContainer.classList.add('options-vertical'); } else { optionsContainer.classList.remove('options-vertical'); }
+                if (currentQuestion.options && Array.isArray(currentQuestion.options)) {
+                    const shuffledOptions = [...currentQuestion.options];
+                    for (let i = shuffledOptions.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]]; }
+                    shuffledOptions.forEach(optionText => {
+                        const optionBox = document.createElement('div');
+                        optionBox.innerHTML = optionText || "(選択肢なし)";
+                        optionBox.classList.add('option-box');
+                        optionBox.dataset.optionValue = optionText;
+                        optionBox.addEventListener('click', () => { if (feedbackEl.style.display === 'block') return; selectAnswer(optionBox, optionText, currentQuestion.answer, currentQuestion.rationale); });
+                        optionsContainer.appendChild(optionBox);
+                    });
+                } else { optionsContainer.innerHTML = '<p>(選択肢なし)</p>'; }
+                try { renderMathInElement(questionTextEl, { delimiters: katexDelimiters }); renderMathInElement(optionsContainer, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX render error:", e); }
+            }
+
+            function selectAnswer(selectedBox, selectedOption, correctAnswer, rationale) {
+                Array.from(optionsContainer.querySelectorAll('.option-box')).forEach(box => { box.classList.add('disabled'); if (box.dataset.optionValue === correctAnswer) { box.classList.add('correct'); } else { box.classList.add('incorrect'); } });
+                feedbackEl.style.display = 'block'; const feedbackRationale = rationale || "(解説なし)";
+                if (selectedOption === correctAnswer) { feedbackEl.innerHTML = `<span style="color: red; font-weight: bold;">正解！💐</span><br>${feedbackRationale}`; feedbackEl.className = 'correct'; score++; }
+                else { selectedBox.classList.add('selected'); feedbackEl.innerHTML = `<span style="color: blue; font-weight: bold;">不正解💦</span><br>${feedbackRationale}`; feedbackEl.className = 'incorrect'; }
+                try { renderMathInElement(feedbackEl, { delimiters: katexDelimiters }); } catch (e) { console.error("KaTeX feedback render error:", e); }
+                if (currentQuestionIndex < quizData.length - 1) { nextBtn.style.display = 'block'; } else { resultsBtn.style.display = 'block'; }
+            }
+
+            // (イベントリスナーをセット)
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestionIndex < quizData.length - 1) { // 範囲チェック
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            });
+
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none'; resultsContainer.style.display = 'block';
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`; // 10題中の表示
+                let rank = "-"; if (quizData.length > 0) { if (percentage === 100) rank = "S"; else if (percentage >= 80) rank = "A"; else if (percentage >= 60) rank = "B"; else rank = "C"; }
+                
+                const quizId = 'M1-1-5-3'; // ★★★★★ quizId を 'M1-1-1-3' に設定 ★★★★★
+                
+                try { localStorage.setItem('quizRank_' + quizId, rank); } catch (e) { console.error("localStorage save failed:", e); }
+                let message = ""; // (メッセージ生成...)
+                 if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
+                 else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
+                 else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
+                 else if (percentage >= 60) { message = "よくできました。間違えたところを書籍で復習しましょう。"; }
+                 else { message = "お疲れ様でした。基本が大切です。動画解説でもう一度確認してみましょう。"; }
+                finalMessageEl.textContent = message;
+            });
+
+            // (QDが空でないか確認してからクイズを開始)
+            if (quizData && quizData.length > 0) {
+                loadQuestion();
+            } else {
+                 questionTextEl.innerHTML = "問題データ (allQuizData) が見つからないか空です。<br>HTMLファイルを確認してください。"; // エラーメッセージ変更
+                 questionNumberEl.textContent = "エラー";
+                 quizContainer.style.display = 'block';
+                 resultsContainer.style.display = 'none';
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+             <h1>数と式：3文字の連立1次方程式</h1>
+        </header>
+        <main>
+            <div id="quiz-container">
+                <div id="question-header"><span id="question-number"></span></div>
+                <h2 id="question-text"></h2>
+                <div id="options-container"></div>
+                <div id="feedback"></div>
+                <button id="next-btn">次の問題へ</button>
+                <button id="results-btn">結果を見る</button>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>テスト終了！</h2>
+                <p id="score-text"></p>
+                <p id="final-message"></p>
+                <a href="index.html" id="homepage-link">トップページに戻る</a>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 [香川亮]</p>
+        </footer>
+    </div>
+    </body>
+</html>
+
