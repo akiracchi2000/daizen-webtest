@@ -1,1 +1,439 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>集合と命題：証明問題 (ランダム10題)</title>
+    <style>
+        /* index.htmlと共通のスタイル */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.7;
+            background-color: #f8f9fa; /* デフォルト背景色 */
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s;
+        }
 
+        /* 背景色用のクラス */
+        body.bg-light-blue { background-color: #e7f5ff; }
+        body.bg-light-green { background-color: #e6fcf5; }
+        body.bg-beige { background-color: #fcf8e3; }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #343a40;
+            font-size: 1.8em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        /* --- ★ クイズ用のスタイル (証明問題用に変更) --- */
+        #quiz-container { min-height: 300px; }
+        #question-number { font-size: 1.1em; font-weight: bold; color: #007bff; }
+        #question-text { font-size: 1.3em; margin: 15px 0 25px 0; }
+
+        /* ★ 選択肢コンテナは使わないので非表示に (JS側で制御) */
+        #options-container { display: none; }
+
+        /* ★ 解答表示ボタン */
+        #show-answer-btn {
+            display: block; /* JSで制御 */
+            margin: 20px auto;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #17a2b8; /* 少し色を変更 (任意) */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #show-answer-btn:hover { background-color: #138496; }
+
+        /* ★ 解答・解説 (フィードバック) */
+        #feedback { 
+            margin-top: 25px; 
+            padding: 20px; 
+            border-radius: 5px; 
+            display: none; /* JSで制御 */
+            background-color: #f8f9fa; /* ニュートラルな背景色 */
+            border: 1px solid #dee2e6;
+            line-height: 1.8; /* 証明が読みやすいように行間を調整 */
+        }
+
+        /* ★ 自己採点コンテナ */
+        #self-assessment-container {
+            display: none; /* JSで制御 */
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #fffbef;
+            border: 1px solid #ffeeba;
+            border-radius: 5px;
+        }
+        #self-assessment-container p {
+            margin: 0 0 15px 0;
+            font-weight: bold;
+            color: #856404;
+        }
+
+        /* ★ 自己採点ボタン */
+        .assess-btn {
+            padding: 10px 25px;
+            font-size: 1.0em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: opacity 0.3s;
+        }
+        .assess-btn#correct-btn {
+            background-color: #28a745; /* 緑 */
+            color: white;
+        }
+        .assess-btn#incorrect-btn {
+            background-color: #dc3545; /* 赤 */
+            color: white;
+        }
+        .assess-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+
+        /* 次へ/結果ボタン */
+        #next-btn, #results-btn { 
+            display: none; /* JSで制御 */
+            padding: 12px 25px; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            color: #fff; 
+            background-color: #007bff; 
+            border: none; border-radius: 5px; 
+            cursor: pointer; 
+            float: right; 
+            margin-top: 20px; 
+            transition: background-color 0.3s; 
+        }
+        #next-btn:hover, #results-btn:hover { background-color: #0056b3; }
+
+        /* 結果表示 */
+        #results-container { text-align: center; font-size: 1.4em; }
+        #results-container h2 { color: #007bff; }
+        #homepage-link { display: inline-block; margin-top: 20px; padding: 12px 20px; background-color: #6c757d; color: #fff; text-decoration: none; border-radius: 5px; font-size: 1.1em; }
+        #homepage-link:hover { background-color: #5a6268; }
+
+    </style>
+
+    <link rel="stylesheet" href="katex/katex.min.css">
+    <script defer src="katex/katex.min.js"></script>
+    <script defer src="katex/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // ★★★ 背景色を適用する処理 (変更なし) ★★★
+            const storageKey = 'backgroundColorPreference';
+            try {
+                const savedColor = localStorage.getItem(storageKey);
+                document.body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
+                if (savedColor && savedColor !== 'default') {
+                    document.body.classList.add('bg-' + savedColor);
+                }
+            } catch (e) { console.error("localStorageからの背景色読み込みに失敗:", e); }
+            
+            // KaTeXが認識する区切り文字の設定 (変更なし)
+            const katexDelimiters = [
+                {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}
+            ];
+
+            // ページ読み込み時に静的コンテンツをレンダリング (変更なし)
+            try {
+                renderMathInElement(document.body, { delimiters: katexDelimiters });
+            } catch (e) { console.error("KaTeX init failed:", e); return; }
+
+// --- ★ allQuizData 配列 (M1-2-3-2.html 用のダミーデータ) ★ ---
+            // 証明問題用に、"options" と "rationale" の代わりに "answer" を使います。
+            const allQuizData = [
+                {
+                    question: "背理法を用いて、$\\sqrt{2}$ が無理数であることを証明せよ。",
+                    answer: "$\\sqrt{2}$ が有理数であると仮定すると、$\\sqrt{2} = \\frac{p}{q}$（$p, q$ は互いに素な自然数）と表せる。<br>" +
+                            "両辺を2乗すると $2 = \\frac{p^2}{q^2}$ より $p^2 = 2q^2$。<br>" +
+                            "よって $p^2$ は偶数であり、$p$ も偶数である。$p=2k$（$k$ は自然数）とおける。<br>" +
+                            "これを代入すると $(2k)^2 = 2q^2 \implies 4k^2 = 2q^2 \implies q^2 = 2k^2$。<br>" +
+                            "よって $q^2$ も偶数であり、$q$ も偶数である。<br>" +
+                            "これは $p$ と $q$ が互いに素であることに矛盾する。<br>" +
+                            "したがって、$\\sqrt{2}$ は無理数である。"
+                },
+                {
+                    question: "対偶を利用して、命題「整数 $n$ について、$n^2$ が奇数ならば $n$ は奇数である」を証明せよ。",
+                    answer: "証明すべき命題の対偶は、「整数 $n$ について、$n$ が偶数ならば $n^2$ は偶数である」である。<br>" +
+                            "$n$ が偶数であるとき、$n = 2k$（$k$ は整数）と表せる。<br>" +
+                            "このとき、$n^2 = (2k)^2 = 4k^2 = 2(2k^2)$。<br>" +
+                            "$2k^2$ は整数であるから、$n^2$ は偶数である。<br>" +
+                            "よって、対偶は真である。<br>" +
+                            "したがって、元の命題も真である。"
+                },
+                {
+                    question: "不等式 $x^2 + y^2 \\geqq 2xy$ を証明せよ。また、等号が成り立つ場合を調べよ。",
+                    answer: "（左辺）-（右辺）を計算する。<br>" +
+                            "$(x^2 + y^2) - 2xy = x^2 - 2xy + y^2 = (x-y)^2$<br>" +
+                            "実数の平方は常に0以上であるから、$(x-y)^2 \\geqq 0$<br>" +
+                            "したがって、$x^2 + y^2 \\geqq 2xy$ が成り立つ。<br><br>" +
+                            "等号が成り立つのは、$(x-y)^2 = 0$ のとき、すなわち $x-y=0$ のときである。<br>" +
+                            "よって、等号成立は $x=y$ のとき。"
+                },
+                // --- ここに問題を追加 (全部で10題以上推奨) ---
+                { question: "（問題4 ...）", answer: "（解答4 ...）" },
+                { question: "（問題5 ...）", answer: "（解答5 ...）" },
+                { question: "（問題6 ...）", answer: "（解答6 ...）" },
+                { question: "（問題7 ...）", answer: "（解答7 ...）" },
+                { question: "（問題8 ...）", answer: "（解答8 ...）" },
+                { question: "（問題9 ...）", answer: "（解答9 ...）" },
+                { question: "（問題10 ...）", answer: "（解答10 ...）" },
+            ]
+            // --- ★★★ データここまで ★★★
+            
+            // 1. allQuizData をシャッフルする関数 (変更なし)
+            function shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            // 2. シャッフルして先頭10件を取得 (変更なし)
+            const numberOfQuestions = 10;
+            const shuffledAllData = shuffleArray(allQuizData);
+            const quizData = shuffledAllData.slice(0, Math.min(numberOfQuestions, allQuizData.length));
+
+
+            // --- ★ ここから下はクイズの仕組みです (証明問題用に変更) ---
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const questionNumberEl = document.getElementById('question-number');
+            const questionTextEl = document.getElementById('question-text');
+            // const optionsContainer = document.getElementById('options-container'); // ★ 使わない
+            const feedbackEl = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const scoreTextEl = document.getElementById('score-text');
+            const finalMessageEl = document.getElementById('final-message');
+            
+            // ★ 新しく追加した要素の参照
+            const showAnswerBtn = document.getElementById('show-answer-btn');
+            const selfAssessmentContainer = document.getElementById('self-assessment-container');
+            const correctBtn = document.getElementById('correct-btn');
+            const incorrectBtn = document.getElementById('incorrect-btn');
+
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            // (関数定義)
+            function loadQuestion() {
+                if (!quizData || currentQuestionIndex >= quizData.length) { 
+                    console.error("Invalid question index or quizData is empty."); 
+                    questionTextEl.innerHTML = "エラー: 問題データの読み込みに失敗しました。"; 
+                    questionNumberEl.textContent = "エラー"; 
+                    return; 
+                }
+
+                // ★ 各要素の状態をリセット
+                feedbackEl.style.display = 'none'; // 解答を隠す
+                feedbackEl.className = ''; // 解答欄のスタイルをリセット
+                nextBtn.style.display = 'none'; // 次へボタンを隠す
+                resultsBtn.style.display = 'none'; // 結果ボタンを隠す
+                selfAssessmentContainer.style.display = 'none'; // 自己採点ボタンを隠す
+                showAnswerBtn.style.display = 'block'; // 解答表示ボタンを見せる
+                
+                // 自己採点ボタンを再度有効化
+                correctBtn.disabled = false;
+                incorrectBtn.disabled = false;
+
+                // ★ 問題文をセット
+                const currentQuestion = quizData[currentQuestionIndex];
+                questionNumberEl.textContent = `問題 ${currentQuestionIndex + 1} / ${quizData.length}`;
+                questionTextEl.innerHTML = currentQuestion.question || "(問題文なし)";
+
+                // ★ 問題文のKaTeXをレンダリング
+                try { 
+                    renderMathInElement(questionTextEl, { delimiters: katexDelimiters }); 
+                } catch (e) { 
+                    console.error("KaTeX render error:", e); 
+                }
+            }
+            
+            // ★「解答を表示する」ボタンの処理
+            function showAnswer() {
+                const currentQuestion = quizData[currentQuestionIndex];
+                
+                // ★ 解答欄 (feedbackEl) に解答をセット
+                feedbackEl.innerHTML = `<strong>【解答・解説】</strong><br>${currentQuestion.answer || "(解答なし)"}`;
+                feedbackEl.style.display = 'block';
+
+                // ★ 解答のKaTeXをレンダリング
+                try { 
+                    renderMathInElement(feedbackEl, { delimiters: katexDelimiters }); 
+                } catch (e) { 
+                    console.error("KaTeX feedback render error:", e); 
+                }
+
+                // ボタンの表示/非表示を切り替え
+                showAnswerBtn.style.display = 'none'; // 解答表示ボタンを隠す
+                selfAssessmentContainer.style.display = 'block'; // 自己採点ボタンを見せる
+            }
+            
+            // ★「正解」「不正解」ボタンの処理 (自己採点)
+            function selfAssess(isCorrect) {
+                if (isCorrect) {
+                    score++; // 正解ならスコアを加算
+                }
+                
+                // ボタンを無効化 (二重クリック防止)
+                correctBtn.disabled = true;
+                incorrectBtn.disabled = true;
+
+                // 次の問題へ進むボタンを表示
+                if (currentQuestionIndex < quizData.length - 1) {
+                    nextBtn.style.display = 'block';
+                } else {
+                    resultsBtn.style.display = 'block';
+                }
+            }
+
+
+            // (イベントリスナーをセット)
+            
+            // ★ 解答表示ボタン
+            showAnswerBtn.addEventListener('click', showAnswer);
+            
+            // ★ 自己採点ボタン
+            correctBtn.addEventListener('click', () => selfAssess(true));
+            incorrectBtn.addEventListener('click', () => selfAssess(false));
+
+            // ★ 次へボタン
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestionIndex < quizData.length - 1) { 
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            });
+
+            // ★ 結果ボタン (ロジックはほぼ同じ)
+            resultsBtn.addEventListener('click', () => {
+                quizContainer.style.display = 'none'; 
+                resultsContainer.style.display = 'block';
+                const percentage = (quizData.length > 0) ? Math.round((score / quizData.length) * 100) : 0;
+                scoreTextEl.textContent = `${quizData.length} 問中 ${score} 問正解！ (正答率: ${percentage}%)`;
+                
+                let rank = "-"; 
+                if (quizData.length > 0) { 
+                    if (percentage === 100) rank = "S"; 
+                    else if (percentage >= 80) rank = "A"; 
+                    else if (percentage >= 60) rank = "B"; 
+                    else rank = "C"; 
+                }
+                
+                // ★★★★★ quizId を 'M1-2-3-2' に設定 ★★★★★
+                const quizId = 'M1-2-3-2'; 
+                
+                try { 
+                    localStorage.setItem('quizRank_' + quizId, rank); 
+                } catch (e) { 
+                    console.error("localStorage save failed:", e); 
+                }
+                
+                let message = "";
+                if (quizData.length === 0) { message = "問題データが読み込まれていません。"; }
+                else if (percentage === 100) { message = "全問正解です！素晴らしい！完璧です。"; }
+                else if (percentage >= 80) { message = "素晴らしい成績です。この調子で頑張りましょう！"; }
+                else if (percentage >= 60) { message = "よくできました。間違えたところをもう一度確認しましょう。"; }
+                else { message = "お疲れ様でした。基本が大切です。しっかり復習しましょう。"; }
+                finalMessageEl.textContent = message;
+            });
+
+            // (クイズ開始) (変更なし)
+            if (quizData && quizData.length > 0) {
+                loadQuestion();
+            } else {
+                questionTextEl.innerHTML = "問題データ (allQuizData) が見つからないか空です。<br>HTMLファイルを確認してください。"; 
+                questionNumberEl.textContent = "エラー";
+                quizContainer.style.display = 'block';
+                resultsContainer.style.display = 'none';
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>集合と命題：証明問題</h1>
+        </header>
+        <main>
+            <div id="quiz-container">
+                <div id="question-header"><span id="question-number"></span></div>
+                <h2 id="question-text"></h2>
+                
+                <div id="options-container"></div>
+                
+                <button id="show-answer-btn">解答を表示する</button>
+                
+                <div id="feedback"></div>
+
+                <div id="self-assessment-container">
+                    <p>解答を確認して、自己採点してください。</p>
+                    <button class="assess-btn" id="correct-btn">正解</button>
+                    <button class="assess-btn" id="incorrect-btn">不正解</button>
+                </div>
+
+                <button id="next-btn">次の問題へ</button>
+                <button id="results-btn">結果を見る</button>
+            </div>
+            
+            <div id="results-container" style="display: none;">
+                <h2>テスト終了！</h2>
+                <p id="score-text"></p>
+                <p id="final-message"></p>
+                <a href="index.html" id="homepage-link">トップページに戻る</a>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 [香川亮]</p>
+        </footer>
+    </div>
+</body>
+</html>
