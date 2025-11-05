@@ -577,7 +577,7 @@
                     const rankSpan = document.getElementById('rank-' + quizId);
                     if (rankSpan) {
                         try {
-                             const savedRank = localStorage.getItem('quizRank_'T + quizId);
+                             const savedRank = localStorage.getItem('quizRank_' + quizId);
                              const valid = new Set(['S','A','B','C']);
                              if (valid.has(savedRank)) {
                                 rankSpan.textContent = `(Rank: ${savedRank})`;
@@ -653,7 +653,7 @@
                     const selectedColor = button.getAttribute('data-color');
                     body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
                     if (selectedColor !== 'default') {
-                        body.classList.add('bg-'C + selectedColor);
+                        body.classList.add('bg-' + selectedColor);
                     }
                     try {
                         localStorage.setItem(storageKey_Color, selectedColor);
