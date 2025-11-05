@@ -174,358 +174,427 @@
 // --- ★ allQuizData 配列 (M1-2-1-1.html 用) ★ ---
             const allQuizData = [
                 // --- タイプ1: 集合の要素 (10題) ---
-                // 問題 1
+               // 問題 1
                 {
-                    question: "集合 $A=\\left\\{2n-1 \\mid n \\text{ は } 1 \\leqq n \\leqq 4 \\text{ の整数}\\right\\}$ の要素をすべて書き並べたものを選べ。",
-                    options: [ "$\\left\\{1, 3, 5, 7\\right\\}$", "$\\left\\{1, 3, 5\\right\\}$", "$\\left\\{2, 4, 6, 8\\right\\}$", "$\\left\\{1, 2, 3, 4\\right\\}$" ],
-                    answer: "$\\left\\{1, 3, 5, 7\\right\\}$",
-                    rationale: "$n=1, 2, 3, 4$ を $2n-1$ に代入します。<br>$n=1 \implies 2(1)-1 = 1$<br>$n=2 \implies 2(2)-1 = 3$<br>$n=3 \implies 2(3)-1 = 5$<br>$n=4 \implies 2(4)-1 = 7$<br>よって $A=\\left\\{1, 3, 5, 7\\right\\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$, $A=\\left\\{1, 2, 3\\right\\}$, $B=\\left\\{3, 4, 5\\right\\}$ のとき、$\\overline{A}$ を求めよ。",
+                    options: [ "$\\left\\{4, 5, 6\\right\\}$", "$\\left\\{1, 2, 3\\right\\}$", "$\\left\\{3\\right\\}$", "$\\left\\{6\\right\\}$" ],
+                    answer: "$\\left\\{4, 5, 6\\right\\}$",
+                    rationale: "$\\overline{A}$ は $U$ の要素のうち $A$ に含まれないものの集合です。<br>$U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$ から $A=\\left\\{1, 2, 3\\right\\}$ を除いたものなので、$\\left\\{4, 5, 6\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 2
                 {
-                    question: "集合 $B=\\left\\{3n \\mid n \\text{ は } 1 \\leqq n \\leqq 5 \\text{ の整数}\\right\\}$ の要素として正しくないものを選べ。",
-                    options: [ "$16$", "$3$", "$9$", "$15$" ],
-                    answer: "$16$",
-                    rationale: "$n=1, 2, 3, 4, 5$ を $3n$ に代入します。<br>$B=\\left\\{3, 6, 9, 12, 15\\right\\}$。<br>よって $16$ は $B$ の要素ではありません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$, $A=\\left\\{1, 2, 3\\right\\}$, $B=\\left\\{3, 4, 5\\right\\}$ のとき、$\\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{1, 2, 6\\right\\}$", "$\\left\\{3, 4, 5\\right\\}$", "$\\left\\{1, 2\\right\\}$", "$\\left\\{6\\right\\}$" ],
+                    answer: "$\\left\\{1, 2, 6\\right\\}$",
+                    rationale: "$\\overline{B}$ は $U$ の要素のうち $B$ に含まれないものの集合です。<br>$U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$ から $B=\\left\\{3, 4, 5\\right\\}$ を除いたものなので、$\\left\\{1, 2, 6\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 3
                 {
-                    question: "集合 $C=\\left\\{n^2 \\mid n \\text{ は } 1 \\leqq n \\leqq 4 \\text{ の自然数}\\right\\}$ の要素を選べ。",
-                    options: [ "$9$", "$2$", "$3$", "$8$" ],
-                    answer: "$9$",
-                    rationale: "$n=1, 2, 3, 4$ を $n^2$ に代入します。<br>$1^2=1, 2^2=4, 3^2=9, 4^2=16$<br>$C=\\left\\{1, 4, 9, 16\\right\\}$。<br>よって $9$ は $C$ の要素です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$, $A=\\left\\{1, 2, 3\\right\\}$, $B=\\left\\{3, 4, 5\\right\\}$ のとき、$A \\cup B$ を求めよ。",
+                    options: [ "$\\left\\{1, 2, 3, 4, 5\\right\\}$", "$\\left\\{3\\right\\}$", "$\\left\\{1, 2, 3, 4, 5, 6\\right\\}$", "$\\left\\{1, 2, 4, 5\\right\\}$" ],
+                    answer: "$\\left\\{1, 2, 3, 4, 5\\right\\}$",
+                    rationale: "$A \\cup B$ は $A$ と $B$ の和集合（少なくとも一方に含まれる要素）です。<br>よって $\\left\\{1, 2, 3, 4, 5\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 4
                 {
-                    question: "集合 $D=\\left\\{x(x-1) \\mid x \\text{ は } 1 \\leqq x \\leqq 4 \\text{ の自然数}\\right\\}$ の要素を選べ。",
-                    options: [ "$6$", "$4$", "$8$", "$1$" ],
-                    answer: "$6$",
-                    rationale: "$x=1, 2, 3, 4$ を $x(x-1)$ に代入します。<br>$x=1 \implies 1(0)=0$<br>$x=2 \implies 2(1)=2$<br>$x=3 \implies 3(2)=6$<br>$x=4 \implies 4(3)=12$<br>$D=\\left\\{0, 2, 6, 12\\right\\}$。<br>よって $6$ は $D$ の要素です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$, $A=\\left\\{1, 2, 3\\right\\}$, $B=\\left\\{3, 4, 5\\right\\}$ のとき、$A \\cap B$ を求めよ。",
+                    options: [ "$\\left\\{3\\right\\}$", "$\\left\\{1, 2, 3, 4, 5\\right\\}$", "$\\left\\{1, 2, 4, 5\\right\\}$", "$\\emptyset$" ],
+                    answer: "$\\left\\{3\\right\\}$",
+                    rationale: "$A \\cap B$ は $A$ と $B$ の共通部分（両方に含まれる要素）です。<br>よって $\\left\\{3\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 5
                 {
-                    question: "集合 $A=\\left\\{x \\mid x \\text{ は12の正の約数}\\right\\}$ の要素を選べ。",
-                    options: [ "$4$", "$5$", "$8$", "$0$" ],
-                    answer: "$4$",
-                    rationale: "12の正の約数は $1, 2, 3, 4, 6, 12$ です。<br>$A=\\left\\{1, 2, 3, 4, 6, 12\\right\\}$。<br>よって $4$ は $A$ の要素です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$, $A=\\left\\{1, 2, 3\\right\\}$, $B=\\left\\{3, 4, 5\\right\\}$ のとき、$\\overline{A \\cup B}$ を求めよ。",
+                    options: [ "$\\left\\{6\\right\\}$", "$\\left\\{1, 2, 3, 4, 5\\right\\}$", "$\\left\\{1, 2, 4, 5, 6\\right\\}$", "$\\left\\{7, 8, 9\\right\\}$" ],
+                    answer: "$\\left\\{6\\right\\}$",
+                    rationale: "$A \\cup B = \\left\\{1, 2, 3, 4, 5\\right\\}$ です。<br>$\\overline{A \\cup B}$ は $U$ のうち $A \\cup B$ に含まれない要素なので $\\left\\{6\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 6
                 {
-                    question: "集合 $A=\\left\\{x \\mid x \\text{ は18の正の約数}\\right\\}$ の要素として正しくないものを選べ。",
-                    options: [ "$8$", "$1$", "$6$", "$18$" ],
-                    answer: "$8$",
-                    rationale: "18の正の約数は $1, 2, 3, 6, 9, 18$ です。<br>$A=\\left\\{1, 2, 3, 6, 9, 18\\right\\}$。<br>よって $8$ は $A$ の要素ではありません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$, $A=\\left\\{1, 2, 3\\right\\}$, $B=\\left\\{3, 4, 5\\right\\}$ のとき、$\\overline{A} \\cap \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{6\\right\\}$", "$\\left\\{1, 2, 4, 5, 6\\right\\}$", "$\\left\\{1, 2, 3, 4, 5\\right\\}$", "$\\emptyset$" ],
+                    answer: "$\\left\\{6\\right\\}$",
+                    rationale: "ド・モルガンの法則より $\\overline{A} \\cap \\overline{B} = \\overline{A \\cup B}$ です。<br>$A \\cup B = \\left\\{1, 2, 3, 4, 5\\right\\}$ なので、<br>$\\overline{A \\cup B} = \\left\\{6\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 7
                 {
-                    question: "集合 $P=\\left\\{x \\mid x \\text{ は10以下の素数}\\right\\}$ の要素を選べ。",
-                    options: [ "$7$", "$1$", "$9$", "$4$" ],
-                    answer: "$7$",
-                    rationale: "10以下の素数は $2, 3, 5, 7$ です（1は素数ではありません）。<br>$P=\\left\\{2, 3, 5, 7\\right\\}$。<br>よって $7$ は $P$ の要素です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$, $A=\\left\\{1, 2, 3\\right\\}$, $B=\\left\\{3, 4, 5\\right\\}$ のとき、$\\overline{A \\cap B}$ を求めよ。",
+                    options: [ "$\\left\\{1, 2, 4, 5, 6\\right\\}$", "$\\left\\{3\\right\\}$", "$\\left\\{6\\right\\}$", "$\\left\\{1, 2, 3, 4, 5, 6\\right\\}$" ],
+                    answer: "$\\left\\{1, 2, 4, 5, 6\\right\\}$",
+                    rationale: "$A \\cap B = \\left\\{3\\right\\}$ です。<br>$\\overline{A \\cap B}$ は $U$ のうち $A \\cap B$ に含まれない要素なので $\\left\\{1, 2, 4, 5, 6\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 8
                 {
-                    question: "集合 $Q=\\left\\{x \\mid 2x+3 \lt 12, x \\text{ は自然数}\\right\\}$ の要素を選べ。",
-                    options: [ "$4$", "$0$", "$5$", "$4.5$" ],
-                    answer: "$4$",
-                    rationale: "$2x+3 < 12 \implies 2x < 9 \implies x < 4.5$。<br>$x$ は自然数なので $x=1, 2, 3, 4$。<br>$Q=\\left\\{1, 2, 3, 4\\right\\}$。<br>よって $4$ は $Q$ の要素です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$, $A=\\left\\{1, 2, 3\\right\\}$, $B=\\left\\{3, 4, 5\\right\\}$ のとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{1, 2, 4, 5, 6\\right\\}$", "$\\left\\{1, 2, 6\\right\\}$", "$\\left\\{4, 5, 6\\right\\}$", "$\\left\\{3\\right\\}$" ],
+                    answer: "$\\left\\{1, 2, 4, 5, 6\\right\\}$",
+                    rationale: "ド・モルガンの法則より $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ です。<br>$A \\cap B = \\left\\{3\\right\\}$ なので、<br>$\\overline{A \\cap B} = \\left\\{1, 2, 4, 5, 6\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 9
                 {
-                    question: "集合 $A=\\left\\{x \\mid |x| \\leqq 2, x \\text{ は整数}\\right\\}$ の要素をすべて書き並べたものを選べ。",
-                    options: [ "$\\left\\{-2, -1, 0, 1, 2\\right\\}$", "$\\left\\{0, 1, 2\\right\\}$", "$\\left\\{-2, -1, 1, 2\\right\\}$", "$\\left\\{1, 2\\right\\}$" ],
-                    answer: "$\\left\\{-2, -1, 0, 1, 2\\right\\}$",
-                    rationale: "絶対値が $2$ 以下になる整数は $-2, -1, 0, 1, 2$ です。<br>$A=\\left\\{-2, -1, 0, 1, 2\\right\\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$U=\\left\\{1, ..., 9\\right\\}$, $A=\\left\\{1, 3, 5, 7\\right\\}$, $B=\\left\\{2, 3, 5, 8\\right\\}$ のとき、$\\overline{A} \\cap \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{4, 6, 9\\right\\}$", "$\\left\\{1, 2, 3, 5, 7, 8\\right\\}$", "$\\left\\{3, 5\\right\\}$", "$\\left\\{1, 2, 4, 6, 8, 9\\right\\}$" ],
+                    answer: "$\\left\\{4, 6, 9\\right\\}$",
+                    rationale: "ド・モルガンの法則 $\\overline{A} \\cap \\overline{B} = \\overline{A \\cup B}$ を使います。<br>$A \\cup B = \\left\\{1, 2, 3, 5, 7, 8\\right\\}$ です。<br>$U$ から $A \\cup B$ の要素を除くと $\\left\\{4, 6, 9\\right\\}$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 10
                 {
-                    question: "集合 $B=\\left\\{x \\mid x^2 = 9, x \\text{ は実数}\\right\\}$ の要素をすべて書き並べたものを選べ。",
-                    options: [ "$\\left\\{3, -3\\right\\}$", "$\\left\\{3\\right\\}$", "$\\left\\{9\\right\\}$", "$\\left\\{9, -9\\right\\}$" ],
-                    answer: "$\\left\\{3, -3\\right\\}$",
-                    rationale: "$x^2=9$ を満たす実数 $x$ は $x=\\pm 3$ です。<br>$B=\\left\\{3, -3\\right\\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$U=\\left\\{1, ..., 9\\right\\}$, $A=\\left\\{1, 3, 5, 7\\right\\}$, $B=\\left\\{2, 3, 5, 8\\right\\}$ のとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{1, 2, 4, 6, 7, 8, 9\\right\\}$", "$\\left\\{3, 5\\right\\}$", "$\\left\\{4, 6, 9\\right\\}$", "$\\left\\{1, 2, 3, 5, 7, 8\\right\\}$" ],
+                    answer: "$\\left\\{1, 2, 4, 6, 7, 8, 9\\right\\}$",
+                    rationale: "ド・モルガンの法則 $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ を使います。<br>$A \\cap B = \\left\\{3, 5\\right\\}$ です。<br>$U$ から $A \\cap B$ の要素を除くと $\\left\\{1, 2, 4, 6, 7, 8, 9\\right\\}$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ2: 部分集合 (10題) ---
+                // --- タイプ2: 不等式 (15題) ---
                 // 問題 11
                 {
-                    question: "$A=\\left\\{1, 2, 3, 4, 5\\right\\}$ の部分集合であるものを選べ。",
-                    options: [ "$\\left\\{1, 3, 5\\right\\}$", "$\\left\\{0, 1, 2\\right\\}$", "$\\left\\{1, 2, 3, 4, 5, 6\\right\\}$", "$\\left\\{4, 6\\right\\}$" ],
-                    answer: "$\\left\\{1, 3, 5\\right\\}$",
-                    rationale: "部分集合とは、その集合の要素をすべて含んでいる集合のことです。<br>$\\left\\{1, 3, 5\\right\\}$ の要素 $1, 3, 5$ はすべて $A$ に含まれています。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\geqq 0\\right\\}$, $B=\\left\\{x \\mid -1 \\leqq x \\leqq 1\\right\\}$ とするとき、$\\overline{A \\cup B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\lt -1\\right\\}$", "$\\left\\{x \\mid x \\lt 0, x \\gt 1\\right\\}$", "$\\left\\{x \\mid x \\geqq -1\\right\\}$", "$\\left\\{x \\mid 0 \\leqq x \\leqq 1\\right\\}$" ],
+                    answer: "$\\left\\{x \\mid x \\lt -1\\right\\}$",
+                    rationale: "$A \\cup B$ は $A$ または $B$ に含まれる範囲なので、$\\left\\{x \\mid x \\geqq -1\\right\\}$ です。<br>$\\overline{A \\cup B}$ はその補集合なので、$\\left\\{x \\mid x \\lt -1\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 12
                 {
-                    question: "$A=\\left\\{a, b, c, d\\right\\}$ の部分集合でないものを選べ。",
-                    options: [ "$\\left\\{a, e\\right\\}$", "$\\left\\{a, b, c\\right\\}$", "$\\left\\{d\\right\\}$", "$\\emptyset$" ],
-                    answer: "$\\left\\{a, e\\right\\}$",
-                    rationale: "$\\left\\{a, e\\right\\}$ の要素 $e$ が $A$ に含まれていないため、部分集合ではありません。<br>空集合 $\\emptyset$ はすべての集合の部分集合です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\geqq 0\\right\\}$, $B=\\left\\{x \\mid -1 \\leqq x \\leqq 1\\right\\}$ とするとき、$\\overline{A} \\cap \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\lt -1\\right\\}$", "$\\left\\{x \\mid x \\lt 0, x \\gt 1\\right\\}$", "$\\left\\{x \\mid x \\geqq -1\\right\\}$", "$\\left\\{x \\mid 0 \\leqq x \\leqq 1\\right\\}$" ],
+                    answer: "$\\left\\{x \\mid x \\lt -1\\right\\}$",
+                    rationale: "ド・モルガンの法則より $\\overline{A} \\cap \\overline{B} = \\overline{A \\cup B}$ です。<br>$A \\cup B = \\left\\{x \\mid x \\geqq -1\\right\\}$ なので、<br>$\\overline{A \\cup B} = \\left\\{x \\mid x \\lt -1\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 13
                 {
-                    question: "$A=\\left\\{1, 2, 3\\right\\}$ の部分集合は全部でいくつあるか。",
-                    options: [ "$8$個", "$7$個", "$6$個", "$3$個" ],
-                    answer: "$8$個",
-                    rationale: "要素が $n$ 個の集合の部分集合の個数は $2^n$ 個です。<br>$A$ の要素は3個なので、$2^3 = 8$ 個です。<br>（$\\emptyset, \\left\\{1\\right\\}, \\left\\{2\\right\\}, \\left\\{3\\right\\}, \\left\\{1, 2\\right\\}, \\left\\{1, 3\\right\\}, \\left\\{2, 3\\right\\}, \\left\\{1, 2, 3\\right\\}$）<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\geqq 0\\right\\}$, $B=\\left\\{x \\mid -1 \\leqq x \\leqq 1\\right\\}$ とするとき、$\\overline{A \\cap B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\lt 0, x \\gt 1\\right\\}$", "$\\left\\{x \\mid x \\lt -1\\right\\}$", "$\\left\\{x \\mid x \\geqq -1\\right\\}$", "$\\left\\{x \\mid 0 \\leqq x \\leqq 1\\right\\}$" ],
+                    answer: "$\\left\\{x \\mid x \\lt 0, x \\gt 1\\right\\}$",
+                    rationale: "$A \\cap B$ は $A$ かつ $B$ に含まれる範囲なので、$\\left\\{x \\mid 0 \\leqq x \\leqq 1\\right\\}$ です。<br>$\\overline{A \\cap B}$ はその補集合なので、$\\left\\{x \\mid x \\lt 0 \\text{ または } x \\gt 1\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 14
                 {
-                    question: "$A=\\left\\{1, 2, 3, 4, 5\\right\\}$, $B=\\left\\{1, 2, 3\\right\\}$ のとき、正しい関係を選べ。",
-                    options: [ "$A \\supset B$", "$A \\subset B$", "$A = B$", "$A \\cap B = \\emptyset$" ],
-                    answer: "$A \\supset B$",
-                    rationale: "$B$ の要素 $\\left\\{1, 2, 3\\right\\}$ はすべて $A$ に含まれているため、$B$ は $A$ の部分集合です（$B \\subset A$）。<br>これは $A$ が $B$ を含む（$A \\supset B$）ことと同じです。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\geqq 0\\right\\}$, $B=\\left\\{x \\mid -1 \\leqq x \\leqq 1\\right\\}$ とするとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\lt 0, x \\gt 1\\right\\}$", "$\\left\\{x \\mid x \\lt -1\\right\\}$", "$\\left\\{x \\mid x \\lt -1, x \\gt 0\\right\\}$", "$\\left\\{x \\mid x \\lt -1, x \\gt 1\\right\\}$" ],
+                    answer: "$\\left\\{x \\mid x \\lt 0, x \\gt 1\\right\\}$",
+                    rationale: "ド・モルガンの法則より $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ です。<br>$A \\cap B = \\left\\{x \\mid 0 \\leqq x \\leqq 1\\right\\}$ なので、<br>$\\overline{A \\cap B} = \\left\\{x \\mid x \\lt 0 \\text{ または } x \\gt 1\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 15
                 {
-                    question: "$A=\\left\\{x \\mid x \\text{ は8の正の約数}\\right\\}$ の部分集合であるものを選べ。",
-                    options: [ "$\\left\\{1, 2, 4\\right\\}$", "$\\left\\{1, 2, 6\\right\\}$", "$\\left\\{0, 1, 2\\right\\}$", "$\\left\\{8, 16\\right\\}$" ],
-                    answer: "$\\left\\{1, 2, 4\\right\\}$",
-                    rationale: "$A=\\left\\{1, 2, 4, 8\\right\\}$ です。<br>$\\left\\{1, 2, 4\\right\\}$ の要素はすべて $A$ に含まれています。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\gt 3\\right\\}$, $B=\\left\\{x \\mid x \\gt 5\\right\\}$ とするとき、$\\overline{A} \\cap \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\leqq 3\\right\\}$", "$\\left\\{x \\mid x \\leqq 5\\right\\}$", "$\\left\\{x \\mid x \\gt 3\\right\\}$", "$\\left\\{x \\mid 3 \\lt x \\leqq 5\\right\\}$" ],
+                    answer: "$\\left\\{x \\mid x \\leqq 3\\right\\}$",
+                    rationale: "ド・モルガンの法則より $\\overline{A} \\cap \\overline{B} = \\overline{A \\cup B}$ です。<br>$A \\cup B = \\left\\{x \\mid x \\gt 3\\right\\}$ です。<br>よってその補集合は $\\left\\{x \\mid x \\leqq 3\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 16
                 {
-                    question: "$A=\\left\\{x \\mid 1 \\lt x \\lt 10, x \\text{ は整数}\\right\\}$ の部分集合でないものを選べ。",
-                    options: [ "$\\left\\{1, 3, 5\\right\\}$", "$\\left\\{2, 4, 6, 8\\right\\}$", "$\\left\\{5, 7, 9\\right\\}$", "$\\emptyset$" ],
-                    answer: "$\\left\\{1, 3, 5\\right\\}$",
-                    rationale: "$A=\\left\\{2, 3, 4, 5, 6, 7, 8, 9\\right\\}$ です。<br>$\\left\\{1, 3, 5\\right\\}$ の要素 $1$ が $A$ に含まれていないため、部分集合ではありません。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\gt 3\\right\\}$, $B=\\left\\{x \\mid x \\gt 5\\right\\}$ とするとき、$\\overline{A \\cap B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\leqq 5\\right\\}$", "$\\left\\{x \\mid x \\leqq 3\\right\\}$", "$\\left\\{x \\mid x \\gt 5\\right\\}$", "$\\left\\{x \\mid 3 \\lt x \\leqq 5\\right\\}$" ],
+                    answer: "$\\left\\{x \\mid x \\leqq 5\\right\\}$",
+                    rationale: "$A \\cap B = \\left\\{x \\mid x \\gt 5\\right\\}$ です。<br>よってその補集合は $\\left\\{x \\mid x \\leqq 5\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 17
                 {
-                    question: "$A=\\left\\{x \\mid x \\text{ は偶数}\\right\\}, B=\\left\\{x \\mid x \\text{ は4の倍数}\\right\\}$ のとき、正しい関係を選べ。",
-                    options: [ "$A \\supset B$", "$A \\subset B$", "$A = B$", "$A \\cap B = \\emptyset$" ],
-                    answer: "$A \\supset B$",
-                    rationale: "4の倍数（...-4, 0, 4, 8...）は、すべて偶数（...-4, -2, 0, 2, 4...）に含まれます。<br>よって $B \\subset A$、つまり $A \\supset B$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\gt 3\\right\\}$, $B=\\left\\{x \\mid x \\gt 5\\right\\}$ とするとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\leqq 5\\right\\}$", "$\\left\\{x \\mid x \\leqq 3\\right\\}$", "$\\left\\{x \\mid x \\gt 5\\right\\}$", "$\\left\\{x \\mid 3 \\lt x \\leqq 5\\right\\}$" ],
+                    answer: "$\\left\\{x \\mid x \\leqq 5\\right\\}$",
+                    rationale: "ド・モルガンの法則より $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ です。<br>$A \\cap B = \\left\\{x \\mid x \\gt 5\\right\\}$ です。<br>よってその補集合は $\\left\\{x \\mid x \\leqq 5\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 18
                 {
-                    question: "$A=\\left\\{x \\mid x \\text{ は整数}\\right\\}, B=\\left\\{x \\mid x \\text{ は自然数}\\right\\}$ のとき、正しい関係を選べ。",
-                    options: [ "$A \\supset B$", "$A \\subset B$", "$A = B$", "$A \\cap B = \\emptyset$" ],
-                    answer: "$A \\supset B$",
-                    rationale: "自然数（1, 2, 3...）は、すべて整数（...-1, 0, 1...）に含まれます。<br>よって $B \\subset A$、つまり $A \\supset B$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\lt 0\\right\\}$, $B=\\left\\{x \\mid x \\gt 2\\right\\}$ とするとき、$\\overline{A \\cup B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid 0 \\leqq x \\leqq 2\\right\\}$", "$\\left\\{x \\mid x \\lt 0, x \\gt 2\\right\\}$", "$\\emptyset$", "すべての実数" ],
+                    answer: "$\\left\\{x \\mid 0 \\leqq x \\leqq 2\\right\\}$",
+                    rationale: "$A \\cup B = \\left\\{x \\mid x \\lt 0 \\text{ または } x \\gt 2\\right\\}$ です。<br>よってその補集合は $\\left\\{x \\mid 0 \\leqq x \\leqq 2\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 19
                 {
-                    question: "$A=\\left\\{1, 2, 3, 4\\right\\}$ の部分集合 $B$ が $A \neq B$ を満たすとき、$B$ としてあり得ないものを選べ。",
-                    options: [ "$\\left\\{1, 2, 3, 4\\right\\}$", "$\\left\\{1, 2, 3\\right\\}$", "$\\left\\{4\\right\\}$", "$\\emptyset$" ],
-                    answer: "$\\left\\{1, 2, 3, 4\\right\\}$",
-                    rationale: "$A \neq B$ は $A$ と $B$ が等しくないことを意味します。<br>$B=\\left\\{1, 2, 3, 4\\right\\}$ とすると $A=B$ となり、条件に違反します。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\lt 0\\right\\}$, $B=\\left\\{x \\mid x \\gt 2\\right\\}$ とするとき、$\\overline{A} \\cap \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid 0 \\leqq x \\leqq 2\\right\\}$", "$\\left\\{x \\mid x \\lt 0, x \\gt 2\\right\\}$", "$\\emptyset$", "すべての実数" ],
+                    answer: "$\\left\\{x \\mid 0 \\leqq x \\leqq 2\\right\\}$",
+                    rationale: "ド・モルガンの法則より $\\overline{A} \\cap \\overline{B} = \\overline{A \\cup B}$ です。<br>$A \\cup B = \\left\\{x \\mid x \\lt 0 \\text{ または } x \\gt 2\\right\\}$ です。<br>よってその補集合は $\\left\\{x \\mid 0 \\leqq x \\leqq 2\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 20
                 {
-                    question: "$A=\left\{1, 2, \\left\\{1, 2\\right\\}\\right\\}$ の部分集合として正しいものを選べ。",
-                    options: [ "$\\left\\{1, 2\\right\\}$", "$\\left\\{1, \\left\\{1, 2\\right\\}\\right\\}$", "$\\left\\{\\left\\{1, 2\\right\\}, 3\\right\\}$", "$\\left\\{3\\right\\}$" ],
-                    answer: "$\\left\\{1, 2\\right\\}$",
-                    rationale: "$A$ の要素は $1$, $2$, $\\left\\{1, 2\\right\\}$ の3つです。<br>$\\left\\{1, 2\\right\\}$ は、$A$ の要素 $1$ と $2$ を使って作られた $A$ の部分集合です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\lt 0\\right\\}$, $B=\\left\\{x \\mid x \\gt 2\\right\\}$ とするとき、$\\overline{A \\cap B}$ を求めよ。",
+                    options: [ "すべての実数", "$\\left\\{x \\mid 0 \\leqq x \\leqq 2\\right\\}$", "$\\emptyset$", "$\\left\\{x \\mid x \\leqq 0, x \\geqq 2\\right\\}$" ],
+                    answer: "すべての実数",
+                    rationale: "$A \\cap B$ は共通部分ですが、$0$ より小さく、かつ $2$ より大きい数は存在しません。<br>よって $A \\cap B = \\emptyset$ です。<br>その補集合は $U$（すべての実数）です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ3: 共通部分と和集合 (15題) ---
                 // 問題 21
                 {
-                    question: "$A=\\left\\{1, 2, 3, 4\\right\\}, B=\\left\\{2, 4, 6, 8\\right\\}$ のとき、$A \\cap B$ を求めよ。",
-                    options: [ "$\\left\\{2, 4\\right\\}$", "$\\left\\{1, 2, 3, 4, 6, 8\\right\\}$", "$\\left\\{1, 3\\right\\}$", "$\\left\\{6, 8\\right\\}$" ],
-                    answer: "$\\left\\{2, 4\\right\\}$",
-                    rationale: "$A \\cap B$ は $A$ と $B$ の共通部分（両方に含まれる要素）です。<br>よって $\\left\\{2, 4\\right\\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\lt 0\\right\\}$, $B=\\left\\{x \\mid x \\gt 2\\right\\}$ とするとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
+                    options: [ "すべての実数", "$\\left\\{x \\mid 0 \\leqq x \\leqq 2\\right\\}$", "$\\emptyset$", "$\\left\\{x \\mid x \\leqq 0, x \\geqq 2\\right\\}$" ],
+                    answer: "すべての実数",
+                    rationale: "ド・モルガンの法則より $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ です。<br>$A \\cap B = \\emptyset$ なので、<br>$\\overline{A \\cap B} = U$（すべての実数）です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 22
                 {
-                    question: "$A=\\left\\{1, 2, 3, 4\\right\\}, B=\\left\\{2, 4, 6, 8\\right\\}$ のとき、$A \\cup B$ を求めよ。",
-                    options: [ "$\\left\\{1, 2, 3, 4, 6, 8\\right\\}$", "$\\left\\{2, 4\\right\\}$", "$\\left\\{1, 2, 3, 4, 5, 6, 7, 8\\right\\}$", "$\\left\\{ \\right\\}$" ],
-                    answer: "$\\left\\{1, 2, 3, 4, 6, 8\\right\\}$",
-                    rationale: "$A \\cup B$ は $A$ と $B$ の和集合（少なくとも一方 quantifiable含まれる要素）です。<br>よって $\\left\\{1, 2, 3, 4, 6, 8\\right\\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\geqq 1\\right\\}$, $B=\\left\\{x \\mid x \\leqq 4\\right\\}$ とするとき、$\\overline{A \\cap B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\lt 1, x \\gt 4\\right\\}$", "$\\left\\{x \\mid 1 \\leqq x \\leqq 4\\right\\}$", "$\\emptyset$", "すべての実数" ],
+                    answer: "$\\left\\{x \\mid x \\lt 1, x \\gt 4\\right\\}$",
+                    rationale: "$A \\cap B = \\left\\{x \\mid 1 \\leqq x \\leqq 4\\right\\}$ です。<br>ド・モルガンの法則 $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ なので、<br>$\\overline{A \\cap B} = \\left\\{x \\mid x \\lt 1 \\text{ または } x \\gt 4\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 23
                 {
-                    question: "$A=\\left\\{a, b, c, d\\right\\}, B=\\left\\{c, d, e, f\\right\\}$ のとき、$A \\cap B$ を求めよ。",
-                    options: [ "$\\left\\{c, d\\right\\}$", "$\\left\\{a, b, c, d, e, f\\right\\}$", "$\\left\\{a, b\\right\\}$", "$\\left\\{e, f\\right\\}$" ],
-                    answer: "$\\left\\{c, d\\right\\}$",
-                    rationale: "$A \\cap B$ は $A$ と $B$ の共通部分です。<br>よって $\\left\\{c, d\\right\\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\geqq 1\\right\\}$, $B=\\left\\{x \\mid x \\leqq 4\\right\\}$ とするとき、$\\overline{A \\cup B}$ を求めよ。",
+                    options: [ "$\\emptyset$", "$\\left\\{x \\mid x \\lt 1, x \\gt 4\\right\\}$", "すべての実数", "$\\left\\{x \\mid 1 \\leqq x \\leqq 4\\right\\}$" ],
+                    answer: "$\\emptyset$",
+                    rationale: "$A \\cup B = \\left\\{x \\mid x \\text{ は実数}\\right\\} = U$ です。<br>よってその補集合は $\\emptyset$（空集合）です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 24
                 {
-                    question: "$A=\\left\\{a, b, c, d\\right\\}, B=\\left\\{c, d, e, f\\right\\}$ のとき、$A \\cup B$ を求めよ。",
-                    options: [ "$\\left\\{a, b, c, d, e, f\\right\\}$", "$\\left\\{c, d\\right\\}$", "$\\left\\{a, b, c, d, c, d, e, f\\right\\}$", "$\\left\\{a, b, e, f\\right\\}$" ],
-                    answer: "$\\left\\{a, b, c, d, e, f\\right\\}$",
-                    rationale: "$A \\cup B$ は $A$ と $B$ の和集合です。<br>よって $\\left\\{a, b, c, d, e, f\\right\\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\leqq 0\\right\\}$, $B=\\left\\{x \\mid x \\geqq 0\\right\\}$ とするとき、$\\overline{A \\cap B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\neq 0\\right\\}$", "$\\left\\{0\\right\\}$", "$\\emptyset$", "すべての実数" ],
+                    answer: "$\\left\\{x \\mid x \\neq 0\\right\\}$",
+                    rationale: "$A \\cap B$ は $0$ 以下かつ $0$ 以上、つまり $A \\cap B = \\left\\{0\\right\\}$ です。<br>その補集合は $\\left\\{x \\mid x \\neq 0\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 25
                 {
-                    question: "$A=\\left\\{1, 2, 3\\right\\}, B=\\left\\{4, 5, 6\\right\\}$ のとき、$A \\cap B$ を求めよ。",
-                    options: [ "$\\emptyset$", "$\\left\\{1, 2, 3, 4, 5, 6\\right\\}$", "$\\left\\{1, 2, 3\\right\\}$", "$\\left\\{ \right\}$" ],
-                    answer: "$\\emptyset$",
-                    rationale: "$A \\cap B$ は $A$ と $B$ の共通部分です。共通の要素がないため、空集合 $\\emptyset$ ( $\\left\\{ \\right\\}$ とも書く) になります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid -3 \\lt x \\lt 1\\right\\}$, $B=\\left\\{x \\mid 0 \\lt x \\lt 4\\right\\}$ とするとき、$\\overline{A \\cup B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\leqq -3, x \\geqq 4\\right\\}$", "$\\left\\{x \\mid -3 \\lt x \\lt 4\\right\\}$", "$\\left\\{x \\mid x \\leqq 0, x \\geqq 1\\right\\}$", "$\\left\\{x \\mid 0 \\lt x \\lt 1\\right\\}$" ],
+                    answer: "$\\left\\{x \\mid x \\leqq -3, x \\geqq 4\\right\\}$",
+                    rationale: "$A \\cup B = \\left\\{x \\mid -3 \\lt x \\lt 4\\right\\}$ です。<br>$\\overline{A \\cup B}$ はその補集合なので、$\\left\\{x \\mid x \\leqq -3 \\text{ または } x \\geqq 4\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 26
                 {
-                    question: "$A=\\left\\{1, 2, 3\\right\\}, B=\\left\\{4, 5, 6\\right\\}$ のとき、$A \\cup B$ を求めよ。",
-                    options: [ "$\\left\\{1, 2, 3, 4, 5, 6\\right\\}$", "$\\emptyset$", "$\\left\\{1, 2, 3\\right\\}$", "$\\left\\{4, 5, 6\\right\\}$" ],
-                    answer: "$\\left\\{1, 2, 3, 4, 5, 6\\right\\}$",
-                    rationale: "$A \\cup B$ は $A$ と $B$ の和集合です。<br>よって $\\left\\{1, 2, 3, 4, 5, 6\\right\\}$。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid -3 \\lt x \\lt 1\\right\\}$, $B=\\left\\{x \\mid 0 \\lt x \\lt 4\\right\\}$ とするとき、$\\overline{A \\cap B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\leqq 0, x \\geqq 1\\right\\}$", "$\\left\\{x \\mid 0 \\lt x \\lt 1\\right\\}$", "$\\left\\{x \\mid x \\leqq -3, x \\geqq 4\\right\\}$", "$\\left\\{x \\mid -3 \\lt x \\lt 4\\right\\}$" ],
+                    answer: "$\\left\\{x \\mid x \\leqq 0, x \\geqq 1\\right\\}$",
+                    rationale: "$A \\cap B = \\left\\{x \\mid 0 \\lt x \\lt 1\\right\\}$ です。<br>$\\overline{A \\cap B}$ はその補集合なので、$\\left\\{x \\mid x \\leqq 0 \\text{ または } x \\geqq 1\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 27
                 {
-                    question: "$A=\\left\\{1, 2, 3, 4\\right\\}, B=\\left\\{1, 3\\right\\}$ のとき、$A \\cap B$ を求めよ。",
-                    options: [ "$\\left\\{1, 3\\right\\}$", "$\\left\\{1, 2, 3, 4\\right\\}$", "$\\left\\{2, 4\\right\\}$", "$\\emptyset$" ],
-                    answer: "$\\left\\{1, 3\\right\\}$",
-                    rationale: "$A \\cap B$ は $A$ と $B$ の共通部分です。$B$ の要素はすべて $A$ に含まれているため、$A \\cap B = B = \\left\\{1, 3\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\lt 5\\right\\}$, $B=\\left\\{x \\mid x \\geqq 2\\right\\}$ とするとき、$\\overline{A} \\cap \\overline{B}$ を求めよ。",
+                    options: [ "$\\emptyset$", "すべての実数", "$\\left\\{x \\mid x \\lt 2, x \\geqq 5\\right\\}$", "$\\left\\{x \\mid 2 \\leqq x \\lt 5\\right\\}$" ],
+                    answer: "$\\emptyset$",
+                    rationale: "ド・モルガンの法則 $\\overline{A} \\cap \\overline{B} = \\overline{A \\cup B}$ を使います。<br>$A \\cup B = \\left\\{x \\mid x \\text{ は実数}\\right\\} = U$ です。<br>$U$ の補集合は $\\emptyset$（空集合）です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 28
                 {
-                    question: "$A=\\left\\{1, 2, 3, 4\\right\\}, B=\\left\\{1, 3\\right\\}$ のとき、$A \\cup B$ を求めよ。",
-                    options: [ "$\\left\\{1, 2, 3, 4\\right\\}$", "$\\left\\{1, 3\\right\\}$", "$\\left\\{1, 1, 2, 3, 3, 4\\right\\}$", "$\\left\\{2, 4\\right\\}$" ],
-                    answer: "$\\left\\{1, 2, 3, 4\\right\\}$",
-                    rationale: "$A \\cup B$ は $A$ と $B$ の和集合です。$B$ の要素はすべて $A$ に含まれているため、$A \\cup B = A = \\left\\{1, 2, 3, 4\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\lt 5\\right\\}$, $B=\\left\\{x \\mid x \\geqq 2\\right\\}$ とするとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid x \\lt 2, x \\geqq 5\\right\\}$", "$\\left\\{x \\mid 2 \\leqq x \\lt 5\\right\\}$", "$\\emptyset$", "すべての実数" ],
+                    answer: "$\\left\\{x \\mid x \\lt 2, x \\geqq 5\\right\\}$",
+                    rationale: "ド・モルガンの法則 $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ を使います。<br>$A \\cap B = \\left\\{x \\mid 2 \\leqq x \\lt 5\\right\\}$ です。<br>その補集合は $\\left\\{x \\mid x \\lt 2 \\text{ または } x \\geqq 5\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 29
                 {
-                    question: "$A=\\left\\{x \\mid x \\text{ は6の正の約数}\\right\\}, B=\\left\\{x \\mid x \\text{ は4の正の約数}\\right\\}$ のとき、$A \\cap B$ を求めよ。",
-                    options: [ "$\\left\\{1, 2\\right\\}$", "$\\left\\{1, 2, 3, 4, 6\\right\\}$", "$\\left\\{1\\right\\}$", "$\\left\\{1, 2, 3, 6\\right\\}$" ],
-                    answer: "$\\left\\{1, 2\\right\\}$",
-                    rationale: "$A=\\left\\{1, 2, 3, 6\\right\\}$, $B=\\left\\{1, 2, 4\\right\\}$ です。<br>$A \\cap B$ は両方に含まれる要素なので $\\left\\{1, 2\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$U=\\left\\{1, 2, 3\\right\\}$, $A=\\left\\{1, 2\\right\\}$, $B=\\left\\{2, 3\\right\\}$ のとき、$\\overline{A} \\cap \\overline{B}$ を求めよ。",
+                    options: [ "$\\emptyset$", "$\\left\\{1, 2, 3\\right\\}$", "$\\left\\{2\\right\\}$", "$\\left\\{1, 3\\right\\}$" ],
+                    answer: "$\\emptyset$",
+                    rationale: "$\\overline{A} = \\left\\{3\\right\\}$<br>$\\overline{B} = \\left\\{1\\right\\}$<br>$\\overline{A} \\cap \\overline{B}$ は $\\overline{A}$ と $\\overline{B}$ の共通部分なので $\\emptyset$ です。<br>もしくは，ド・モルガンの法則より$\\overline{A}\\cap \\overline{B}=\\overline{A\\cup B}$<br>$A\\cup B=\\left\\{ 1, 2, 3\\right\\}=U$ですから，補集合は$\\empty$です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 30
                 {
-                    question: "$A=\\left\\{x \\mid x \\text{ は6の正の約数}\\right\\}, B=\\left\\{x \\mid x \\text{ は4の正の約数}\\right\\}$ のとき、$A \\cup B$ を求めよ。",
-                    options: [ "$\\left\\{1, 2, 3, 4, 6\\right\\}$", "$\\left\\{1, 2\\right\\}$", "$\\left\\{1, 2, 3, 4, 6, 12, 24\\right\\}$", "$\\left\\{1, 2, 4\\right\\}$" ],
-                    answer: "$\\left\\{1, 2, 3, 4, 6\\right\\}$",
-                    rationale: "$A=\\left\\{1, 2, 3, 6\\right\\}$, $B=\\left\\{1, 2, 4\\right\\}$ です。<br>$A \\cup B$ は少なくとも一方に含まれる要素なので $\\left\\{1, 2, 3, 4, 6\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$U=\\left\\{1, 2, 3\\right\\}$, $A=\\left\\{1, 2\\right\\}$, $B=\\left\\{2, 3\\right\\}$ のとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{1, 3\\right\\}$", "$\\left\\{2\\right\\}$", "$\\left\\{1, 2, 3\\right\\}$", "$\\emptyset$" ],
+                    answer: "$\\left\\{1, 3\\right\\}$",
+                    rationale: "$\\overline{A} = \\left\\{3\\right\\}$<br>$\\overline{B} = \\left\\{1\\right\\}$<br>$\\overline{A} \\cup \\overline{B}$ は $\\overline{A}$ と $\\overline{B}$ の和集合なので $\\left\\{1, 3\\right\\}$ です。<br>もしくは，ド・モルガンの法則より$\\overline{A}\\cup \\overline{B}=\\overline{A\\cap B}$<br>$A\\cap B=\\left\\{ 2 \\right\\}$ですから，補集合は$\\left\\{ 1, 3\\right\\}$です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
+                // --- タイプ3: 要素の個数 (20題) ---
                 // 問題 31
                 {
-                    question: "$A=\\left\\{x \\mid 1 \le x \le 5, x \\text{ は整数}\\right\\}, B=\\left\\{x \\mid 3 \le x \le 7, x \\text{ は整数}\\right\\}$ のとき、$A \\cap B$ を求めよ。",
-                    options: [ "$\\left\\{3, 4, 5\\right\\}$", "$\\left\\{1, 2, 3, 4, 5, 6, 7\\right\\}$", "$\\left\\{3, 4\\right\\}$", "$\\left\\{1, 2, 6, 7\\right\\}$" ],
-                    answer: "$\\left\\{3, 4, 5\\right\\}$",
-                    rationale: "$A=\\left\\{1, 2, 3, 4, 5\\right\\}$, $B=\\left\\{3, 4, 5, 6, 7\\right\\}$ です。<br>$A \\cap B$ は共通部分なので $\\left\\{3, 4, 5\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=100, n(A)=40, n(B)=30, n(A \\cap B)=10$ のとき、$n(A \\cup B)$ を求めよ。",
+                    options: [ "$60$", "$70$", "$50$", "$80$" ],
+                    answer: "$60$",
+                    rationale: "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$<br>$= 40 + 30 - 10 = 60$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 32
                 {
-                    question: "$A=\\left\\{x \\mid 1 \le x \le 5, x \\text{ は整数}\\right\\}, B=\\left\\{x \\mid 3 \le x \le 7, x \\text{ は整数}\\right\\}$ のとき、$A \\cup B$ を求めよ。",
-                    options: [ "$\\left\\{1, 2, 3, 4, 5, 6, 7\\right\\}$", "$\\left\\{3, 4, 5\\right\\}$", "$\\left\\{1, ..., 7\\right\\}$", "$\\left\\{x \\mid 1 \le x \le 7\\right\\}$" ],
-                    answer: "$\\left\\{1, 2, 3, 4, 5, 6, 7\\right\\}$",
-                    rationale: "$A=\\left\\{1, 2, 3, 4, 5\\right\\}$, $B=\\left\\{3, 4, 5, 6, 7\\right\\}$ です。<br>$A \\cup B$ は和集合なので $\\left\\{1, 2, 3, 4, 5, 6, 7\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=100, n(A \\cup B)=60$ のとき、$n(\\overline{A \\cup B})$ を求めよ。",
+                    options: [ "$40$", "$160$", "$60$", "$-40$" ],
+                    answer: "$40$",
+                    rationale: "$n(\\overline{A \\cup B}) = n(U) - n(A \\cup B) = 100 - 60 = 40$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 33
                 {
-                    question: "$A=\\left\\{x \\mid x \\text{ は奇数}\\right\\}, B=\\left\\{x \\mid x \\text{ は素数}\\right\\}$ のとき、$A \\cap B$ として正しいものを選べ。",
-                    options: [ "$2$ を除く素数", "素数", "奇数", "$\\left\\{3, 5, 7\\right\\}$" ],
-                    answer: "$2$ を除く素数",
-                    rationale: "$A=\\left\\{... -1, 1, 3, 5, 7, 9, ...\\right\\}$, $B=\\left\\{2, 3, 5, 7, 11, ...\\right\\}$ です。<br>共通部分は $2$ を除くすべての素数（正の奇数の素数）です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=100, n(A \\cup B)=60$ のとき、$n(\\overline{A} \\cap \\overline{B})$ を求めよ。",
+                    options: [ "$40$", "$160$", "$60$", "$70$" ],
+                    answer: "$40$",
+                    rationale: "ド・モルガンの法則より $n(\\overline{A} \\cap \\overline{B}) = n(\\overline{A \\cup B})$ です。<br>$n(\\overline{A \\cup B}) = n(U) - n(A \\cup B) = 100 - 60 = 40$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 34
                 {
-                    question: "$A=\\left\\{x \\mid x \\text{ は4の倍数}\\right\\}, B=\\left\\{x \\mid x \\text{ は6の倍数}\\right\\}$ のとき、$A \\cap B$ として正しいものを選べ。",
-                    options: [ "$12$の倍数の集合", "$2$の倍数の集合", "$24$の倍数の集合", "$\\emptyset$" ],
-                    answer: "$12$の倍数の集合",
-                    rationale: "$A \\cap B$ は $4$ の倍数であり、かつ $6$ の倍数である数の集合、つまり $4$ と $6$ の公倍数の集合です。<br>$4$ と $6$ の最小公倍数は $12$ なので、 $12$ の倍数の集合です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=100, n(A \\cap B)=10$ のとき、$n(\\overline{A \\cap B})$ を求めよ。",
+                    options: [ "$90$", "$110$", "$10$", "$-90$" ],
+                    answer: "$90$",
+                    rationale: "$n(\\overline{A \\cap B}) = n(U) - n(A \\cap B) = 100 - 10 = 90$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 35
                 {
-                    question: "$A=\left\{x \\mid x \\text{ は4の倍数}\\right\\}, B=\\left\\{x \\mid x \\text{ は6の倍数}\\right\\}$ のとき、$A \\cup B$ として正しいものを選べ。",
-                    options: [ "$4$の倍数または$6$の倍数の集合", "$2$の倍数の集合", "$24$の倍数の集合", "$10$の倍数の集合" ],
-                    answer: "$4$の倍数または$6$の倍数の集合",
-                    rationale: "$A \\cup B$ は $A$ または $B$ に含まれる要素の集合です。<br>（注：$2$の倍数の集合 $\\ne A \\cup B$ です。例えば $2$ は $A$ にも $B$ にも含まれません。）<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=100, n(A \\cap B)=10$ のとき、$n(\\overline{A} \\cup \\overline{B})$ を求めよ。",
+                    options: [ "$90$", "$40$", "$60$", "$10$" ],
+                    answer: "$90$",
+                    rationale: "ド・モルガンの法則より $n(\\overline{A} \\cup \\overline{B}) = n(\\overline{A \\cap B})$ です。<br>$n(\\overline{A \\cap B}) = n(U) - n(A \\cap B) = 100 - 10 = 90$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
-                // --- タイプ4: 補集合と要素の個数 (15題) ---
                 // 問題 36
                 {
-                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5\\right\\}$, $A=\\left\\{1, 3, 5\\right\\}$ のとき、$\\overline{A}$ を求めよ。",
-                    options: [ "$\\left\\{2, 4\\right\\}$", "$\\left\\{1, 3, 5\\right\\}$", "$\\emptyset$", "$\\left\\{1, 2, 3, 4, 5\\right\\}$" ],
-                    answer: "$\\left\\{2, 4\\right\\}$",
-                    rationale: "$\\overline{A}$ は $U$ の要素のうち $A$ に含まれないものの集合です。<br>$U$ から $1, 3, 5$ を除いた残りなので $\\left\\{2, 4\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(A)=25, n(B)=20, n(A \\cup B)=35$ のとき、$n(A \\cap B)$ を求めよ。",
+                    options: [ "$10$", "$45$", "$15$", "$60$" ],
+                    answer: "$10$",
+                    rationale: "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$ より<br>$35 = 25 + 20 - n(A \\cap B)$<br>$35 = 45 - n(A \\cap B) \implies n(A \\cap B) = 10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 37
                 {
-                    question: "全体集合 $U=\\left\\{x \\mid 1 \\leqq x \\leqq 6, x \\text{ は整数}\\right\\}$, $A=\\left\\{1, 3, 5\\right\\}$ のとき、$\\overline{A}$ を求めよ。",
-                    options: [ "$\\left\\{2, 4, 6\\right\\}$", "$\\left\\{1, 3, 5\\right\\}$", "$\\left\\{6\\right\\}$", "$\\emptyset$" ],
-                    answer: "$\\left\\{2, 4, 6\\right\\}$",
-                    rationale: "$U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$ です。<br>$\\overline{A}$ は $U$ のうち $A$ に含まれない要素なので $\\left\\{2, 4, 6\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=50, n(A \\cup B)=35$ のとき、$n(\\overline{A} \\cap \\overline{B})$ を求めよ。",
+                    options: [ "$15$", "$85$", "$35$", "$25$" ],
+                    answer: "$15$",
+                    rationale: "ド・モルガンの法則より $n(\\overline{A} \\cap \\overline{B}) = n(\\overline{A \\cup B})$ です。<br>$n(\\overline{A \\cup B}) = n(U) - n(A \\cup B) = 50 - 35 = 15$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 38
                 {
-                    question: "$n(A)=5, n(B)=4, n(A \\cap B)=2$ のとき、$n(A \\cup B)$ を求めよ。",
-                    options: [ "$7$", "$9$", "$6$", "$11$" ],
-                    answer: "$7$",
-                    rationale: "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$<br>$= 5 + 4 - 2 = 7$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=50, n(A \\cap B)=10$ のとき、$n(\\overline{A} \\cup \\overline{B})$ を求めよ。",
+                    options: [ "$40$", "$60$", "$10$", "$15$" ],
+                    answer: "$40$",
+                    rationale: "ド・モルガンの法則より $n(\\overline{A} \\cup \\overline{B}) = n(\\overline{A \\cap B})$ です。<br>$n(\\overline{A \\cap B}) = n(U) - n(A \\cap B) = 50 - 10 = 40$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 39
                 {
-                    question: "$n(A)=10, n(B)=8, n(A \\cup B)=15$ のとき、$n(A \\cap B)$ を求めよ。",
-                    options: [ "$3$", "$18$", "$2$", "$23$" ],
-                    answer: "$3$",
-                    rationale: "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$ より<br>$15 = 10 + 8 - n(A \\cap B)$<br>$15 = 18 - n(A \\cap B) \implies n(A \\cap B) = 3$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=60, n(A)=30, n(B)=25, n(A \\cup B)=40$ のとき、$n(\\overline{A})$ を求めよ。",
+                    options: [ "$30$", "$60$", "$35$", "$15$" ],
+                    answer: "$30$",
+                    rationale: "$n(\\overline{A}) = n(U) - n(A) = 60 - 30 = 30$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 40
                 {
-                    question: "$n(U)=20, n(A)=10$ のとき、$n(\\overline{A})$ を求めよ。",
-                    options: [ "$10$", "$20$", "$0$", "$30$" ],
-                    answer: "$10$",
-                    rationale: "$n(\\overline{A}) = n(U) - n(A) = 20 - 10 = 10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=60, n(A)=30, n(B)=25, n(A \\cup B)=40$ のとき、$n(\\overline{B})$ を求めよ。",
+                    options: [ "$35$", "$60$", "$30$", "$25$" ],
+                    answer: "$35$",
+                    rationale: "$n(\\overline{B}) = n(U) - n(B) = 60 - 25 = 35$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 41
                 {
-                    question: "$n(U)=30, n(A)=12, n(B)=15, n(A \\cap B)=5$ のとき、$n(A \\cup B)$ を求めよ。",
-                    options: [ "$22$", "$27$", "$32$", "$7$" ],
-                    answer: "$22$",
-                    rationale: "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$<br>$= 12 + 15 - 5 = 22$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=60, n(A)=30, n(B)=25, n(A \\cup B)=40$ のとき、$n(A \\cap B)$ を求めよ。",
+                    options: [ "$15$", "$55$", "$5$", "$20$" ],
+                    answer: "$15$",
+                    rationale: "$n(A \\cap B) = n(A) + n(B) - n(A \\cup B) = 30 + 25 - 40 = 15$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 42
                 {
-                    question: "$n(U)=30, n(A \\cup B)=22$ のとき、$n(\\overline{A \\cup B})$ を求めよ。",
-                    options: [ "$8$", "$52$", "$0$", "$-8$" ],
-                    answer: "$8$",
-                    rationale: "$n(\\overline{A \\cup B}) = n(U) - n(A \\cup B) = 30 - 22 = 8$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=60, n(A \\cup B)=40$ のとき、$n(\\overline{A} \\cap \\overline{B})$ を求めよ。",
+                    options: [ "$20$", "$100$", "$40$", "$15$" ],
+                    answer: "$20$",
+                    rationale: "ド・モルガンの法則より $n(\\overline{A} \\cap \\overline{B}) = n(\\overline{A \\cup B})$ です。<br>$n(\\overline{A \\cup B}) = n(U) - n(A \\cup B) = 60 - 40 = 20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 43
                 {
-                    question: "$n(U)=30, n(A \\cup B)=22$ のとき、$n(\\overline{A} \\cap \\overline{B})$ を求めよ。",
-                    options: [ "$8$", "$22$", "$52$", "$7$" ],
-                    answer: "$8$",
-                    rationale: "ド・モルガンの法則より $\\overline{A} \\cap \\overline{B} = \\overline{A \\cup B}$ です。<br>$n(\\overline{A} \\cap \\overline{B}) = n(\\overline{A \\cup B}) = n(U) - n(A \\cup B) = 30 - 22 = 8$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=60, n(A \\cap B)=15$ のとき、$n(\\overline{A} \\cup \\overline{B})$ を求めよ。",
+                    options: [ "$45$", "$75$", "$15$", "$20$" ],
+                    answer: "$45$",
+                    rationale: "ド・モルガンの法則より $n(\\overline{A} \\cup \\overline{B}) = n(\\overline{A \\cap B})$ です。<br>$n(\\overline{A \\cap B}) = n(U) - n(A \\cap B) = 60 - 15 = 45$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 44
                 {
-                    question: "$n(U)=30, n(A \\cap B)=5$ のとき、$n(\\overline{A \\cap B})$ を求めよ。",
-                    options: [ "$25$", "$35$", "$5$", "$-25$" ],
-                    answer: "$25$",
-                    rationale: "$n(\\overline{A \\cap B}) = n(U) - n(A \\cap B) = 30 - 5 = 25$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=40, n(A)=20, n(B)=10$ で $A \\supset B$ のとき、$n(A \\cap B)$ を求めよ。",
+                    options: [ "$10$", "$20$", "$30$", "$0$" ],
+                    answer: "$10$",
+                    rationale: "$A \\supset B$ は $B$ が $A$ の部分集合であることを意味します。<br>このとき、$A$ と $B$ の共通部分は $B$ そのものです。<br>$n(A \\cap B) = n(B) = 10$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 45
                 {
-                    question: "$n(U)=30, n(A \\cap B)=5$ のとき、$n(\\overline{A} \\cup \\overline{B})$ を求めよ。",
-                    options: [ "$25$", "$35$", "$5$", "$8$" ],
-                    answer: "$25$",
-                    rationale: "ド・モルガンの法則より $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ です。<br>$n(\\overline{A} \\cup \\overline{B}) = n(\\overline{A \\cap B}) = n(U) - n(A \\cap B) = 30 - 5 = 25$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=40, n(A)=20, n(B)=10$ で $A \\supset B$ のとき、$n(A \\cup B)$ を求めよ。",
+                    options: [ "$20$", "$10$", "$30$", "$0$" ],
+                    answer: "$20$",
+                    rationale: "$A \\supset B$ は $B$ が $A$ の部分集合であることを意味します。<br>このとき、$A$ と $B$ の和集合は $A$ そのものです。<br>$n(A \\cup B) = n(A) = 20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 46
                 {
-                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$, $A=\\left\\{1, 2, 3\\right\\}, B=\\left\\{3, 4, 5\\right\\}$ のとき、$A \\cap \\overline{B}$ を求めよ。",
-                    options: [ "$\\left\\{1, 2\\right\\}$", "$\\left\\{3\\right\\}$", "$\\left\\{4, 5\\right\\}$", "$\\left\\{6\\right\\}$" ],
-                    answer: "$\\left\\{1, 2\\right\\}$",
-                    rationale: "$A \\cap \\overline{B}$ は「$A$ に属し、かつ $B$ に属さない」要素の集合（$A-B$ とも書く）です。<br>$A$ の要素 $\\left\\{1, 2, 3\\right\\}$ のうち、$B$ にも属する $3$ を除いたものなので $\\left\\{1, 2\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=40, n(A)=20, n(B)=10$ で $A \\supset B$ のとき、$n(\\overline{A} \\cap \\overline{B})$ を求めよ。",
+                    options: [ "$20$", "$30$", "$10$", "$40$" ],
+                    answer: "$20$",
+                    rationale: "$n(\\overline{A} \\cap \\overline{B}) = n(\\overline{A \\cup B})$ です。<br>$A \\supset B$ なので $A \\cup B = A$ です。<br>$n(A \\cup B) = n(A) = 20$<br>$n(\\overline{A \\cup B}) = n(U) - n(A \\cup B) = 40 - 20 = 20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 47
                 {
-                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6\\right\\}$, $A=\\left\\{1, 2, 3\\right\\}, B=\\left\\{3, 4, 5\\right\\}$ のとき、$\\overline{A} \\cap B$ を求めよ。",
-                    options: [ "$\\left\\{4, 5\\right\\}$", "$\\left\\{1, 2\\right\\}$", "$\\left\\{3\\right\\}$", "$\\left\\{6\\right\\}$" ],
-                    answer: "$\\left\\{4, 5\\right\\}$",
-                    rationale: "$\\overline{A} \\cap B$ は「$B$ に属し、かつ $A$ に属さない」要素の集合（$B-A$ とも書く）です。<br>$B$ の要素 $\\left\\{3, 4, 5\\right\\}$ のうち、$A$ にも属する $3$ を除いたものなので $\\left\\{4, 5\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=40, n(A)=20, n(B)=10$ で $A \\supset B$ のとき、$n(\\overline{A} \\cup \\overline{B})$ を求めよ。",
+                    options: [ "$30$", "$20$", "$10$", "$0$" ],
+                    answer: "$30$",
+                    rationale: "$n(\\overline{A} \\cup \\overline{B}) = n(\\overline{A \\cap B})$ です。<br>$A \\supset B$ なので $A \\cap B = B$ です。<br>$n(A \\cap B) = n(B) = 10$<br>$n(\\overline{A \\cap B}) = n(U) - n(A \\cap B) = 40 - 10 = 30$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 48
                 {
-                    question: "$U=\\left\\{1, ..., 10\\right\\}$, $A \\cup B=\\left\\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\\right\\}$, $A \\cap B=\\left\\{1, 4, 7, 9\\right\\}$, $\\overline{A} \\cap B=\\left\\{3, 6\\right\\}$ のとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
-                    options: [ "$\\left\\{2, 3, 5, 6, 8, 10\\right\\}$", "$\\emptyset$", "$\\left\\{3, 6\\right\\}$", "$\\left\\{1, 4, 7, 9\\right\\}$" ],
-                    answer: "$\\left\\{2, 3, 5, 6, 8, 10\\right\\}$",
-                    rationale: "ド・モルガンの法則より $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ です。<br>これは $A \\cap B = \\left\\{1, 4, 7, 9\\right\\}$ 以外のすべての要素です。<br>$U$ から $\\left\\{1, 4, 7, 9\\right\\}$ を除いた $\\left\\{2, 3, 5, 6, 8, 10\\right\\}$ が答えです。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=100, n(A)=60, n(B)=50, n(\\overline{A} \\cap \\overline{B})=10$ のとき、$n(A \\cap B)$ を求めよ。",
+                    options: [ "$20$", "$90$", "$110$", "$10$" ],
+                    answer: "$20$",
+                    rationale: "$n(\\overline{A} \\cap \\overline{B}) = n(\\overline{A \\cup B}) = 10$ です。<br>$n(A \\cup B) = n(U) - n(\\overline{A \\cup B}) = 100 - 10 = 90$ です。<br>$n(A \\cap B) = n(A) + n(B) - n(A \\cup B) = 60 + 50 - 90 = 20$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 49
                 {
-                    question: "$U=\\left\\{1, ..., 10\\right\\}$, $A \\cup B=\\left\\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\\right\\}$, $A \\cap B=\\left\\{1, 4, 7, 9\\right\\}$, $\\overline{A} \\cap B=\\left\\{3, 6\\right\\}$ のとき、$\\overline{A \\cup B}$ を求めよ。",
-                    options: [ "$\\emptyset$", "$\\left\\{2, 5, 8, 10\\right\\}$", "$\\left\\{3, 6\\right\\}$", "$U$" ],
-                    answer: "$\\emptyset$",
-                    rationale: "$\\overline{A \\cup B}$ は $U$ のうち $A \\cup B$ に含まれない要素の集合です。<br>$A \\cup B$ は $U$ と一致しているため、$\\overline{A \\cup B} = \\emptyset$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=100, n(A)=60, n(B)=50, n(\\overline{A} \\cap \\overline{B})=10$ のとき、$n(\\overline{A} \\cup \\overline{B})$ を求めよ。",
+                    options: [ "$80$", "$90$", "$10$", "$20$" ],
+                    answer: "$80$",
+                    rationale: "まず $n(A \\cap B)$ を求めます。<br>$n(A \\cup B) = n(U) - n(\\overline{A \\cup B}) = 100 - 10 = 90$<br>$n(A \\cap B) = n(A) + n(B) - n(A \\cup B) = 60 + 50 - 90 = 20$<br>ド・モルガンの法則より $n(\\overline{A} \\cup \\overline{B}) = n(\\overline{A \\cap B})$ です。<br>$n(\\overline{A \\cap B}) = n(U) - n(A \\cap B) = 100 - 20 = 80$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 },
                 // 問題 50
                 {
-                    question: "$U=\\left\\{1, ..., 10\\right\\}$, $A \\cup B=\\left\\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\\right\\}$, $A \\cap B=\\left\\{1, 4, 7, 9\\right\\}$, $\\overline{A} \\cap B=\\left\\{3, 6\\right\\}$ のとき、$A \\cap \\overline{B}$ (Aのみ) を求めよ。",
-                    options: [ "$\\left\\{2, 5, 8, 10\\right\\}$", "$\\left\\{1, 4, 7, 9\\right\\}$", "$\\left\\{3, 6\\right\\}$", "$\\emptyset$" ],
-                    answer: "$\\left\\{2, 5, 8, 10\\right\\}$",
-                    rationale: "$A \\cap \\overline{B} = A \\setminus B$ (AからBとの共通部分を除いたもの) です。<br>$A \\cup B = (A \\cap \\overline{B}) \\cup (A \\cap B) \\cup (\\overline{A} \\cap B)$<br>$\\left\\{1, ..., 10\\right\\} = (A \\cap \\overline{B}) \\cup \\left\\{1, 4, 7, 9\\right\\} \\cup \\left\\{3, 6\\right\\}$<br>よって $A \\cap \\overline{B}$ は、$\\left\\{1, ..., 10\\right\\}$ から $\\left\\{1, 3, 4, 6, 7, 9\\right\\}$ を除いたもの、<br>すなわち $\\left\\{2, 5, 8, 10\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63176' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                    question: "$n(U)=100, n(A)=60, n(B)=50, n(\\overline{A} \\cap \\overline{B})=10$ のとき、$n(A \\cap \\overline{B})$ を求めよ。",
+                    options: [ "$40$", "$30$", "$10$", "$50$" ],
+                    answer: "$40$",
+                    rationale: "$n(A \\cap \\overline{B})$ は $A$ の要素から $A \\cap B$ の要素を除いたものです。<br>$n(A \\cap B)=20$（前の問題で計算済み）<br>$n(A \\cap \\overline{B}) = n(A) - n(A \\cap B) = 60 - 20 = 40$<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+// 問題 51
+                {
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6, 7, 8, 9\\right\\}$, $A=\\left\\{2, 4, 6, 8\\right\\}$, $B=\\left\\{1, 3, 5\\right\\}$ のとき、$\\overline{A} \\cap \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{7, 9\\right\\}$", "$\\left\\{1, 2, 3, 4, 5, 6, 8\\right\\}$", "$\\empty$", "$\\left\\{1, 3, 5, 7, 9\\right\\}$" ],
+                    answer: "$\\left\\{7, 9\\right\\}$",
+                    rationale: "ド・モルガンの法則 $\\overline{A} \\cap \\overline{B} = \\overline{A \\cup B}$ を使います。<br>$A \\cup B = \\left\\{1, 2, 3, 4, 5, 6, 8\\right\\}$ です。<br>$U$ から $A \\cup B$ の要素を除くと $\\left\\{7, 9\\right\\}$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 52
+                {
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5, 6, 7, 8, 9\\right\\}$, $A=\\left\\{2, 4, 6, 8\\right\\}$, $B=\\left\\{1, 3, 5\\right\\}$ のとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{1, 2, 3, 4, 5, 6, 7, 8, 9\\right\\}$", "$\\emptyset$", "$\\left\\{7, 9\\right\\}$", "$\\left\\{1, 3, 5, 7, 9\\right\\}$" ],
+                    answer: "$\\left\\{1, 2, 3, 4, 5, 6, 7, 8, 9\\right\\}$",
+                    rationale: "ド・モルガンの法則 $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ を使います。<br>$A$ と $B$ に共通の要素はないため、$A \\cap B = \\emptyset$ です。<br>$U$ から $\\emptyset$ を除いたもの、つまり $U$ 全体 $\\left\\{1, 2, 3, 4, 5, 6, 7, 8, 9\\right\\}$ が答えです。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 53
+                {
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\leqq 1\\right\\}$, $B=\\left\\{x \\mid x \\gt 3\\right\\}$ とするとき、$\\overline{A} \\cap \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid 1 \\lt x \\leqq 3\\right\\}$", "$\\emptyset$", "すべての実数", "$\\left\\{x \\mid x \\leqq 1, x \\gt 3\\right\\}$" ],
+                    answer: "$\\left\\{x \\mid 1 \\lt x \\leqq 3\\right\\}$",
+                    rationale: "$\\overline{A} = \\left\\{x \\mid x \gt 1\\right\\}$ です。<br>$\\overline{B} = \\left\\{x \\mid x \\leqq 3\\right\\}$ です。<br>$\\overline{A} \\cap \\overline{B}$ は $\\overline{A}$ と $\\overline{B}$ の共通部分なので、$\\left\\{x \\mid 1 \\lt x \\leqq 3\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 54
+                {
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\leqq 1\\right\\}$, $B=\\left\\{x \\mid x \\gt 3\\right\\}$ とするとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
+                    options: [ "すべての実数", "$\\left\\{x \\mid 1 \\lt x \\leqq 3\\right\\}$", "$\\emptyset$", "$\\left\\{x \\mid x \\gt 1, x \\leqq 3\\right\\}$" ],
+                    answer: "すべての実数",
+                    rationale: "ド・モルガンの法則 $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ を使います。<br>$A$ と $B$ に共通部分はないので $A \\cap B = \\emptyset$ です。<br>その補集合は $U$（すべての実数）です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 55
+                {
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5\\right\\}$, $A=\\left\\{1, 3\\right\\}$, $B=\\left\\{2, 4\\right\\}$ のとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{1, 2, 3, 4, 5\\right\\}$", "$\\emptyset$", "$\\left\\{5\\right\\}$", "$\\left\\{1, 3, 2, 4\\right\\}$" ],
+                    answer: "$\\left\\{1, 2, 3, 4, 5\\right\\}$",
+                    rationale: "ド・モルガンの法則 $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ を使います。<br>$A \\cap B = \\emptyset$ です。<br>その補集合は $U$（全体集合） $\\left\\{1, 2, 3, 4, 5\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 56
+                {
+                    question: "全体集合 $U=\\left\\{1, 2, 3, 4, 5\\right\\}$, $A=\\left\\{1, 3\\right\\}$, $B=\\left\\{2, 4\\right\\}$ のとき、$\\overline{A} \\cap \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{5\\right\\}$", "$\\left\\{1, 2, 3, 4\\right\\}$", "$\\emptyset$", "$\\left\\{1, 2, 3, 4, 5\\right\\}$" ],
+                    answer: "$\\left\\{5\\right\\}$",
+                    rationale: "ド・モルガンの法則 $\\overline{A} \\cap \\overline{B} = \\overline{A \\cup B}$ を使います。<br>$A \\cup B = \\left\\{1, 2, 3, 4\\right\\}$ です。<br>$U$ から $A \\cup B$ の要素を除くと $\\left\\{5\\right\\}$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 57
+                {
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\gt 0\\right\\}$ とするとき、$\\overline{A} \\cap A$ を求めよ。",
+                    options: [ "$\\emptyset$", "$\\left\\{0\\right\\}$", "$\\left\\{x \\mid x \\gt 0\\right\\}$", "$U$" ],
+                    answer: "$\\emptyset$",
+                    rationale: "$\\overline{A} = \\left\\{x \\mid x \\leqq 0\\right\\}$ です。<br>$A$（$x \\gt 0$）と $\\overline{A}$（$x \\leqq 0$）に共通部分はありません。<br>よって $\\emptyset$（空集合）です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 58
+                {
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\gt 0\\right\\}$ とするとき、$\\overline{A} \\cup A$ を求めよ。",
+                    options: [ "$U$（実数全体）", "$\\left\\{0\\right\\}$", "$\\emptyset$", "$\\left\\{x \\mid x \\geqq 0\\right\\}$" ],
+                    answer: "$U$（実数全体）",
+                    rationale: "$\\overline{A} = \\left\\{x \\mid x \\leqq 0\\right\\}$ です。<br>$A$（$x \\gt 0$）と $\\overline{A}$（$x \\leqq 0$）の和集合は、すべての実数 $U$ となります。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 59
+                {
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \gt 1\\right\\}$, $B=\\left\\{x \\mid x \\lt 0\\right\\}$ とするとき、$\\overline{A} \\cup \\overline{B}$ を求めよ。",
+                    options: [ "すべての実数", "$\\left\\{x \mid x \\leqq 1 \\text{ または } x \\geqq 0\\right\\}$", "$\\emptyset$", "$\\left\\{x \\mid 0 \\leqq x \\leqq 1\\right\\}$" ],
+                    answer: "すべての実数",
+                    rationale: "ド・モルガンの法則 $\\overline{A} \\cup \\overline{B} = \\overline{A \\cap B}$ を使います。<br>$A$（$x \\gt 1$）と $B$（$x \\lt 0$）に共通部分はないため、$A \\cap B = \\emptyset$ です。<br>その補集合は $U$（すべての実数）です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
+                },
+                // 問題 60
+                {
+                    question: "実数全体を全体集合 $U$ とし、$A=\\left\\{x \\mid x \\gt 1\\right\\}$, $B=\\left\\{x \\mid x \\lt 0\\right\\}$ とするとき、$\\overline{A} \\cap \\overline{B}$ を求めよ。",
+                    options: [ "$\\left\\{x \\mid 0 \\leqq x \\leqq 1\\right\\}$", "すべての実数", "$\\emptyset$", "$\\left\\{x \\mid x \\leqq 0 \\text{ または } x \\geqq 1\\right\\}$" ],
+                    answer: "$\\left\\{x \\mid 0 \\leqq x \\leqq 1\\right\\}$",
+                    rationale: "$\\overline{A} = \\left\\{x \\mid x \\leqq 1\\right\\}$ です。<br>$\\overline{B} = \\left\\{x \\mid x \\geqq 0\\right\\}$ です。<br>$\\overline{A}$ と $\\overline{B}$ の共通部分は $\\left\\{x \\mid 0 \\leqq x \\leqq 1\\right\\}$ です。<br> <strong>↓「学びエイド」の解説動画で確認</strong> <br>" + "<a href='https://www.manabi-aid.jp/lesson/id/7712/63180' target='_blank'>" + "解説動画を見る" + "</a><br>" + "<small>（※学びエイドのログインが必要です）</small>"
                 }
             ]
             // --- ★★★ 50題データここまで ★★★
