@@ -1,6 +1,11 @@
 # daizen-webtest
 基本大全連動ウェブテスト
 
+①QDはまずTeXファイルとして格納  
+②.js形式で保管し，check****.htmlでデータチェック＋修正  
+【基本は.jsファイルに最新版のQDが格納されている】  
+③htmlファイルにコピー  
+  
 KaTeX ・・・KaTeXをローカルで使用するフォルダ(GitHubで手に入る https://github.com/KaTeX/KaTeX/releases)  
 　　　　　　Assetsの中の.zipをDL  
 index.html ・・・トップページ  
