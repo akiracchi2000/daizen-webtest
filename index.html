@@ -44,7 +44,7 @@
             margin-bottom: 5px; /* summaryとの間隔を詰める */
             color: #495057;
             
-            /* ★ 変更: Flexboxでリンクを横並びにする */
+            /* Flexboxでリンクを横並びにする */
             display: flex;
             justify-content: space-between; /* 見出しとリンクを両端に */
             align-items: center; /* 縦位置を中央揃え */
@@ -52,7 +52,7 @@
             gap: 10px; /* 折り返した際の隙間 */
         }
 
-        /* ★ 追加: h2内のリンク用コンテナ */
+        /* h2内のリンク用コンテナ */
         .subject-book-links {
             display: flex;
             gap: 8px; /* リンク間の隙間 */
@@ -60,24 +60,21 @@
             flex-shrink: 0; /* リンクが縮まないように */
         }
 
-        /* ★ 追加: 小さな購入ボタン (既存の .purchase-link をベース) */
+        /* 小さな購入ボタン */
         .purchase-link-small {
             display: inline-block;
-            padding: 4px 8px; /* さらに小さく */
-            margin: 0; /* h2との配置調整のためマージンリセット */
+            padding: 4px 8px;
+            margin: 0;
             text-decoration: none;
             color: #ffffff;
-            border-radius: 4px; /* 角丸も少し調整 */
+            border-radius: 4px;
             font-weight: bold;
             transition: opacity 0.3s;
-            font-size: 0.7em; /* 文字をさらに小さく */
+            font-size: 0.7em;
         }
-        .purchase-link-small:hover {
-            opacity: 0.8;
-        }
+        .purchase-link-small:hover { opacity: 0.8; }
 
-
-        /* ★ 変更: 書籍紹介エリアのスタイルを復活 */
+        /* 書籍紹介エリア */
         .book-introduction {
             display: flex;
             flex-wrap: wrap;
@@ -87,52 +84,31 @@
             padding: 20px;
             border-radius: 8px;
             border: 1px solid #e9ecef;
-            margin-bottom: 30px; /* アコーディオンとの間隔 */
+            margin-bottom: 30px;
         }
 
-        .book-cover {
-            flex: 1 1 150px;
-            text-align: center;
-        }
-
+        .book-cover { flex: 1 1 150px; text-align: center; }
         .book-cover img {
             max-width: 150px;
             height: auto;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        .book-links { flex: 2 1 300px; }
+        .book-links p { margin: 0; }
 
-        .book-links {
-            flex: 2 1 300px;
-        }
-
-        .book-links p {
-            margin-top: 0;
-            margin-bottom: 0; /* ボタンがなくなったため、下の余白を削除 */
-        }
-
-
-        /* 購入ボタンのスタイル (大きいボタン) は削除したまま */
-
-
-        /* ★ 変更なし: 色指定のクラスは .purchase-link-small でも使うため残します */
+        /* ボタン色（購入リンク） */
         .link-amazon { background-color: #e47911; } 
         .link-rakuten { background-color: #BF0000; }
 
         /* テスト一覧（<nav>） */
-        .quiz-list ul {
-            list-style-type: none;
-            padding-left: 0;
-            margin: 0; /* details内で余白を調整 */
-        }
-
+        .quiz-list ul { list-style-type: none; padding-left: 0; margin: 0; }
         .quiz-list li {
             margin-bottom: 10px;
-            display: flex; /* リンクとランクを横並び */
-            align-items: center; /* 縦位置中央揃え */
+            display: flex;
+            align-items: center;
         }
-
         .quiz-list a {
-            flex-grow: 1; /* 横幅いっぱいまで伸ばす */
+            flex-grow: 1;
             display: inline-block;
             padding: 15px;
             background-color: #f1f3f5;
@@ -141,12 +117,9 @@
             border-radius: 5px;
             font-weight: 500;
             transition: background-color 0.3s;
-            margin-right: 10px; /* ランク表示との間隔 */
+            margin-right: 10px;
         }
-
-        .quiz-list a:hover {
-            background-color: #e9ecef;
-        }
+        .quiz-list a:hover { background-color: #e9ecef; }
 
         /* ランク表示 */
         .quiz-rank {
@@ -155,104 +128,71 @@
             padding: 3px 8px;
             border-radius: 4px;
             font-size: 0.9em;
-            min-width: 60px; /* 幅を確保 */
+            min-width: 60px;
             text-align: center;
-            white-space: nowrap; /* "(Rank: S)"が改行しないように */
+            white-space: nowrap;
         }
         .rank-S { background-color: #ffd700; color: #333; } /* Gold */
         .rank-A { background-color: #c0c0c0; color: #333; } /* Silver */
         .rank-B { background-color: #b87333; color: white; } /* Copper */
         .rank-C { background-color: #007bff; color: white; } /* Blue */
-        .rank-yet { background-color: #f8f9fa; color: #6c757d; border: 1px dashed #ced4da; } /* 未受験 */
-
+        .rank-yet { background-color: #f8f9fa; color: #6c757d; border: 1px dashed #ced4da; }
 
         /* アコーディオン (科目レベル) */
         details.subject-accordion {
-            margin-top: 10px; /* 上の見出しとの間隔 */
-            margin-bottom: 20px; /* 次のアコーディオンとの間隔 */
+            margin-top: 10px;
+            margin-bottom: 20px;
             border: 1px solid #dee2e6;
             border-radius: 8px;
             background-color: #fdfdfd;
         }
-
         details.subject-accordion summary {
             font-size: 1.3em;
             font-weight: bold;
             color: #495057;
-            padding: 15px 20px 15px 35px; /* 左側にマーク用の余白 */
+            padding: 15px 20px 15px 35px;
             cursor: pointer;
-            list-style: none; /* デフォルトの三角マークを消す */
-            position: relative; /* 三角マークを自作するため */
-            border-bottom: 1px solid transparent; /* 閉じてるときは線を透明に */
+            list-style: none;
+            position: relative;
+            border-bottom: 1px solid transparent;
             transition: border-color 0.2s;
         }
-        details.subject-accordion summary::-webkit-details-marker { display: none; } /* Safari用のマーク消し */
-        
-        details[open].subject-accordion > summary { /* 開いているときだけsummaryの下線 */
-            border-bottom: 1px solid #dee2e6; 
-        }
-
-        details.subject-accordion summary::before { /* 三角マーク（閉じている時） */
+        details.subject-accordion summary::-webkit-details-marker { display: none; }
+        details[open].subject-accordion > summary { border-bottom: 1px solid #dee2e6; }
+        details.subject-accordion summary::before {
             content: '▶';
             font-size: 0.8em;
             position: absolute;
-            left: 15px; /* 左端からの位置調整 */
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
             color: #6c757d;
             transition: transform 0.2s;
         }
-
-        details[open].subject-accordion summary::before { /* 三角マーク（開いている時） */
-            transform: translateY(-50%) rotate(90deg);
-        }
+        details[open].subject-accordion summary::before { transform: translateY(-50%) rotate(90deg); }
 
         /* アコーディオン (章レベル - 入れ子) */
         details.chapter-accordion {
-            margin: 10px 20px 15px 20px; /* 上下と左右に余白 */
-            border: 1px solid #e9ecef; /* 外側より少し薄い枠線 */
+            margin: 10px 20px 15px 20px;
+            border: 1px solid #e9ecef;
             border-radius: 6px;
         }
-        
         details.chapter-accordion summary {
-            font-size: 1.1em; /* 科目より少し小さく */
-            font-weight: 500; /* 少し細く */
-            padding: 10px 15px 10px 30px; /* 少しコンパクトに */
-            background-color: #f8f9fa; /* 背景色を少し変える */
+            font-size: 1.1em;
+            font-weight: 500;
+            padding: 10px 15px 10px 30px;
+            background-color: #f8f9fa;
             border-bottom: 1px solid transparent;
         }
-        
-        details[open].chapter-accordion > summary {
-             border-bottom: 1px solid #e9ecef;
-        }
+        details[open].chapter-accordion > summary { border-bottom: 1px solid #e9ecef; }
+        details.chapter-accordion summary::before { left: 10px; font-size: 0.7em; }
+        details.chapter-accordion .quiz-list { padding: 15px; }
+        details.chapter-accordion .quiz-list li { margin-bottom: 8px; }
+        details.chapter-accordion .quiz-list a { padding: 12px 15px; font-weight: 400; }
 
-        details.chapter-accordion summary::before {
-            left: 10px; /* 三角マークの位置調整 */
-            font-size: 0.7em;
-        }
-        
-        details.chapter-accordion .quiz-list {
-            padding: 15px; /* 中身の余白 (外側より少し狭く) */
-        }
-        
-        details.chapter-accordion .quiz-list li {
-            margin-bottom: 8px; /* リスト項目の間隔を少し狭く */
-        }
-        details.chapter-accordion .quiz-list a {
-            padding: 12px 15px; /* リンクのpaddingを少し小さく */
-            font-weight: 400; /* 通常の太さ */
-        }
-        
         /* 色選択ボタン */
-        .color-selector {
-            text-align: right;
-            margin-bottom: 20px;
-        }
-        .color-selector span {
-            margin-right: 5px;
-            font-size: 0.9em;
-            color: #6c757d;
-        }
+        .color-selector { text-align: right; margin-bottom: 20px; }
+        .color-selector span { margin-right: 5px; font-size: 0.9em; color: #6c757d; }
         .color-selector button {
             padding: 5px 10px;
             margin-left: 5px;
@@ -261,9 +201,20 @@
             border: 1px solid #ced4da;
             background-color: #f8f9fa;
             border-radius: 4px;
+            transition: box-shadow 0.2s, transform 0.05s;
         }
-        .color-selector button:hover {
-            background-color: #e9ecef;
+        .color-selector button:hover { background-color: #e9ecef; }
+        /* ★ 小ネタ: 今選択中のボタンを可視化 */
+        .color-selector button.is-active {
+            outline: 2px solid #6c757d;
+            font-weight: 700;
+        }
+        /* 併せてアクセシビリティ向上（キーボードフォーカス） */
+        .color-selector button:focus-visible { box-shadow: 0 0 0 3px rgba(13,110,253,.25); }
+        /* aria-pressed でもスタイル（将来 is-active を外しても効くように） */
+        .color-selector button[aria-pressed="true"] {
+            outline: 2px solid #6c757d;
+            font-weight: 700;
         }
 
         /* 背景色用のクラス */
@@ -271,7 +222,7 @@
         body.bg-light-green { background-color: #e6fcf5; } /* 薄い緑 */
         body.bg-beige { background-color: #fcf8e3; } /* ベージュ */
 
-        /* ★★★ リセットボタン用のスタイルを追加 ★★★ */
+        /* リセットボタン */
         .reset-container {
             text-align: center;
             margin-top: 40px;
@@ -282,18 +233,15 @@
             padding: 10px 15px;
             font-size: 0.9em;
             font-weight: bold;
-            color: #dc3545; /* 赤色 */
+            color: #dc3545;
             background-color: #fff;
-            border: 1px solid #dc3545; /* 赤色の枠線 */
+            border: 1px solid #dc3545;
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s;
         }
-        .reset-button:hover {
-            background-color: #dc3545; /* ホバーで背景を赤に */
-            color: #fff; /* ホバーで文字を白に */
-        }
-        
+        .reset-button:hover { background-color: #dc3545; color: #fff; }
+
         footer {
             text-align: center;
             margin-top: 40px;
@@ -304,13 +252,12 @@
 </head>
 <body>
     <div class="container">
-        
         <header>
             <h1>高校数学基本大全 Webテスト</h1>
         </header>
 
         <main>
-            <div class="color-selector">
+            <div class="color-selector" role="group" aria-label="背景色の選択">
                 <span>背景色:</span>
                 <button data-color="default">標準</button>
                 <button data-color="light-blue">水色</button>
@@ -318,244 +265,109 @@
                 <button data-color="beige">ベージュ</button>
             </div>
 
-            <!-- ★ 変更: ページ上部の book-introduction セクションを復活 (リンクボタンは削除) -->
             <section class="book-introduction">
                 <div class="book-cover">
-                    <!-- ★ TODO: 書籍表紙の画像パスを正しいものに差し替えてください -->
-                    <img src="https://placehold.co/150x210/eee/666?text=書籍表紙" 
-                         onerror="this.src='https://placehold.co/150x210/eee/666?text=画像読込失敗'" 
+                    <img src="https://placehold.co/150x210/eee/666?text=書籍表紙"
+                         onerror="this.src='https://placehold.co/150x210/eee/666?text=画像読込失敗'"
                          alt="高校数学基本大全 表紙">
                 </div>
                 <div class="book-links">
                     <p>Webテストと連動した動画解説で、数学の「わからない」を解決！<br>書籍本体で体系的に学ぶことができます。</p>
-                    <!-- Amazon/楽天の大きい購入ボタンはここから削除されました -->
                 </div>
             </section>
 
-
-            <!-- ★ 変更: h2タグとボタンのテキストを修正 -->
             <h2>
                 数学I
                 <span class="subject-book-links">
-                    <a href="https://www.amazon.co.jp/dp/XXXXXXXXX1" target="_blank" class="purchase-link-small link-amazon">
-                        基本大全数学IA (Amazon)
-                    </a>
-                    <a href="https://books.rakuten.co.jp/rb/XXXXXXXXX1/" target="_blank" class="purchase-link-small link-rakuten">
-                        基本大全数学IA (楽天)
-                    </a>
+                    <a href="https://www.amazon.co.jp/dp/XXXXXXXXX1" target="_blank" class="purchase-link-small link-amazon">基本大全数学IA (Amazon)</a>
+                    <a href="https://books.rakuten.co.jp/rb/XXXXXXXXX1/" target="_blank" class="purchase-link-small link-rakuten">基本大全数学IA (楽天)</a>
                 </span>
             </h2>
-            <details class="subject-accordion" > <summary>数学I テスト一覧</summary>
-                
-                <details class="chapter-accordion" > <summary>第1章 数と式</summary>
+            <details class="subject-accordion"><summary>数学I テスト一覧</summary>
+                <details class="chapter-accordion"><summary>第1章 数と式</summary>
                     <nav class="quiz-list">
                         <ul>
-                            <li>
-                                <a href="M1-1-1-1.html">第1節-1 様々な用語</a>
-                                <span id="rank-M1-1-1-1" class="quiz-rank"></span>
-                            </li>
-                            <li>
-                                <a href="M1-1-1-2.html">第1節-2 整式の加法と減法</a>
-                                <span id="rank-M1-1-1-2" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-1-3.html">第1節-3 単項式の乗法</a>
-                                <span id="rank-M1-1-1-3" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-1-4.html">第1節-4 多項式の乗法</a>
-                                <span id="rank-M1-1-1-4" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-2-1.html">第2節-1 (x+a)(x+b)の展開</a>
-                                <span id="rank-M1-1-2-1" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-2-2.html">第2節-2 2乗の展開公式</a>
-                                <span id="rank-M1-1-2-2" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-2-3.html">第2節-3 和と差の積の展開公式</a>
-                                <span id="rank-M1-1-2-3" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-2-4.html">第2節-4 3項の2乗の展開公式</a>
-                                <span id="rank-M1-1-2-4" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-3-1.html">第3節-1 共通因数でくくる</a>
-                                <span id="rank-M1-1-3-1" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-3-2.html">第3節-2 和の平方と差の平方の因数分解</a>
-                                <span id="rank-M1-1-3-2" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-3-3.html">第3節-3 平方の差の因数分解</a>
-                                <span id="rank-M1-1-3-3" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-3-4.html">第3節-4 x^2+(a+b)x+ab型の因数分解</a>
-                                <span id="rank-M1-1-3-4" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-3-5.html">第3節-5 たすき掛けの因数分解</a>
-                                <span id="rank-M1-1-3-5" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-1.html">第4節-1 循環小数</a>
-                                <span id="rank-M1-1-4-1" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-2.html">第4節-2 平方根の意味</a>
-                                <span id="rank-M1-1-4-2" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-3.html">第4節-3 根号を含む式の計算</a>
-                                <span id="rank-M1-1-4-3" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-4.html">第4節-4 分母の有理化</a>
-                                <span id="rank-M1-1-4-4" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-5.html">第4節-5 2重根号</a>
-                                <span id="rank-M1-1-4-5" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-6.html">第4節-6 整数部分・小数部分</a>
-                                <span id="rank-M1-1-4-6" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-7.html">第4節-7 無理数の相等</a>
-                                <span id="rank-M1-1-4-7" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-8.html">第4節-8 絶対値</a>
-                                <span id="rank-M1-1-4-8" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-9.html">第4節-9 絶対値と1次方程式</a>
-                                <span id="rank-M1-1-4-9" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-10.html">第4節-10 平方根と絶対値</a>
-                                <span id="rank-M1-1-4-10" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-11.html">第4節-11 絶対値を含む式のグラフ</a>
-                                <span id="rank-M1-1-4-11" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-12.html">第4節-12 2文字の対称式</a>
-                                <span id="rank-M1-1-4-12" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-4-13.html">第4節-13 逆数と対称式</a>
-                                <span id="rank-M1-1-4-13" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-5-1.html">第5節-1 1次方程式</a>
-                                <span id="rank-M1-1-5-1" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-5-2.html">第5節-2 連立1次方程式</a>
-                                <span id="rank-M1-1-5-2" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-5-3.html">第5節-3 3文字の連立1次方程式</a>
-                                <span id="rank-M1-1-5-3" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-5-4.html">第5節-4 1次不等式</a>
-                                <span id="rank-M1-1-5-4" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-5-5.html">第5節-5 連立1次不等式</a>
-                                <span id="rank-M1-1-5-5" class="quiz-rank"></span>
-                            </li>
-                             <li>
-                                <a href="M1-1-5-6.html">第5節-6 絶対値と不等式</a>
-                                <span id="rank-M1-1-5-6" class="quiz-rank"></span>
-                            </li>
+                            <li><a href="M1-1-1-1.html">第1節-1 様々な用語</a><span id="rank-M1-1-1-1" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-1-2.html">第1節-2 整式の加法と減法</a><span id="rank-M1-1-1-2" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-1-3.html">第1節-3 単項式の乗法</a><span id="rank-M1-1-1-3" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-1-4.html">第1節-4 多項式の乗法</a><span id="rank-M1-1-1-4" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-2-1.html">(x+a)(x+b)の展開</a><span id="rank-M1-1-2-1" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-2-2.html">2乗の展開公式</a><span id="rank-M1-1-2-2" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-2-3.html">和と差の積の展開公式</a><span id="rank-M1-1-2-3" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-2-4.html">3項の2乗の展開公式</a><span id="rank-M1-1-2-4" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-3-1.html">共通因数でくくる</a><span id="rank-M1-1-3-1" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-3-2.html">和の平方と差の平方の因数分解</a><span id="rank-M1-1-3-2" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-3-3.html">平方の差の因数分解</a><span id="rank-M1-1-3-3" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-3-4.html">x^2+(a+b)x+ab型の因数分解</a><span id="rank-M1-1-3-4" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-3-5.html">たすき掛けの因数分解</a><span id="rank-M1-1-3-5" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-1.html">循環小数</a><span id="rank-M1-1-4-1" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-2.html">平方根の意味</a><span id="rank-M1-1-4-2" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-3.html">根号を含む式の計算</a><span id="rank-M1-1-4-3" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-4.html">分母の有理化</a><span id="rank-M1-1-4-4" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-5.html">2重根号</a><span id="rank-M1-1-4-5" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-6.html">整数部分・小数部分</a><span id="rank-M1-1-4-6" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-7.html">無理数の相等</a><span id="rank-M1-1-4-7" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-8.html">絶対値</a><span id="rank-M1-1-4-8" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-9.html">絶対値と1次方程式</a><span id="rank-M1-1-4-9" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-10.html">平方根と絶対値</a><span id="rank-M1-1-4-10" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-11.html">絶対値を含む式のグラフ</a><span id="rank-M1-1-4-11" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-12.html">2文字の対称式</a><span id="rank-M1-1-4-12" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-4-13.html">逆数と対称式</a><span id="rank-M1-1-4-13" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-5-1.html">1次方程式</a><span id="rank-M1-1-5-1" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-5-2.html">連立1次方程式</a><span id="rank-M1-1-5-2" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-5-3.html">3文字の連立1次方程式</a><span id="rank-M1-1-5-3" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-5-4.html">1次不等式</a><span id="rank-M1-1-5-4" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-5-5.html">連立1次不等式</a><span id="rank-M1-1-5-5" class="quiz-rank"></span></li>
+                            <li><a href="M1-1-5-6.html">絶対値と不等式</a><span id="rank-M1-1-5-6" class="quiz-rank"></span></li>
                         </ul>
                     </nav>
                 </details>
 
-                <details class="chapter-accordion">
-                    <summary>第2章 集合と命題</summary>
+                <details class="chapter-accordion"><summary>第2章 集合と命題</summary>
                     <nav class="quiz-list">
                         <ul>
-                            <li>
-                                <a href="M1-2-1-1.html">第1節-1 集合の表し方</a>
-                                <span id="rank-M1-2-1-1" class="quiz-rank"></span>
-                            </li>
-                            <li>
-                                <a href="M1-2-1-2.html">第1節-2 ド・モルガンの法則</a>
-                                <span id="rank-M1-2-1-2" class="quiz-rank"></span>
-                            </li>
-                            <li>
-                                <a href="M1-2-1-3.html">第1節-3 和集合の要素の個数</a>
-                                <span id="rank-M1-2-1-3" class="quiz-rank"></span>
-                            </li>
+                            <li><a href="M1-2-1-1.html">第1節-1 集合の表し方</a><span id="rank-M1-2-1-1" class="quiz-rank"></span></li>
+                            <li><a href="M1-2-1-2.html">第1節-2 ド・モルガンの法則</a><span id="rank-M1-2-1-2" class="quiz-rank"></span></li>
+                            <li><a href="M1-2-1-3.html">第1節-3 和集合の要素の個数</a><span id="rank-M1-2-1-3" class="quiz-rank"></span></li>
                         </ul>
                     </nav>
                 </details>
 
-                <details class="chapter-accordion">
-                    <summary>第2章 2次関数</summary>
+                <details class="chapter-accordion"><summary>第2章 2次関数</summary>
                     <nav class="quiz-list">
                         <ul>
-                            <li>
-                                <a href="#">平方完成（準備中）</a>
-                                <span id="rank-M1-2-1" class="quiz-rank"></span>
-                            </li>
+                            <li><a href="#">平方完成（準備中）</a><span id="rank-M1-2-1" class="quiz-rank"></span></li>
                         </ul>
                     </nav>
                 </details>
 
-                <details class="chapter-accordion">
-                    <summary>第3章 図形と計量</summary>
+                <details class="chapter-accordion"><summary>第3章 図形と計量</summary>
                     <nav class="quiz-list">
                         <ul>
-                            <li>
-                                <a href="#">三角比（準備中）</a>
-                                <span id="rank-M1-3-1" class="quiz-rank"></span>
-                            </li>
+                            <li><a href="#">三角比（準備中）</a><span id="rank-M1-3-1" class="quiz-rank"></span></li>
                         </ul>
                     </nav>
                 </details>
             </details> 
             
-            <!-- ★ 変更: h2タグ内にリンクを追加 -->
             <h2>
                 数学A
                 <span class="subject-book-links">
-                    <a href="https://www.amazon.co.jp/dp/XXXXXXXXX2" target="_blank" class="purchase-link-small link-amazon">
-                        基本大全数学IA (Amazon)
-                    </a>
-                    <a href="https://books.rakuten.co.jp/rb/XXXXXXXXX2/" target="_blank" class="purchase-link-small link-rakuten">
-                        基本大全数学IA (楽天)
-                    </a>
+                    <a href="https://www.amazon.co.jp/dp/XXXXXXXXX2" target="_blank" class="purchase-link-small link-amazon">基本大全数学IA (Amazon)</a>
+                    <a href="https://books.rakuten.co.jp/rb/XXXXXXXXX2/" target="_blank" class="purchase-link-small link-rakuten">基本大全数学IA (楽天)</a>
                 </span>
             </h2>
             <details class="subject-accordion">
                 <summary>数学A テスト一覧</summary>
-                
                 <details class="chapter-accordion">
                     <summary>第1章 場合の数と確率</summary>
-                     <nav class="quiz-list">
+                    <nav class="quiz-list">
                         <ul>
-                            <li>
-                                <a href="#">（準備中）</a>
-                                <span id="rank-MA-1-1" class="quiz-rank"></span>
-                            </li>
+                            <li><a href="#">（準備中）</a><span id="rank-MA-1-1" class="quiz-rank"></span></li>
                         </ul>
                     </nav>
                 </details>
-
             </details>
-
         </main>
 
         <div class="reset-container">
@@ -564,34 +376,30 @@
         <footer>
             <p>&copy; 2025 [香川亮]</p>
         </footer>
-
     </div>
-<script>
+
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
-            
             // --- 1. ランク表示・リセット処理 ---
-            
-            // 表示したいランクの対象となる quizId のリスト
             const quizIds = Array.from(document.querySelectorAll('.quiz-rank[id^="rank-"]'))
               .map(el => el.id.replace('rank-',''));
-            
-            // ★ ランクを読み込んで表示する関数
+
             function loadRanks() {
                 quizIds.forEach(quizId => {
                     const rankSpan = document.getElementById('rank-' + quizId);
                     if (rankSpan) {
                         try {
-                             const savedRank = localStorage.getItem('quizRank_' + quizId);
-                             const valid = new Set(['S','A','B','C']);
-                             if (valid.has(savedRank)) {
+                            const savedRank = localStorage.getItem('quizRank_' + quizId);
+                            const valid = new Set(['S','A','B','C']);
+                            if (valid.has(savedRank)) {
                                 rankSpan.textContent = `(Rank: ${savedRank})`;
-                                rankSpan.className = 'quiz-rank'; // Reset classes
-                                rankSpan.classList.add('rank-' + savedRank); 
+                                rankSpan.className = 'quiz-rank';
+                                rankSpan.classList.add('rank-' + savedRank);
                             } else {
-                                rankSpan.textContent = "(未)"; 
+                                rankSpan.textContent = "(未)";
                                 rankSpan.className = 'quiz-rank rank-yet';
                             }
-                        } catch (e) { 
+                        } catch (e) {
                             console.error("localStorageからのランク読み込みに失敗しました:", e);
                             rankSpan.textContent = "(Error)";
                             rankSpan.style.color = 'red';
@@ -600,19 +408,14 @@
                 });
             }
 
-            // ★ リセットボタンの処理
             const resetButton = document.getElementById('reset-ranks-button');
             if (resetButton) {
                 resetButton.addEventListener('click', () => {
-                    // 本当にリセットするか確認
                     if (confirm("すべての学習履歴（ランク）をリセットします。よろしいですか？")) {
                         try {
-                            // すべてのランク情報をlocalStorageから削除
                             quizIds.forEach(quizId => {
                                 localStorage.removeItem('quizRank_' + quizId);
                             });
-                            
-                            // 既存DOMの全ランク表示を即時リセット → その後 loadRanks で再描画
                             document.querySelectorAll('.quiz-rank').forEach(el => {
                               el.textContent = '(未)';
                               el.className = 'quiz-rank rank-yet';
@@ -626,32 +429,33 @@
                     }
                 });
             }
-            
-            // ページ読み込み時にランクを表示
             loadRanks();
 
             // --- 2. 背景色変更処理 ---
-
             const body = document.body;
             const colorButtons = document.querySelectorAll('.color-selector button');
-            const storageKey_Color = 'backgroundColorPreference'; // ランク用のキーと名前が被らないように
+            const storageKey_Color = 'backgroundColorPreference';
 
-            // ★ 保存された設定を読み込んで適用する関数
+            // ★ 小ネタ: ボタン側のアクティブ表示を同期
+            function syncActiveButton(color) {
+                colorButtons.forEach(b => {
+                    const isActive = b.dataset.color === color;
+                    b.classList.toggle('is-active', isActive);
+                    b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                });
+            }
+
             function applySavedPreference() {
                 try {
-                    const savedColor = localStorage.getItem(storageKey_Color);
-                    // 既存の色クラスを削除
+                    const saved = localStorage.getItem(storageKey_Color) || 'default';
                     body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
-                    // 保存された色があればクラスを追加
-                    if (savedColor && savedColor !== 'default') {
-                        body.classList.add('bg-' + savedColor);
-                    }
+                    if (saved !== 'default') body.classList.add('bg-' + saved);
+                    syncActiveButton(saved); // ← ここでアクティブ反映
                 } catch (e) {
                     console.error("localStorageからの背景色読み込みに失敗:", e);
                 }
             }
 
-            // ★ ボタンクリック時の処理
             colorButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const selectedColor = button.getAttribute('data-color');
@@ -664,13 +468,12 @@
                     } catch (e) {
                         console.error("localStorageへの背景色保存に失敗:", e);
                     }
+                    syncActiveButton(selectedColor); // ← クリック時にも同期
                 });
             });
 
-            // ★ ページ読み込み時に保存された設定を適用
             applySavedPreference();
         });
     </script>
-    
 </body>
 </html>
