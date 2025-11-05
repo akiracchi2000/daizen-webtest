@@ -43,9 +43,41 @@
             margin-top: 40px;
             margin-bottom: 5px; /* summaryとの間隔を詰める */
             color: #495057;
+            
+            /* ★ 変更: Flexboxでリンクを横並びにする */
+            display: flex;
+            justify-content: space-between; /* 見出しとリンクを両端に */
+            align-items: center; /* 縦位置を中央揃え */
+            flex-wrap: wrap; /* 画面が狭い場合に折り返す */
+            gap: 10px; /* 折り返した際の隙間 */
         }
 
-        /* 書籍紹介エリア */
+        /* ★ 追加: h2内のリンク用コンテナ */
+        .subject-book-links {
+            display: flex;
+            gap: 8px; /* リンク間の隙間 */
+            white-space: nowrap; /* リンクが改行しないように */
+            flex-shrink: 0; /* リンクが縮まないように */
+        }
+
+        /* ★ 追加: 小さな購入ボタン (既存の .purchase-link をベース) */
+        .purchase-link-small {
+            display: inline-block;
+            padding: 4px 8px; /* さらに小さく */
+            margin: 0; /* h2との配置調整のためマージンリセット */
+            text-decoration: none;
+            color: #ffffff;
+            border-radius: 4px; /* 角丸も少し調整 */
+            font-weight: bold;
+            transition: opacity 0.3s;
+            font-size: 0.7em; /* 文字をさらに小さく */
+        }
+        .purchase-link-small:hover {
+            opacity: 0.8;
+        }
+
+
+        /* ★ 変更: 書籍紹介エリアのスタイルを復活 */
         .book-introduction {
             display: flex;
             flex-wrap: wrap;
@@ -75,22 +107,14 @@
 
         .book-links p {
             margin-top: 0;
+            margin-bottom: 0; /* ボタンがなくなったため、下の余白を削除 */
         }
 
-        /* 購入ボタンのスタイル */
-        .purchase-link {
-            display: inline-block;
-            padding: 12px 20px;
-            margin: 5px;
-            text-decoration: none;
-            color: #ffffff;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: opacity 0.3s;
-        }
-        .purchase-link:hover {
-            opacity: 0.8;
-        }
+
+        /* 購入ボタンのスタイル (大きいボタン) は削除したまま */
+
+
+        /* ★ 変更なし: 色指定のクラスは .purchase-link-small でも使うため残します */
         .link-amazon { background-color: #e47911; } 
         .link-rakuten { background-color: #BF0000; }
 
@@ -294,25 +318,34 @@
                 <button data-color="beige">ベージュ</button>
             </div>
 
+            <!-- ★ 変更: ページ上部の book-introduction セクションを復活 (リンクボタンは削除) -->
             <section class="book-introduction">
                 <div class="book-cover">
-                    <img src="https://via.placeholder.com/150x210?text=書籍表紙" alt="高校数学基本大全 表紙">
+                    <!-- ★ TODO: 書籍表紙の画像パスを正しいものに差し替えてください -->
+                    <img src="https://placehold.co/150x210/eee/666?text=書籍表紙" 
+                         onerror="this.src='https://placehold.co/150x210/eee/666?text=画像読込失敗'" 
+                         alt="高校数学基本大全 表紙">
                 </div>
                 <div class="book-links">
                     <p>Webテストと連動した動画解説で、数学の「わからない」を解決！<br>書籍本体で体系的に学ぶことができます。</p>
-                    
-                    <a href="https://www.amazon.co.jp/dp/XXXXXXXXXX" target="_blank" class="purchase-link link-amazon">
-                        Amazonで購入
-                    </a>
-                    <a href="https://books.rakuten.co.jp/rb/XXXXXXXXX/" target="_blank" class="purchase-link link-rakuten">
-                        楽天ブックスで購入
-                    </a>
+                    <!-- Amazon/楽天の大きい購入ボタンはここから削除されました -->
                 </div>
             </section>
 
 
-            <h2>数学Ⅰ</h2>
-            <details class="subject-accordion" > <summary>数学Ⅰ テスト一覧</summary>
+            <!-- ★ 変更: h2タグとボタンのテキストを修正 -->
+            <h2>
+                数学I
+                <span class="subject-book-links">
+                    <a href="https://www.amazon.co.jp/dp/XXXXXXXXX1" target="_blank" class="purchase-link-small link-amazon">
+                        基本大全数学IA (Amazon)
+                    </a>
+                    <a href="https://books.rakuten.co.jp/rb/XXXXXXXXX1/" target="_blank" class="purchase-link-small link-rakuten">
+                        基本大全数学IA (楽天)
+                    </a>
+                </span>
+            </h2>
+            <details class="subject-accordion" > <summary>数学I テスト一覧</summary>
                 
                 <details class="chapter-accordion" > <summary>第1章 数と式</summary>
                     <nav class="quiz-list">
@@ -488,7 +521,20 @@
                         </ul>
                     </nav>
                 </details>
-                </details> <h2>数学A</h2>
+            </details> 
+            
+            <!-- ★ 変更: h2タグ内にリンクを追加 -->
+            <h2>
+                数学A
+                <span class="subject-book-links">
+                    <a href="https://www.amazon.co.jp/dp/XXXXXXXXX2" target="_blank" class="purchase-link-small link-amazon">
+                        基本大全数学IA (Amazon)
+                    </a>
+                    <a href="https://books.rakuten.co.jp/rb/XXXXXXXXX2/" target="_blank" class="purchase-link-small link-rakuten">
+                        基本大全数学IA (楽天)
+                    </a>
+                </span>
+            </h2>
             <details class="subject-accordion">
                 <summary>数学A テスト一覧</summary>
                 
@@ -531,7 +577,7 @@
                     const rankSpan = document.getElementById('rank-' + quizId);
                     if (rankSpan) {
                         try {
-                             const savedRank = localStorage.getItem('quizRank_' + quizId);
+                             const savedRank = localStorage.getItem('quizRank_'T + quizId);
                              const valid = new Set(['S','A','B','C']);
                              if (valid.has(savedRank)) {
                                 rankSpan.textContent = `(Rank: ${savedRank})`;
@@ -607,7 +653,7 @@
                     const selectedColor = button.getAttribute('data-color');
                     body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
                     if (selectedColor !== 'default') {
-                        body.classList.add('bg-' + selectedColor);
+                        body.classList.add('bg-'C + selectedColor);
                     }
                     try {
                         localStorage.setItem(storageKey_Color, selectedColor);
@@ -624,4 +670,3 @@
     
 </body>
 </html>
-    
