@@ -32,10 +32,7 @@
             margin-bottom: 30px;
         }
 
-        header h1 {
-            margin: 0;
-            color: #343a40;
-        }
+        header h1 { margin: 0; color: #343a40; }
 
         h2 { /* 科目見出し */
             border-bottom: 1px solid #ced4da;
@@ -43,7 +40,7 @@
             margin-top: 40px;
             margin-bottom: 5px; /* summaryとの間隔を詰める */
             color: #495057;
-            
+
             /* Flexboxでリンクを横並びにする */
             display: flex;
             justify-content: space-between; /* 見出しとリンクを両端に */
@@ -97,7 +94,7 @@
         .book-links p { margin: 0; }
 
         /* ボタン色（購入リンク） */
-        .link-amazon { background-color: #e47911; } 
+        .link-amazon { background-color: #e47911; }
         .link-rakuten { background-color: #BF0000; }
 
         /* テスト一覧（<nav>） */
@@ -134,8 +131,8 @@
         }
         .rank-S { background-color: #ffd700; color: #333; } /* Gold */
         .rank-A { background-color: #c0c0c0; color: #333; } /* Silver */
-        .rank-B { background-color: #b87333; color: white; } /* Copper */
-        .rank-C { background-color: #007bff; color: white; } /* Blue */
+        .rank-B { background-color: #b87333; color: #fff; } /* Copper */
+        .rank-C { background-color: #007bff; color: #fff; } /* Blue */
         .rank-yet { background-color: #f8f9fa; color: #6c757d; border: 1px dashed #ced4da; }
 
         /* アコーディオン (科目レベル) */
@@ -204,17 +201,14 @@
             transition: box-shadow 0.2s, transform 0.05s;
         }
         .color-selector button:hover { background-color: #e9ecef; }
-        /* ★ 小ネタ: 今選択中のボタンを可視化 */
-        .color-selector button.is-active {
-            outline: 2px solid #6c757d;
-            font-weight: 700;
-        }
-        /* 併せてアクセシビリティ向上（キーボードフォーカス） */
-        .color-selector button:focus-visible { box-shadow: 0 0 0 3px rgba(13,110,253,.25); }
-        /* aria-pressed でもスタイル（将来 is-active を外しても効くように） */
+        /* 小ネタ: 今選択中のボタンを可視化（is-active と aria-pressed の両対応） */
+        .color-selector button.is-active,
         .color-selector button[aria-pressed="true"] {
             outline: 2px solid #6c757d;
             font-weight: 700;
+        }
+        .color-selector button:focus-visible {
+            box-shadow: 0 0 0 3px rgba(13,110,253,.25);
         }
 
         /* 背景色用のクラス */
@@ -348,8 +342,8 @@
                         </ul>
                     </nav>
                 </details>
-            </details> 
-            
+            </details>
+
             <h2>
                 数学A
                 <span class="subject-book-links">
@@ -379,31 +373,71 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // --- 1. ランク表示・リセット処理 ---
+        document.addEventListener("DOMContentLoaded", function () {
+
+            /* --- A. アコーディオン開閉状態の保存／復元 -------------------- */
+            // ページごとに独立して覚える
+            const ACC_STORAGE_KEY = 'accordionState:v1:' + location.pathname;
+
+            function readAccState() {
+                try { return JSON.parse(localStorage.getItem(ACC_STORAGE_KEY) || '{}'); }
+                catch { return {}; }
+            }
+            function writeAccState(map) {
+                try { localStorage.setItem(ACC_STORAGE_KEY, JSON.stringify(map)); }
+                catch {}
+            }
+
+            // subject / chapter を順に採番して安定キーを付与
+            const allDetails = Array.from(
+                document.querySelectorAll('details.subject-accordion, details.chapter-accordion')
+            );
+            const counters = { subject: 0, chapter: 0 };
+            const savedAcc = readAccState();
+
+            allDetails.forEach(el => {
+                const role = el.classList.contains('subject-accordion') ? 'subject' : 'chapter';
+                const key = `${role}-${counters[role]++}`;  // 例: subject-0, chapter-0, chapter-1,...
+                el.dataset.accKey = key;
+
+                // 復元（保存があれば優先）
+                if (key in savedAcc) {
+                    if (savedAcc[key]) el.setAttribute('open', '');
+                    else el.removeAttribute('open');
+                }
+
+                // 開閉のたびに保存
+                el.addEventListener('toggle', () => {
+                    const map = readAccState();
+                    map[key] = el.open;
+                    writeAccState(map);
+                });
+            });
+            /* --- A. ここまで ------------------------------------------------ */
+
+            /* --- B. ランク表示・リセット処理 -------------------------------- */
             const quizIds = Array.from(document.querySelectorAll('.quiz-rank[id^="rank-"]'))
-              .map(el => el.id.replace('rank-',''));
+                .map(el => el.id.replace('rank-', ''));
 
             function loadRanks() {
                 quizIds.forEach(quizId => {
                     const rankSpan = document.getElementById('rank-' + quizId);
-                    if (rankSpan) {
-                        try {
-                            const savedRank = localStorage.getItem('quizRank_' + quizId);
-                            const valid = new Set(['S','A','B','C']);
-                            if (valid.has(savedRank)) {
-                                rankSpan.textContent = `(Rank: ${savedRank})`;
-                                rankSpan.className = 'quiz-rank';
-                                rankSpan.classList.add('rank-' + savedRank);
-                            } else {
-                                rankSpan.textContent = "(未)";
-                                rankSpan.className = 'quiz-rank rank-yet';
-                            }
-                        } catch (e) {
-                            console.error("localStorageからのランク読み込みに失敗しました:", e);
-                            rankSpan.textContent = "(Error)";
-                            rankSpan.style.color = 'red';
+                    if (!rankSpan) return;
+                    try {
+                        const savedRank = localStorage.getItem('quizRank_' + quizId);
+                        const valid = new Set(['S', 'A', 'B', 'C']);
+                        if (valid.has(savedRank)) {
+                            rankSpan.textContent = `(Rank: ${savedRank})`;
+                            rankSpan.className = 'quiz-rank';
+                            rankSpan.classList.add('rank-' + savedRank);
+                        } else {
+                            rankSpan.textContent = '(未)';
+                            rankSpan.className = 'quiz-rank rank-yet';
                         }
+                    } catch (e) {
+                        console.error("localStorageからのランク読み込みに失敗しました:", e);
+                        rankSpan.textContent = "(Error)";
+                        rankSpan.style.color = 'red';
                     }
                 });
             }
@@ -417,8 +451,8 @@
                                 localStorage.removeItem('quizRank_' + quizId);
                             });
                             document.querySelectorAll('.quiz-rank').forEach(el => {
-                              el.textContent = '(未)';
-                              el.className = 'quiz-rank rank-yet';
+                                el.textContent = '(未)';
+                                el.className = 'quiz-rank rank-yet';
                             });
                             loadRanks();
                             alert("ランク情報をリセットしました。");
@@ -430,13 +464,13 @@
                 });
             }
             loadRanks();
+            /* --- B. ここまで ----------------------------------------------- */
 
-            // --- 2. 背景色変更処理 ---
+            /* --- C. 背景色の保存・復元 + ボタンのアクティブ表示 ------------ */
             const body = document.body;
             const colorButtons = document.querySelectorAll('.color-selector button');
             const storageKey_Color = 'backgroundColorPreference';
 
-            // ★ 小ネタ: ボタン側のアクティブ表示を同期
             function syncActiveButton(color) {
                 colorButtons.forEach(b => {
                     const isActive = b.dataset.color === color;
@@ -450,7 +484,7 @@
                     const saved = localStorage.getItem(storageKey_Color) || 'default';
                     body.classList.remove('bg-light-blue', 'bg-light-green', 'bg-beige');
                     if (saved !== 'default') body.classList.add('bg-' + saved);
-                    syncActiveButton(saved); // ← ここでアクティブ反映
+                    syncActiveButton(saved);
                 } catch (e) {
                     console.error("localStorageからの背景色読み込みに失敗:", e);
                 }
@@ -468,11 +502,12 @@
                     } catch (e) {
                         console.error("localStorageへの背景色保存に失敗:", e);
                     }
-                    syncActiveButton(selectedColor); // ← クリック時にも同期
+                    syncActiveButton(selectedColor);
                 });
             });
 
             applySavedPreference();
+            /* --- C. ここまで ----------------------------------------------- */
         });
     </script>
 </body>
